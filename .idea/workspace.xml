@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/myattack.py" afterPath="" />
-    </list>
+    <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,11 +11,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="naive_norm_classifier.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/naive_norm_classifier.py">
+      <file leaf-file-name="term_count_classifier.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/term_count_classifier.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="346">
-              <caret line="61" column="32" lean-forward="false" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="32" />
+            <state relative-caret-position="388">
+              <caret line="71" column="81" lean-forward="false" selection-start-line="71" selection-start-column="81" selection-end-line="71" selection-end-column="81" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -41,6 +39,7 @@
         <option value="$PROJECT_DIR$/myattack.py" />
         <option value="$PROJECT_DIR$/naive_norm_classifier.py" />
         <option value="$PROJECT_DIR$/dataset_analysis.py" />
+        <option value="$PROJECT_DIR$/term_count_classifier.py" />
       </list>
     </option>
   </component>
@@ -99,7 +98,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.naive_norm_classifier">
+  <component name="RunManager" selected="Python.term_count_classifier">
     <configuration name="dataset_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -154,16 +153,36 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <list size="3">
+    <configuration name="term_count_classifier" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Cyberbullying-Detection" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/term_count_classifier.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <list size="4">
       <item index="0" class="java.lang.String" itemvalue="Python.myattack" />
       <item index="1" class="java.lang.String" itemvalue="Python.naive_norm_classifier" />
       <item index="2" class="java.lang.String" itemvalue="Python.dataset_analysis" />
+      <item index="3" class="java.lang.String" itemvalue="Python.term_count_classifier" />
     </list>
     <recent_temporary>
-      <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Python.naive_norm_classifier" />
-        <item index="1" class="java.lang.String" itemvalue="Python.dataset_analysis" />
-        <item index="2" class="java.lang.String" itemvalue="Python.myattack" />
+      <list size="4">
+        <item index="0" class="java.lang.String" itemvalue="Python.term_count_classifier" />
+        <item index="1" class="java.lang.String" itemvalue="Python.naive_norm_classifier" />
+        <item index="2" class="java.lang.String" itemvalue="Python.dataset_analysis" />
+        <item index="3" class="java.lang.String" itemvalue="Python.myattack" />
       </list>
     </recent_temporary>
   </component>
@@ -263,10 +282,38 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/svm_classifier.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1277">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/naive_norm_classifier.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="346">
           <caret line="61" column="32" lean-forward="false" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ngram_classifier.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="478">
+          <caret line="156" column="15" lean-forward="true" selection-start-line="103" selection-start-column="4" selection-end-line="156" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/term_count_classifier.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="71" column="81" lean-forward="false" selection-start-line="71" selection-start-column="81" selection-end-line="71" selection-end-column="81" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>

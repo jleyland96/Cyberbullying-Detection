@@ -107,18 +107,15 @@ for current_clf in range(0, 9):
         print("GAUSSIAN NB...")
         clf = GaussianNB()
     elif current_clf == 4:
-        print("MULTINOMIAL NB")
-        clf = MultinomialNB()
-    elif current_clf == 5:
         print("KNN 3...")
         clf = KNeighborsClassifier(3)
-    elif current_clf == 6:
+    elif current_clf == 5:
         print("ADABOOST...")
         clf = AdaBoostClassifier()
-    elif current_clf == 7:
+    elif current_clf == 6:
         print("SVM LINEAR...")
         clf = svm.SVC(gamma='auto')
-    elif current_clf == 8:
+    elif current_clf == 7:
         print("Decision Trees...")
         clf = tree.DecisionTreeClassifier()
 

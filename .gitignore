@@ -10,13 +10,6 @@ glove.6B/
 venv/
 env/
 
-my_ngram_slurm
-my_attack_slurm.sh
-my_DL_slurm
-my_termfreq_slurm
-my_save_model_slurm
-glove_classifier_slurm
-
 plot_val_acc.py
 val_acc_graphs/
 output_graphs/

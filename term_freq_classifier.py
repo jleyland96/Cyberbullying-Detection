@@ -1,12 +1,11 @@
 import csv
 from collections import defaultdict
-
+import numpy as np
 import sklearn
 import sklearn.metrics as sm
 from sklearn import svm, tree
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import BernoulliNB, GaussianNB, MultinomialNB
@@ -22,16 +21,13 @@ def get_data():
         line_count = 0
 
         for row in csv_reader:
-
             if line_count == 0:
                 print(row)
             else:
                 label_bullying = int(row[0])
                 text_message = row[1]
 
-                if line_count % 200 == 0:
-                    print(line_count)
-
+                # if getting raw data just return the comments themselves
                 X.append(text_message)
                 y.append(label_bullying)
             line_count += 1
@@ -40,57 +36,51 @@ def get_data():
     return X, y
 
 
+# Indicates if we are using TF or TF-IDF
+USE_IDF = True
+print("Using IDF: " + str(USE_IDF))
+
+# GET THE DATA
 corpus, y = get_data()
 print("vectorising...")
-vec = CountVectorizer()
+vec = TfidfVectorizer(min_df=0.0001, max_df=1.0)
 
-print("splitting...")
 X_train, X_test, y_train, y_test = train_test_split(corpus, y, test_size=0.20)
 corpus_fit_transform = vec.fit_transform(corpus)
 
-newVec = CountVectorizer(vocabulary=vec.vocabulary_)
+newVec = TfidfVectorizer(vocabulary=vec.vocabulary_, use_idf=USE_IDF)
 X_train = newVec.fit_transform(X_train).toarray()
 X_test = newVec.fit_transform(X_test).toarray()
 print(X_train.shape)
 print(X_test.shape)
+print()
 
-# # Scale the feature values from -1 to 1, as this speeds up training time
-# print("scaling...")
-# scaling = MinMaxScaler(feature_range=(-1, 1)).fit(X_train)
-# X_train = scaling.transform(X_train)
-# X_test = scaling.transform(X_test)
-
-# loop through classifiers
+# CYCLE THROUGH THE CLASSIFIERS
 for current_clf in range(0, 9):
-
-    # TRAIN
-    print("\ntraining...")
-
-    # CHOOSE CLASSIFIER
     if current_clf == 0:
-        print("Logistic regression...")
-        clf = sklearn.linear_model.LogisticRegression(penalty="l2", max_iter=1000, solver="liblinear")
+        print("LOGISTIC REGRESSION")
+        clf = sklearn.linear_model.LogisticRegression(penalty="l2", max_iter=100, solver="liblinear")
     elif current_clf == 1:
-        print("Random Forest...")
+        print("RANDOM FOREST...")
         clf = RandomForestClassifier(n_estimators=100, max_depth=4)
     elif current_clf == 2:
-        print("Bernoulli NB...")
+        print("BERNOULLI NB...")
         clf = BernoulliNB()
     elif current_clf == 3:
-        print("Gaussian NB...")
+        print("GAUSSIAN NB...")
         clf = GaussianNB()
     elif current_clf == 4:
-        print("Multinomial NB...")
+        print("MULTINOMIAL NB")
         clf = MultinomialNB()
     elif current_clf == 5:
         print("KNN 3...")
         clf = KNeighborsClassifier(3)
     elif current_clf == 6:
-        print("Adaboost...")
+        print("ADABOOST...")
         clf = AdaBoostClassifier()
     elif current_clf == 7:
-        print("SVM linear...")
-        clf = svm.SVC(gamma="auto")
+        print("SVM LINEAR...")
+        clf = svm.SVC(gamma='auto')
     elif current_clf == 8:
         print("Decision Trees...")
         clf = tree.DecisionTreeClassifier()
@@ -99,9 +89,8 @@ for current_clf in range(0, 9):
     clf.fit(X_train, y_train)
 
     # PREDICT
-    print("\nevaluating")
+    print("evaluating")
     y_pred = clf.predict(X_test)
-    print(y_pred[:20])
 
     # EVALUATE
     print("confusion matrix:", sm.confusion_matrix(y_test, y_pred))

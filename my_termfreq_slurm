@@ -19,4 +19,4 @@
 source /etc/profile
 
 # Run your program (replace this with your program)
-python ngram_classifier.py
+python term_freq_classifier.py

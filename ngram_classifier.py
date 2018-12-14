@@ -87,7 +87,7 @@ def get_data(ngram_size):
     return X, y
 
 
-x, y = get_data(2)
+x, y = get_data(3)
 
 # SPLIT
 print("splitting...")

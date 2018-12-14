@@ -1,6 +1,6 @@
 import csv
 from collections import defaultdict
-
+import numpy as np
 import sklearn
 import sklearn.metrics as sm
 from sklearn import svm, tree

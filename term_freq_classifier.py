@@ -37,7 +37,7 @@ def get_data():
 
 
 # Indicates if we are using TF or TF-IDF
-USE_IDF = True
+USE_IDF = False
 print("Using IDF: " + str(USE_IDF))
 
 # GET THE DATA

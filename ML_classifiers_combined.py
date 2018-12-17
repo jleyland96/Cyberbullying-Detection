@@ -253,11 +253,29 @@ for dataset_choice in ["glove", "term_count", "term_freq", "term_freq_idf", "big
     else:
         X_train, X_test, y_train, y_test = get_ngram_data(ngram_size=3)
 
+    print("BEFORE REPEATS")
+    print(len(X_train[0]), "features")
+    print(len(X_test[0]))
+    print(len(X_train))
+    print(len(X_test))
+    print(len(y_train))
+    print(len(y_test))
+    print()
+
     # Repeat the positive examples in the training dataset twice to avoid over-fitting to negative examples
-    # X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
+    X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
+
+    print("AFTER REPEATS")
+    print(len(X_train[0]), "features")
+    print(len(X_test[0]))
+    print(len(X_train))
+    print(len(X_test))
+    print(len(y_train))
+    print(len(y_test))
+    print()
 
     # loop through classifiers
-    for current_clf in range(0, 10):
+    for current_clf in range(0, 0):
         # TRAIN
         print("\ntraining on dataset", dataset_choice, "...")
         grid_searching = False

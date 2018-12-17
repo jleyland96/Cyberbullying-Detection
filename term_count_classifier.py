@@ -1,6 +1,7 @@
 import csv
 from collections import defaultdict
 import numpy as np
+import random
 import sklearn
 import sklearn.metrics as sm
 from sklearn import svm, tree
@@ -10,6 +11,31 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import BernoulliNB, GaussianNB, MultinomialNB
+
+
+def shuffle_data(X, y):
+    combined = list(zip(X, y))
+    random.shuffle(combined)
+    X[:], y[:] = zip(*combined)
+    return X, y
+
+
+def repeat_positives(old_x, old_y, repeats=2):
+    new_x = []
+    new_y = []
+
+    # rebuild the X dataset
+    for i in range(len(old_x)):
+        new_x.append(old_x[i])
+        new_y.append(old_y[i])
+
+        # if the example is a positive examples, repeat it in the dataset
+        if old_y[i] == 1:
+            for j in range(repeats-1):
+                new_x.append(old_x[i])
+                new_y.append(old_y[i])
+
+    return new_x, new_y
 
 
 def get_data():
@@ -54,11 +80,8 @@ X_test = newVec.fit_transform(X_test).toarray()
 print(X_train.shape)
 print(X_test.shape)
 
-# # Scale the feature values from -1 to 1, as this speeds up training time
-# print("scaling...")
-# scaling = MinMaxScaler(feature_range=(-1, 1)).fit(X_train)
-# X_train = scaling.transform(X_train)
-# X_test = scaling.transform(X_test)
+# Repeat positive examples if you want to
+X_train, y_train = repeat_positives(X_train, y_train, 2)
 
 # loop through classifiers
 for current_clf in range(0, 9):

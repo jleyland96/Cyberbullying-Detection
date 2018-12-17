@@ -236,7 +236,7 @@ def get_glove_data():
     return X_train, X_test, y_train, y_test
 
 
-print("WITH REPEATS - BUT NO TUNING")
+print("WITHOUT REPEATS - AND NO TUNING")
 for dataset_choice in ["glove", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
 
     # Get the right dataset (Glove features, term count, term freq, term freq idf, bigrams, trigrams)
@@ -254,7 +254,7 @@ for dataset_choice in ["glove", "term_count", "term_freq", "term_freq_idf", "big
         X_train, X_test, y_train, y_test = get_ngram_data(ngram_size=3)
 
     # Repeat the positive examples in the training dataset twice to avoid over-fitting to negative examples
-    X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
+    # X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
 
     # loop through classifiers
     for current_clf in range(0, 10):

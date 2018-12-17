@@ -236,7 +236,7 @@ def get_glove_data():
     return X_train, X_test, y_train, y_test
 
 
-print("NO REPEATS")
+print("WITH REPEATS - BUT NO TUNING")
 for dataset_choice in ["glove", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
 
     # Get the right dataset (Glove features, term count, term freq, term freq idf, bigrams, trigrams)
@@ -254,7 +254,7 @@ for dataset_choice in ["glove", "term_count", "term_freq", "term_freq_idf", "big
         X_train, X_test, y_train, y_test = get_ngram_data(ngram_size=3)
 
     # Repeat the positive examples in the training dataset twice to avoid over-fitting to negative examples
-    # X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
+    X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
 
     # loop through classifiers
     for current_clf in range(0, 10):
@@ -265,16 +265,16 @@ for dataset_choice in ["glove", "term_count", "term_freq", "term_freq_idf", "big
         # CHOOSE CLASSIFIER
         if current_clf == 0:
             print("Logistic regression...")
-            grid_searching = True
-            param_grid = {'max_iter': [100, 300], 'solver': ['liblinear', 'lbfgs', 'newton-cg', 'sag']}
-            clf = GridSearchCV(sklearn.linear_model.LogisticRegression(), param_grid, cv=3)
-            # clf = sklearn.linear_model.LogisticRegression(penalty="l2", max_iter=200, solver="liblinear")
+            # grid_searching = True
+            # param_grid = {'max_iter': [100, 300], 'solver': ['liblinear', 'lbfgs', 'newton-cg', 'sag']}
+            # clf = GridSearchCV(sklearn.linear_model.LogisticRegression(), param_grid, cv=3)
+            clf = sklearn.linear_model.LogisticRegression(penalty="l2", max_iter=300, solver="sag")
         elif current_clf == 1:
             print("Random Forest...")
-            grid_searching = True
-            param_grid = {'n_estimators': [100, 300, 500], 'max_depth': [3, 6, 10, 12]}
-            clf = GridSearchCV(RandomForestClassifier(), param_grid, cv=3)
-            # clf = RandomForestClassifier(n_estimators=100, max_depth=10)
+            # grid_searching = True
+            # param_grid = {'n_estimators': [100, 300, 500], 'max_depth': [3, 6, 10, 12]}
+            # clf = GridSearchCV(RandomForestClassifier(), param_grid, cv=3)
+            clf = RandomForestClassifier(n_estimators=300, max_depth=12)
         elif current_clf == 2:
             print("Bernoulli NB...")
             clf = BernoulliNB()
@@ -286,20 +286,20 @@ for dataset_choice in ["glove", "term_count", "term_freq", "term_freq_idf", "big
             clf = MultinomialNB()
         elif current_clf == 5:
             print("KNN 3...")
-            grid_searching = True
-            param_grid = {'n_neighbors': [1, 3]}
-            clf = GridSearchCV(KNeighborsClassifier(), param_grid, cv=3)
-            # clf = KNeighborsClassifier(n_neighbors=3)
+            # grid_searching = True
+            # param_grid = {'n_neighbors': [1, 3]}
+            # clf = GridSearchCV(KNeighborsClassifier(), param_grid, cv=3)
+            clf = KNeighborsClassifier(n_neighbors=3)
         elif current_clf == 6:
             print("Adaboost...")
             clf = AdaBoostClassifier()
         elif current_clf == 7:
             print("SVM...")
-            grid_searching = True
-            param_grid = [{'kernel': ['rbf'], 'gamma': [1e-3, 1e-4], 'C': [1, 10, 100]},
-                          {'kernel': ['linear'], 'C': [1, 10, 100]}]
-            clf = GridSearchCV(svm.SVC(), param_grid, cv=3)
-            # clf = svm.SVC(gamma="auto")
+            # grid_searching = True
+            # param_grid = [{'kernel': ['rbf'], 'gamma': [1e-3, 1e-4], 'C': [1, 10, 100]},
+            #               {'kernel': ['linear'], 'C': [1, 10, 100]}]
+            # clf = GridSearchCV(svm.SVC(), param_grid, cv=3)
+            clf = svm.SVC(gamma="auto")
         elif current_clf == 8:
             print("Decision Trees...")
             clf = tree.DecisionTreeClassifier()
@@ -312,9 +312,9 @@ for dataset_choice in ["glove", "term_count", "term_freq", "term_freq_idf", "big
         clf = clf.fit(X_train, y_train)
 
         # If we did a grid search, then we want to print what the best estimator was
-        if grid_searching:
-            print("Best estimator found by grid search:")
-            print(clf.best_estimator_)
+        # if grid_searching:
+        #     print("Best estimator found by grid search:")
+        #     print(clf.best_estimator_)
 
         # PREDICT
         print("\nevaluating")

@@ -236,7 +236,7 @@ def get_glove_data():
     return X_train, X_test, y_train, y_test
 
 
-for dataset_choice in ["term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
+for dataset_choice in ["bigrams", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
 
     # Get the right dataset (Glove features, term count, term freq, term freq idf, bigrams, trigrams)
     if dataset_choice == "glove":
@@ -256,7 +256,7 @@ for dataset_choice in ["term_count", "term_freq", "term_freq_idf", "bigrams", "t
     X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
 
     # loop through classifiers
-    for current_clf in range(7, 8):
+    for current_clf in range(10):
         # TRAIN
         print("\ntraining on dataset", dataset_choice, "...")
         grid_searching = False
@@ -266,13 +266,13 @@ for dataset_choice in ["term_count", "term_freq", "term_freq_idf", "bigrams", "t
             print("Logistic regression...")
             grid_searching = True
             param_grid = {'max_iter': [100, 300], 'solver': ['liblinear', 'lbfgs', 'newton-cg', 'sag']}
-            clf = GridSearchCV(sklearn.linear_model.LogisticRegression(class_weight='balanced'), param_grid, cv=3)
+            clf = GridSearchCV(sklearn.linear_model.LogisticRegression(), param_grid, cv=3)
             # clf = sklearn.linear_model.LogisticRegression(penalty="l2", max_iter=200, solver="liblinear")
         elif current_clf == 1:
             print("Random Forest...")
             grid_searching = True
-            param_grid = {'n_estimators': [100, 300], 'max_depth': [3, 6, 10, 12]}
-            clf = GridSearchCV(RandomForestClassifier(class_weight='balanced'), param_grid, cv=3)
+            param_grid = {'n_estimators': [100, 300, 500], 'max_depth': [3, 6, 10, 12]}
+            clf = GridSearchCV(RandomForestClassifier(), param_grid, cv=3)
             # clf = RandomForestClassifier(n_estimators=100, max_depth=10)
         elif current_clf == 2:
             print("Bernoulli NB...")
@@ -285,17 +285,20 @@ for dataset_choice in ["term_count", "term_freq", "term_freq_idf", "bigrams", "t
             clf = MultinomialNB()
         elif current_clf == 5:
             print("KNN 3...")
-            clf = KNeighborsClassifier(3)
+            grid_searching = True
+            param_grid = {'n_neighbors': [1, 3]}
+            clf = GridSearchCV(KNeighborsClassifier(), param_grid, cv=3)
+            # clf = KNeighborsClassifier(n_neighbors=3)
         elif current_clf == 6:
             print("Adaboost...")
             clf = AdaBoostClassifier()
         elif current_clf == 7:
             print("SVM...")
             grid_searching = True
-            param_grid = [{'kernel': ['rbf'], 'gamma': [1e-3, 1e-4], 'C': [1, 10, 100, 1000]},
-                          {'kernel': ['linear'], 'C': [1, 10, 100, 1000]}]
-            clf = GridSearchCV(RandomForestClassifier(class_weight='balanced'), param_grid, cv=3)
-            clf = svm.SVC(gamma="auto")
+            param_grid = [{'kernel': ['rbf'], 'gamma': [1e-3, 1e-4], 'C': [1, 10, 100]},
+                          {'kernel': ['linear'], 'C': [1, 10, 100]}]
+            clf = GridSearchCV(svm.SVC(), param_grid, cv=3)
+            # clf = svm.SVC(gamma="auto")
         elif current_clf == 8:
             print("Decision Trees...")
             clf = tree.DecisionTreeClassifier()

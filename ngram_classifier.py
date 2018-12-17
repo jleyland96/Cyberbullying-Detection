@@ -135,10 +135,10 @@ for current_clf in range(0, 10):
     if current_clf == 0:
         print("Logistic regression...")
         print("Fitting the classifier to the training set")
-        grid_searching = True
-        param_grid = {'max_iter': [100, 300], 'solver': ['liblinear', 'lbfgs', 'newton-cg', 'sag']}
-        clf = GridSearchCV(sklearn.linear_model.LogisticRegression(class_weight='balanced'), param_grid, return_train_score=True)
-        # clf = sklearn.linear_model.LogisticRegression(penalty="l2", max_iter=200, solver="liblinear")
+        # grid_searching = True
+        # param_grid = {'max_iter': [100, 300], 'solver': ['liblinear', 'lbfgs', 'newton-cg', 'sag']}
+        # clf = GridSearchCV(sklearn.linear_model.LogisticRegression(class_weight='balanced'), param_grid, return_train_score=True)
+        clf = sklearn.linear_model.LogisticRegression(penalty="l2", max_iter=200, solver="liblinear")
     elif current_clf == 1:
         print("Random Forest...")
         clf = RandomForestClassifier(n_estimators=1000, max_depth=16)  # 12 gave F1=0.34

@@ -236,7 +236,7 @@ def get_glove_data():
     return X_train, X_test, y_train, y_test
 
 
-print("WITHOUT REPEATS - AND NO TUNING")
+print("WITHOUT REPEATS - TUNING BUT NOT ON LINEAR REGRESSION")
 for dataset_choice in ["glove", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
 
     # Get the right dataset (Glove features, term count, term freq, term freq idf, bigrams, trigrams)
@@ -268,7 +268,7 @@ for dataset_choice in ["glove", "term_count", "term_freq", "term_freq_idf", "big
             # grid_searching = True
             # param_grid = {'max_iter': [100, 300], 'solver': ['liblinear', 'lbfgs', 'newton-cg', 'sag']}
             # clf = GridSearchCV(sklearn.linear_model.LogisticRegression(), param_grid, cv=3)
-            clf = sklearn.linear_model.LogisticRegression(penalty="l2", max_iter=300, solver="sag")
+            clf = sklearn.linear_model.LogisticRegression(penalty="l2", max_iter=300, solver="liblinear")
         elif current_clf == 1:
             print("Random Forest...")
             # grid_searching = True

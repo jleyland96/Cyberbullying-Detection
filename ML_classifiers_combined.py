@@ -236,7 +236,7 @@ def get_glove_data():
     return X_train, X_test, y_train, y_test
 
 
-print("WITHOUT REPEATS - TUNING BUT NOT ON LINEAR REGRESSION")
+print("REPEATS - NO TUNING - LIBLINEAR")
 for dataset_choice in ["glove", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
 
     # Get the right dataset (Glove features, term count, term freq, term freq idf, bigrams, trigrams)

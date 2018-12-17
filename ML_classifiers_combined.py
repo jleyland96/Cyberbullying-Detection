@@ -236,7 +236,7 @@ def get_glove_data():
     return X_train, X_test, y_train, y_test
 
 
-for dataset_choice in ["bigrams", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
+for dataset_choice in ["glove", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
 
     # Get the right dataset (Glove features, term count, term freq, term freq idf, bigrams, trigrams)
     if dataset_choice == "glove":
@@ -256,7 +256,7 @@ for dataset_choice in ["bigrams", "term_count", "term_freq", "term_freq_idf", "b
     X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
 
     # loop through classifiers
-    for current_clf in range(10):
+    for current_clf in range(0, 10):
         # TRAIN
         print("\ntraining on dataset", dataset_choice, "...")
         grid_searching = False

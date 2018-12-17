@@ -275,7 +275,7 @@ for dataset_choice in ["glove", "term_count", "term_freq", "term_freq_idf", "big
     print()
 
     # loop through classifiers
-    for current_clf in range(0, 0):
+    for current_clf in range(0, 10):
         # TRAIN
         print("\ntraining on dataset", dataset_choice, "...")
         grid_searching = False
@@ -321,7 +321,7 @@ for dataset_choice in ["glove", "term_count", "term_freq", "term_freq_idf", "big
         elif current_clf == 8:
             print("Decision Trees...")
             clf = tree.DecisionTreeClassifier()
-        else:
+        elif current_clf == 9:
             print("Gradient boosted classifier...")
             clf = GradientBoostingClassifier(n_estimators=100)
 

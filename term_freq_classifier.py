@@ -101,7 +101,7 @@ for current_clf in range(0, 9):
         clf = sklearn.linear_model.LogisticRegression(penalty="l2", max_iter=100, solver="liblinear")
     elif current_clf == 1:
         print("RANDOM FOREST...")
-        clf = RandomForestClassifier(n_estimators=1000, max_depth=12)
+        clf = RandomForestClassifier(n_estimators=100, max_depth=8)
     elif current_clf == 2:
         print("BERNOULLI NB...")
         clf = BernoulliNB()

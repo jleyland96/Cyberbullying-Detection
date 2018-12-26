@@ -1,6 +1,7 @@
 import csv
 import random
 from collections import defaultdict, OrderedDict
+from operator import add
 import numpy as np
 import keras
 import sklearn
@@ -65,12 +66,12 @@ def repeat_positives(old_x, old_y, repeats=2):
     return new_x, new_y
 
 
-def get_data():
+def get_data(filename):
     X = []
     y = []
-    print("\nGETTING DATA")
+    print("\nGETTING DATA FROM", filename)
 
-    with open('cleaned_text_messages.csv') as csv_file:
+    with open(filename) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
 
@@ -86,7 +87,7 @@ def get_data():
     return X, y
 
 
-def get_ngram_data(ngram_size):
+def get_ngram_data(ngram_size, dataset_filename="cleaned_text_messages.csv"):
     X = []
     y = []
     print("\nGETTING DATA - " + str(ngram_size) + "-grams")
@@ -98,7 +99,7 @@ def get_ngram_data(ngram_size):
         global_grams = generate_all_char_trigrams()
 
     # READ CSV
-    with open('cleaned_text_messages.csv') as csv_file:
+    with open(dataset_filename) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
 
@@ -106,7 +107,7 @@ def get_ngram_data(ngram_size):
             if line_count == 0:
                 print(row)
             else:
-                if line_count % 500 == 0:
+                if line_count % 200 == 0:
                     print(str(line_count) + " ngrams computed")
 
                 label_bullying = int(row[0])
@@ -146,8 +147,8 @@ def get_ngram_data(ngram_size):
     return X_train, X_test, y_train, y_test
 
 
-def get_term_count_data():
-    corpus, y = get_data()
+def get_term_count_data(dataset_filename="cleaned_text_messages.csv"):
+    corpus, y = get_data(dataset_filename)
     print("vectorising...")
     vec = CountVectorizer()
 
@@ -165,13 +166,13 @@ def get_term_count_data():
     return X_train, X_test, y_train, y_test
 
 
-def get_term_freq_data(use_idf):
+def get_term_freq_data(use_idf, dataset_filename="cleaned_text_messages.csv"):
     # Indicates if we are using TF or TF-IDF
     USE_IDF = use_idf
     print("Using IDF: " + str(USE_IDF))
 
     # GET THE DATA
-    corpus, y = get_data()
+    corpus, y = get_data(dataset_filename)
     print("vectorising...")
     vec = TfidfVectorizer(min_df=0.0001, max_df=1.0)
 
@@ -188,9 +189,9 @@ def get_term_freq_data(use_idf):
     return X_train, X_test, y_train, y_test
 
 
-def get_glove_data():
+def get_glove_data(dataset_filename="cleaned_text_messages.csv"):
     # SPLIT COMMENTS/SENTENCES
-    comments, y = get_data()
+    comments, y = get_data(dataset_filename)
     num_comments = len(comments)
     print("splitting data...")
     word_arrays = []
@@ -221,7 +222,11 @@ def get_glove_data():
         word_vectors.append(temp)
 
     # PADDING
-    MAX_LEN = 40
+    if dataset_filename == "cleaned_text_messages.csv":
+        MAX_LEN = 40
+    else:
+        MAX_LEN = 30
+
     print("padding vectors to maxlen =", MAX_LEN, "...")
     padded_word_vecs = np.array(
         keras.preprocessing.sequence.pad_sequences(word_vectors, padding='pre', maxlen=MAX_LEN, dtype='float32'))
@@ -236,48 +241,110 @@ def get_glove_data():
     return X_train, X_test, y_train, y_test
 
 
-print("REPEATS - NO TUNING - LIBLINEAR")
-for dataset_choice in ["glove", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
+def get_avg_glove_data(dataset_filename="cleaned_text_messages.csv"):
+    # SPLIT COMMENTS/SENTENCES
+    print("Getting avg_glove data")
+
+    comments, y = get_data(dataset_filename)
+    print("splitting data...")
+    word_arrays = []
+    for s in comments:
+        word_arrays.append(s.split(' '))
+
+    # GLOVE. Create dictionary where keys are words and the values are the vectors for the words
+    print("getting GLOVE embeddings size 300...")
+    file = open('glove.6B/glove.6B.300d.txt', "r").readlines()
+    gloveDict = {}
+    for line in file:
+        info = line.split(' ')
+        key = info[0]
+        vec = []
+        for elem in info[1:]:
+            vec.append(elem.rstrip())
+        gloveDict[key] = vec
+    print(len(gloveDict), "words in the GLOVE dictionary\n")
+
+    # VECTORISE WORDS
+    print("converting comments to lists of vectors...")
+    word_vectors = []
+    y_confirmed = []
+
+    # for every sentence
+    for i in range(len(word_arrays)):
+        # prepare output for this particular sentence
+        temp = [0.0]*300
+        count = 0
+
+        # for each word in this sentence
+        for word in word_arrays[i]:
+            # if the word is in our gloveDict, then add element-wise to our output X
+            if word in gloveDict:
+                this_word_vec = [float(j) for j in gloveDict[word]]  # cast the glove vec to floats
+                temp = list(map(add, temp, this_word_vec))
+                count += 1
+
+        # take average word vector found. Only add those where we found at least one glove vector
+        if count > 0:
+            temp = [x/count for x in temp]
+            word_vectors.append(temp)
+            y_confirmed.append(y[i])
+
+    print("DONE PRE-PROCESSING\n")
+
+    # CLASSIFYING
+    print("splitting...")
+    X_train, X_test, y_train, y_test = train_test_split(word_vectors, y_confirmed, test_size=0.20)
+
+    return X_train, X_test, y_train, y_test
+
+
+print("RUNNING ON TWEETS")
+for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
+
+    # CHANGE THE DATASET NAME NOW
+    dataset_filename = 'cleaned_twitter_dataset.csv'
 
     # Get the right dataset (Glove features, term count, term freq, term freq idf, bigrams, trigrams)
-    if dataset_choice == "glove":
-        X_train, X_test, y_train, y_test = get_glove_data()
-    elif dataset_choice == "term_count":
-        X_train, X_test, y_train, y_test = get_term_count_data()
-    elif dataset_choice == "term_freq":
-        X_train, X_test, y_train, y_test = get_term_freq_data(use_idf=False)
-    elif dataset_choice == "term_freq_idf":
-        X_train, X_test, y_train, y_test = get_term_freq_data(use_idf=True)
-    elif dataset_choice == "bigrams":
-        X_train, X_test, y_train, y_test = get_ngram_data(ngram_size=2)
+    if vectorize_choice == "glove":
+        X_train, X_test, y_train, y_test = get_glove_data(dataset_filename)
+    elif vectorize_choice == "glove_avg":
+        X_train, X_test, y_train, y_test = get_avg_glove_data(dataset_filename)
+    elif vectorize_choice == "term_count":
+        X_train, X_test, y_train, y_test = get_term_count_data(dataset_filename)
+    elif vectorize_choice == "term_freq":
+        X_train, X_test, y_train, y_test = get_term_freq_data(use_idf=False, dataset_filename=dataset_filename)
+    elif vectorize_choice == "term_freq_idf":
+        X_train, X_test, y_train, y_test = get_term_freq_data(use_idf=True, dataset_filename=dataset_filename)
+    elif vectorize_choice == "bigrams":
+        X_train, X_test, y_train, y_test = get_ngram_data(ngram_size=2, dataset_filename=dataset_filename)
     else:
-        X_train, X_test, y_train, y_test = get_ngram_data(ngram_size=3)
+        X_train, X_test, y_train, y_test = get_ngram_data(ngram_size=3, dataset_filename=dataset_filename)
 
-    print("BEFORE REPEATS")
-    print(len(X_train[0]), "features")
-    print(len(X_test[0]))
-    print(len(X_train))
-    print(len(X_test))
-    print(len(y_train))
-    print(len(y_test))
-    print()
-
-    # Repeat the positive examples in the training dataset twice to avoid over-fitting to negative examples
-    X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
-
-    print("AFTER REPEATS")
-    print(len(X_train[0]), "features")
-    print(len(X_test[0]))
-    print(len(X_train))
-    print(len(X_test))
-    print(len(y_train))
-    print(len(y_test))
-    print()
+    # print("BEFORE REPEATS")
+    # print(len(X_train[0]), "features")
+    # print(len(X_test[0]))
+    # print(len(X_train))
+    # print(len(X_test))
+    # print(len(y_train))
+    # print(len(y_test))
+    # print()
+    #
+    # # Repeat the positive examples in the training dataset twice to avoid over-fitting to negative examples
+    # X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
+    #
+    # print("AFTER REPEATS")
+    # print(len(X_train[0]), "features")
+    # print(len(X_test[0]))
+    # print(len(X_train))
+    # print(len(X_test))
+    # print(len(y_train))
+    # print(len(y_test))
+    # print()
 
     # loop through classifiers
-    for current_clf in range(0, 10):
+    for current_clf in range(9, 10):
         # TRAIN
-        print("\ntraining on dataset", dataset_choice, "...")
+        print("\ntraining on dataset", vectorize_choice, "...")
         grid_searching = False
 
         # CHOOSE CLASSIFIER
@@ -286,20 +353,20 @@ for dataset_choice in ["glove", "term_count", "term_freq", "term_freq_idf", "big
             # grid_searching = True
             # param_grid = {'max_iter': [100, 300], 'solver': ['liblinear', 'lbfgs', 'newton-cg', 'sag']}
             # clf = GridSearchCV(sklearn.linear_model.LogisticRegression(), param_grid, cv=3)
-            clf = sklearn.linear_model.LogisticRegression(penalty="l2", max_iter=300, solver="liblinear")
+            clf = sklearn.linear_model.LogisticRegression(penalty="l2", max_iter=100, solver="liblinear")
         elif current_clf == 1:
             print("Random Forest...")
             # grid_searching = True
             # param_grid = {'n_estimators': [100, 300, 500], 'max_depth': [3, 6, 10, 12]}
             # clf = GridSearchCV(RandomForestClassifier(), param_grid, cv=3)
-            clf = RandomForestClassifier(n_estimators=300, max_depth=12)
+            clf = RandomForestClassifier(n_estimators=100, max_depth=4)
         elif current_clf == 2:
             print("Bernoulli NB...")
             clf = BernoulliNB()
         elif current_clf == 3:
             print("Gaussian NB...")
             clf = GaussianNB()
-        elif current_clf == 4 and not(dataset_choice == "glove"):
+        elif current_clf == 4 and not(vectorize_choice in ["glove", "glove_avg"]):
             print("Multinomial NB...")
             clf = MultinomialNB()
         elif current_clf == 5:
@@ -317,13 +384,13 @@ for dataset_choice in ["glove", "term_count", "term_freq", "term_freq_idf", "big
             # param_grid = [{'kernel': ['rbf'], 'gamma': [1e-3, 1e-4], 'C': [1, 10, 100]},
             #               {'kernel': ['linear'], 'C': [1, 10, 100]}]
             # clf = GridSearchCV(svm.SVC(), param_grid, cv=3)
-            clf = svm.SVC(gamma="auto")
+            clf = svm.SVC(C=10, kernel="rbf", gamma=0.001)
         elif current_clf == 8:
             print("Decision Trees...")
             clf = tree.DecisionTreeClassifier()
         elif current_clf == 9:
             print("Gradient boosted classifier...")
-            clf = GradientBoostingClassifier(n_estimators=100)
+            clf = GradientBoostingClassifier(n_estimators=200)
 
         # FIT
         print("fitting...")

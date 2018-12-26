@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/ML_classifiers_combined.py" afterPath="$PROJECT_DIR$/ML_classifiers_combined.py" />
-      <change beforePath="$PROJECT_DIR$/term_freq_classifier.py" afterPath="$PROJECT_DIR$/term_freq_classifier.py" />
+      <change beforePath="$PROJECT_DIR$/cleaned_text_messages.csv" afterPath="$PROJECT_DIR$/cleaned_text_messages.csv" />
+      <change beforePath="$PROJECT_DIR$/dataset_analysis.py" afterPath="$PROJECT_DIR$/dataset_analysis.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,18 +19,31 @@
       <file leaf-file-name="ML_classifiers_combined.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-351">
-              <caret line="277" column="34" lean-forward="false" selection-start-line="277" selection-start-column="34" selection-end-line="277" selection-end-column="34" />
+            <state relative-caret-position="145">
+              <caret line="304" column="52" lean-forward="true" selection-start-line="304" selection-start-column="52" selection-end-line="304" selection-end-column="52" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
-                <element signature="e#710#969#0" expanded="false" />
-                <element signature="e#1010#1328#0" expanded="false" />
-                <element signature="e#1359#1462#0" expanded="false" />
-                <element signature="e#1516#1907#0" expanded="false" />
-                <element signature="e#1930#2388#0" expanded="false" />
-                <element signature="e#4386#4897#0" expanded="false" />
-                <element signature="e#4937#5591#0" expanded="false" />
-                <element signature="e#5620#7122#0" expanded="false" />
+                <element signature="e#735#994#0" expanded="false" />
+                <element signature="e#1035#1353#0" expanded="false" />
+                <element signature="e#1384#1487#0" expanded="false" />
+                <element signature="e#1541#1932#0" expanded="false" />
+                <element signature="e#1963#2417#0" expanded="false" />
+                <element signature="e#2502#4416#0" expanded="false" />
+                <element signature="e#4494#5021#0" expanded="false" />
+                <element signature="e#5107#5777#0" expanded="false" />
+                <element signature="e#7537#9371#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dataset_analysis.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dataset_analysis.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="269">
+              <caret line="157" column="80" lean-forward="false" selection-start-line="157" selection-start-column="80" selection-end-line="157" selection-end-column="80" />
+              <folding>
+                <element signature="e#170#1646#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -47,6 +62,8 @@
     <findStrings>
       <find>F1</find>
       <find>shuffle</find>
+      <find>Fucking lazy</find>
+      <find>\</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -57,7 +74,6 @@
       <list>
         <option value="$PROJECT_DIR$/myattack.py" />
         <option value="$PROJECT_DIR$/naive_norm_classifier.py" />
-        <option value="$PROJECT_DIR$/dataset_analysis.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/my_DL_slurm" />
         <option value="$PROJECT_DIR$/my_ngram_slurm" />
@@ -69,6 +85,8 @@
         <option value="$PROJECT_DIR$/term_count_classifier.py" />
         <option value="$PROJECT_DIR$/glove_classifier.py" />
         <option value="$PROJECT_DIR$/term_freq_classifier.py" />
+        <option value="$PROJECT_DIR$/twitter_dataset.csv" />
+        <option value="$PROJECT_DIR$/dataset_analysis.py" />
         <option value="$PROJECT_DIR$/ML_classifiers_combined.py" />
       </list>
     </option>
@@ -92,7 +110,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -105,6 +122,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -123,7 +141,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.term_freq_classifier">
+  <component name="RunManager" selected="Python.dataset_analysis">
     <configuration name="ML_classifiers_combined" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -137,6 +155,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Cyberbullying-Detection" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ML_classifiers_combined.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="dataset_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Cyberbullying-Detection" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dataset_analysis.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -178,24 +214,6 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="term_count_classifier" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Cyberbullying-Detection" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/term_count_classifier.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
     <configuration name="term_freq_classifier" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -215,19 +233,19 @@
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.term_count_classifier" />
-      <item index="1" class="java.lang.String" itemvalue="Python.ngram_classifier" />
-      <item index="2" class="java.lang.String" itemvalue="Python.term_freq_classifier" />
-      <item index="3" class="java.lang.String" itemvalue="Python.glove_classifier" />
-      <item index="4" class="java.lang.String" itemvalue="Python.ML_classifiers_combined" />
+      <item index="0" class="java.lang.String" itemvalue="Python.ngram_classifier" />
+      <item index="1" class="java.lang.String" itemvalue="Python.term_freq_classifier" />
+      <item index="2" class="java.lang.String" itemvalue="Python.glove_classifier" />
+      <item index="3" class="java.lang.String" itemvalue="Python.ML_classifiers_combined" />
+      <item index="4" class="java.lang.String" itemvalue="Python.dataset_analysis" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.term_freq_classifier" />
+        <item index="0" class="java.lang.String" itemvalue="Python.dataset_analysis" />
         <item index="1" class="java.lang.String" itemvalue="Python.ML_classifiers_combined" />
-        <item index="2" class="java.lang.String" itemvalue="Python.ngram_classifier" />
-        <item index="3" class="java.lang.String" itemvalue="Python.glove_classifier" />
-        <item index="4" class="java.lang.String" itemvalue="Python.term_count_classifier" />
+        <item index="2" class="java.lang.String" itemvalue="Python.term_freq_classifier" />
+        <item index="3" class="java.lang.String" itemvalue="Python.ngram_classifier" />
+        <item index="4" class="java.lang.String" itemvalue="Python.glove_classifier" />
       </list>
     </recent_temporary>
   </component>
@@ -283,18 +301,53 @@
           <url>file://$PROJECT_DIR$/DL_classifiers.py</url>
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="8" />
+      <option name="time" value="9" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#735#994#0" expanded="false" />
+            <element signature="e#1035#1353#0" expanded="false" />
+            <element signature="e#1384#1487#0" expanded="false" />
+            <element signature="e#1541#1932#0" expanded="false" />
+            <element signature="e#1963#2417#0" expanded="false" />
+            <element signature="e#2502#4416#0" expanded="false" />
+            <element signature="e#4494#5021#0" expanded="false" />
+            <element signature="e#5107#5777#0" expanded="false" />
+            <element signature="e#7537#9371#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#735#994#0" expanded="false" />
+            <element signature="e#1035#1353#0" expanded="false" />
+            <element signature="e#1384#1487#0" expanded="false" />
+            <element signature="e#1541#1932#0" expanded="false" />
+            <element signature="e#1963#2417#0" expanded="false" />
+            <element signature="e#2502#4416#0" expanded="false" />
+            <element signature="e#4494#5021#0" expanded="false" />
+            <element signature="e#5107#5777#0" expanded="false" />
+            <element signature="e#7537#9371#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/term_count_classifier.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1065">
           <caret line="83" column="41" lean-forward="false" selection-start-line="83" selection-start-column="41" selection-end-line="83" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -302,9 +355,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="810">
           <caret line="65" column="39" lean-forward="true" selection-start-line="65" selection-start-column="39" selection-end-line="65" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -314,14 +364,15 @@
           <caret line="97" column="51" lean-forward="true" selection-start-line="97" selection-start-column="51" selection-end-line="97" selection-end-column="51" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#710#969#0" expanded="false" />
-            <element signature="e#1010#1328#0" expanded="false" />
-            <element signature="e#1359#1462#0" expanded="false" />
-            <element signature="e#1516#1907#0" expanded="false" />
-            <element signature="e#1930#2388#0" expanded="false" />
-            <element signature="e#4386#4897#0" expanded="false" />
-            <element signature="e#4937#5591#0" expanded="false" />
-            <element signature="e#5620#7122#0" expanded="false" />
+            <element signature="e#735#994#0" expanded="false" />
+            <element signature="e#1035#1353#0" expanded="false" />
+            <element signature="e#1384#1487#0" expanded="false" />
+            <element signature="e#1541#1932#0" expanded="false" />
+            <element signature="e#1963#2417#0" expanded="false" />
+            <element signature="e#2502#4416#0" expanded="false" />
+            <element signature="e#4494#5021#0" expanded="false" />
+            <element signature="e#5107#5777#0" expanded="false" />
+            <element signature="e#7537#9371#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -330,9 +381,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1605">
           <caret line="117" column="25" lean-forward="false" selection-start-line="117" selection-start-column="25" selection-end-line="117" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -341,13 +389,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataset_analysis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="185" column="22" lean-forward="false" selection-start-line="185" selection-start-column="22" selection-end-line="185" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -444,9 +485,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="107" column="66" lean-forward="false" selection-start-line="107" selection-start-column="66" selection-end-line="107" selection-end-column="66" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -454,17 +492,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="37" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cleaned_text_messages.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3185">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -472,26 +499,73 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4">
           <caret line="96" column="31" lean-forward="true" selection-start-line="96" selection-start-column="31" selection-end-line="96" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Screenshots/twitter_naughty word dist. 1-7 (bullying instances).png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Screenshots/twitter_naughty word dist. 1-7.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Screenshots/twitter_length graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cleaned_twitter_dataset.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-14670">
+          <caret line="39" column="68" lean-forward="true" selection-start-line="39" selection-start-column="68" selection-end-line="39" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter_dataset.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-660">
+          <caret line="972" column="61" lean-forward="false" selection-start-line="972" selection-start-column="61" selection-end-line="972" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cleaned_text_messages.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-373">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset_analysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="157" column="80" lean-forward="false" selection-start-line="157" selection-start-column="80" selection-end-line="157" selection-end-column="80" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#170#1646#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-351">
-          <caret line="277" column="34" lean-forward="false" selection-start-line="277" selection-start-column="34" selection-end-line="277" selection-end-column="34" />
+        <state relative-caret-position="145">
+          <caret line="304" column="52" lean-forward="true" selection-start-line="304" selection-start-column="52" selection-end-line="304" selection-end-column="52" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#710#969#0" expanded="false" />
-            <element signature="e#1010#1328#0" expanded="false" />
-            <element signature="e#1359#1462#0" expanded="false" />
-            <element signature="e#1516#1907#0" expanded="false" />
-            <element signature="e#1930#2388#0" expanded="false" />
-            <element signature="e#4386#4897#0" expanded="false" />
-            <element signature="e#4937#5591#0" expanded="false" />
-            <element signature="e#5620#7122#0" expanded="false" />
+            <element signature="e#735#994#0" expanded="false" />
+            <element signature="e#1035#1353#0" expanded="false" />
+            <element signature="e#1384#1487#0" expanded="false" />
+            <element signature="e#1541#1932#0" expanded="false" />
+            <element signature="e#1963#2417#0" expanded="false" />
+            <element signature="e#2502#4416#0" expanded="false" />
+            <element signature="e#4494#5021#0" expanded="false" />
+            <element signature="e#5107#5777#0" expanded="false" />
+            <element signature="e#7537#9371#0" expanded="false" />
           </folding>
         </state>
       </provider>

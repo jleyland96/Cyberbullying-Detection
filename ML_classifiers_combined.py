@@ -224,6 +224,9 @@ def get_glove_data(dataset_filename="cleaned_text_messages.csv"):
     # PADDING
     if dataset_filename == "cleaned_text_messages.csv":
         MAX_LEN = 40
+    elif dataset_filename == "cleaned_formspring.csv":
+        print("ON THE FORMSPRING")
+        MAX_LEN = 100
     else:
         MAX_LEN = 30
 
@@ -241,7 +244,7 @@ def get_glove_data(dataset_filename="cleaned_text_messages.csv"):
     return X_train, X_test, y_train, y_test
 
 
-def get_avg_glove_data(dataset_filename="cleaned_text_messages.csv"):
+def get_avg_glove_data(dataset_filename="cleaned_formsprig.csv"):
     # SPLIT COMMENTS/SENTENCES
     print("Getting avg_glove data")
 
@@ -298,11 +301,11 @@ def get_avg_glove_data(dataset_filename="cleaned_text_messages.csv"):
     return X_train, X_test, y_train, y_test
 
 
-print("RUNNING ON TWEETS")
+print("RUNNING ON FORMSPRING")
 for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
 
     # CHANGE THE DATASET NAME NOW
-    dataset_filename = 'cleaned_text_messages.csv'
+    dataset_filename = 'cleaned_formspring.csv'
 
     # Get the right dataset (Glove features, term count, term freq, term freq idf, bigrams, trigrams)
     if vectorize_choice == "glove":
@@ -320,26 +323,26 @@ for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_
     else:
         X_train, X_test, y_train, y_test = get_ngram_data(ngram_size=3, dataset_filename=dataset_filename)
 
-    # print("BEFORE REPEATS")
-    # print(len(X_train[0]), "features")
-    # print(len(X_test[0]))
-    # print(len(X_train))
-    # print(len(X_test))
-    # print(len(y_train))
-    # print(len(y_test))
-    # print()
-    #
-    # # Repeat the positive examples in the training dataset twice to avoid over-fitting to negative examples
+    print("BEFORE REPEATS")
+    print(len(X_train[0]), "features")
+    print(len(X_test[0]))
+    print(len(X_train))
+    print(len(X_test))
+    print(len(y_train))
+    print(len(y_test))
+    print()
+
+    # Repeat the positive examples in the training dataset twice to avoid over-fitting to negative examples
     # X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
-    #
-    # print("AFTER REPEATS")
-    # print(len(X_train[0]), "features")
-    # print(len(X_test[0]))
-    # print(len(X_train))
-    # print(len(X_test))
-    # print(len(y_train))
-    # print(len(y_test))
-    # print()
+
+    print("AFTER REPEATS")
+    print(len(X_train[0]), "features")
+    print(len(X_test[0]))
+    print(len(X_train))
+    print(len(X_test))
+    print(len(y_train))
+    print(len(y_test))
+    print()
 
     # loop through classifiers
     for current_clf in range(0, 10):
@@ -390,7 +393,7 @@ for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_
             clf = tree.DecisionTreeClassifier()
         elif current_clf == 9:
             print("Gradient boosted classifier...")
-            clf = GradientBoostingClassifier(n_estimators=200)
+            clf = GradientBoostingClassifier(n_estimators=300)
 
         # FIT
         print("fitting...")
@@ -408,13 +411,13 @@ for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_
 
         # EVALUATE
         print("confusion matrix:", sm.confusion_matrix(y_test, y_pred))
-        print("accuracy:", sm.accuracy_score(y_test, y_pred))
+        print("accuracy:", round(sm.accuracy_score(y_test, y_pred), 5))
 
         # if the metrics are well defined
         if np.count_nonzero(y_pred) > 0:
-            print("recall:", sm.recall_score(y_test, y_pred))
-            print("precision:", sm.precision_score(y_test, y_pred))
-            print("f1 score:", sm.f1_score(y_test, y_pred))
+            print("recall:", round(sm.recall_score(y_test, y_pred), 5))
+            print("precision:", round(sm.precision_score(y_test, y_pred), 5))
+            print("f1 score:", round(sm.f1_score(y_test, y_pred), 5))
             print("\n\n")
         else:
             print("No True predictions made\n\n")

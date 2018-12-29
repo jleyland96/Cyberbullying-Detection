@@ -305,7 +305,7 @@ print("RUNNING ON FORMSPRING")
 for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
 
     # CHANGE THE DATASET NAME NOW
-    dataset_filename = 'cleaned_formspring.csv'
+    dataset_filename = 'cleaned_twitter_dataset.csv'
 
     # Get the right dataset (Glove features, term count, term freq, term freq idf, bigrams, trigrams)
     if vectorize_choice == "glove":
@@ -333,7 +333,7 @@ for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_
     print()
 
     # Repeat the positive examples in the training dataset twice to avoid over-fitting to negative examples
-    # X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
+    X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
 
     print("AFTER REPEATS")
     print(len(X_train[0]), "features")
@@ -345,7 +345,7 @@ for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_
     print()
 
     # loop through classifiers
-    for current_clf in range(0, 10):
+    for current_clf in range(9, 10):
         # TRAIN
         print("\ntraining on dataset", vectorize_choice, "...")
         grid_searching = False
@@ -393,7 +393,7 @@ for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_
             clf = tree.DecisionTreeClassifier()
         elif current_clf == 9:
             print("Gradient boosted classifier...")
-            clf = GradientBoostingClassifier(n_estimators=300)
+            clf = GradientBoostingClassifier(n_estimators=1000)
 
         # FIT
         print("fitting...")

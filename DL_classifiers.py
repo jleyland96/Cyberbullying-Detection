@@ -266,7 +266,8 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     e = Embedding(input_dim=vocab_size, output_dim=300, weights=[embedding_matrix],
                   input_length=max_len, trainable=False)
     model.add(e)
-    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=200, dropout=0.5, recurrent_dropout=0.5))
+    model.add(BatchNormalization())
     model.add(Dense(units=1, activation='sigmoid'))
 
     # load a pre-saved model

@@ -83,7 +83,7 @@ def shuffle_data(X, y):
     return X, y
 
 
-def get_glove_matrix(vocab_size):
+def get_glove_matrix(vocab_size, t):
     glove_vector_size = 300
 
     # load embeddings into memory
@@ -258,7 +258,7 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
     print()
 
-    embedding_matrix = get_glove_matrix(vocab_size)
+    embedding_matrix = get_glove_matrix(vocab_size, t)
 
     # ---------------- EDIT HERE ----------------
     # define the model

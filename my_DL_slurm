@@ -19,4 +19,4 @@
 source /etc/profile
 
 # Run your program (replace this with your program)
-python first_DL_models.py
+python DL_classifiers.py

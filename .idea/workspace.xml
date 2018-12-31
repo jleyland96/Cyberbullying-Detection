@@ -4,6 +4,7 @@
     <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/DL_classifiers.py" afterPath="$PROJECT_DIR$/DL_classifiers.py" />
+      <change beforePath="$PROJECT_DIR$/my_DL_slurm" afterPath="$PROJECT_DIR$/my_DL_slurm" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,36 +15,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ML_classifiers_combined.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="50" column="0" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="65" selection-end-column="23" />
-              <folding>
-                <element signature="e#735#994#0" expanded="false" />
-                <element signature="e#1035#1353#0" expanded="false" />
-                <element signature="e#1384#1487#0" expanded="false" />
-                <element signature="e#1963#2417#0" expanded="false" />
-                <element signature="e#2502#4416#0" expanded="false" />
-                <element signature="e#4494#5021#0" expanded="false" />
-                <element signature="e#5107#5777#0" expanded="false" />
-                <element signature="e#5850#7572#0" expanded="false" />
-                <element signature="e#7645#9479#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="DL_classifiers.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="223" column="0" lean-forward="true" selection-start-line="223" selection-start-column="0" selection-end-line="223" selection-end-column="0" />
+            <state relative-caret-position="-805">
+              <caret line="211" column="26" lean-forward="false" selection-start-line="211" selection-start-column="26" selection-end-line="211" selection-end-column="26" />
               <folding>
                 <element signature="e#1000#1579#0" expanded="false" />
                 <element signature="e#1633#2024#0" expanded="false" />
                 <element signature="e#2056#2168#0" expanded="false" />
                 <element signature="e#2199#2302#0" expanded="false" />
+                <element signature="e#2343#3042#0" expanded="false" />
                 <element signature="e#3322#3613#0" expanded="false" />
                 <element signature="e#3642#4013#0" expanded="false" />
                 <element signature="e#4045#5251#0" expanded="false" />
@@ -83,7 +65,6 @@
         <option value="$PROJECT_DIR$/myattack.py" />
         <option value="$PROJECT_DIR$/naive_norm_classifier.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/my_DL_slurm" />
         <option value="$PROJECT_DIR$/my_ngram_slurm" />
         <option value="$PROJECT_DIR$/my_termfreq_slurm" />
         <option value="$PROJECT_DIR$/my_termcount_slurm" />
@@ -97,6 +78,7 @@
         <option value="$PROJECT_DIR$/dataset_analysis.py" />
         <option value="$PROJECT_DIR$/ML_classifiers_combined.py" />
         <option value="$PROJECT_DIR$/DL_classifiers.py" />
+        <option value="$PROJECT_DIR$/my_DL_slurm" />
       </list>
     </option>
   </component>
@@ -310,7 +292,7 @@
           <url>file://$PROJECT_DIR$/DL_classifiers.py</url>
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="10" />
+      <option name="time" value="11" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -504,13 +486,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/my_DL_slurm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/my_ML_slurm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -665,15 +640,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/my_DL_slurm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="21" lean-forward="false" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="223" column="0" lean-forward="true" selection-start-line="223" selection-start-column="0" selection-end-line="223" selection-end-column="0" />
+        <state relative-caret-position="-805">
+          <caret line="211" column="26" lean-forward="false" selection-start-line="211" selection-start-column="26" selection-end-line="211" selection-end-column="26" />
           <folding>
             <element signature="e#1000#1579#0" expanded="false" />
             <element signature="e#1633#2024#0" expanded="false" />
             <element signature="e#2056#2168#0" expanded="false" />
             <element signature="e#2199#2302#0" expanded="false" />
+            <element signature="e#2343#3042#0" expanded="false" />
             <element signature="e#3322#3613#0" expanded="false" />
             <element signature="e#3642#4013#0" expanded="false" />
             <element signature="e#4045#5251#0" expanded="false" />

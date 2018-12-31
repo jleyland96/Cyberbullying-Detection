@@ -209,7 +209,7 @@ def learn_embeddings_model(filename="cleaned_text_messages.csv"):
     # define the model
     model = Sequential()
     model.add(Embedding(input_dim=vocab_size, output_dim=100, input_length=max_len))
-    model.add(LSTM(units=200, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
     model.add(Dense(units=1, activation='sigmoid'))
 
     # compile the model
@@ -219,7 +219,7 @@ def learn_embeddings_model(filename="cleaned_text_messages.csv"):
     # fit the model
     print("Fitting the model...")
     model.fit(x=X_train, y=labels_train, validation_data=(X_dev, labels_dev),
-              epochs=40, batch_size=128, callbacks=[metrics])
+              epochs=300, batch_size=128, callbacks=[metrics])
     # ---------------- END EDIT ----------------
 
     # evaluate
@@ -290,6 +290,6 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
 
 save_path = "TEST"
 print("TEST")
-filename = "cleaned_twitter_dataset.csv"
+filename = "cleaned_text_messages.csv"
 learn_embeddings_model(filename)
 # simple_glove_LSTM_model(filename)

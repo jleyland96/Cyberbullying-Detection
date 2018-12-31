@@ -26,11 +26,12 @@ validation_results = []
 f1_results = []
 
 
-def get_data(n=69523):
+def get_data(n=20000, filename="cleaned_text_messages.csv"):
     X = []
     y = []
+    print("Getting data from " + filename)
 
-    with open('cleaned_dixon_train_data.csv') as csv_file:
+    with open(filename) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
 
@@ -40,16 +41,33 @@ def get_data(n=69523):
                 pass
             else:
                 if line_count-1 < n:
-                    attack_0 = int(row[6])
-                    comment = row[1]
+                    label_bullying = int(row[0])
+                    text = row[1]
 
-                    X.append(comment)
-                    y.append(attack_0)
-
+                    X.append(text)
+                    y.append(label_bullying)
             line_count += 1
 
     print("processed", line_count-1, "comments\n")
     return X, y
+
+
+def repeat_positives(old_x, old_y, repeats=2):
+    new_x = []
+    new_y = []
+
+    # rebuild the X dataset
+    for i in range(len(old_x)):
+        new_x.append(old_x[i])
+        new_y.append(old_y[i])
+
+        # if the example is a positive examples, repeat it in the dataset
+        if old_y[i] == 1:
+            for j in range(repeats-1):
+                new_x.append(old_x[i])
+                new_y.append(old_y[i])
+
+    return new_x, new_y
 
 
 def count_vocab_size(x):
@@ -63,6 +81,39 @@ def shuffle_data(X, y):
     random.shuffle(combined)
     X[:], y[:] = zip(*combined)
     return X, y
+
+
+def get_glove_matrix(vocab_size):
+    glove_vector_size = 300
+
+    # load embeddings into memory
+    embeddings_index = dict()
+    f = open('glove.6B/glove.6B.300d.txt')
+    for line in f:
+        values = line.split()
+        word = values[0]
+        coefs = asarray(values[1:], dtype='float32')
+        embeddings_index[word] = coefs
+    f.close()
+    print("LOADED", len(embeddings_index), "WORD VECTORS")
+
+    # create weight matrix for words in documents
+    embedding_matrix = zeros((vocab_size, glove_vector_size))
+    for word, i in t.word_index.items():
+        embedding_vector = embeddings_index.get(word)
+        if embedding_vector is not None:
+            embedding_matrix[i] = embedding_vector
+
+    return embedding_matrix
+
+
+def get_pad_length(filename):
+    if filename == "cleaned_text_messages.csv":
+        return 40
+    elif filename == "cleaned_twitter_dataset.csv":
+        return 30
+    else:  # cleaned_formspring.csv is up to length 1200
+        return 100
 
 
 def save_model(model, path):
@@ -124,51 +175,11 @@ class Metrics(Callback):
 metrics = Metrics()
 
 
-def simple_one_hot_model():
-    # n = 1000, max_len = 500, output_dim = 64, units = 10, activation = 'relu', epochs = 50
-    # |  accuracy = 67.0%
-    print("\nSIMPLE ONE-HOT MODEL")
-
-    # get the data
-    X, labels = get_data(n=1000)
-    vocab_size = count_vocab_size(X)
-    print("Vocab size =", vocab_size)
-
-    # pre-process the data
-    max_len = 500
-    encoded_docs = [one_hot(text=x, n=vocab_size) for x in X]
-    padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
-
-    # split the data
-    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.20)
-
-    # define the model
-    model = Sequential()
-    model.add(Embedding(input_dim=vocab_size, output_dim=64, input_length=max_len))
-    model.add(Flatten())
-    model.add(Dense(units=10, activation='relu'))
-    model.add(Dense(units=1, activation='sigmoid'))
-
-    # compile the model
-    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc'])
-    # print(model.summary())
-
-    # fit the model
-    print("fitting the model...")
-    model.fit(x=X_train, y=labels_train, validation_data=(X_test, labels_test), nb_epoch=30, batch_size=128, callbacks=[metrics])
-
-    # evaluate
-    labels_pred = model.predict_classes(x=X_test)
-    loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
-    print("Test accuracy = " + str(round(accuracy*100, 2)) + "%")
-
-
-def learn_embeddings_model():
+def learn_embeddings_model(filename="cleaned_text_messages.csv"):
     print("\nSIMPLE GLOVE MODEL")
 
     # get the data
-    X, labels = get_data(n=69523)
-    X, labels = shuffle_data(X, labels)
+    X, labels = get_data(n=20000, filename=filename)
 
     # prepare tokenizer
     t = Tokenizer()
@@ -180,23 +191,25 @@ def learn_embeddings_model():
     encoded_docs = [one_hot(x, vocab_size) for x in X]
 
     # pad documents
-    max_len = 500
+    max_len = get_pad_length(filename)
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
-    # split to get dev data (0.2)
+    # split to get dev data (0.2), then split to get train/test data (0.7 and 0.1)
     X, X_dev, y, labels_dev = train_test_split(padded_docs, labels, test_size=0.20)
-    # split to get train/test data (0.7 and 0.1)
     X_train, X_test, labels_train, labels_test = train_test_split(X, y, test_size=0.125)
+
+    # TODO: Repeat the positives here if I want to
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
     print("Dev 1's proportion = " + str(round(np.count_nonzero(labels_dev) / len(labels_dev), 4)))
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
     print()
 
+    # ---------------- EDIT HERE ----------------
     # define the model
     model = Sequential()
-    model.add(Embedding(input_dim=vocab_size, output_dim=300, input_length=max_len))
-    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
+    model.add(Embedding(input_dim=vocab_size, output_dim=100, input_length=max_len))
+    model.add(LSTM(units=200, dropout=0.5, recurrent_dropout=0.5))
     model.add(Dense(units=1, activation='sigmoid'))
 
     # compile the model
@@ -207,6 +220,7 @@ def learn_embeddings_model():
     print("Fitting the model...")
     model.fit(x=X_train, y=labels_train, validation_data=(X_dev, labels_dev),
               epochs=40, batch_size=128, callbacks=[metrics])
+    # ---------------- END EDIT ----------------
 
     # evaluate
     # labels_pred = model.predict_classes(x=X_test)
@@ -214,12 +228,11 @@ def learn_embeddings_model():
     print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
 
 
-def simple_glove_LSTM_model():
+def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     print("\nSIMPLE GLOVE MODEL")
 
     # get the data
-    X, labels = get_data(n=69523)
-    X, labels = shuffle_data(X, labels)
+    X, labels = get_data(n=20000, filename=filename)
 
     # prepare tokenizer
     t = Tokenizer()
@@ -231,45 +244,28 @@ def simple_glove_LSTM_model():
     encoded_docs = t.texts_to_sequences(texts=X)
 
     # pad documents
-    max_len = 500
+    max_len = get_pad_length(filename)
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
-    # split to get dev data (0.2)
+    # split to get dev data (0.2), then split to get train/test data (0.7 and 0.1)
     X, X_dev, y, labels_dev = train_test_split(padded_docs, labels, test_size=0.20)
-    # split to get train/test data (0.7 and 0.1)
     X_train, X_test, labels_train, labels_test = train_test_split(X, y, test_size=0.125)
+
+    # TODO: Repeat the positives here if I want to
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
     print("Dev 1's proportion = " + str(round(np.count_nonzero(labels_dev) / len(labels_dev), 4)))
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
     print()
 
-    # load embeddings into memory
-    glove_vector_size = 300
-    embeddings_index = dict()
-    f = open('glove.6B/glove.6B.300d.txt')
-    for line in f:
-        values = line.split()
-        word = values[0]
-        coefs = asarray(values[1:], dtype='float32')
-        embeddings_index[word] = coefs
-    f.close()
-    print("LOADED", len(embeddings_index), "WORD VECTORS")
+    embedding_matrix = get_glove_matrix(vocab_size)
 
-    # create weight matrix for words in documents
-    embedding_matrix = zeros((vocab_size, glove_vector_size))
-    for word, i in t.word_index.items():
-        embedding_vector = embeddings_index.get(word)
-        if embedding_vector is not None:
-            embedding_matrix[i] = embedding_vector
-
+    # ---------------- EDIT HERE ----------------
     # define the model
     model = Sequential()
-    e = Embedding(input_dim=vocab_size, output_dim=glove_vector_size, weights=[embedding_matrix],
+    e = Embedding(input_dim=vocab_size, output_dim=300, weights=[embedding_matrix],
                   input_length=max_len, trainable=False)
     model.add(e)
-    model.add(Conv1D(filters=30, kernel_size=3, strides=2, padding='valid'))
-    model.add(MaxPool1D(pool_size=2, strides=None, padding='valid'))
     model.add(LSTM(units=200, dropout=0.5, recurrent_dropout=0.5))
     model.add(Dense(units=1, activation='sigmoid'))
 
@@ -284,6 +280,7 @@ def simple_glove_LSTM_model():
     print("Fitting the model...")
     model.fit(x=X_train, y=labels_train, validation_data=(X_dev, labels_dev),
               nb_epoch=300, batch_size=128, callbacks=[metrics])
+    # ------------------ END EDIT ------------------
 
     # evaluate
     # labels_pred = model.predict_classes(x=X_test)
@@ -291,5 +288,8 @@ def simple_glove_LSTM_model():
     print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
 
 
-print("Final dropout test")
-simple_glove_LSTM_model()
+save_path = "TEST"
+print("TEST")
+filename = "cleaned_twitter_dataset.csv"
+learn_embeddings_model(filename)
+# simple_glove_LSTM_model(filename)

@@ -16,4 +16,6 @@ output_graphs/
 saved_slurms/
 saved_models/
 
+DL_graphs/
+
 slurm-*.out

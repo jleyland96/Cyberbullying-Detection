@@ -252,6 +252,7 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     X_train, X_test, labels_train, labels_test = train_test_split(X, y, test_size=0.125)
 
     # TODO: Repeat the positives here if I want to
+    X_train, labels_train = repeat_positives(X_train, labels_train, 2)
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
     print("Dev 1's proportion = " + str(round(np.count_nonzero(labels_dev) / len(labels_dev), 4)))
@@ -267,8 +268,8 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
                   input_length=max_len, trainable=False)
     model.add(e)
 
-    model.add(Conv1D(filters=30, kernel_size=3, strides=2, padding='valid'))
-    model.add(MaxPool1D(pool_size=2, strides=1))
+    # model.add(Conv1D(filters=30, kernel_size=3, strides=2, padding='valid'))
+    # model.add(MaxPool1D(pool_size=2, strides=1))
 
     # model.add(Conv1D(filters=20, kernel_size=3, strides=2, padding='valid'))
     # model.add(MaxPool1D(pool_size=2, strides=1))
@@ -276,7 +277,7 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     # model.add(Conv1D(filters=10, kernel_size=3, strides=1, padding='valid'))
     # model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(LSTM(units=300, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
     # model.add(BatchNormalization())
     model.add(Dense(units=1, activation='sigmoid'))
 

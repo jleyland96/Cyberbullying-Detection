@@ -176,7 +176,7 @@ metrics = Metrics()
 
 
 def learn_embeddings_model(filename="cleaned_text_messages.csv"):
-    print("\nSIMPLE GLOVE MODEL")
+    print("\nLEARN EMBEDDINGS MODEL")
 
     # get the data
     X, labels = get_data(n=20000, filename=filename)
@@ -198,14 +198,15 @@ def learn_embeddings_model(filename="cleaned_text_messages.csv"):
     X, X_dev, y, labels_dev = train_test_split(padded_docs, labels, test_size=0.20)
     X_train, X_test, labels_train, labels_test = train_test_split(X, y, test_size=0.125)
 
-    # TODO: Repeat the positives here if I want to
+    # Repeat the positives here if I want to
+    X_train, labels_train = repeat_positives(X_train, labels_train, repeats=2)
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
     print("Dev 1's proportion = " + str(round(np.count_nonzero(labels_dev) / len(labels_dev), 4)))
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
     print()
 
-    # ---------------- EDIT HERE ----------------
+    # ---------------- EDIT LEARN EMBEDDINGS HERE ----------------
     # define the model
     model = Sequential()
     model.add(Embedding(input_dim=vocab_size, output_dim=100, input_length=max_len))
@@ -218,9 +219,9 @@ def learn_embeddings_model(filename="cleaned_text_messages.csv"):
 
     # fit the model
     print("Fitting the model...")
-    model.fit(x=X_train, y=labels_train, validation_data=(X_dev, labels_dev),
+    model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_dev, labels_dev),
               epochs=300, batch_size=128, callbacks=[metrics])
-    # ---------------- END EDIT ----------------
+    # ---------------- END LEARN EMBEDDINGS EDIT ----------------
 
     # evaluate
     # labels_pred = model.predict_classes(x=X_test)
@@ -306,5 +307,5 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
 save_path = "TEST"
 print("TEST")
 filename = "cleaned_text_messages.csv"
-# learn_embeddings_model(filename)
-simple_glove_LSTM_model(filename)
+learn_embeddings_model(filename)
+# simple_glove_LSTM_model(filename)

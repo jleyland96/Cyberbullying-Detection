@@ -271,16 +271,16 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
                   input_length=max_len, trainable=False)
     model.add(e)
 
-    # model.add(Conv1D(filters=30, kernel_size=3, strides=2, padding='valid'))
-    # model.add(MaxPool1D(pool_size=2, strides=1))
+    model.add(Conv1D(filters=40, kernel_size=5, strides=2, padding='valid'))
+    model.add(MaxPool1D(pool_size=2, strides=1))
 
-    # model.add(Conv1D(filters=20, kernel_size=3, strides=2, padding='valid'))
-    # model.add(MaxPool1D(pool_size=2, strides=1))
+    model.add(Conv1D(filters=20, kernel_size=3, strides=2, padding='valid'))
+    model.add(MaxPool1D(pool_size=2, strides=1))
 
-    # model.add(Conv1D(filters=10, kernel_size=3, strides=1, padding='valid'))
-    # model.add(MaxPool1D(pool_size=2, strides=1))
+    model.add(Conv1D(filters=10, kernel_size=3, strides=1, padding='valid'))
+    model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=200, dropout=0.5, recurrent_dropout=0.5))
     # model.add(BatchNormalization())
     model.add(Dense(units=1, activation='sigmoid'))
 

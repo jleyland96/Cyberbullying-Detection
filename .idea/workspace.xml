@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/DL_classifiers.py" afterPath="$PROJECT_DIR$/DL_classifiers.py" />
+      <change beforePath="$PROJECT_DIR$/dataset_analysis.py" afterPath="$PROJECT_DIR$/dataset_analysis.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,7 +17,7 @@
       <file leaf-file-name="DL_classifiers.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
+            <state relative-caret-position="-166">
               <caret line="178" column="29" lean-forward="false" selection-start-line="178" selection-start-column="29" selection-end-line="178" selection-end-column="29" />
               <folding>
                 <element signature="e#1000#1579#0" expanded="false" />
@@ -31,6 +31,29 @@
                 <element signature="e#4048#5254#0" expanded="false" />
                 <element signature="e#7566#10378#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dataset_analysis.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dataset_analysis.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1315">
+              <caret line="116" column="46" lean-forward="false" selection-start-line="116" selection-start-column="46" selection-end-line="116" selection-end-column="46" />
+              <folding>
+                <element signature="e#9002#15453#0" expanded="false" />
+                <element signature="e#15479#22117#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plot_val_acc.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -76,11 +99,11 @@
         <option value="$PROJECT_DIR$/glove_classifier.py" />
         <option value="$PROJECT_DIR$/term_freq_classifier.py" />
         <option value="$PROJECT_DIR$/twitter_dataset.csv" />
-        <option value="$PROJECT_DIR$/dataset_analysis.py" />
         <option value="$PROJECT_DIR$/ML_classifiers_combined.py" />
         <option value="$PROJECT_DIR$/my_DL_slurm" />
-        <option value="$PROJECT_DIR$/plot_val_acc.py" />
         <option value="$PROJECT_DIR$/DL_classifiers.py" />
+        <option value="$PROJECT_DIR$/plot_val_acc.py" />
+        <option value="$PROJECT_DIR$/dataset_analysis.py" />
       </list>
     </option>
   </component>
@@ -103,6 +126,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -114,7 +138,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -134,7 +157,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.DL_classifiers">
+  <component name="RunManager" selected="Python.dataset_analysis">
     <configuration name="DL_classifiers" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -234,9 +257,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.DL_classifiers" />
+        <item index="0" class="java.lang.String" itemvalue="Python.dataset_analysis" />
         <item index="1" class="java.lang.String" itemvalue="Python.plot_val_acc" />
-        <item index="2" class="java.lang.String" itemvalue="Python.dataset_analysis" />
+        <item index="2" class="java.lang.String" itemvalue="Python.DL_classifiers" />
         <item index="3" class="java.lang.String" itemvalue="Python.ML_classifiers_combined" />
         <item index="4" class="java.lang.String" itemvalue="Python.myformspring" />
       </list>
@@ -260,12 +283,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3035294" sideWeight="0.50555557" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3035294" sideWeight="0.49444443" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3035294" sideWeight="0.49444443" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -299,22 +321,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
+    <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4035">
-          <caret line="269" column="46" lean-forward="true" selection-start-line="269" selection-start-column="46" selection-end-line="269" selection-end-column="46" />
-          <folding>
-            <element signature="e#1000#1579#0" expanded="false" />
-            <element signature="e#1633#2024#0" expanded="false" />
-            <element signature="e#2056#2168#0" expanded="false" />
-            <element signature="e#2199#2302#0" expanded="false" />
-            <element signature="e#2346#3045#0" expanded="false" />
-            <element signature="e#3082#3289#0" expanded="false" />
-            <element signature="e#3325#3616#0" expanded="false" />
-            <element signature="e#3645#4016#0" expanded="false" />
-            <element signature="e#4048#5254#0" expanded="false" />
-            <element signature="e#7566#10378#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -322,85 +332,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#735#994#0" expanded="false" />
-            <element signature="e#1035#1353#0" expanded="false" />
-            <element signature="e#1384#1487#0" expanded="false" />
-            <element signature="e#1963#2417#0" expanded="false" />
-            <element signature="e#2502#4416#0" expanded="false" />
-            <element signature="e#4494#5021#0" expanded="false" />
-            <element signature="e#5107#5777#0" expanded="false" />
-            <element signature="e#5850#7572#0" expanded="false" />
-            <element signature="e#7645#9479#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataset_analysis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2730">
-          <caret line="525" column="13" lean-forward="true" selection-start-line="525" selection-start-column="13" selection-end-line="525" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4560">
-          <caret line="304" column="50" lean-forward="true" selection-start-line="304" selection-start-column="50" selection-end-line="304" selection-end-column="50" />
-          <folding>
-            <element signature="e#735#994#0" expanded="false" />
-            <element signature="e#1035#1353#0" expanded="false" />
-            <element signature="e#1384#1487#0" expanded="false" />
-            <element signature="e#1963#2417#0" expanded="false" />
-            <element signature="e#2502#4416#0" expanded="false" />
-            <element signature="e#4494#5021#0" expanded="false" />
-            <element signature="e#5107#5777#0" expanded="false" />
-            <element signature="e#5850#7572#0" expanded="false" />
-            <element signature="e#7645#9479#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataset_analysis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1620">
-          <caret line="157" column="80" lean-forward="false" selection-start-line="157" selection-start-column="80" selection-end-line="157" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#735#994#0" expanded="false" />
-            <element signature="e#1035#1353#0" expanded="false" />
-            <element signature="e#1384#1487#0" expanded="false" />
-            <element signature="e#1963#2417#0" expanded="false" />
-            <element signature="e#2502#4416#0" expanded="false" />
-            <element signature="e#4494#5021#0" expanded="false" />
-            <element signature="e#5107#5777#0" expanded="false" />
-            <element signature="e#5850#7572#0" expanded="false" />
-            <element signature="e#7645#9479#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#735#994#0" expanded="false" />
-            <element signature="e#1035#1353#0" expanded="false" />
-            <element signature="e#1384#1487#0" expanded="false" />
-            <element signature="e#1963#2417#0" expanded="false" />
-            <element signature="e#2502#4416#0" expanded="false" />
-            <element signature="e#4494#5021#0" expanded="false" />
-            <element signature="e#5107#5777#0" expanded="false" />
-            <element signature="e#5850#7572#0" expanded="false" />
-            <element signature="e#7645#9479#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -422,17 +353,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
           <caret line="97" column="51" lean-forward="true" selection-start-line="97" selection-start-column="51" selection-end-line="97" selection-end-column="51" />
-          <folding>
-            <element signature="e#735#994#0" expanded="false" />
-            <element signature="e#1035#1353#0" expanded="false" />
-            <element signature="e#1384#1487#0" expanded="false" />
-            <element signature="e#1963#2417#0" expanded="false" />
-            <element signature="e#2502#4416#0" expanded="false" />
-            <element signature="e#4494#5021#0" expanded="false" />
-            <element signature="e#5107#5777#0" expanded="false" />
-            <element signature="e#5850#7572#0" expanded="false" />
-            <element signature="e#7645#9479#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -595,13 +515,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cleaned_formspring.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3317">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/text_messages.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-125163">
@@ -613,13 +526,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-918">
           <caret line="972" column="61" lean-forward="false" selection-start-line="972" selection-start-column="61" selection-end-line="972" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataset_analysis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2730">
-          <caret line="525" column="13" lean-forward="false" selection-start-line="525" selection-start-column="13" selection-end-line="525" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -635,37 +541,83 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="609" lean-forward="false" selection-start-line="6" selection-start-column="609" selection-end-line="6" selection-end-column="609" />
-          <folding>
-            <element signature="e#0#30#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-666">
           <caret line="50" column="46" lean-forward="false" selection-start-line="50" selection-start-column="46" selection-end-line="50" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4856 f1 graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4856 val_acc graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4861 val_acc graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4861 f1 graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4858 val_acc graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4858 f1 graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4859 f1 graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4859 val_acc graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cleaned_formspring.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-9755">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset_analysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1315">
+          <caret line="116" column="46" lean-forward="false" selection-start-line="116" selection-start-column="46" selection-end-line="116" selection-end-column="46" />
           <folding>
-            <element signature="e#735#994#0" expanded="false" />
-            <element signature="e#1035#1353#0" expanded="false" />
-            <element signature="e#1384#1487#0" expanded="false" />
-            <element signature="e#1541#1932#0" expanded="false" />
-            <element signature="e#1963#2417#0" expanded="false" />
-            <element signature="e#2502#4416#0" expanded="false" />
-            <element signature="e#4494#5021#0" expanded="false" />
-            <element signature="e#5107#5777#0" expanded="false" />
-            <element signature="e#7645#9479#0" expanded="false" />
+            <element signature="e#9002#15453#0" expanded="false" />
+            <element signature="e#15479#22117#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
+        <state relative-caret-position="-166">
           <caret line="178" column="29" lean-forward="false" selection-start-line="178" selection-start-column="29" selection-end-line="178" selection-end-column="29" />
           <folding>
             <element signature="e#1000#1579#0" expanded="false" />

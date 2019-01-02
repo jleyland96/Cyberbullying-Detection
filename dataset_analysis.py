@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def correlation():
-    with open('cleaned_text_messages.csv') as csv_file_2:
+    with open('cleaned_formspring.csv') as csv_file_2:
         csv_reader_2 = csv.reader(csv_file_2, delimiter=',')
         line_count_2 = 0
 
@@ -35,8 +35,10 @@ def correlation():
                     url_list.append(1.0)
                 else:
                     url_list.append(0.0)
-
             line_count_2 += 1
+
+        print(label_list.count(0.0))
+        print(label_list.count(1.0))
 
         print("lines:", line_count_2-1, "\n")
 
@@ -523,5 +525,5 @@ def tweets_8000():
 
 # formspring()
 # tweets_8000()
-tweets_1000()
-# correlation()
+# tweets_1000()
+correlation()

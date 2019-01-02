@@ -255,7 +255,7 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     X_train, X_test, labels_train, labels_test = train_test_split(X, y, test_size=0.125)
 
     # Repeat the positives here if I want to. IF FAILS, LOOK AT CLASS WEIGHTS
-    X_train, labels_train = repeat_positives(X_train, labels_train, repeats=2)
+    # X_train, labels_train = repeat_positives(X_train, labels_train, repeats=2)
 
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
@@ -281,7 +281,7 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     model.add(Conv1D(filters=10, kernel_size=3, strides=1, padding='valid'))
     model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(LSTM(units=200, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5))
     # model.add(BatchNormalization())
     model.add(Dense(units=1, activation='sigmoid'))
 
@@ -306,6 +306,6 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
 
 save_path = "TEST"
 print("TEST")
-filename = "cleaned_text_messages.csv"
+filename = "cleaned_formspring.csv"
 learn_embeddings_model(filename)
 # simple_glove_LSTM_model(filename)

@@ -166,8 +166,8 @@ def formspring():
 
                     # Write to clean file, removing the apostrophes
                     if not (is_blank):
-                        clean_comment = re.sub('[\":=#&;()@\'?<>!,./\\\*\\n1234567890]', '', post)
-                        clean_comment = re.sub('<br>', '', clean_comment)
+                        clean_comment = re.sub('<br>', ' ', post)
+                        clean_comment = re.sub('[\":=#&;()@\'?<>!,./\\\*\\n1234567890]', '', clean_comment)
                         csv_writer.writerow(
                             [label_bullying, clean_comment.lower(), contains_url, naughty_count, norm])
 

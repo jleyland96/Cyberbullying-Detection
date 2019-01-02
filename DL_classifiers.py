@@ -199,7 +199,7 @@ def learn_embeddings_model(filename="cleaned_text_messages.csv"):
     X_train, X_test, labels_train, labels_test = train_test_split(X, y, test_size=0.125)
 
     # Repeat the positives here if I want to
-    X_train, labels_train = repeat_positives(X_train, labels_train, repeats=2)
+    X_train, labels_train = repeat_positives(X_train, labels_train, repeats=8)
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
     print("Dev 1's proportion = " + str(round(np.count_nonzero(labels_dev) / len(labels_dev), 4)))
@@ -235,8 +235,6 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     # get the data
     X, labels = get_data(n=20000, filename=filename)
 
-    # X, labels = repeat_positives(X, labels, repeats=2)
-
     # prepare tokenizer
     t = Tokenizer()
     t.fit_on_texts(texts=X)
@@ -255,7 +253,7 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     X_train, X_test, labels_train, labels_test = train_test_split(X, y, test_size=0.125)
 
     # Repeat the positives here if I want to. IF FAILS, LOOK AT CLASS WEIGHTS
-    # X_train, labels_train = repeat_positives(X_train, labels_train, repeats=2)
+    X_train, labels_train = repeat_positives(X_train, labels_train, repeats=8)
 
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
@@ -272,17 +270,17 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
                   input_length=max_len, trainable=False)
     model.add(e)
 
-    model.add(Conv1D(filters=40, kernel_size=5, strides=2, padding='valid'))
-    model.add(MaxPool1D(pool_size=2, strides=1))
+    # model.add(Conv1D(filters=30, kernel_size=3, strides=2, padding='valid'))
+    # model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(Conv1D(filters=20, kernel_size=3, strides=2, padding='valid'))
-    model.add(MaxPool1D(pool_size=2, strides=1))
+    # model.add(Conv1D(filters=20, kernel_size=3, strides=2, padding='valid'))
+    # model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(Conv1D(filters=10, kernel_size=3, strides=1, padding='valid'))
-    model.add(MaxPool1D(pool_size=2, strides=1))
+    # model.add(Conv1D(filters=10, kernel_size=3, strides=1, padding='valid'))
+    # model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5))
-    # model.add(BatchNormalization())
+    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
+    model.add(BatchNormalization())
     model.add(Dense(units=1, activation='sigmoid'))
 
     # load a pre-saved model

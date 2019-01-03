@@ -113,7 +113,7 @@ def get_pad_length(filename):
     elif filename == "cleaned_twitter_dataset.csv":
         return 30
     else:  # cleaned_formspring.csv is up to length 1200
-        return 100
+        return 1000
 
 
 def save_model(model, path):
@@ -280,7 +280,7 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     # model.add(MaxPool1D(pool_size=2, strides=1))
 
     model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
-    model.add(BatchNormalization())
+    # model.add(BatchNormalization())
     model.add(Dense(units=1, activation='sigmoid'))
 
     # load a pre-saved model
@@ -293,7 +293,7 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     # fit the model
     print("Fitting the model...")
     model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_dev, labels_dev),
-              nb_epoch=300, batch_size=128, callbacks=[metrics])
+              nb_epoch=100, batch_size=128, callbacks=[metrics])
     # ------------------ END EDIT ------------------
 
     # evaluate
@@ -305,5 +305,5 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
 save_path = "TEST"
 print("TEST")
 filename = "cleaned_formspring.csv"
-learn_embeddings_model(filename)
-# simple_glove_LSTM_model(filename)
+# learn_embeddings_model(filename)
+simple_glove_LSTM_model(filename)

@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/dataset_analysis.py" afterPath="$PROJECT_DIR$/dataset_analysis.py" />
+      <change beforePath="$PROJECT_DIR$/DL_classifiers.py" afterPath="$PROJECT_DIR$/DL_classifiers.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DL_classifiers.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DL_classifiers.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="178" column="29" lean-forward="false" selection-start-line="178" selection-start-column="29" selection-end-line="178" selection-end-column="29" />
+            <state relative-caret-position="333">
+              <caret line="255" column="78" lean-forward="false" selection-start-line="255" selection-start-column="78" selection-end-line="255" selection-end-column="78" />
               <folding>
                 <element signature="e#1000#1579#0" expanded="false" />
                 <element signature="e#1633#2024#0" expanded="false" />
@@ -29,31 +29,7 @@
                 <element signature="e#3325#3616#0" expanded="false" />
                 <element signature="e#3645#4016#0" expanded="false" />
                 <element signature="e#4048#5254#0" expanded="false" />
-                <element signature="e#7566#10380#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dataset_analysis.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dataset_analysis.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2475">
-              <caret line="169" column="107" lean-forward="false" selection-start-line="169" selection-start-column="107" selection-end-line="169" selection-end-column="107" />
-              <folding>
-                <element signature="e#9003#15454#0" expanded="false" />
-                <element signature="e#15480#22118#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="plot_val_acc.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="7" column="34" lean-forward="true" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -101,9 +77,9 @@
         <option value="$PROJECT_DIR$/twitter_dataset.csv" />
         <option value="$PROJECT_DIR$/ML_classifiers_combined.py" />
         <option value="$PROJECT_DIR$/my_DL_slurm" />
-        <option value="$PROJECT_DIR$/DL_classifiers.py" />
         <option value="$PROJECT_DIR$/dataset_analysis.py" />
         <option value="$PROJECT_DIR$/plot_val_acc.py" />
+        <option value="$PROJECT_DIR$/DL_classifiers.py" />
       </list>
     </option>
   </component>
@@ -157,7 +133,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.plot_val_acc">
+  <component name="RunManager" selected="Python.DL_classifiers">
     <configuration name="DL_classifiers" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -257,9 +233,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.plot_val_acc" />
-        <item index="1" class="java.lang.String" itemvalue="Python.dataset_analysis" />
-        <item index="2" class="java.lang.String" itemvalue="Python.DL_classifiers" />
+        <item index="0" class="java.lang.String" itemvalue="Python.DL_classifiers" />
+        <item index="1" class="java.lang.String" itemvalue="Python.plot_val_acc" />
+        <item index="2" class="java.lang.String" itemvalue="Python.dataset_analysis" />
         <item index="3" class="java.lang.String" itemvalue="Python.ML_classifiers_combined" />
         <item index="4" class="java.lang.String" itemvalue="Python.myformspring" />
       </list>
@@ -284,10 +260,10 @@
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3035294" sideWeight="0.50555557" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3035294" sideWeight="0.49444443" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3035294" sideWeight="0.49444443" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -321,134 +297,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/myattack.py" />
-    <entry file="file://$PROJECT_DIR$/naughty_words.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/svm_classifier.py" />
-    <entry file="file://$PROJECT_DIR$/naive_norm_classifier.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="61" column="32" lean-forward="false" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Screenshots/length graph.png" />
-    <entry file="file://$PROJECT_DIR$/Screenshots/naughty word dist. 1-7 (bullying instances).png" />
-    <entry file="file://$PROJECT_DIR$/Screenshots/naughty word dist. 1-7.png" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="4" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/my_ngram_slurm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="16" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="21" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/my_termfreq_slurm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="27" lean-forward="false" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/my_termcount_slurm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="17" lean-forward="false" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/my_glove_slurm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="12" lean-forward="false" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/my_ML_slurm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="30" lean-forward="false" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ngram_classifier.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="950">
-          <caret line="179" column="25" lean-forward="true" selection-start-line="179" selection-start-column="25" selection-end-line="179" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/glove_classifier.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="107" column="66" lean-forward="false" selection-start-line="107" selection-start-column="66" selection-end-line="107" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/term_count_classifier.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="37" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/term_freq_classifier.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4">
-          <caret line="96" column="31" lean-forward="true" selection-start-line="96" selection-start-column="31" selection-end-line="96" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Screenshots/twitter_naughty word dist. 1-7 (bullying instances).png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Screenshots/twitter_naughty word dist. 1-7.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Screenshots/twitter_length graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cleaned_twitter_dataset.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="954" column="22" lean-forward="false" selection-start-line="954" selection-start-column="18" selection-end-line="954" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Durham/DISS/OLD STUFF/SourceCode/myformspring.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="29" column="35" lean-forward="false" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Screenshots/naive classifier graph 2.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Screenshots/naive classifier graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Screenshots/formspring_naughty word dist. 1-7 (bullying instances).png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -511,10 +359,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2475">
           <caret line="169" column="107" lean-forward="false" selection-start-line="169" selection-start-column="107" selection-end-line="169" selection-end-column="107" />
-          <folding>
-            <element signature="e#9003#15454#0" expanded="false" />
-            <element signature="e#15480#22118#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -532,10 +376,82 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4905 val_acc graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4905 f1 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4909 f1 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4909 val_acc graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4908 f1 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4908 val_acc graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4906 f1 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4906 val_acc graph.png" />
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.4/lib/python3.4/site-packages/matplotlib/pyplot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="178" column="29" lean-forward="false" selection-start-line="178" selection-start-column="29" selection-end-line="178" selection-end-column="29" />
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4907 val_acc graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4907 f1 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4920 val_acc graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4920 f1 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4921 val_acc graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4921 f1 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4910 val_acc graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4910 f1 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4922 val_acc graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4922 f1 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4923 val_acc graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4923 f1 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4924 val_acc graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4924 f1 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/5061 val_acc graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/5062 val_acc graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/5062 f1 graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/5058 val_acc graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/5058 f1 graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/5061 f1 graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/5060 f1 graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="3" column="12" lean-forward="false" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="255" column="78" lean-forward="false" selection-start-line="255" selection-start-column="78" selection-end-line="255" selection-end-column="78" />
           <folding>
             <element signature="e#1000#1579#0" expanded="false" />
             <element signature="e#1633#2024#0" expanded="false" />
@@ -546,30 +462,7 @@
             <element signature="e#3325#3616#0" expanded="false" />
             <element signature="e#3645#4016#0" expanded="false" />
             <element signature="e#4048#5254#0" expanded="false" />
-            <element signature="e#7566#10380#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/4905 val_acc graph.png" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/4905 f1 graph.png" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/4909 f1 graph.png" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/4909 val_acc graph.png" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/4908 f1 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/4908 val_acc graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="7" column="34" lean-forward="true" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>

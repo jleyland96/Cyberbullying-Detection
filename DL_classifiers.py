@@ -113,7 +113,7 @@ def get_pad_length(filename):
     elif filename == "cleaned_twitter_dataset.csv":
         return 30
     else:  # cleaned_formspring.csv is up to length 1200
-        return 1000
+        return 100
 
 
 def save_model(model, path):
@@ -253,7 +253,7 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     X_train, X_test, labels_train, labels_test = train_test_split(X, y, test_size=0.125)
 
     # Repeat the positives here if I want to. IF FAILS, LOOK AT CLASS WEIGHTS
-    X_train, labels_train = repeat_positives(X_train, labels_train, repeats=8)
+    X_train, labels_train = repeat_positives(X_train, labels_train, repeats=2)
 
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
@@ -279,7 +279,7 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     # model.add(Conv1D(filters=10, kernel_size=3, strides=1, padding='valid'))
     # model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=32, dropout=0.5, recurrent_dropout=0.5))
     # model.add(BatchNormalization())
     model.add(Dense(units=1, activation='sigmoid'))
 
@@ -293,7 +293,7 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     # fit the model
     print("Fitting the model...")
     model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_dev, labels_dev),
-              nb_epoch=100, batch_size=128, callbacks=[metrics])
+              nb_epoch=300, batch_size=128, callbacks=[metrics])
     # ------------------ END EDIT ------------------
 
     # evaluate
@@ -304,6 +304,6 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
 
 save_path = "TEST"
 print("TEST")
-filename = "cleaned_formspring.csv"
+filename = "cleaned_text_messages.csv"
 # learn_embeddings_model(filename)
 simple_glove_LSTM_model(filename)

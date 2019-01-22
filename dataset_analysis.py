@@ -68,6 +68,7 @@ def formspring():
         line_count = 0
         http_row_count = 0
         blank_row_count = 0
+        length_running_total = 0
 
         max_norm_naughty = 0
         max_norm_naughty_str = ""
@@ -144,6 +145,7 @@ def formspring():
 
                     # Calculating the normalised naughty count
                     comment_length = len((post.split(' ')))
+                    length_running_total += comment_length
                     length_dict[comment_length] += 1
                     norm = naughty_count / len((post.split(' ')))
                     if norm > max_norm_naughty:
@@ -183,6 +185,7 @@ def formspring():
                   "negative examples in non-naughty posts")
             print(http_row_count, "posts with a URL")
             print(blank_row_count, "rows with no text")
+            print("Average length:", length_running_total/12773)
             print("Average norm value:", norm_sum / 12773)
             print("Average norm value in naughty word tweets:", norm_naughty_sum / 1965)
             print("Maximum norm:", max_norm_naughty)
@@ -258,6 +261,7 @@ def tweets_1000():
                 is_blank = False
                 contains_url = False
                 naughty_count = 0
+                length_running_total = 0
 
                 if line_count == 0:
                     print("\n", row)
@@ -293,6 +297,7 @@ def tweets_1000():
 
                     # Calculating the normalised naughty count
                     comment_length = len((tweet.split(' ')))
+                    length_running_total += comment_length
                     length_dict[comment_length] += 1
                     norm = naughty_count / len((tweet.split(' ')))
                     if norm > max_norm_naughty:
@@ -331,8 +336,9 @@ def tweets_1000():
                   "negative examples in non-naughty tweets")
             print(http_row_count, "tweets with a URL")
             print(blank_row_count, "rows with no text")
-            print("Average norm value:", norm_sum / 8817)
-            print("Average norm value in naughty word tweets:", norm_naughty_sum / 4477)
+            print("Average tweet length:", length_running_total)
+            print("Average norm value:", norm_sum / 1065)
+            print("Average norm value in naughty word tweets:", norm_naughty_sum / 471)
             print("Maximum norm:", max_norm_naughty)
             print("String:", max_norm_naughty_str)
             print("Label:", max_norm_naughty_label, "\n")
@@ -383,6 +389,7 @@ def tweets_8000():
         line_count = 0
         http_row_count = 0
         blank_row_count = 0
+        length_running_total = 0
 
         max_norm_naughty = 0
         max_norm_naughty_str = ""
@@ -448,6 +455,7 @@ def tweets_8000():
                     # Calculating the normalised naughty count
                     comment_length = len((text_message.split(' ')))
                     length_dict[comment_length] += 1
+                    length_running_total += comment_length
                     norm = naughty_count / len((text_message.split(' ')))
                     if norm > max_norm_naughty:
                         max_norm_naughty = norm
@@ -482,8 +490,9 @@ def tweets_8000():
             print("There are", label_count_not_naughty[1], "positive examples, and", label_count_not_naughty[0], "negative examples in non-naughty tweets")
             print(http_row_count, "tweets with a URL")
             print(blank_row_count, "rows with no text")
+            print("Average tweet length:", length_running_total/8817)
             print("Average norm value:", norm_sum/8817)
-            print("Average norm value in naughty word tweets:", norm_naughty_sum/4477)
+            print("Average norm value in naughty word tweets:", norm_naughty_sum/4340)
             print("Maximum norm:", max_norm_naughty)
             print("String:", max_norm_naughty_str)
             print("Label:", max_norm_naughty_label, "\n")
@@ -523,7 +532,7 @@ def tweets_8000():
                 print("There are", attack_dict[key], "bullying messages with", key, "naughty words in.")
 
 
-# formspring()
-# tweets_8000()
-# tweets_1000()
-correlation()
+formspring()
+tweets_8000()
+tweets_1000()
+# correlation()

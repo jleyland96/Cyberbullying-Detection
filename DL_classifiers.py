@@ -19,6 +19,7 @@ from keras.preprocessing.text import Tokenizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, f1_score, precision_score, recall_score, accuracy_score
+import matplotlib.pyplot as plt
 
 
 # 'global' variable to store sequence of validation accuracies
@@ -109,7 +110,7 @@ def get_glove_matrix(vocab_size, t):
 
 def get_pad_length(filename):
     if filename == "cleaned_text_messages.csv":
-        return 40
+        return 20
     elif filename == "cleaned_twitter_dataset.csv":
         return 30
     else:  # cleaned_formspring.csv is up to length 1200
@@ -163,9 +164,9 @@ class Metrics(Callback):
         f1_results.append(round(_val_f1, 3))
 
         # Print validation accuracy and f1 scores (so we can plot later)
-        print("\nVAL_ACC:\n", validation_results)
-        print("\n\n")
-        print("F1:\n", f1_results)
+        # print("\nVAL_ACC:\n", validation_results)
+        # print("\n\n")
+        # print("F1:\n", f1_results)
 
         # Save the model for another time
         # save_model(self.model, save_path)
@@ -249,15 +250,17 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
     # split to get dev data (0.2), then split to get train/test data (0.7 and 0.1)
-    X, X_dev, y, labels_dev = train_test_split(padded_docs, labels, test_size=0.20)
-    X_train, X_test, labels_train, labels_test = train_test_split(X, y, test_size=0.125)
+    # X, X_dev, y, labels_dev = train_test_split(padded_docs, labels, test_size=0.20)
+    # X_train, X_test, labels_train, labels_test = train_test_split(X, y, test_size=0.125)
+
+    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.10)
 
     # Repeat the positives here if I want to. IF FAILS, LOOK AT CLASS WEIGHTS
     # X_train, labels_train = repeat_positives(X_train, labels_train, repeats=2)
 
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
-    print("Dev 1's proportion = " + str(round(np.count_nonzero(labels_dev) / len(labels_dev), 4)))
+    # print("Dev 1's proportion = " + str(round(np.count_nonzero(labels_dev) / len(labels_dev), 4)))
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
     print()
 
@@ -279,7 +282,7 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     # model.add(Conv1D(filters=10, kernel_size=3, strides=1, padding='valid'))
     # model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=50, dropout=0.4, recurrent_dropout=0.4))
     # model.add(BatchNormalization())
     model.add(Dense(units=1, activation='sigmoid'))
 
@@ -292,8 +295,8 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
 
     # fit the model
     print("Fitting the model...")
-    model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_dev, labels_dev),
-              nb_epoch=300, batch_size=128, callbacks=[metrics])
+    history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_train, labels_train),
+                        nb_epoch=5, batch_size=64, callbacks=[metrics])
     # ------------------ END EDIT ------------------
 
     # evaluate
@@ -301,9 +304,17 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
     print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
 
+    plt.plot(history.history['acc'])
+    plt.plot(history.history['val_acc'])
+    plt.plot(f1_results)
+    plt.title('model accuracy and f1 score')
+    plt.ylabel('accuracy/f1')
+    plt.xlabel('epoch')
+    plt.legend(['train', 'test', 'f1'], loc='upper left')
+    plt.savefig('keras_vis/5000 graph.png')
+
 
 save_path = "TEST"
-print("TEST")
-filename = "cleaned_twitter_dataset.csv"
-learn_embeddings_model(filename)
+filename = "cleaned_text_messages.csv"
+# learn_embeddings_model(filename)
 simple_glove_LSTM_model(filename)

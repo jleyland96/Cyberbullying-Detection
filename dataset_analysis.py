@@ -1,10 +1,24 @@
-print("starting to run myattack.py")
+print("starting to run dataset_analysis.py")
 
 import csv
 import re
 from collections import defaultdict
 import numpy as np
 import matplotlib.pyplot as plt
+
+# GLOVE. Create dictionary where keys are words and the values are the vectors for the words
+print("getting GLOVE embeddings size 300...")
+file = open('glove.6B/glove.6B.300d.txt', "r").readlines()
+gloveDict = {}
+for line in file:
+    info = line.split(' ')
+    key = info[0]
+    vec = []
+    for elem in info[1:]:
+        vec.append(elem.rstrip())
+    gloveDict[key] = vec
+print(len(gloveDict), "words in the GLOVE dictionary\n")
+
 
 def correlation():
     with open('cleaned_formspring.csv') as csv_file_2:
@@ -75,6 +89,12 @@ def formspring():
         max_norm_naughty_label = 0
         norm_sum = 0
         norm_naughty_sum = 0
+
+        glove_running_total_before = 0
+        glove_zero_count_before = 0
+        glove_running_total_after = 0
+        glove_zero_count_after = 0
+        max_glove_len = 0
 
         # titles: ['rev_id', 'comment', 'year', 'logged_in', 'ns', 'sample', 'split', 'attack']
         with open('cleaned_formspring.csv', mode='w') as csv_write_file:
@@ -166,10 +186,40 @@ def formspring():
                         # count the 1s and 0s in non-naughty word messages
                         label_count_not_naughty[label_bullying] += 1
 
+                    # ------ GLOVE -------
+                    # for each word in this sentence
+                    count = 0
+                    for word in post.split(' '):
+                        # if the word is in our gloveDict, then add element-wise to our output X
+                        if word in gloveDict:
+                            count += 1
+
+                    glove_running_total_before += count
+                    if count == 0:
+                        glove_zero_count_before += 1
+                    # ----- END GLOVE ----
+
+                    clean_comment = re.sub('<br>', ' ', post)
+                    clean_comment = re.sub('[\":=#&;()@\'?<>!,./\\\*\\n1234567890]', '', clean_comment)
+
+                    # ------ GLOVE -------
+                    # for each word in this sentence
+                    count = 0
+                    for word in clean_comment.lower().split(' '):
+                        # if the word is in our gloveDict, then add element-wise to our output X
+                        if word in gloveDict:
+                            count += 1
+
+                    glove_running_total_after += count
+                    if count == 0:
+                        glove_zero_count_after += 1
+
+                    if count > max_glove_len:
+                        max_glove_len = count
+                    # ----- END GLOVE ----
+
                     # Write to clean file, removing the apostrophes
-                    if not (is_blank):
-                        clean_comment = re.sub('<br>', ' ', post)
-                        clean_comment = re.sub('[\":=#&;()@\'?<>!,./\\\*\\n1234567890]', '', clean_comment)
+                    if not(is_blank) and count>0:
                         csv_writer.writerow(
                             [label_bullying, clean_comment.lower(), contains_url, naughty_count, norm])
 
@@ -185,45 +235,62 @@ def formspring():
                   "negative examples in non-naughty posts")
             print(http_row_count, "posts with a URL")
             print(blank_row_count, "rows with no text")
-            print("Average length:", length_running_total/12773)
             print("Average norm value:", norm_sum / 12773)
             print("Average norm value in naughty word tweets:", norm_naughty_sum / 1965)
             print("Maximum norm:", max_norm_naughty)
             print("String:", max_norm_naughty_str)
-            print("Label:", max_norm_naughty_label, "\n")
+            print("Label:", max_norm_naughty_label)
+            print("Average tweet length:", length_running_total / 12773)
+            print("Average glove count before:", glove_running_total_before / 12773)
+            print("Glove zero count before:", glove_zero_count_before)
+            print("Average glove count after:", glove_running_total_after / 12773)
+            print("Glove zero count after:", glove_zero_count_after)
+            print("Max glove count:", max_glove_len)
+
+            print(max(list(length_dict.keys())))
 
             # NAUGHTY DICT PLOT
-            plt.plot(naughty_dict.keys(), naughty_dict.values())
-            # plt.axis([0, 7, 0, 5000])
-            plt.title("distribution of naughty words over all posts")
-            plt.savefig("Screenshots/formspring_naughty word dist. 1-7.png")
-            # plt.show()
+            # plt.close()
+            # plt.plot(naughty_dict.keys(), naughty_dict.values())
+            # # plt.axis([0, 7, 0, 5000])
+            # plt.title("distribution of naughty words over all posts")
+            # plt.savefig("Screenshots/formspring_naughty word dist. 1-7.png")
+            # # plt.show()
+            #
+            # plt.close()
+            #
+            # # ATTACK DICT PLOT
+            # plt.plot(attack_dict.keys(), attack_dict.values())
+            # # plt.axis([0, 7, 0, 1200])
+            # plt.title("distribution of naughty words over the bullying posts")
+            # plt.savefig("Screenshots/formspring_naughty word dist. 1-7 (bullying instances).png")
+            # # plt.show()
+            #
+            # plt.close()
+            #
+            # # LENGTH PLOT
+            # print(length_dict)
+            # length_keys = list(sorted(length_dict.keys()))
+            # length_values = []
+            # for i in length_keys:
+            #     length_values.append(length_dict[i])
+            # print(length_keys)
+            # print(length_values)
+            #
+            # plt.plot(length_keys, length_values)
+            # plt.xlabel("length")
+            # plt.ylabel("frequency")
+            # plt.title("Number of tweets with certain lengths. N=1065")
+            # plt.savefig("Screenshots/formspring_length graph.png")
 
-            plt.close()
-
-            # ATTACK DICT PLOT
-            plt.plot(attack_dict.keys(), attack_dict.values())
-            # plt.axis([0, 7, 0, 1200])
-            plt.title("distribution of naughty words over the bullying posts")
-            plt.savefig("Screenshots/formspring_naughty word dist. 1-7 (bullying instances).png")
-            # plt.show()
-
-            plt.close()
-
-            # LENGTH PLOT
-            plt.plot(sorted(length_dict.keys()), sorted(length_dict.values()))
-            plt.title("Number of posts with certain lengths. N=12773")
-            plt.savefig("Screenshots/formspring_length graph.png")
-            # plt.show()
-
-            # PRINTING DICTS
-            for key in sorted(naughty_dict):
-                print("There are", naughty_dict[key], "posts with", key, "naughty words in.")
-
-            print("---------------------")
-
-            for key in sorted(attack_dict):
-                print("There are", attack_dict[key], "bullying posts with", key, "naughty words in.")
+            # # PRINTING DICTS
+            # for key in sorted(naughty_dict):
+            #     print("There are", naughty_dict[key], "posts with", key, "naughty words in.")
+            #
+            # print("---------------------")
+            #
+            # for key in sorted(attack_dict):
+            #     print("There are", attack_dict[key], "bullying posts with", key, "naughty words in.")
 
 
 def tweets_1000():
@@ -244,6 +311,13 @@ def tweets_1000():
         max_norm_naughty_label = 0
         norm_sum = 0
         norm_naughty_sum = 0
+        length_running_total = 0
+
+        glove_running_total_before = 0
+        glove_zero_count_before = 0
+        glove_running_total_after = 0
+        glove_zero_count_after = 0
+        max_glove_len = 0
 
         # titles: ['rev_id', 'comment', 'year', 'logged_in', 'ns', 'sample', 'split', 'attack']
         with open('cleaned_twitter_dataset.csv', mode='w') as csv_write_file:
@@ -261,7 +335,6 @@ def tweets_1000():
                 is_blank = False
                 contains_url = False
                 naughty_count = 0
-                length_running_total = 0
 
                 if line_count == 0:
                     print("\n", row)
@@ -318,9 +391,39 @@ def tweets_1000():
                         # count the 1s and 0s in non-naughty word messages
                         label_count_not_naughty[label_bullying] += 1
 
+                    # ------ GLOVE -------
+                    # for each word in this sentence
+                    count = 0
+                    for word in tweet.split(' '):
+                        # if the word is in our gloveDict, then add element-wise to our output X
+                        if word in gloveDict:
+                            count += 1
+
+                    glove_running_total_before += count
+                    if count == 0:
+                        glove_zero_count_before += 1
+                    # ----- END GLOVE ----
+
+                    no_punct_comment = re.sub('[\":=#&;\'?!,./\\\*\\n]', '', tweet)
+
+                    # ------ GLOVE -------
+                    # for each word in this sentence
+                    count = 0
+                    for word in no_punct_comment.lower().split(' '):
+                        # if the word is in our gloveDict, then add element-wise to our output X
+                        if word in gloveDict:
+                            count += 1
+
+                    glove_running_total_after += count
+                    if count == 0:
+                        glove_zero_count_after += 1
+
+                    if count > max_glove_len:
+                        max_glove_len = count
+                    # ----- END GLOVE ----
+
                     # Write to clean file, removing the apostrophes
-                    if not (is_blank):
-                        no_punct_comment = re.sub('[\":=#&;\'?!,./\\\*\\n]', '', tweet)
+                    if not (is_blank) and count>0:
                         csv_writer.writerow(
                             [label_bullying, no_punct_comment.lower(), contains_url, naughty_count, norm])
 
@@ -336,45 +439,64 @@ def tweets_1000():
                   "negative examples in non-naughty tweets")
             print(http_row_count, "tweets with a URL")
             print(blank_row_count, "rows with no text")
-            print("Average tweet length:", length_running_total)
             print("Average norm value:", norm_sum / 1065)
             print("Average norm value in naughty word tweets:", norm_naughty_sum / 471)
             print("Maximum norm:", max_norm_naughty)
             print("String:", max_norm_naughty_str)
-            print("Label:", max_norm_naughty_label, "\n")
+            print("Label:", max_norm_naughty_label)
+            print("Average tweet length:", length_running_total / 1065)
+            print("Average glove count before:", glove_running_total_before / 1065)
+            print("Glove zero count before:", glove_zero_count_before)
+            print("Average glove count after:", glove_running_total_after / 1065)
+            print("Glove zero count after:", glove_zero_count_after)
+            print("Max glove count:", max_glove_len)
 
-            # NAUGHTY DICT PLOT
-            plt.plot(naughty_dict.keys(), naughty_dict.values())
-            # plt.axis([0, 7, 0, 5000])
-            plt.title("distribution of naughty words over all tweets")
-            plt.savefig("Screenshots/twitter_naughty word dist. 1-7.png")
-            # plt.show()
+            print(max(list(length_dict.keys())))
 
-            plt.close()
+            # # NAUGHTY DICT PLOT
+            # plt.close()
+            # plt.plot(naughty_dict.keys(), naughty_dict.values())
+            # # plt.axis([0, 12, 0, 700])
+            # plt.title("distribution of naughty words over all Tweets")
+            # plt.savefig("Screenshots/twitter_naughty word dist. 1-7.png")
+            # # plt.show()
+            #
+            # plt.close()
+            #
+            # # ATTACK DICT PLOT
+            # plt.plot(attack_dict.keys(), attack_dict.values())
+            # # plt.axis([0, 12, 0, 200])
+            # plt.title("distribution of naughty words over the bullying tweets")
+            # plt.savefig("Screenshots/twitter_naughty word dist. 1-7 (bullying instances).png")
+            # # plt.show()
+            #
+            # plt.close()
+            #
+            # # LENGTH PLOT
+            # print(length_dict)
+            # length_keys = list(sorted(length_dict.keys()))
+            # length_values = []
+            # for i in length_keys:
+            #     length_values.append(length_dict[i])
+            # print(length_keys)
+            # print(length_values)
+            #
+            # plt.plot(length_keys, length_values)
+            # plt.xlabel("length")
+            # plt.ylabel("frequency")
+            # plt.title("Number of tweets with certain lengths. N=1065")
+            # plt.savefig("Screenshots/twitter_length graph.png")
+            #
+            # plt.close()
 
-            # ATTACK DICT PLOT
-            plt.plot(attack_dict.keys(), attack_dict.values())
-            # plt.axis([0, 7, 0, 1200])
-            plt.title("distribution of naughty words over the bullying tweets")
-            plt.savefig("Screenshots/twitter_naughty word dist. 1-7 (bullying instances).png")
-            # plt.show()
-
-            plt.close()
-
-            # LENGTH PLOT
-            plt.plot(sorted(length_dict.keys()), sorted(length_dict.values()))
-            plt.title("Number of tweets with certain lengths. N=1065")
-            plt.savefig("Screenshots/twitter_length graph.png")
-            # plt.show()
-
-            # PRINTING DICTS
-            for key in sorted(naughty_dict):
-                print("There are", naughty_dict[key], "tweets with", key, "naughty words in.")
-
-            print("---------------------")
-
-            for key in sorted(attack_dict):
-                print("There are", attack_dict[key], "bullying tweets with", key, "naughty words in.")
+            # # PRINTING DICTS
+            # for key in sorted(naughty_dict):
+            #     print("There are", naughty_dict[key], "tweets with", key, "naughty words in.")
+            #
+            # print("---------------------")
+            #
+            # for key in sorted(attack_dict):
+            #     print("There are", attack_dict[key], "bullying tweets with", key, "naughty words in.")
 
 
 def tweets_8000():
@@ -396,6 +518,12 @@ def tweets_8000():
         max_norm_naughty_label = 0
         norm_sum = 0
         norm_naughty_sum = 0
+
+        glove_running_total_before = 0
+        glove_zero_count_before = 0
+        glove_running_total_after = 0
+        glove_zero_count_after = 0
+        max_glove_len = 0
 
         # titles: ['rev_id', 'comment', 'year', 'logged_in', 'ns', 'sample', 'split', 'attack']
         with open('cleaned_text_messages.csv', mode='w') as csv_write_file:
@@ -475,10 +603,41 @@ def tweets_8000():
                         # count the 1s and 0s in non-naughty word messages
                         label_count_not_naughty[label_bullying] += 1
 
+                    # ------ GLOVE -------
+                    # for each word in this sentence
+                    count = 0
+                    for word in text_message.split(' '):
+                        # if the word is in our gloveDict, then add element-wise to our output X
+                        if word in gloveDict:
+                            count += 1
+
+                    glove_running_total_before += count
+                    if count == 0:
+                        glove_zero_count_before += 1
+                    # ----- END GLOVE ----
+
+                    no_punct_comment = re.sub('[\":=#&;\'?!@,./\\\\\n*]', '', text_message)
+
+                    # ------ GLOVE -------
+                    # for each word in this sentence
+                    count = 0
+                    for word in no_punct_comment.lower().split(' '):
+                        # if the word is in our gloveDict, then add element-wise to our output X
+                        if word in gloveDict:
+                            count += 1
+
+                    glove_running_total_after += count
+                    if count == 0:
+                        glove_zero_count_after += 1
+
+                    if count > max_glove_len:
+                        max_glove_len = count
+                    # ----- END GLOVE ----
+
                     # Write to clean file, removing the apostrophes
-                    if not (is_blank) and not (is_NAME):
-                        no_punct_comment = re.sub('[\":=#&;\'?!@,./\\\\\n*]', '', text_message)
-                        csv_writer.writerow([label_bullying, no_punct_comment.lower(), contains_url, naughty_count, norm])
+                    if not (is_blank) and not (is_NAME) and count>0:
+                        csv_writer.writerow(
+                            [label_bullying, no_punct_comment.lower(), contains_url, naughty_count, norm])
 
                     # print current progress of lines processed
                     if line_count % 1000 == 0:
@@ -490,49 +649,66 @@ def tweets_8000():
             print("There are", label_count_not_naughty[1], "positive examples, and", label_count_not_naughty[0], "negative examples in non-naughty tweets")
             print(http_row_count, "tweets with a URL")
             print(blank_row_count, "rows with no text")
-            print("Average tweet length:", length_running_total/8817)
             print("Average norm value:", norm_sum/8817)
             print("Average norm value in naughty word tweets:", norm_naughty_sum/4340)
             print("Maximum norm:", max_norm_naughty)
             print("String:", max_norm_naughty_str)
-            print("Label:", max_norm_naughty_label, "\n")
+            print("Label:", max_norm_naughty_label)
+            print("Average tweet length:", length_running_total/8817)
+            print("Average glove count before:", glove_running_total_before / 8817)
+            print("Glove zero count before:", glove_zero_count_before)
+            print("Average glove count after:", glove_running_total_after / 8817)
+            print("Glove zero count after:", glove_zero_count_after)
+            print("Max glove count:", max_glove_len)
+
+            print(max(list(length_dict.keys())))
+
+            # plt.plot(naughty_dict.keys(), naughty_dict.values())
+            # plt.axis([0, 7, 0, 5000])
+            # plt.xlabel("number of naughty words")
+            # plt.ylabel("frequency")
+            # plt.title("distribution of naughty words over tweets/naughty texts")
+            # plt.savefig("Screenshots/tweets8000_naughty word dist. 1-7.png")
+            # # plt.show()
+            #
+            # plt.close()
+            #
+            # # ATTACK DICT PLOT
+            # plt.plot(attack_dict.keys(), attack_dict.values())
+            # plt.axis([0, 7, 0, 1200])
+            # plt.xlabel("number of naughty words")
+            # plt.ylabel("frequency")
+            # plt.title("distribution of naughty words over the bullying texts")
+            # plt.savefig("Screenshots/tweets8000_naughty word dist. 1-7 (bullying instances).png")
+            # # plt.show()
+            #
+            # plt.close()
+            #
+            # print(length_dict)
+            # length_keys = list(sorted(length_dict.keys()))
+            # length_values = []
+            # for i in length_keys:
+            #     length_values.append(length_dict[i])
+            # print(length_keys)
+            # print(length_values)
+            #
+            # plt.plot(length_keys, length_values)
+            # plt.xlabel("length")
+            # plt.ylabel("frequency")
+            # plt.title("Number of texts with certain lengths. N=8817")
+            # plt.savefig("Screenshots/tweets8000_length graph.png")
+
+            # # PRINTING DICTS
+            # for key in sorted(naughty_dict):
+            #     print("There are", naughty_dict[key], "tweets messages with", key, "naughty words in.")
+            #
+            # print("---------------------")
+            #
+            # for key in sorted(attack_dict):
+            #     print("There are", attack_dict[key], "bullying messages with", key, "naughty words in.")
 
 
-            # NAUGHTY DICT PLOT
-            plt.plot(naughty_dict.keys(), naughty_dict.values())
-            plt.axis([0, 7, 0, 5000])
-            plt.title("distribution of naughty words over all tweets")
-            plt.savefig("Screenshots/tweets8000_naughty word dist. 1-7.png")
-            # plt.show()
-
-            plt.close()
-
-            # ATTACK DICT PLOT
-            plt.plot(attack_dict.keys(), attack_dict.values())
-            plt.axis([0, 7, 0, 1200])
-            plt.title("distribution of naughty words over the bullying tweets")
-            plt.savefig("Screenshots/tweets8000_naughty word dist. 1-7 (bullying instances).png")
-            # plt.show()
-
-            plt.close()
-
-            # LENGTH PLOT
-            plt.plot(sorted(length_dict.keys()), sorted(length_dict.values()))
-            plt.title("Number of messages with certain lengths. N=8817")
-            plt.savefig("Screenshots/tweets8000_length graph.png")
-            # plt.show()
-
-            # PRINTING DICTS
-            for key in sorted(naughty_dict):
-                print("There are", naughty_dict[key], "tweets messages with", key, "naughty words in.")
-
-            print("---------------------")
-
-            for key in sorted(attack_dict):
-                print("There are", attack_dict[key], "bullying messages with", key, "naughty words in.")
-
-
-formspring()
+# formspring()
 tweets_8000()
 tweets_1000()
 # correlation()

@@ -164,9 +164,9 @@ class Metrics(Callback):
         f1_results.append(round(_val_f1, 3))
 
         # Print validation accuracy and f1 scores (so we can plot later)
-        # print("\nVAL_ACC:\n", validation_results)
-        # print("\n\n")
-        # print("F1:\n", f1_results)
+        print("\nVAL_ACC:\n", validation_results)
+        print("\n\n")
+        print("F1:\n", f1_results)
 
         # Save the model for another time
         # save_model(self.model, save_path)
@@ -295,8 +295,8 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
 
     # fit the model
     print("Fitting the model...")
-    history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_train, labels_train),
-                        nb_epoch=5, batch_size=64, callbacks=[metrics])
+    history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
+                        nb_epoch=500, batch_size=64, callbacks=[metrics])
     # ------------------ END EDIT ------------------
 
     # evaluate
@@ -304,14 +304,18 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
     print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
 
-    plt.plot(history.history['acc'])
-    plt.plot(history.history['val_acc'])
-    plt.plot(f1_results)
-    plt.title('model accuracy and f1 score')
-    plt.ylabel('accuracy/f1')
-    plt.xlabel('epoch')
-    plt.legend(['train', 'test', 'f1'], loc='upper left')
-    plt.savefig("keras_vis/5000 graph.png")
+    print("TRAIN:", history.history['acc'])
+    print("TEST:", history.history['val_acc'])
+    print("F1:", f1_results)
+
+    # plt.plot(history.history['acc'])
+    # plt.plot(history.history['val_acc'])
+    # plt.plot(f1_results)
+    # plt.title('model accuracy and f1 score')
+    # plt.ylabel('accuracy/f1')
+    # plt.xlabel('epoch')
+    # plt.legend(['train', 'test', 'f1'], loc='upper left')
+    # plt.savefig("keras_vis/5000 graph.png")
 
 
 save_path = "TEST"

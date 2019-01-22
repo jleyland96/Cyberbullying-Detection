@@ -311,7 +311,7 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     plt.ylabel('accuracy/f1')
     plt.xlabel('epoch')
     plt.legend(['train', 'test', 'f1'], loc='upper left')
-    plt.savefig('keras_vis/5000 graph.png')
+    plt.savefig("keras_vis/5000 graph.png")
 
 
 save_path = "TEST"

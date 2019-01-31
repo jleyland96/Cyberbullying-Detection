@@ -20,6 +20,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, f1_score, precision_score, recall_score, accuracy_score
 import matplotlib.pyplot as plt
+import pickle
 
 
 # 'global' variable to store sequence of validation accuracies
@@ -84,6 +85,11 @@ def shuffle_data(X, y):
     return X, y
 
 
+def get_glove_matrix_from_dump():
+    embedding_matrix = pickle.load(open('embedding_matrix.p', 'rb'))
+    return embedding_matrix
+
+
 def get_glove_matrix(vocab_size, t):
     glove_vector_size = 300
 
@@ -104,6 +110,8 @@ def get_glove_matrix(vocab_size, t):
         embedding_vector = embeddings_index.get(word)
         if embedding_vector is not None:
             embedding_matrix[i] = embedding_vector
+
+    pickle.dump(embedding_matrix, open('embedding_matrix.p', 'wb'))
 
     return embedding_matrix
 
@@ -249,22 +257,18 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     max_len = get_pad_length(filename)
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
-    # split to get dev data (0.2), then split to get train/test data (0.7 and 0.1)
-    # X, X_dev, y, labels_dev = train_test_split(padded_docs, labels, test_size=0.20)
-    # X_train, X_test, labels_train, labels_test = train_test_split(X, y, test_size=0.125)
-
     X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.10)
 
     # Repeat the positives here if I want to. IF FAILS, LOOK AT CLASS WEIGHTS
     # X_train, labels_train = repeat_positives(X_train, labels_train, repeats=2)
-
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
     # print("Dev 1's proportion = " + str(round(np.count_nonzero(labels_dev) / len(labels_dev), 4)))
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
     print()
 
-    embedding_matrix = get_glove_matrix(vocab_size, t)
+    # embedding_matrix = get_glove_matrix(vocab_size, t)
+    embedding_matrix = get_glove_matrix_from_dump()
 
     # ---------------- EDIT HERE ----------------
     # define the model
@@ -282,8 +286,11 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     # model.add(Conv1D(filters=10, kernel_size=3, strides=1, padding='valid'))
     # model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(LSTM(units=50, dropout=0.4, recurrent_dropout=0.4))
+    # model.add(LSTM(units=50, dropout=0.4, recurrent_dropout=0.4))
     # model.add(BatchNormalization())
+
+    model.add(Flatten())
+    model.add(Dense(units=10, activation='tanh'))
     model.add(Dense(units=1, activation='sigmoid'))
 
     # load a pre-saved model
@@ -296,7 +303,8 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     # fit the model
     print("Fitting the model...")
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=500, batch_size=64, callbacks=[metrics])
+                        nb_epoch=300, batch_size=32, callbacks=[metrics])
+
     # ------------------ END EDIT ------------------
 
     # evaluate

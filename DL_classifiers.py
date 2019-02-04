@@ -10,6 +10,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Flatten
 from keras.layers import LSTM
+from keras.layers import ReLU
 from keras.layers import Conv1D
 from keras.layers import MaxPool1D
 from keras.layers import Dropout
@@ -291,9 +292,10 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     # model.add(BatchNormalization())
 
     model.add(Flatten())
-    model.add(Dense(units=20, activation='relu'))
-    model.add(Dropout(rate=0.4))
+    model.add(Dense(units=20, activation=None))
     model.add(BatchNormalization())
+    model.add(ReLU())
+    model.add(Dropout(rate=0.4))
     model.add(Dense(units=1, activation='sigmoid'))
 
     # load a pre-saved model

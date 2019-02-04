@@ -1,4 +1,5 @@
 from pickle import load
+import numpy as np
 import csv
 from numpy import array
 from keras.preprocessing.text import Tokenizer
@@ -13,6 +14,15 @@ from keras.layers import Embedding
 from keras.layers.convolutional import Conv1D
 from keras.layers.convolutional import MaxPooling1D
 from keras.layers.merge import concatenate
+from keras import optimizers
+from sklearn.model_selection import train_test_split
+from keras.callbacks import Callback
+from sklearn.metrics import confusion_matrix, f1_score, precision_score, recall_score, accuracy_score
+
+
+# 'global' variable to store sequence of validation accuracies
+validation_results = []
+f1_results = []
 
 
 # load a clean dataset
@@ -63,6 +73,42 @@ def encode_text(tokenizer, lines, length):
     return padded
 
 
+class Metrics(Callback):
+    def on_train_begin(self, logs={}):
+        self.val_f1s = []
+        self.val_recalls = []
+        self.val_precisions = []
+
+    def on_epoch_end(self, epoch, logs={}):
+        val_predict = (np.asarray(self.model.predict([self.validation_data[0], self.validation_data[1], self.validation_data[2]]))).round()
+        val_targ = self.validation_data[3]
+        _val_f1 = f1_score(val_targ, val_predict)
+        _val_recall = recall_score(val_targ, val_predict)
+        _val_precision = precision_score(val_targ, val_predict)
+        _val_acc = accuracy_score(val_targ, val_predict)
+        self.val_f1s.append(_val_f1)
+        self.val_recalls.append(_val_recall)
+        self.val_precisions.append(_val_precision)
+        print("METRICS")
+        print("F1       :", _val_f1)
+        print("PRECISION:", _val_precision)
+        print("RECALL   :", _val_recall)
+        validation_results.append(round(_val_acc, 3))
+        f1_results.append(round(_val_f1, 3))
+
+        # Print validation accuracy and f1 scores (so we can plot later)
+        print("\nVAL_ACC:\n", validation_results)
+        print("\n\n")
+        print("F1:\n", f1_results)
+
+        # Save the model for another time
+        # save_model(self.model, save_path)
+        return
+
+
+metrics = Metrics()
+
+
 # define the model
 def define_model(length, vocab_size):
     # channel 1
@@ -98,6 +144,7 @@ def define_model(length, vocab_size):
     model = Model(inputs=[inputs1, inputs2, inputs3], outputs=outputs)
 
     # compile
+    # adam = optimizers.Adam(lr=0.5, decay=0.005, beta_1=0.92, beta_2=0.9992)
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
     return model
 
@@ -117,10 +164,30 @@ vocab_size = len(tokenizer.word_index) + 1
 # encode data
 trainX = encode_text(tokenizer, trainLines, length)
 
+trainX, testX, trainLabels, testLabels = train_test_split(trainX, trainLabels, test_size=0.10)
+
 # define, fit and save model
 model = define_model(length, vocab_size)
 # fit model
-model.fit([trainX,trainX, trainX], array(trainLabels), epochs=10, batch_size=32)
+trainX = np.array(trainX)
+trainLabels = np.array(trainLabels)
+testX = np.array(testX)
+testLabels = np.array(testLabels)
+
+history = model.fit(x=[trainX, trainX, trainX], y=array(trainLabels),
+                    validation_data=([testX, testX, testX], array(testLabels)),
+                    nb_epoch=30, batch_size=32, callbacks=[metrics])
+
+# Evaluate
+# labels_pred = model.predict_classes(x=X_test)
+loss, accuracy = model.evaluate(x=[testX, testX, testX], y=testLabels, verbose=0)
+print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
+
+print("TRAIN:", history.history['acc'])
+print("\n")
+print("TEST:", history.history['val_acc'])
+print("\n")
+print("F1:", f1_results)
 
 
 # Alt-embedding

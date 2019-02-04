@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/DL_classifiers.py" afterPath="$PROJECT_DIR$/DL_classifiers.py" />
+      <change beforePath="$PROJECT_DIR$/multichannel_cnn.py" afterPath="$PROJECT_DIR$/multichannel_cnn.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,10 +16,9 @@
       <file leaf-file-name="DL_classifiers.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="275" column="54" lean-forward="false" selection-start-line="275" selection-start-column="54" selection-end-line="275" selection-end-column="54" />
+            <state relative-caret-position="345">
+              <caret line="23" column="28" lean-forward="true" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
               <folding>
-                <element signature="e#0#10#0" expanded="true" />
                 <element signature="e#1257#1836#0" expanded="false" />
                 <element signature="e#1890#2281#0" expanded="false" />
                 <element signature="e#2313#2425#0" expanded="false" />
@@ -40,14 +38,15 @@
       <file leaf-file-name="multichannel_cnn.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/multichannel_cnn.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="122" column="79" lean-forward="false" selection-start-line="122" selection-start-column="79" selection-end-line="122" selection-end-column="79" />
+            <state relative-caret-position="269">
+              <caret line="147" column="62" lean-forward="false" selection-start-line="147" selection-start-column="62" selection-end-line="147" selection-end-column="62" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
-                <element signature="e#631#1210#0" expanded="false" />
-                <element signature="e#1264#1342#0" expanded="false" />
-                <element signature="e#1412#1455#0" expanded="false" />
-                <element signature="e#1530#1709#0" expanded="false" />
+                <element signature="e#976#1555#0" expanded="false" />
+                <element signature="e#1609#1687#0" expanded="false" />
+                <element signature="e#1757#1800#0" expanded="false" />
+                <element signature="e#1875#2054#0" expanded="false" />
+                <element signature="e#2086#3328#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -99,9 +98,9 @@
         <option value="$PROJECT_DIR$/ML_classifiers_combined.py" />
         <option value="$PROJECT_DIR$/my_DL_slurm" />
         <option value="$PROJECT_DIR$/dataset_analysis.py" />
-        <option value="$PROJECT_DIR$/plot_val_acc.py" />
         <option value="$PROJECT_DIR$/my_multichannel_slurm" />
         <option value="$PROJECT_DIR$/DL_classifiers.py" />
+        <option value="$PROJECT_DIR$/plot_val_acc.py" />
         <option value="$PROJECT_DIR$/multichannel_cnn.py" />
       </list>
     </option>
@@ -262,8 +261,8 @@
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.multichannel_cnn" />
-        <item index="1" class="java.lang.String" itemvalue="Python.DL_classifiers" />
-        <item index="2" class="java.lang.String" itemvalue="Python.plot_val_acc" />
+        <item index="1" class="java.lang.String" itemvalue="Python.plot_val_acc" />
+        <item index="2" class="java.lang.String" itemvalue="Python.DL_classifiers" />
         <item index="3" class="java.lang.String" itemvalue="Python.dataset_analysis" />
         <item index="4" class="java.lang.String" itemvalue="Python.ML_classifiers_combined" />
       </list>
@@ -321,7 +320,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/DL_graphs/4923 f1 graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/4924 val_acc graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/4924 f1 graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/5061 val_acc graph.png" />
@@ -461,14 +459,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="3" column="11" lean-forward="false" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/my_multichannel_slurm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -485,12 +475,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/CNNE graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="275" column="54" lean-forward="false" selection-start-line="275" selection-start-column="54" selection-end-line="275" selection-end-column="54" />
+        <state relative-caret-position="345">
+          <caret line="23" column="28" lean-forward="true" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1257#1836#0" expanded="false" />
             <element signature="e#1890#2281#0" expanded="false" />
             <element signature="e#2313#2425#0" expanded="false" />
@@ -506,16 +500,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/multichannel_cnn.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="122" column="79" lean-forward="false" selection-start-line="122" selection-start-column="79" selection-end-line="122" selection-end-column="79" />
+        <state relative-caret-position="269">
+          <caret line="147" column="62" lean-forward="false" selection-start-line="147" selection-start-column="62" selection-end-line="147" selection-end-column="62" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
-            <element signature="e#631#1210#0" expanded="false" />
-            <element signature="e#1264#1342#0" expanded="false" />
-            <element signature="e#1412#1455#0" expanded="false" />
-            <element signature="e#1530#1709#0" expanded="false" />
+            <element signature="e#976#1555#0" expanded="false" />
+            <element signature="e#1609#1687#0" expanded="false" />
+            <element signature="e#1757#1800#0" expanded="false" />
+            <element signature="e#1875#2054#0" expanded="false" />
+            <element signature="e#2086#3328#0" expanded="false" />
           </folding>
         </state>
       </provider>

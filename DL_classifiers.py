@@ -12,12 +12,16 @@ from keras.layers import Flatten
 from keras.layers import LSTM
 from keras.layers import ReLU
 from keras.layers import Conv1D
-from keras.layers import MaxPool1D
+from keras.layers import MaxPool1D, MaxPooling1D
 from keras.layers import Dropout
+from keras.layers import Input
 from keras.layers.embeddings import Embedding
+from keras.layers.merge import concatenate
 from keras.models import model_from_json
+from keras.models import Model
 from keras.callbacks import Callback
 from keras.preprocessing.text import Tokenizer
+from keras import optimizers
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, f1_score, precision_score, recall_score, accuracy_score
@@ -120,7 +124,7 @@ def get_glove_matrix(vocab_size, t):
 
 def get_pad_length(filename):
     if filename == "cleaned_text_messages.csv":
-        return 20
+        return 32
     elif filename == "cleaned_twitter_dataset.csv":
         return 30
     else:  # cleaned_formspring.csv is up to length 1200
@@ -273,24 +277,26 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     embedding_matrix = get_glove_matrix_from_dump()
 
     # ---------------- EDIT HERE ----------------
-    # define the model
+    # Embedding input
     model = Sequential()
     e = Embedding(input_dim=vocab_size, output_dim=300, weights=[embedding_matrix],
                   input_length=max_len, trainable=False)
     model.add(e)
 
-    # model.add(Conv1D(filters=40, kernel_size=3, strides=2, padding='valid'))
-    # model.add(MaxPool1D(pool_size=2, strides=1))
+    # CNN
+    # # model.add(Conv1D(filters=40, kernel_size=3, strides=2, padding='valid'))
+    # # model.add(MaxPool1D(pool_size=2, strides=1))
+    #
+    # # model.add(Conv1D(filters=20, kernel_size=3, strides=2, padding='valid'))
+    # # model.add(MaxPool1D(pool_size=2, strides=1))
+    #
+    # # model.add(Conv1D(filters=10, kernel_size=3, strides=1, padding='valid'))
+    # # model.add(MaxPool1D(pool_size=2, strides=1))
+    #
+    # # model.add(LSTM(units=50, dropout=0.4, recurrent_dropout=0.4))
+    # # model.add(BatchNormalization())
 
-    # model.add(Conv1D(filters=20, kernel_size=3, strides=2, padding='valid'))
-    # model.add(MaxPool1D(pool_size=2, strides=1))
-
-    # model.add(Conv1D(filters=10, kernel_size=3, strides=1, padding='valid'))
-    # model.add(MaxPool1D(pool_size=2, strides=1))
-
-    # model.add(LSTM(units=50, dropout=0.4, recurrent_dropout=0.4))
-    # model.add(BatchNormalization())
-
+    # DENSE
     model.add(Flatten())
     model.add(Dense(units=20, activation=None))
     model.add(BatchNormalization())
@@ -302,13 +308,16 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     # model = load_model(save_path)
 
     # compile the model
-    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc'])
+    adam = optimizers.Adam(lr=0.2, decay=0.005, beta_1=0.92, beta_2=0.9992)
+    model.compile(optimizer=adam, loss='binary_crossentropy', metrics=['acc'])
     # print(model.summary())
 
     # fit the model
     print("Fitting the model...")
+    class_weight = {0: 1.0,
+                    1: 2.0}
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=300, batch_size=64, callbacks=[metrics])
+                        nb_epoch=300, batch_size=64, callbacks=[metrics], class_weight=class_weight)
 
     # ------------------ END EDIT ------------------
 
@@ -318,7 +327,9 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
 
     print("TRAIN:", history.history['acc'])
+    print("\n")
     print("TEST:", history.history['val_acc'])
+    print("\n")
     print("F1:", f1_results)
 
     # plt.plot(history.history['acc'])

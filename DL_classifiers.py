@@ -112,7 +112,7 @@ def get_glove_matrix(vocab_size, t):
         if embedding_vector is not None:
             embedding_matrix[i] = embedding_vector
 
-    pickle.dump(embedding_matrix, open('embedding_matrix.p', 'wb'))
+    pickle.dump(embedding_matrix, open('embedding_matrix.p', 'wb'), protocol=2)
 
     return embedding_matrix
 
@@ -306,7 +306,7 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     # fit the model
     print("Fitting the model...")
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=300, batch_size=32, callbacks=[metrics])
+                        nb_epoch=300, batch_size=64, callbacks=[metrics])
 
     # ------------------ END EDIT ------------------
 

@@ -12,6 +12,7 @@ from keras.layers import Flatten
 from keras.layers import LSTM
 from keras.layers import Conv1D
 from keras.layers import MaxPool1D
+from keras.layers import Dropout
 from keras.layers.embeddings import Embedding
 from keras.models import model_from_json
 from keras.callbacks import Callback
@@ -290,7 +291,9 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     # model.add(BatchNormalization())
 
     model.add(Flatten())
-    model.add(Dense(units=10, activation='tanh'))
+    model.add(Dense(units=20, activation='relu'))
+    model.add(Dropout(rate=0.4))
+    model.add(BatchNormalization())
     model.add(Dense(units=1, activation='sigmoid'))
 
     # load a pre-saved model

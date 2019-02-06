@@ -144,8 +144,8 @@ def define_model(length, vocab_size):
     model = Model(inputs=[inputs1, inputs2, inputs3], outputs=outputs)
 
     # compile
-    # adam = optimizers.Adam(lr=0.5, decay=0.005, beta_1=0.92, beta_2=0.9992)
-    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    adam = optimizers.Adam(lr=0.0005, decay=0.01, beta_1=0.92, beta_2=0.9992)
+    model.compile(loss='binary_crossentropy', optimizer=adam, metrics=['accuracy'])
     return model
 
 
@@ -179,7 +179,7 @@ class_weight = {0: 1.0,
                 1: 2.0}
 history = model.fit(x=[trainX, trainX, trainX], y=array(trainLabels),
                     validation_data=([testX, testX, testX], array(testLabels)),
-                    nb_epoch=30, batch_size=32, callbacks=[metrics], class_weight=class_weight)
+                    nb_epoch=30, batch_size=64, callbacks=[metrics], class_weight=class_weight)
 
 # Evaluate
 # labels_pred = model.predict_classes(x=X_test)

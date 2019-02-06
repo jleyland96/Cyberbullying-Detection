@@ -178,9 +178,9 @@ class Metrics(Callback):
         f1_results.append(round(_val_f1, 3))
 
         # Print validation accuracy and f1 scores (so we can plot later)
-        # print("\nVAL_ACC:\n", validation_results)
-        # print("\n\n")
-        # print("F1:\n", f1_results)
+        print("\nVAL_ACC:\n", validation_results)
+        print("\n\n")
+        print("F1:\n", f1_results)
 
         # Save the model for another time
         # save_model(self.model, save_path)
@@ -323,7 +323,7 @@ def main_model(filename="cleaned_text_messages.csv"):
                   input_length=max_len, trainable=False)
     model.add(e)
 
-    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5))
     model.add(Dense(units=1, activation='sigmoid'))
 
     # compile the model
@@ -337,16 +337,16 @@ def main_model(filename="cleaned_text_messages.csv"):
     class_weight = {0: 1.0,
                     1: 2.0}
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=300, batch_size=64, callbacks=[metrics], class_weight=class_weight)
+                        nb_epoch=100, batch_size=128, callbacks=[metrics], class_weight=class_weight)
 
     # evaluate
     # labels_pred = model.predict_classes(x=X_test)
     loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
     print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
 
-    print("TRAIN:", np.round(history.history['acc'], 3))
+    print("TRAIN:", list(np.round(history.history['acc'], 3)))
     print("\n")
-    print("TEST:", np.round(history.history['val_acc'], 3))
+    print("TEST:", list(np.round(history.history['val_acc'], 3)))
     print("\n")
     print("F1:", f1_results)
 
@@ -364,5 +364,4 @@ def main_model(filename="cleaned_text_messages.csv"):
 
 save_path = "TEST"
 filename = "cleaned_text_messages.csv"
-# learn_embeddings_model(filename)
 main_model(filename)

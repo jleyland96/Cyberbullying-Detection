@@ -323,7 +323,7 @@ def main_model(filename="cleaned_text_messages.csv"):
                   input_length=max_len, trainable=False)
     model.add(e)
 
-    model.add(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
     model.add(Dense(units=1, activation='sigmoid'))
 
     # compile the model

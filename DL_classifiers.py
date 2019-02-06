@@ -178,9 +178,9 @@ class Metrics(Callback):
         f1_results.append(round(_val_f1, 3))
 
         # Print validation accuracy and f1 scores (so we can plot later)
-        print("\nVAL_ACC:\n", validation_results)
-        print("\n\n")
-        print("F1:\n", f1_results)
+        # print("\nVAL_ACC:\n", validation_results)
+        # print("\n\n")
+        # print("F1:\n", f1_results)
 
         # Save the model for another time
         # save_model(self.model, save_path)
@@ -244,7 +244,46 @@ def learn_embeddings_model(filename="cleaned_text_messages.csv"):
     print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
 
 
-def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
+def dense_network(model):
+    model.add(Flatten())
+    model.add(Dense(units=20, activation=None))
+    model.add(BatchNormalization())
+    model.add(ReLU())
+    model.add(Dropout(rate=0.4))
+    model.add(Dense(units=1, activation='sigmoid'))
+    return model
+
+
+def cnn_lstm_network(model):
+    model.add(Conv1D(filters=40, kernel_size=3, strides=2, padding='valid'))
+    model.add(MaxPool1D(pool_size=2, strides=1))
+
+    model.add(Conv1D(filters=20, kernel_size=3, strides=2, padding='valid'))
+    model.add(MaxPool1D(pool_size=2, strides=1))
+
+    model.add(Conv1D(filters=10, kernel_size=3, strides=1, padding='valid'))
+    model.add(MaxPool1D(pool_size=2, strides=1))
+
+    model.add(LSTM(units=50, dropout=0.4, recurrent_dropout=0.4))
+    model.add(BatchNormalization())
+
+    model.add(Dense(units=1, activation='sigmoid'))
+    return model
+
+
+def cnn_network(model):
+    model.add(Conv1D(filters=30, kernel_size=3, strides=2, padding='valid'))
+    model.add(MaxPool1D(pool_size=2, strides=1))
+
+    model.add(Conv1D(filters=30, kernel_size=3, strides=2, padding='valid'))
+    model.add(MaxPool1D(pool_size=2, strides=1))
+
+    model.add(Flatten())
+    model.add(Dense(units=1, activation='sigmoid'))
+    return model
+
+
+def main_model(filename="cleaned_text_messages.csv"):
     print("\nSIMPLE GLOVE MODEL")
 
     # get the data
@@ -263,54 +302,35 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     max_len = get_pad_length(filename)
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
+    # Split into training and test data
     X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.10)
-
-    # Repeat the positives here if I want to. IF FAILS, LOOK AT CLASS WEIGHTS
-    # X_train, labels_train = repeat_positives(X_train, labels_train, repeats=2)
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
     # print("Dev 1's proportion = " + str(round(np.count_nonzero(labels_dev) / len(labels_dev), 4)))
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
     print()
 
+    # load a pre-saved model
+    # model = load_model(save_path)
+
     # embedding_matrix = get_glove_matrix(vocab_size, t)
     embedding_matrix = get_glove_matrix_from_dump()
 
-    # ---------------- EDIT HERE ----------------
+    # ---------------- MODEL HERE ----------------
     # Embedding input
     model = Sequential()
     e = Embedding(input_dim=vocab_size, output_dim=300, weights=[embedding_matrix],
                   input_length=max_len, trainable=False)
     model.add(e)
 
-    # CNN
-    # # model.add(Conv1D(filters=40, kernel_size=3, strides=2, padding='valid'))
-    # # model.add(MaxPool1D(pool_size=2, strides=1))
-    #
-    # # model.add(Conv1D(filters=20, kernel_size=3, strides=2, padding='valid'))
-    # # model.add(MaxPool1D(pool_size=2, strides=1))
-    #
-    # # model.add(Conv1D(filters=10, kernel_size=3, strides=1, padding='valid'))
-    # # model.add(MaxPool1D(pool_size=2, strides=1))
-    #
-    # # model.add(LSTM(units=50, dropout=0.4, recurrent_dropout=0.4))
-    # # model.add(BatchNormalization())
-
-    # DENSE
-    model.add(Flatten())
-    model.add(Dense(units=20, activation=None))
-    model.add(BatchNormalization())
-    model.add(ReLU())
-    model.add(Dropout(rate=0.4))
+    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
     model.add(Dense(units=1, activation='sigmoid'))
 
-    # load a pre-saved model
-    # model = load_model(save_path)
-
     # compile the model
-    adam = optimizers.Adam(lr=0.2, decay=0.005, beta_1=0.92, beta_2=0.9992)
-    model.compile(optimizer=adam, loss='binary_crossentropy', metrics=['acc'])
+    # adam = optimizers.Adam(lr=0.0005, decay=0.01, beta_1=0.92, beta_2=0.9992)
+    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc'])
     # print(model.summary())
+    # ------------------ END MODEL ------------------
 
     # fit the model
     print("Fitting the model...")
@@ -319,18 +339,18 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
                         nb_epoch=300, batch_size=64, callbacks=[metrics], class_weight=class_weight)
 
-    # ------------------ END EDIT ------------------
-
     # evaluate
     # labels_pred = model.predict_classes(x=X_test)
     loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
     print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
 
-    print("TRAIN:", history.history['acc'])
+    print("TRAIN:", np.round(history.history['acc'], 3))
     print("\n")
-    print("TEST:", history.history['val_acc'])
+    print("TEST:", np.round(history.history['val_acc'], 3))
     print("\n")
     print("F1:", f1_results)
+
+    print("Max F1 was", max(f1_results), "at epoch", f1_results.index(max(f1_results))+1)
 
     # plt.plot(history.history['acc'])
     # plt.plot(history.history['val_acc'])
@@ -345,4 +365,4 @@ def simple_glove_LSTM_model(filename="cleaned_text_messages.csv"):
 save_path = "TEST"
 filename = "cleaned_text_messages.csv"
 # learn_embeddings_model(filename)
-simple_glove_LSTM_model(filename)
+main_model(filename)

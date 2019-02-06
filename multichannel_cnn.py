@@ -97,9 +97,9 @@ class Metrics(Callback):
         f1_results.append(round(_val_f1, 3))
 
         # Print validation accuracy and f1 scores (so we can plot later)
-        print("\nVAL_ACC:\n", validation_results)
-        print("\n\n")
-        print("F1:\n", f1_results)
+        # print("\nVAL_ACC:\n", validation_results)
+        # print("\n\n")
+        # print("F1:\n", f1_results)
 
         # Save the model for another time
         # save_model(self.model, save_path)
@@ -114,7 +114,7 @@ def define_model(length, vocab_size):
     # channel 1
     inputs1 = Input(shape=(length,))
     embedding1 = Embedding(vocab_size, 100)(inputs1)
-    conv1 = Conv1D(filters=32, kernel_size=2, activation='relu')(embedding1)
+    conv1 = Conv1D(filters=32, kernel_size=1, activation='relu')(embedding1)
     drop1 = Dropout(0.5)(conv1)
     pool1 = MaxPooling1D(pool_size=2)(drop1)
     flat1 = Flatten()(pool1)
@@ -122,7 +122,7 @@ def define_model(length, vocab_size):
     # channel 2
     inputs2 = Input(shape=(length,))
     embedding2 = Embedding(vocab_size, 100)(inputs2)
-    conv2 = Conv1D(filters=32, kernel_size=3, activation='relu')(embedding2)
+    conv2 = Conv1D(filters=32, kernel_size=2, activation='relu')(embedding2)
     drop2 = Dropout(0.5)(conv2)
     pool2 = MaxPooling1D(pool_size=2)(drop2)
     flat2 = Flatten()(pool2)
@@ -130,7 +130,7 @@ def define_model(length, vocab_size):
     # channel 3
     inputs3 = Input(shape=(length,))
     embedding3 = Embedding(vocab_size, 100)(inputs3)
-    conv3 = Conv1D(filters=32, kernel_size=4, activation='relu')(embedding3)
+    conv3 = Conv1D(filters=32, kernel_size=3, activation='relu')(embedding3)
     drop3 = Dropout(0.5)(conv3)
     pool3 = MaxPooling1D(pool_size=2)(drop3)
     flat3 = Flatten()(pool3)
@@ -174,9 +174,12 @@ trainLabels = np.array(trainLabels)
 testX = np.array(testX)
 testLabels = np.array(testLabels)
 
+# FIT
+class_weight = {0: 1.0,
+                1: 2.0}
 history = model.fit(x=[trainX, trainX, trainX], y=array(trainLabels),
                     validation_data=([testX, testX, testX], array(testLabels)),
-                    nb_epoch=30, batch_size=32, callbacks=[metrics])
+                    nb_epoch=30, batch_size=32, callbacks=[metrics], class_weight=class_weight)
 
 # Evaluate
 # labels_pred = model.predict_classes(x=X_test)
@@ -188,6 +191,7 @@ print("\n")
 print("TEST:", history.history['val_acc'])
 print("\n")
 print("F1:", f1_results)
+print("Max F1 was", max(f1_results), "at epoch", f1_results.index(max(f1_results))+1)
 
 
 # Alt-embedding

@@ -15,6 +15,7 @@ val_acc_graphs/
 output_graphs/
 saved_slurms/
 saved_models/
+embedding_matrix.p
 
 DL_graphs/
 

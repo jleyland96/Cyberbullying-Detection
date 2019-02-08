@@ -2,8 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/DL_classifiers.py" afterPath="$PROJECT_DIR$/DL_classifiers.py" />
-      <change beforePath="$PROJECT_DIR$/multichannel_cnn.py" afterPath="$PROJECT_DIR$/multichannel_cnn.py" />
+      <change beforePath="$PROJECT_DIR$/ML_classifiers_combined.py" afterPath="$PROJECT_DIR$/ML_classifiers_combined.py" />
+      <change beforePath="$PROJECT_DIR$/cleaned_text_messages.csv" afterPath="$PROJECT_DIR$/cleaned_text_messages.csv" />
+      <change beforePath="$PROJECT_DIR$/cleaned_twitter_dataset.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/dataset_analysis.py" afterPath="$PROJECT_DIR$/dataset_analysis.py" />
+      <change beforePath="$PROJECT_DIR$/embedding_matrix.p" afterPath="$PROJECT_DIR$/embedding_matrix.p" />
+      <change beforePath="$PROJECT_DIR$/twitter_dataset.csv" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,37 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DL_classifiers.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
+      <file leaf-file-name="get_tweets.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/get_tweets.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="365" column="38" lean-forward="false" selection-start-line="365" selection-start-column="38" selection-end-line="365" selection-end-column="38" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-                <element signature="e#1257#1836#0" expanded="false" />
-                <element signature="e#1890#2281#0" expanded="false" />
-                <element signature="e#2313#2425#0" expanded="false" />
-                <element signature="e#2456#2559#0" expanded="false" />
-                <element signature="e#2736#3516#0" expanded="false" />
-                <element signature="e#3553#3760#0" expanded="false" />
-                <element signature="e#3796#4087#0" expanded="false" />
-                <element signature="e#4116#4487#0" expanded="false" />
-                <element signature="e#4519#5725#0" expanded="false" />
-                <element signature="e#5820#7965#0" expanded="false" />
-                <element signature="e#7998#8226#0" expanded="false" />
-                <element signature="e#8262#8810#0" expanded="false" />
-                <element signature="e#8841#9184#0" expanded="false" />
-                <element signature="e#11838#11872#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="plot_val_acc.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+            <state relative-caret-position="75">
+              <caret line="5" column="42" lean-forward="false" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -72,6 +52,8 @@
       <find>Yes</find>
       <find>EDIT</find>
       <find>drop</find>
+      <find>RT</find>
+      <find>@</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -95,16 +77,17 @@
         <option value="$PROJECT_DIR$/twitter_dataset.csv" />
         <option value="$PROJECT_DIR$/ML_classifiers_combined.py" />
         <option value="$PROJECT_DIR$/my_DL_slurm" />
-        <option value="$PROJECT_DIR$/dataset_analysis.py" />
         <option value="$PROJECT_DIR$/my_multichannel_slurm" />
         <option value="$PROJECT_DIR$/multichannel_cnn.py" />
-        <option value="$PROJECT_DIR$/DL_classifiers.py" />
         <option value="$PROJECT_DIR$/plot_val_acc.py" />
+        <option value="$PROJECT_DIR$/DL_classifiers.py" />
+        <option value="$PROJECT_DIR$/dataset_analysis.py" />
+        <option value="$PROJECT_DIR$/get_tweets.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="1440" />
+    <option name="width" value="714" />
     <option name="height" value="900" />
   </component>
   <component name="ProjectView">
@@ -122,8 +105,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -135,6 +118,12 @@
               <item name="Cyberbullying-Detection" type="b2602c69:ProjectViewProjectNode" />
               <item name="Cyberbullying-Detection" type="462c0819:PsiDirectoryNode" />
               <item name="DL_graphs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Cyberbullying-Detection" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Cyberbullying-Detection" type="462c0819:PsiDirectoryNode" />
+              <item name="DL_graphs" type="462c0819:PsiDirectoryNode" />
+              <item name="Tweets (8000)" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -158,7 +147,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.plot_val_acc">
+  <component name="RunManager" selected="Python.dataset_analysis">
     <configuration name="DL_classifiers" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -258,10 +247,10 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.plot_val_acc" />
+        <item index="0" class="java.lang.String" itemvalue="Python.dataset_analysis" />
         <item index="1" class="java.lang.String" itemvalue="Python.DL_classifiers" />
-        <item index="2" class="java.lang.String" itemvalue="Python.multichannel_cnn" />
-        <item index="3" class="java.lang.String" itemvalue="Python.dataset_analysis" />
+        <item index="2" class="java.lang.String" itemvalue="Python.plot_val_acc" />
+        <item index="3" class="java.lang.String" itemvalue="Python.multichannel_cnn" />
         <item index="4" class="java.lang.String" itemvalue="Python.ML_classifiers_combined" />
       </list>
     </recent_temporary>
@@ -288,8 +277,8 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22777778" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3035294" sideWeight="0.50555557" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28" sideWeight="0.49444443" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34941176" sideWeight="0.5083333" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36941177" sideWeight="0.49166667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -301,7 +290,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -313,27 +302,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="12" />
+      <option name="time" value="13" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/DL_graphs/5059 f1 graph.png" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/Tweets (1000)/Page 1/5078 val_acc graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/Tweets (1000)/Page 1/5078 f1 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/5079 val_acc graph.png" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/5079 f1 graph.png" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/5081 f1 graph.png" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/5082 val_acc graph.png" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/5081 val_acc graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/5082 f1 graph.png" />
     <entry file="file://$PROJECT_DIR$/keras_vis/5000 graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/5083 val_acc graph.png" />
@@ -386,24 +359,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cleaned_text_messages.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-131313">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cleaned_twitter_dataset.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-15333">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataset_analysis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="710" column="2" lean-forward="true" selection-start-line="710" selection-start-column="2" selection-end-line="710" selection-end-column="2" />
         </state>
       </provider>
     </entry>
@@ -414,26 +373,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DL_graphs/508139 graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/5083 graph.png" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/6524 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/6522 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/L2 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/L1 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/6524 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/6522 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/L2 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/L1 graph.png" />
     <entry file="file://$PROJECT_DIR$/my_multichannel_slurm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -448,107 +391,95 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/L3 graph.png">
+    <entry file="file://$PROJECT_DIR$/DL_graphs/L3 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/CNNE-2 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/CNNE graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/CNN-2 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/CNN graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/CNN-decay graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/CNN-decay-2 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/Tweets (8000)/Page 2/5062 f1 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/Tweets (8000)/Page 1/4905 f1 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/Tweets (8000)/Page 1/4855 f1 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/CNNE-4 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/4905 rerun graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/testing graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/testing F1 loss graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/Dense-2 F1 loss graph.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/CNNE-2 graph.png">
+    <entry file="file://$PROJECT_DIR$/DL_graphs/Dense-1 F1 loss graph.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/CNNE graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/CNN-2 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/CNN graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/CNN-decay graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/CNN-decay-2 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/Tweets (8000)/Page 2/5062 f1 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/Tweets (8000)/Page 1/4905 f1 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/Tweets (8000)/Page 1/4855 f1 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/CNNE-4 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/multichannel_cnn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="146" column="4" lean-forward="false" selection-start-line="146" selection-start-column="4" selection-end-line="146" selection-end-column="4" />
-          <folding>
-            <element signature="e#976#1555#0" expanded="false" />
-            <element signature="e#1609#1687#0" expanded="false" />
-            <element signature="e#1757#1800#0" expanded="false" />
-            <element signature="e#1875#2054#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="365" column="38" lean-forward="false" selection-start-line="365" selection-start-column="38" selection-end-line="365" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#1257#1836#0" expanded="false" />
-            <element signature="e#1890#2281#0" expanded="false" />
-            <element signature="e#2313#2425#0" expanded="false" />
-            <element signature="e#2456#2559#0" expanded="false" />
-            <element signature="e#2736#3516#0" expanded="false" />
-            <element signature="e#3553#3760#0" expanded="false" />
-            <element signature="e#3796#4087#0" expanded="false" />
-            <element signature="e#4116#4487#0" expanded="false" />
-            <element signature="e#4519#5725#0" expanded="false" />
-            <element signature="e#5820#7965#0" expanded="false" />
-            <element signature="e#7998#8226#0" expanded="false" />
-            <element signature="e#8262#8810#0" expanded="false" />
-            <element signature="e#8841#9184#0" expanded="false" />
-            <element signature="e#11838#11872#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/4905 rerun graph.png">
+    <entry file="file://$PROJECT_DIR$/DL_graphs/Dense-3 F1 loss graph.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state relative-caret-position="225">
+          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multichannel_cnn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-126">
+          <caret line="146" column="4" lean-forward="false" selection-start-line="146" selection-start-column="4" selection-end-line="146" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/Tweets (8000)/Page 5 (best of)/4905 rerun graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cleaned_text_messages.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-27">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="93" column="0" lean-forward="true" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset_analysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="56" lean-forward="false" selection-start-line="20" selection-start-column="56" selection-end-line="20" selection-end-column="56" />
+          <folding>
+            <element signature="e#46#56#0" expanded="false" />
+            <element signature="e#625#2172#0" expanded="false" />
+            <element signature="e#2197#11849#0" expanded="false" />
+            <element signature="e#11875#20780#0" expanded="false" />
+            <element signature="e#28976#29030#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/text_messages.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="5182" column="3" lean-forward="false" selection-start-line="5182" selection-start-column="2" selection-end-line="5182" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/get_tweets.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="42" lean-forward="false" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
           <folding />
         </state>
       </provider>

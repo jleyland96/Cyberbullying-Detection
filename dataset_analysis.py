@@ -5,6 +5,7 @@ import re
 from collections import defaultdict
 import numpy as np
 import matplotlib.pyplot as plt
+import pickle
 
 # GLOVE. Create dictionary where keys are words and the values are the vectors for the words
 print("getting GLOVE embeddings size 300...")
@@ -300,7 +301,7 @@ def tweets_1000():
         for line in text_file:
             naughty_words.append(line.rstrip())
 
-    with open('twitter_dataset.csv') as csv_file:
+    with open('twitter_1K.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
         http_row_count = 0
@@ -320,7 +321,7 @@ def tweets_1000():
         max_glove_len = 0
 
         # titles: ['rev_id', 'comment', 'year', 'logged_in', 'ns', 'sample', 'split', 'attack']
-        with open('cleaned_twitter_dataset.csv', mode='w') as csv_write_file:
+        with open('cleaned_twitter_1K.csv', mode='w') as csv_write_file:
             csv_writer = csv.writer(csv_write_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
             naughty_dict = defaultdict(int)
@@ -520,8 +521,10 @@ def tweets_8000():
         norm_naughty_sum = 0
 
         glove_running_total_before = 0
+        glove_misses_before = 0
         glove_zero_count_before = 0
         glove_running_total_after = 0
+        glove_misses_after = 0
         glove_zero_count_after = 0
         max_glove_len = 0
 
@@ -610,13 +613,18 @@ def tweets_8000():
                         # if the word is in our gloveDict, then add element-wise to our output X
                         if word in gloveDict:
                             count += 1
+                        else:
+                            glove_misses_before += 1
 
                     glove_running_total_before += count
                     if count == 0:
                         glove_zero_count_before += 1
                     # ----- END GLOVE ----
 
+                    # remove punctuation
                     no_punct_comment = re.sub('[\":=#&;\'?!@,./\\\\\n*]', '', text_message)
+                    # remove multiple spaces, replace with one space
+                    no_punct_comment = re.sub(' +', ' ', no_punct_comment)
 
                     # ------ GLOVE -------
                     # for each word in this sentence
@@ -625,6 +633,8 @@ def tweets_8000():
                         # if the word is in our gloveDict, then add element-wise to our output X
                         if word in gloveDict:
                             count += 1
+                        else:
+                            glove_misses_after += 1
 
                     glove_running_total_after += count
                     if count == 0:
@@ -635,13 +645,17 @@ def tweets_8000():
                     # ----- END GLOVE ----
 
                     # Write to clean file, removing the apostrophes
-                    if not (is_blank) and not (is_NAME) and count>0:
+                    if not (is_blank) and not (is_NAME) and count > 0:
                         csv_writer.writerow(
                             [label_bullying, no_punct_comment.lower(), contains_url, naughty_count, norm])
 
                     # print current progress of lines processed
                     if line_count % 1000 == 0:
                         print(line_count)
+
+            # remove mentions
+            # remove RT tags
+            # remove not in glove embedding. If not, see if stretched. Remove repeated letters. Remove if still no.
 
             print("\nProcessed", line_count-1, "tweets.")
             print("There are", label_count[1], "positive examples, and", label_count[0], "negative examples")
@@ -656,8 +670,12 @@ def tweets_8000():
             print("Label:", max_norm_naughty_label)
             print("Average tweet length:", length_running_total/8817)
             print("Average glove count before:", glove_running_total_before / 8817)
+            print("Glove word hits before:", glove_running_total_before)
+            print("Glove word misses before:", glove_misses_before)
             print("Glove zero count before:", glove_zero_count_before)
             print("Average glove count after:", glove_running_total_after / 8817)
+            print("Glove word hits after:", glove_running_total_after)
+            print("Glove word misses after:", glove_misses_after)
             print("Glove zero count after:", glove_zero_count_after)
             print("Max glove count:", max_glove_len)
 
@@ -710,5 +728,5 @@ def tweets_8000():
 
 # formspring()
 tweets_8000()
-tweets_1000()
+# tweets_1000()
 # correlation()

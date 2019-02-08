@@ -305,7 +305,7 @@ print("RUNNING ON FORMSPRING")
 for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
 
     # CHANGE THE DATASET NAME NOW
-    dataset_filename = 'cleaned_twitter_dataset.csv'
+    dataset_filename = 'cleaned_twitter_1K.csv'
 
     # Get the right dataset (Glove features, term count, term freq, term freq idf, bigrams, trigrams)
     if vectorize_choice == "glove":

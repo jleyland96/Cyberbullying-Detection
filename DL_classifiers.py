@@ -17,16 +17,20 @@ from keras.layers import Dropout
 from keras.layers import Input
 from keras.layers.embeddings import Embedding
 from keras.layers.merge import concatenate
+from keras.layers import GlobalMaxPool1D
 from keras.models import model_from_json
 from keras.models import Model
+from keras.initializers import Constant
 from keras.callbacks import Callback
 from keras.preprocessing.text import Tokenizer
 from keras import optimizers
+import keras.backend as K
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, f1_score, precision_score, recall_score, accuracy_score
 import matplotlib.pyplot as plt
 import pickle
+import tensorflow as tf
 
 
 # 'global' variable to store sequence of validation accuracies
@@ -34,7 +38,7 @@ validation_results = []
 f1_results = []
 
 
-def get_data(n=20000, filename="cleaned_text_messages.csv"):
+def get_data(filename="cleaned_text_messages.csv"):
     X = []
     y = []
     print("Getting data from " + filename)
@@ -48,12 +52,16 @@ def get_data(n=20000, filename="cleaned_text_messages.csv"):
             if line_count == 0:
                 pass
             else:
-                if line_count-1 < n:
-                    label_bullying = int(row[0])
-                    text = row[1]
+                label_bullying = int(row[0])
+                text = row[1]
 
-                    X.append(text)
-                    y.append(label_bullying)
+                # print(label_bullying)
+                # print(text)
+                # print("\n")
+
+                X.append(text)
+                y.append(label_bullying)
+
             line_count += 1
 
     print("processed", line_count-1, "comments\n")
@@ -125,7 +133,7 @@ def get_glove_matrix(vocab_size, t):
 def get_pad_length(filename):
     if filename == "cleaned_text_messages.csv":
         return 32
-    elif filename == "cleaned_twitter_dataset.csv":
+    elif filename == "cleaned_twitter_1K.csv":
         return 30
     else:  # cleaned_formspring.csv is up to length 1200
         return 100
@@ -188,6 +196,48 @@ class Metrics(Callback):
 
 
 metrics = Metrics()
+
+
+def f1(y_true, y_pred):
+    y_pred = K.round(y_pred)
+    tp = K.sum(K.cast(y_true*y_pred, 'float'), axis=0)
+    tn = K.sum(K.cast((1-y_true)*(1-y_pred), 'float'), axis=0)
+    fp = K.sum(K.cast((1-y_true)*y_pred, 'float'), axis=0)
+    fn = K.sum(K.cast(y_true*(1-y_pred), 'float'), axis=0)
+
+    p = tp / (tp + fp + K.epsilon())
+    r = tp / (tp + fn + K.epsilon())
+
+    f1 = 2*p*r / (p+r+K.epsilon())
+    f1 = tf.where(tf.is_nan(f1), tf.zeros_like(f1), f1)
+    return K.mean(f1)
+
+
+def f1_loss(y_true, y_pred):
+    tp = K.sum(K.cast(y_true * y_pred, 'float'), axis=0)
+    tn = K.sum(K.cast((1 - y_true) * (1 - y_pred), 'float'), axis=0)
+    fp = K.sum(K.cast((1 - y_true) * y_pred, 'float'), axis=0)
+    fn = K.sum(K.cast(y_true * (1 - y_pred), 'float'), axis=0)
+
+    p = tp / (tp + fp + K.epsilon())
+    r = tp / (tp + fn + K.epsilon())
+
+    f1 = 2 * p * r / (p + r + K.epsilon())
+    f1 = tf.where(tf.is_nan(f1), tf.zeros_like(f1), f1)
+    return 1 - K.mean(f1)
+
+
+def print_results(history):
+    print("TRAIN:", list(np.round(history.history['acc'], 4)), "\n")
+    print("TEST:", list(np.round(history.history['val_acc'], 4)), "\n")
+    if loss == "F1":
+        val_f1 = list(np.round(history.history['val_f1'], 4))
+        print("VAL_F1:", val_f1, "\n")
+        print("Max val_f1 was", max(val_f1), "at epoch", val_f1.index(max(val_f1)) + 1, "\n")
+        print("TRAIN_F1:", list(np.round(history.history['f1'], 4)))
+    else:
+        print("Max F1 was", max(f1_results), "at epoch", f1_results.index(max(f1_results)) + 1, "\n")
+        print("F1:", f1_results)
 
 
 def learn_embeddings_model(filename="cleaned_text_messages.csv"):
@@ -287,7 +337,22 @@ def main_model(filename="cleaned_text_messages.csv"):
     print("\nSIMPLE GLOVE MODEL")
 
     # get the data
-    X, labels = get_data(n=20000, filename=filename)
+    X, labels = get_data(filename=filename)
+
+    # sentences_train, sentences_test, labels_train, labels_test = train_test_split(X, labels, test_size=0.1, random_state=1000)
+    #
+    # tokenizer = Tokenizer(num_words=5000)
+    # tokenizer.fit_on_texts(sentences_train)
+    # X_train = tokenizer.texts_to_sequences(sentences_train)
+    # X_test = tokenizer.texts_to_sequences(sentences_test)
+    #
+    # vocab_size = len(tokenizer.word_index) + 1
+    #
+    # max_len = 32
+    #
+    # X_train = pad_sequences(X_train, padding='post', maxlen=max_len)
+    # X_test = pad_sequences(X_test, padding='post', maxlen=max_len)
+
 
     # prepare tokenizer
     t = Tokenizer()
@@ -306,51 +371,52 @@ def main_model(filename="cleaned_text_messages.csv"):
     X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.10)
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
-    # print("Dev 1's proportion = " + str(round(np.count_nonzero(labels_dev) / len(labels_dev), 4)))
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
     print()
 
     # load a pre-saved model
     # model = load_model(save_path)
 
-    # embedding_matrix = get_glove_matrix(vocab_size, t)
-    embedding_matrix = get_glove_matrix_from_dump()
+    embedding_matrix = get_glove_matrix(vocab_size, t)
+    # embedding_matrix = get_glove_matrix_from_dump()
+
+    # GloVe hit rate
+    print(np.count_nonzero(np.count_nonzero(embedding_matrix, axis=1)) / vocab_size)
 
     # ---------------- MODEL HERE ----------------
     # Embedding input
     model = Sequential()
-    e = Embedding(input_dim=vocab_size, output_dim=300, weights=[embedding_matrix],
-                  input_length=max_len, trainable=False)
+    # e = Embedding(input_dim=vocab_size, output_dim=300, weights=[embedding_matrix],
+    #               input_length=max_len, trainable=False)
+    e = Embedding(input_dim=vocab_size, output_dim=300, embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
+    e.trainable = False
     model.add(e)
 
-    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=100, dropout=0.4, recurrent_dropout=0.4))
+
     model.add(Dense(units=1, activation='sigmoid'))
 
     # compile the model
     # adam = optimizers.Adam(lr=0.0005, decay=0.01, beta_1=0.92, beta_2=0.9992)
-    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc'])
-    # print(model.summary())
-    # ------------------ END MODEL ------------------
+    # print("F1 LOSS")
+    # model.compile(optimizer='adam', loss=f1_loss, metrics=['acc', f1])
+    # history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
+    #                     nb_epoch=30, batch_size=128, class_weight=class_weight)
 
-    # fit the model
-    print("Fitting the model...")
-    class_weight = {0: 1.0,
-                    1: 2.0}
+    # class_weight = {0: 1.0,
+    #                 1: 2.0}
+    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=100, batch_size=128, callbacks=[metrics], class_weight=class_weight)
+                        nb_epoch=100, batch_size=128, callbacks=[metrics])
+    # ------------------ END MODEL ------------------
 
     # evaluate
     # labels_pred = model.predict_classes(x=X_test)
-    loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
-    print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
+    # print(labels_pred)
+    # loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
+    # print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
 
-    print("TRAIN:", list(np.round(history.history['acc'], 3)))
-    print("\n")
-    print("TEST:", list(np.round(history.history['val_acc'], 3)))
-    print("\n")
-    print("F1:", f1_results)
-
-    print("Max F1 was", max(f1_results), "at epoch", f1_results.index(max(f1_results))+1)
+    print_results(history)
 
     # plt.plot(history.history['acc'])
     # plt.plot(history.history['val_acc'])
@@ -363,5 +429,6 @@ def main_model(filename="cleaned_text_messages.csv"):
 
 
 save_path = "TEST"
+loss = "crossentropy"
 filename = "cleaned_text_messages.csv"
 main_model(filename)

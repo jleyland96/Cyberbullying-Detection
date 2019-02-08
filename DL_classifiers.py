@@ -135,6 +135,8 @@ def get_pad_length(filename):
         return 32
     elif filename == "cleaned_twitter_1K.csv":
         return 30
+    elif filename == "cleaned_tweets_16K.csv":
+        return 32
     else:  # cleaned_formspring.csv is up to length 1200
         return 100
 
@@ -244,7 +246,7 @@ def learn_embeddings_model(filename="cleaned_text_messages.csv"):
     print("\nLEARN EMBEDDINGS MODEL")
 
     # get the data
-    X, labels = get_data(n=20000, filename=filename)
+    X, labels = get_data(filename=filename)
 
     # prepare tokenizer
     t = Tokenizer()
@@ -365,6 +367,7 @@ def main_model(filename="cleaned_text_messages.csv"):
 
     # pad documents
     max_len = get_pad_length(filename)
+    print(max_len)
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
     # Split into training and test data
@@ -388,11 +391,12 @@ def main_model(filename="cleaned_text_messages.csv"):
     model = Sequential()
     # e = Embedding(input_dim=vocab_size, output_dim=300, weights=[embedding_matrix],
     #               input_length=max_len, trainable=False)
-    e = Embedding(input_dim=vocab_size, output_dim=300, embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
+    e = Embedding(input_dim=vocab_size, output_dim=300,
+                  embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
     e.trainable = False
     model.add(e)
 
-    model.add(LSTM(units=100, dropout=0.4, recurrent_dropout=0.4))
+    model.add(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5))
 
     model.add(Dense(units=1, activation='sigmoid'))
 
@@ -403,18 +407,18 @@ def main_model(filename="cleaned_text_messages.csv"):
     # history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
     #                     nb_epoch=30, batch_size=128, class_weight=class_weight)
 
-    # class_weight = {0: 1.0,
-    #                 1: 2.0}
+    class_weight = {0: 1.0,
+                    1: 1.0}
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=100, batch_size=128, callbacks=[metrics])
+                        nb_epoch=150, batch_size=256, callbacks=[metrics], class_weight=class_weight)
     # ------------------ END MODEL ------------------
 
     # evaluate
-    # labels_pred = model.predict_classes(x=X_test)
-    # print(labels_pred)
-    # loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
-    # print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
+    labels_pred = model.predict_classes(x=X_test)
+    print(labels_pred)
+    loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
+    print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
 
     print_results(history)
 
@@ -430,5 +434,5 @@ def main_model(filename="cleaned_text_messages.csv"):
 
 save_path = "TEST"
 loss = "crossentropy"
-filename = "cleaned_text_messages.csv"
+filename = "cleaned_tweets_16K.csv"
 main_model(filename)

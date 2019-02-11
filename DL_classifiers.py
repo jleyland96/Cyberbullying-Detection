@@ -38,7 +38,7 @@ validation_results = []
 f1_results = []
 
 
-def get_data(filename="cleaned_text_messages.csv"):
+def get_data(filename):
     X = []
     y = []
     print("Getting data from " + filename)
@@ -135,7 +135,7 @@ def get_pad_length(filename):
         return 32
     elif filename == "cleaned_twitter_1K.csv":
         return 30
-    elif filename == "cleaned_tweets_16K.csv":
+    elif filename == "cleaned_tweets_16k.csv" or filename == "cleaned_more_tweets_16k.csv":
         return 32
     else:  # cleaned_formspring.csv is up to length 1200
         return 100
@@ -184,8 +184,8 @@ class Metrics(Callback):
         print("F1       :", _val_f1)
         print("PRECISION:", _val_precision)
         print("RECALL   :", _val_recall)
-        validation_results.append(round(_val_acc, 3))
-        f1_results.append(round(_val_f1, 3))
+        validation_results.append(round(_val_acc, 4))
+        f1_results.append(round(_val_f1, 4))
 
         # Print validation accuracy and f1 scores (so we can plot later)
         print("\nVAL_ACC:\n", validation_results)
@@ -307,16 +307,12 @@ def dense_network(model):
 
 
 def cnn_lstm_network(model):
-    model.add(Conv1D(filters=40, kernel_size=3, strides=2, padding='valid'))
+    model.add(Conv1D(filters=64, kernel_size=3, strides=2, padding='valid', use_bias=False))
+    model.add(BatchNormalization())
+    model.add(ReLU())
     model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(Conv1D(filters=20, kernel_size=3, strides=2, padding='valid'))
-    model.add(MaxPool1D(pool_size=2, strides=1))
-
-    model.add(Conv1D(filters=10, kernel_size=3, strides=1, padding='valid'))
-    model.add(MaxPool1D(pool_size=2, strides=1))
-
-    model.add(LSTM(units=50, dropout=0.4, recurrent_dropout=0.4))
+    model.add(LSTM(units=64, dropout=0.5, recurrent_dropout=0.5))
     model.add(BatchNormalization())
 
     model.add(Dense(units=1, activation='sigmoid'))
@@ -324,10 +320,19 @@ def cnn_lstm_network(model):
 
 
 def cnn_network(model):
-    model.add(Conv1D(filters=30, kernel_size=3, strides=2, padding='valid'))
+    model.add(Conv1D(filters=32, kernel_size=3, strides=2, padding='valid', use_bias=False))
+    model.add(BatchNormalization())
+    model.add(ReLU())
     model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(Conv1D(filters=30, kernel_size=3, strides=2, padding='valid'))
+    model.add(Conv1D(filters=48, kernel_size=3, strides=2, padding='valid', use_bias=False))
+    model.add(BatchNormalization())
+    model.add(ReLU())
+    model.add(MaxPool1D(pool_size=2, strides=1))
+
+    model.add(Conv1D(filters=32, kernel_size=3, strides=2, padding='valid', use_bias=False))
+    model.add(BatchNormalization())
+    model.add(ReLU())
     model.add(MaxPool1D(pool_size=2, strides=1))
 
     model.add(Flatten())
@@ -340,21 +345,6 @@ def main_model(filename="cleaned_text_messages.csv"):
 
     # get the data
     X, labels = get_data(filename=filename)
-
-    # sentences_train, sentences_test, labels_train, labels_test = train_test_split(X, labels, test_size=0.1, random_state=1000)
-    #
-    # tokenizer = Tokenizer(num_words=5000)
-    # tokenizer.fit_on_texts(sentences_train)
-    # X_train = tokenizer.texts_to_sequences(sentences_train)
-    # X_test = tokenizer.texts_to_sequences(sentences_test)
-    #
-    # vocab_size = len(tokenizer.word_index) + 1
-    #
-    # max_len = 32
-    #
-    # X_train = pad_sequences(X_train, padding='post', maxlen=max_len)
-    # X_test = pad_sequences(X_test, padding='post', maxlen=max_len)
-
 
     # prepare tokenizer
     t = Tokenizer()
@@ -380,8 +370,8 @@ def main_model(filename="cleaned_text_messages.csv"):
     # load a pre-saved model
     # model = load_model(save_path)
 
-    embedding_matrix = get_glove_matrix(vocab_size, t)
-    # embedding_matrix = get_glove_matrix_from_dump()
+    # embedding_matrix = get_glove_matrix(vocab_size, t)
+    embedding_matrix = get_glove_matrix_from_dump()
 
     # GloVe hit rate
     print(np.count_nonzero(np.count_nonzero(embedding_matrix, axis=1)) / vocab_size)
@@ -397,6 +387,7 @@ def main_model(filename="cleaned_text_messages.csv"):
     model.add(e)
 
     model.add(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5))
+    model.add(BatchNormalization())
 
     model.add(Dense(units=1, activation='sigmoid'))
 
@@ -433,6 +424,5 @@ def main_model(filename="cleaned_text_messages.csv"):
 
 
 save_path = "TEST"
-loss = "crossentropy"
-filename = "cleaned_tweets_16K.csv"
-main_model(filename)
+file = "cleaned_more_tweets_16k.csv"
+main_model(file)

@@ -727,6 +727,9 @@ def tweets_8000():
 
 
 def tweets_16k():
+    # NOTE:
+    # this method also removes any comments that don't have any glove hits at all
+
     # Get the naughty words
     naughty_words = []
     with open('naughty_words.txt') as text_file:
@@ -777,7 +780,6 @@ def tweets_16k():
 
                 line_count += 1
                 tweet = row[1]
-
                 label = row[2]
 
                 if label == "none":
@@ -826,49 +828,49 @@ def tweets_16k():
                     # count the 1s and 0s in non-naughty word messages
                     label_count_not_naughty[label_bullying] += 1
 
-                # # ------ GLOVE -------
-                # # for each word in this sentence
-                # count = 0
-                # for word in text_message.split(' '):
-                #     # if the word is in our gloveDict, then add element-wise to our output X
-                #     if word in gloveDict:
-                #         count += 1
-                #     else:
-                #         glove_misses_before += 1
-                #
-                # glove_running_total_before += count
-                # if count == 0:
-                #     glove_zero_count_before += 1
-                # # ----- END GLOVE ----
+                # ------ GLOVE -------
+                # for each word in this sentence
+                count = 0
+                for word in tweet.split(' '):
+                    # if the word is in our gloveDict, then add element-wise to our output X
+                    if word in gloveDict:
+                        count += 1
+                    else:
+                        glove_misses_before += 1
+
+                glove_running_total_before += count
+                if count == 0:
+                    glove_zero_count_before += 1
+                # ----- END GLOVE ----
 
                 # remove punctuation
-                # no_punct_comment = re.sub('[\":=#&;\'?!@,./\\\\\n*]', '', text_message)
-                # # remove multiple spaces, replace with one space
-                # no_punct_comment = re.sub(' +', ' ', no_punct_comment)
+                no_punc_tweet = re.sub('[\":=#&;\'?!@,./\\\\\n*]', '', tweet)
+                # remove multiple spaces, replace with one space
+                no_punc_tweet = re.sub(' +', ' ', no_punc_tweet)
 
-                # # ------ GLOVE -------
-                # # for each word in this sentence
-                # count = 0
-                # for word in no_punct_comment.lower().split(' '):
-                #     # if the word is in our gloveDict, then add element-wise to our output X
-                #     if word in gloveDict:
-                #         count += 1
-                #     else:
-                #         glove_misses_after += 1
-                #
-                # glove_running_total_after += count
-                # if count == 0:
-                #     glove_zero_count_after += 1
-                #
-                # if count > max_glove_len:
-                #     max_glove_len = count
-                # # ----- END GLOVE ----
+                # ------ GLOVE -------
+                # for each word in this sentence
+                count = 0
+                for word in no_punc_tweet.lower().split(' '):
+                    # if the word is in our gloveDict, then add element-wise to our output X
+                    if word in gloveDict:
+                        count += 1
+                    else:
+                        glove_misses_after += 1
+
+                glove_running_total_after += count
+                if count == 0:
+                    glove_zero_count_after += 1
+
+                if count > max_glove_len:
+                    max_glove_len = count
+                # ----- END GLOVE ----
 
                 # Write to clean file, removing the apostrophes
                 # if not (is_blank) and not (is_NAME) and count > 0:
-                if not (is_blank) and not (is_NAME):
+                if not (is_blank) and not (is_NAME) and count>0:
                     csv_writer.writerow(
-                        [label_bullying, tweet.lower(), contains_url, naughty_count, norm])
+                        [label_bullying, tweet, contains_url, naughty_count, norm])
 
                 # print current progress of lines processed
                 if line_count % 1000 == 0:
@@ -933,11 +935,11 @@ def tweets_16k():
             print(length_keys)
             print(length_values)
 
-            plt.plot(length_keys, length_values)
-            plt.xlabel("length")
-            plt.ylabel("frequency")
-            plt.title("Number of tweets with certain lengths. N=16049")
-            plt.savefig("Screenshots/tweets_16K_length graph.png")
+            # plt.plot(length_keys, length_values)
+            # plt.xlabel("length")
+            # plt.ylabel("frequency")
+            # plt.title("Number of tweets with certain lengths. N=16049")
+            # plt.savefig("Screenshots/tweets_16K_length graph.png")
 
             # # PRINTING DICTS
             # for key in sorted(naughty_dict):
@@ -949,8 +951,54 @@ def tweets_16k():
             #     print("There are", attack_dict[key], "bullying messages with", key, "naughty words in.")
 
 
+def clean_tweets_16k():
+    with open('cleaned_tweets_16K.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        line_count = 0
+
+        # titles: ['rev_id', 'comment', 'year', 'logged_in', 'ns', 'sample', 'split', 'attack']
+        with open('cleaned_more_tweets_16k.csv', mode='w') as csv_write_file:
+            csv_writer = csv.writer(csv_write_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+            for row in csv_reader:
+
+                if line_count == 0:
+                    pass
+
+                line_count += 1
+                label_bullying = row[0]
+                tweet = row[1]
+                contains_url = row[2]
+                naughty_count = row[3]
+                norm = row[4]
+
+                # remove RT tags
+                tweet = re.sub('RT @[\w_]+: ', '', tweet)
+
+                # remove mentions
+                tweet = re.sub('@[\w_]+', '', tweet)
+
+                # remove URLs
+                tweet = re.sub(r'http\S+', '', tweet)
+
+                # remove multiple spaces, replace with one space
+                tweet = re.sub(' +', ' ', tweet)
+
+                # remove punctuation
+                tweet = re.sub('[\":=#&;\'?!@,./\\\\\n*]', '', tweet)
+
+                # Write to clean file, removing the apostrophes
+                # if not (is_blank) and not (is_NAME) and count > 0:
+                csv_writer.writerow([label_bullying, tweet.lower(), contains_url, naughty_count, norm])
+
+                # print current progress of lines processed
+                if line_count % 1000 == 0:
+                    print(line_count)
+
+
 # formspring()
 # tweets_8000()
 # tweets_1000()
-tweets_16k()
+# tweets_16k()
+clean_tweets_16k()
 # correlation()

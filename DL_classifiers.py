@@ -3,6 +3,7 @@ import os
 import numpy as np
 import random
 from numpy import asarray, zeros
+from keras.utils import np_utils
 from keras.preprocessing.text import one_hot
 from keras.preprocessing.sequence import pad_sequences
 from keras.layers.normalization import BatchNormalization
@@ -26,6 +27,7 @@ from keras.preprocessing.text import Tokenizer
 from keras import optimizers
 import keras.backend as K
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, f1_score, precision_score, recall_score, accuracy_score
 import matplotlib.pyplot as plt
@@ -135,7 +137,7 @@ def get_pad_length(filename):
         return 32
     elif filename == "cleaned_twitter_1K.csv":
         return 30
-    elif filename == "cleaned_tweets_16k.csv" or filename == "cleaned_more_tweets_16k.csv":
+    elif filename == "cleaned_tweets_16k.csv" or filename == "cleaned_tweets_16k_3class.csv":
         return 32
     else:  # cleaned_formspring.csv is up to length 1200
         return 100
@@ -320,7 +322,7 @@ def cnn_lstm_network(model):
 
 
 def cnn_network(model):
-    model.add(Conv1D(filters=32, kernel_size=3, strides=2, padding='valid', use_bias=False))
+    model.add(Conv1D(filters=32, kernel_size=4, strides=2, padding='valid', use_bias=False))
     model.add(BatchNormalization())
     model.add(ReLU())
     model.add(MaxPool1D(pool_size=2, strides=1))
@@ -340,7 +342,75 @@ def cnn_network(model):
     return model
 
 
-def main_model(filename="cleaned_text_messages.csv"):
+def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
+    print("\nSIMPLE GLOVE MODEL")
+    # 0=none, 1=racism, 2=sexism
+
+    # get the data
+    X, labels = get_data(filename=filename)
+    print(labels[:50])
+    category_labels = np_utils.to_categorical(labels)
+
+    # prepare tokenizer
+    t = Tokenizer()
+    t.fit_on_texts(texts=X)
+    vocab_size = len(t.word_index) + 1
+    print("VOCAB SIZE =", vocab_size)
+
+    # integer encode the documents
+    encoded_docs = t.texts_to_sequences(texts=X)
+
+    # pad documents
+    max_len = get_pad_length(filename)
+    print(max_len)
+    padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
+
+    # Split into training and test data
+    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, category_labels, test_size=0.10)
+
+    # load a pre-saved model
+    # model = load_model(save_path)
+
+    # embedding_matrix = get_glove_matrix(vocab_size, t)
+    embedding_matrix = get_glove_matrix_from_dump()
+
+    # ---------------- MODEL HERE ----------------
+    # Embedding input
+    model = Sequential()
+    # e = Embedding(input_dim=vocab_size, output_dim=300, weights=[embedding_matrix],
+    #               input_length=max_len, trainable=False)
+    e = Embedding(input_dim=vocab_size, output_dim=300,
+                  embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
+    e.trainable = False
+    model.add(e)
+
+    model.add(LSTM(units=100, recurrent_dropout=0.5, dropout=0.5))
+
+    model.add(Dense(units=3, activation='softmax'))
+
+    # compile the model
+    # adam = optimizers.Adam(lr=0.0005, decay=0.01, beta_1=0.92, beta_2=0.9992)
+    # print("F1 LOSS")
+    # model.compile(optimizer='adam', loss=f1_loss, metrics=['acc', f1])
+    # history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
+    #                     nb_epoch=30, batch_size=128, class_weight=class_weight)
+
+    class_weight = {0: 1.0,
+                    1: 1.0,
+                    2: 1.0}
+    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+    history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
+                        nb_epoch=50, batch_size=256, class_weight=class_weight)
+    # ------------------ END MODEL ------------------
+
+    # evaluate
+    labels_pred = model.predict_classes(x=X_test)
+    print(labels_pred)
+    loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
+    print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
+
+
+def main_2_class_model(filename="cleaned_text_messages.csv"):
     print("\nSIMPLE GLOVE MODEL")
 
     # get the data
@@ -386,8 +456,7 @@ def main_model(filename="cleaned_text_messages.csv"):
     e.trainable = False
     model.add(e)
 
-    model.add(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5))
-    model.add(BatchNormalization())
+    model.add(LSTM(units=100, recurrent_dropout=0.5))
 
     model.add(Dense(units=1, activation='sigmoid'))
 
@@ -424,5 +493,7 @@ def main_model(filename="cleaned_text_messages.csv"):
 
 
 save_path = "TEST"
-file = "cleaned_more_tweets_16k.csv"
-main_model(file)
+loss = "cross-entropy"
+file = "cleaned_tweets_16k.csv"
+main_2_class_model(file)
+# main_3_class_model(file)

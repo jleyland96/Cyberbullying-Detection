@@ -4,9 +4,11 @@
     <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/DL_classifiers.py" afterPath="$PROJECT_DIR$/DL_classifiers.py" />
+      <change beforePath="$PROJECT_DIR$/cleaned_more_tweets_16k.csv" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/cleaned_tweets_16k copy.csv" afterPath="" />
       <change beforePath="$PROJECT_DIR$/cleaned_tweets_16k.csv" afterPath="$PROJECT_DIR$/cleaned_tweets_16k.csv" />
       <change beforePath="$PROJECT_DIR$/dataset_analysis.py" afterPath="$PROJECT_DIR$/dataset_analysis.py" />
-      <change beforePath="$PROJECT_DIR$/embedding_matrix.p" afterPath="$PROJECT_DIR$/embedding_matrix.p" />
+      <change beforePath="$PROJECT_DIR$/get_tweets.py" afterPath="$PROJECT_DIR$/get_tweets.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,47 +19,52 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DL_classifiers.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="398" column="81" lean-forward="true" selection-start-line="398" selection-start-column="81" selection-end-line="398" selection-end-column="81" />
-              <folding>
-                <element signature="e#2456#2568#0" expanded="false" />
-                <element signature="e#2599#2702#0" expanded="false" />
-                <element signature="e#2743#2835#0" expanded="false" />
-                <element signature="e#2879#3659#0" expanded="false" />
-                <element signature="e#4044#4335#0" expanded="false" />
-                <element signature="e#4364#4735#0" expanded="false" />
-                <element signature="e#4767#5973#0" expanded="false" />
-                <element signature="e#6026#6475#0" expanded="false" />
-                <element signature="e#6511#6959#0" expanded="false" />
-                <element signature="e#6994#7560#0" expanded="false" />
-                <element signature="e#7633#9769#0" expanded="false" />
-                <element signature="e#9802#10030#0" expanded="false" />
-                <element signature="e#10066#10434#0" expanded="false" />
-                <element signature="e#10465#11157#0" expanded="false" />
-                <element signature="e#12464#12545#0" expanded="false" />
-                <element signature="e#12955#12974#0" expanded="false" />
-                <element signature="e#14018#14052#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="dataset_analysis.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dataset_analysis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="987" column="38" lean-forward="false" selection-start-line="987" selection-start-column="38" selection-end-line="987" selection-end-column="38" />
+            <state relative-caret-position="713">
+              <caret line="1021" column="14" lean-forward="false" selection-start-line="1021" selection-start-column="14" selection-end-line="1021" selection-end-column="14" />
               <folding>
                 <element signature="e#647#2194#0" expanded="false" />
                 <element signature="e#2219#11871#0" expanded="false" />
                 <element signature="e#11897#20802#0" expanded="false" />
                 <element signature="e#20828#30891#0" expanded="false" />
-                <element signature="e#30916#40453#0" expanded="false" />
-                <element signature="e#38585#38639#0" expanded="false" />
-                <element signature="e#39788#39826#0" expanded="false" />
+                <element signature="e#30916#40760#0" expanded="false" />
+                <element signature="e#38892#38946#0" expanded="false" />
+                <element signature="e#40095#40133#0" expanded="false" />
+                <element signature="e#40791#42391#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DL_classifiers.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1100">
+              <caret line="498" column="2" lean-forward="false" selection-start-line="498" selection-start-column="2" selection-end-line="498" selection-end-column="2" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+                <element signature="e#2536#2648#0" expanded="false" />
+                <element signature="e#2679#2782#0" expanded="false" />
+                <element signature="e#2823#2915#0" expanded="false" />
+                <element signature="e#2959#3739#0" expanded="false" />
+                <element signature="e#4126#4417#0" expanded="false" />
+                <element signature="e#4446#4817#0" expanded="false" />
+                <element signature="e#4849#6055#0" expanded="false" />
+                <element signature="e#6108#6557#0" expanded="false" />
+                <element signature="e#6593#7041#0" expanded="false" />
+                <element signature="e#7076#7642#0" expanded="false" />
+                <element signature="e#7715#9851#0" expanded="false" />
+                <element signature="e#9884#10112#0" expanded="false" />
+                <element signature="e#10148#10516#0" expanded="false" />
+                <element signature="e#10547#11239#0" expanded="false" />
+                <element signature="e#11312#13845#0" expanded="false" />
+                <element signature="e#12350#12431#0" expanded="false" />
+                <element signature="e#12805#12824#0" expanded="false" />
+                <element signature="e#15160#15241#0" expanded="false" />
+                <element signature="e#15602#15621#0" expanded="false" />
+                <element signature="e#16665#16699#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -114,8 +121,8 @@
         <option value="$PROJECT_DIR$/my_DL_slurm" />
         <option value="$PROJECT_DIR$/my_multichannel_slurm" />
         <option value="$PROJECT_DIR$/multichannel_cnn.py" />
-        <option value="$PROJECT_DIR$/get_tweets.py" />
         <option value="$PROJECT_DIR$/plot_val_acc.py" />
+        <option value="$PROJECT_DIR$/get_tweets.py" />
         <option value="$PROJECT_DIR$/dataset_analysis.py" />
         <option value="$PROJECT_DIR$/DL_classifiers.py" />
       </list>
@@ -140,6 +147,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -151,8 +160,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -278,8 +285,8 @@
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.DL_classifiers" />
         <item index="1" class="java.lang.String" itemvalue="Python.dataset_analysis" />
-        <item index="2" class="java.lang.String" itemvalue="Python.plot_val_acc" />
-        <item index="3" class="java.lang.String" itemvalue="Python.get_tweets" />
+        <item index="2" class="java.lang.String" itemvalue="Python.get_tweets" />
+        <item index="3" class="java.lang.String" itemvalue="Python.plot_val_acc" />
         <item index="4" class="java.lang.String" itemvalue="Python.multichannel_cnn" />
       </list>
     </recent_temporary>
@@ -307,7 +314,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22777778" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34941176" sideWeight="0.5083333" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33294117" sideWeight="0.49166667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33294117" sideWeight="0.49166667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -336,34 +343,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Screenshots/tweets8000_naughty word dist. 1-7 (bullying instances).png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Screenshots/formspring_length graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Screenshots/formspring_naughty word dist. 1-7 (bullying instances).png" />
-    <entry file="file://$PROJECT_DIR$/Screenshots/formspring_naughty word dist. 1-7.png" />
-    <entry file="file://$PROJECT_DIR$/Screenshots/twitter_naughty word dist. 1-7 (bullying instances).png" />
-    <entry file="file://$PROJECT_DIR$/Screenshots/twitter_naughty word dist. 1-7.png" />
-    <entry file="file://$PROJECT_DIR$/cleaned_formspring.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-148773">
-          <caret line="2824" column="0" lean-forward="false" selection-start-line="2824" selection-start-column="0" selection-end-line="2824" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cleaned_twitter_dataset.csv" />
-    <entry file="file://$PROJECT_DIR$/Screenshots/tweets8000_length graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/508139 graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/5083 graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/6524 graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/6522 graph.png" />
@@ -437,15 +416,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/get_tweets.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="67" lean-forward="false" selection-start-line="5" selection-start-column="67" selection-end-line="5" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tweets_7K.numbers" />
     <entry file="file://$PROJECT_DIR$/Screenshots/tweets_16K_length graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cleaned_more_tweets_16k.csv" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/LSTM-BN-clean graph.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
@@ -470,84 +448,137 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/LSTM-clean graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/CNN-clean graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="3" column="12" lean-forward="false" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
-          <folding />
+        <state relative-caret-position="195">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tweets_7K_raw.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter_7K.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/get_tweets.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="38" column="24" lean-forward="false" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/twitter_16K.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-240883">
+        <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cleaned_tweets_16k copy.csv" />
+    <entry file="file://$PROJECT_DIR$/cleaned_twitter_1K.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/processed_tweets_16k.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/processed_tweets_16k copy.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/processed_tweets_16k_3class.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cleaned_tweets_16k_3class.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-415">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cleaned_tweets_16k.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-196">
-          <caret line="15506" column="33" lean-forward="true" selection-start-line="15506" selection-start-column="33" selection-end-line="15506" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cleaned_tweets_16k copy.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cleaned_more_tweets_16k.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="5247" column="8" lean-forward="false" selection-start-line="5247" selection-start-column="8" selection-end-line="5247" selection-end-column="8" />
-          <folding />
+        <state relative-caret-position="232590">
+          <caret line="15506" column="33" lean-forward="false" selection-start-line="15506" selection-start-column="33" selection-end-line="15506" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dataset_analysis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="987" column="38" lean-forward="false" selection-start-line="987" selection-start-column="38" selection-end-line="987" selection-end-column="38" />
+        <state relative-caret-position="713">
+          <caret line="1021" column="14" lean-forward="false" selection-start-line="1021" selection-start-column="14" selection-end-line="1021" selection-end-column="14" />
           <folding>
             <element signature="e#647#2194#0" expanded="false" />
             <element signature="e#2219#11871#0" expanded="false" />
             <element signature="e#11897#20802#0" expanded="false" />
             <element signature="e#20828#30891#0" expanded="false" />
-            <element signature="e#30916#40453#0" expanded="false" />
-            <element signature="e#38585#38639#0" expanded="false" />
-            <element signature="e#39788#39826#0" expanded="false" />
+            <element signature="e#30916#40760#0" expanded="false" />
+            <element signature="e#38892#38946#0" expanded="false" />
+            <element signature="e#40095#40133#0" expanded="false" />
+            <element signature="e#40791#42391#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="398" column="81" lean-forward="true" selection-start-line="398" selection-start-column="81" selection-end-line="398" selection-end-column="81" />
+        <state relative-caret-position="1100">
+          <caret line="498" column="2" lean-forward="false" selection-start-line="498" selection-start-column="2" selection-end-line="498" selection-end-column="2" />
           <folding>
-            <element signature="e#2456#2568#0" expanded="false" />
-            <element signature="e#2599#2702#0" expanded="false" />
-            <element signature="e#2743#2835#0" expanded="false" />
-            <element signature="e#2879#3659#0" expanded="false" />
-            <element signature="e#4044#4335#0" expanded="false" />
-            <element signature="e#4364#4735#0" expanded="false" />
-            <element signature="e#4767#5973#0" expanded="false" />
-            <element signature="e#6026#6475#0" expanded="false" />
-            <element signature="e#6511#6959#0" expanded="false" />
-            <element signature="e#6994#7560#0" expanded="false" />
-            <element signature="e#7633#9769#0" expanded="false" />
-            <element signature="e#9802#10030#0" expanded="false" />
-            <element signature="e#10066#10434#0" expanded="false" />
-            <element signature="e#10465#11157#0" expanded="false" />
-            <element signature="e#12464#12545#0" expanded="false" />
-            <element signature="e#12955#12974#0" expanded="false" />
-            <element signature="e#14018#14052#0" expanded="false" />
+            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#2536#2648#0" expanded="false" />
+            <element signature="e#2679#2782#0" expanded="false" />
+            <element signature="e#2823#2915#0" expanded="false" />
+            <element signature="e#2959#3739#0" expanded="false" />
+            <element signature="e#4126#4417#0" expanded="false" />
+            <element signature="e#4446#4817#0" expanded="false" />
+            <element signature="e#4849#6055#0" expanded="false" />
+            <element signature="e#6108#6557#0" expanded="false" />
+            <element signature="e#6593#7041#0" expanded="false" />
+            <element signature="e#7076#7642#0" expanded="false" />
+            <element signature="e#7715#9851#0" expanded="false" />
+            <element signature="e#9884#10112#0" expanded="false" />
+            <element signature="e#10148#10516#0" expanded="false" />
+            <element signature="e#10547#11239#0" expanded="false" />
+            <element signature="e#11312#13845#0" expanded="false" />
+            <element signature="e#12350#12431#0" expanded="false" />
+            <element signature="e#12805#12824#0" expanded="false" />
+            <element signature="e#15160#15241#0" expanded="false" />
+            <element signature="e#15602#15621#0" expanded="false" />
+            <element signature="e#16665#16699#0" expanded="false" />
           </folding>
         </state>
       </provider>

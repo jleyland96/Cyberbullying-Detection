@@ -758,7 +758,7 @@ def tweets_16k():
         max_glove_len = 0
 
         # titles: ['rev_id', 'comment', 'year', 'logged_in', 'ns', 'sample', 'split', 'attack']
-        with open('cleaned_tweets_16k.csv', mode='w') as csv_write_file:
+        with open('processed_tweets_16k_3class_aaaaa.csv', mode='w') as csv_write_file:
             csv_writer = csv.writer(csv_write_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
             naughty_dict = defaultdict(int)
@@ -784,8 +784,10 @@ def tweets_16k():
 
                 if label == "none":
                     label_bullying = 0
-                else:
+                elif label == "racism":
                     label_bullying = 1
+                else:
+                    label_bullying = 2
 
                 # count the 1s and 0s in all messages
                 label_count[label_bullying] += 1
@@ -807,6 +809,8 @@ def tweets_16k():
 
                 # Calculating the normalised naughty count
                 comment_length = len((tweet.split(' ')))
+                if comment_length > 100:
+                    print(tweet)
                 length_dict[comment_length] += 1
                 length_running_total += comment_length
                 norm = naughty_count / len((tweet.split(' ')))
@@ -828,43 +832,43 @@ def tweets_16k():
                     # count the 1s and 0s in non-naughty word messages
                     label_count_not_naughty[label_bullying] += 1
 
-                # ------ GLOVE -------
-                # for each word in this sentence
-                count = 0
-                for word in tweet.split(' '):
-                    # if the word is in our gloveDict, then add element-wise to our output X
-                    if word in gloveDict:
-                        count += 1
-                    else:
-                        glove_misses_before += 1
-
-                glove_running_total_before += count
-                if count == 0:
-                    glove_zero_count_before += 1
-                # ----- END GLOVE ----
+                # # ------ GLOVE -------
+                # # for each word in this sentence
+                # count = 0
+                # for word in tweet.split(' '):
+                #     # if the word is in our gloveDict, then add element-wise to our output X
+                #     if word in gloveDict:
+                #         count += 1
+                #     else:
+                #         glove_misses_before += 1
+                #
+                # glove_running_total_before += count
+                # if count == 0:
+                #     glove_zero_count_before += 1
+                # # ----- END GLOVE ----
 
                 # remove punctuation
                 no_punc_tweet = re.sub('[\":=#&;\'?!@,./\\\\\n*]', '', tweet)
                 # remove multiple spaces, replace with one space
                 no_punc_tweet = re.sub(' +', ' ', no_punc_tweet)
 
-                # ------ GLOVE -------
-                # for each word in this sentence
-                count = 0
-                for word in no_punc_tweet.lower().split(' '):
-                    # if the word is in our gloveDict, then add element-wise to our output X
-                    if word in gloveDict:
-                        count += 1
-                    else:
-                        glove_misses_after += 1
-
-                glove_running_total_after += count
-                if count == 0:
-                    glove_zero_count_after += 1
-
-                if count > max_glove_len:
-                    max_glove_len = count
-                # ----- END GLOVE ----
+                # # ------ GLOVE -------
+                # # for each word in this sentence
+                # count = 0
+                # for word in no_punc_tweet.lower().split(' '):
+                #     # if the word is in our gloveDict, then add element-wise to our output X
+                #     if word in gloveDict:
+                #         count += 1
+                #     else:
+                #         glove_misses_after += 1
+                #
+                # glove_running_total_after += count
+                # if count == 0:
+                #     glove_zero_count_after += 1
+                #
+                # if count > max_glove_len:
+                #     max_glove_len = count
+                # # ----- END GLOVE ----
 
                 # Write to clean file, removing the apostrophes
                 # if not (is_blank) and not (is_NAME) and count > 0:
@@ -905,6 +909,8 @@ def tweets_16k():
             print("Max glove count:", max_glove_len)
 
             print(max(list(length_dict.keys())))
+
+            print(label_count)
 
             # plt.plot(naughty_dict.keys(), naughty_dict.values())
             # plt.axis([0, 7, 0, 5000])
@@ -952,12 +958,12 @@ def tweets_16k():
 
 
 def clean_tweets_16k():
-    with open('cleaned_tweets_16K.csv') as csv_file:
+    with open('processed_tweets_16K_3class.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
 
         # titles: ['rev_id', 'comment', 'year', 'logged_in', 'ns', 'sample', 'split', 'attack']
-        with open('cleaned_more_tweets_16k.csv', mode='w') as csv_write_file:
+        with open('cleaned_tweets_16k_3class.csv', mode='w') as csv_write_file:
             csv_writer = csv.writer(csv_write_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
             for row in csv_reader:
@@ -996,9 +1002,21 @@ def clean_tweets_16k():
                     print(line_count)
 
 
+def count_labels():
+    with open('cleaned_tweets_16K_3class.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        label_count = defaultdict(int)
+
+        for row in csv_reader:
+            label_count[row[0]] += 1
+
+    print(label_count)
+
+
 # formspring()
 # tweets_8000()
 # tweets_1000()
 # tweets_16k()
-clean_tweets_16k()
+# clean_tweets_16k()
 # correlation()
+count_labels()

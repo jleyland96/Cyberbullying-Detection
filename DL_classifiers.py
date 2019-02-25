@@ -10,7 +10,7 @@ from keras.layers.normalization import BatchNormalization
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Flatten
-from keras.layers import LSTM
+from keras.layers import LSTM, Bidirectional
 from keras.layers import ReLU
 from keras.layers import Conv1D
 from keras.layers import MaxPool1D, MaxPooling1D
@@ -38,6 +38,8 @@ import tensorflow as tf
 # 'global' variable to store sequence of validation accuracies
 validation_results = []
 f1_results = []
+f1_results_weighted = []
+f1_results_micro = []
 
 
 def get_data(filename):
@@ -138,7 +140,7 @@ def get_pad_length(filename):
     elif filename == "cleaned_twitter_1K.csv":
         return 30
     elif filename == "cleaned_tweets_16k.csv" or filename == "cleaned_tweets_16k_3class.csv":
-        return 32
+        return 32  # was 32
     else:  # cleaned_formspring.csv is up to length 1200
         return 100
 
@@ -202,6 +204,63 @@ class Metrics(Callback):
 metrics = Metrics()
 
 
+class Three_Class_Metrics(Callback):
+    def on_train_begin(self, logs={}):
+        self.val_f1s_weighted = []
+        self.val_recalls_weighted = []
+        self.val_precisions_weighted = []
+        self.val_f1s_micro = []
+        self.val_recalls_micro = []
+        self.val_precisions_micro = []
+
+    def on_epoch_end(self, epoch, logs={}):
+        print()
+        val_predict = (np.asarray(self.model.predict(self.validation_data[0]))).round()
+        val_targ = self.validation_data[1]
+
+        # VALIDATION ACCURACY
+        _val_acc = accuracy_score(val_targ, val_predict)
+        validation_results.append(round(_val_acc, 4))
+
+        # GET WEIGHTED METRICS
+        _val_f1_weighted = f1_score(val_targ, val_predict, average='weighted')
+        _val_recall_weighted = recall_score(val_targ, val_predict, average='weighted')
+        _val_precision_weighted = precision_score(val_targ, val_predict, average='weighted')
+        self.val_f1s_weighted.append(_val_f1_weighted)
+        self.val_recalls_weighted.append(_val_recall_weighted)
+        self.val_precisions_weighted.append(_val_precision_weighted)
+        print("F1 WEIGHTED       :", _val_f1_weighted)
+        print("PRECISION WEIGHTED:", _val_precision_weighted)
+        print("RECALL WEIGHTED   :", _val_recall_weighted)
+        f1_results_weighted.append(round(_val_f1_weighted, 4))
+        print("\n")
+
+        # GET MICRO METRICS
+        _val_f1_micro = f1_score(val_targ, val_predict, average='micro')
+        _val_recall_micro = recall_score(val_targ, val_predict, average='micro')
+        _val_precision_micro = precision_score(val_targ, val_predict, average='micro')
+        self.val_f1s_micro.append(_val_f1_micro)
+        self.val_recalls_micro.append(_val_recall_micro)
+        self.val_precisions_micro.append(_val_precision_micro)
+        print("F1 MICRO       :", _val_f1_micro)
+        print("PRECISION MICRO:", _val_precision_micro)
+        print("RECALL MICRO  :", _val_recall_micro)
+        f1_results_micro.append(round(_val_f1_micro, 4))
+
+        # Print validation accuracy and f1 scores (so we can plot later)
+        print("\nVAL_ACC:\n", validation_results)
+        print("\n\n")
+        print("F1 weighted:\n", f1_results_weighted)
+        print("F1 micro:\n", f1_results_micro)
+
+        # Save the model for another time
+        # save_model(self.model, save_path)
+        return
+
+
+three_class_metrics = Three_Class_Metrics()
+
+
 def f1(y_true, y_pred):
     y_pred = K.round(y_pred)
     tp = K.sum(K.cast(y_true*y_pred, 'float'), axis=0)
@@ -234,6 +293,7 @@ def f1_loss(y_true, y_pred):
 def print_results(history):
     print("TRAIN:", list(np.round(history.history['acc'], 4)), "\n")
     print("TEST:", list(np.round(history.history['val_acc'], 4)), "\n")
+    print("LOSS:", list(np.round(history.history['loss'], 4)), "\n")
     if loss == "F1":
         val_f1 = list(np.round(history.history['val_f1'], 4))
         print("VAL_F1:", val_f1, "\n")
@@ -242,6 +302,28 @@ def print_results(history):
     else:
         print("Max F1 was", max(f1_results), "at epoch", f1_results.index(max(f1_results)) + 1, "\n")
         print("F1:", f1_results)
+
+
+def print_3class_results(y_test, y_pred, history):
+    # PRINT FINAL TRAIN/TEST/LOSS INFO
+    print("TRAIN:", list(np.round(history.history['acc'], 4)), "\n")
+    print("TEST:", list(np.round(history.history['val_acc'], 4)), "\n")
+    print("LOSS:", list(np.round(history.history['loss'], 4)), "\n")
+    print("\n")
+
+    # PRINT FINAL PRECISION, RECALL, F1 INFO
+    # print("Weighted precision:", precision_score(y_test, y_pred, average='weighted'))
+    # print("Weighted recall:", recall_score(y_test, y_pred, average='weighted'))
+    # print("Weighted F1", f1_score(y_test, y_pred, average='weighted'))
+    # print("\n")
+    # print("Micro precision:", precision_score(y_test, y_pred, average='micro'))
+    # print("Micro recall:", recall_score(y_test, y_pred, average='micro'))
+    # print("Micro F1", f1_score(y_test, y_pred, average='micro'))
+    # print("\n")
+
+    # MAXIMUMS
+    print("Max F1 weighted was", max(f1_results_weighted), "at epoch", f1_results_weighted.index(max(f1_results_weighted)) + 1, "\n")
+    print("Max F1 micro was", max(f1_results_micro), "at epoch", f1_results_micro.index(max(f1_results_micro)) + 1, "\n")
 
 
 def learn_embeddings_model(filename="cleaned_text_messages.csv"):
@@ -264,14 +346,12 @@ def learn_embeddings_model(filename="cleaned_text_messages.csv"):
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
     # split to get dev data (0.2), then split to get train/test data (0.7 and 0.1)
-    X, X_dev, y, labels_dev = train_test_split(padded_docs, labels, test_size=0.20)
-    X_train, X_test, labels_train, labels_test = train_test_split(X, y, test_size=0.125)
+    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.10)
 
     # Repeat the positives here if I want to
     # X_train, labels_train = repeat_positives(X_train, labels_train, repeats=8)
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
-    print("Dev 1's proportion = " + str(round(np.count_nonzero(labels_dev) / len(labels_dev), 4)))
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
     print()
 
@@ -279,23 +359,29 @@ def learn_embeddings_model(filename="cleaned_text_messages.csv"):
     # define the model
     model = Sequential()
     model.add(Embedding(input_dim=vocab_size, output_dim=100, input_length=max_len))
-    model.add(LSTM(units=200, dropout=0.5, recurrent_dropout=0.5))
-    model.add(Dense(units=1, activation='sigmoid'))
 
+    model.add(LSTM(units=150, dropout=0.5, recurrent_dropout=0.5))
+
+    model.add(Dense(units=1, activation='sigmoid'))
     # compile the model
-    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc'])
+
+    my_adam = optimizers.Adam(lr=0.005, decay=0.05)
+    model.compile(optimizer=my_adam, loss='binary_crossentropy', metrics=['acc'])
     # print(model.summary())
 
     # fit the model
     print("Fitting the model...")
-    model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_dev, labels_dev),
-              epochs=300, batch_size=128, callbacks=[metrics])
+    class_weight = {0: 1.0,
+                    1: 1.0}
+    history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
+                        epochs=150, batch_size=128, callbacks=[metrics])
     # ---------------- END LEARN EMBEDDINGS EDIT ----------------
 
     # evaluate
     # labels_pred = model.predict_classes(x=X_test)
     loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
     print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
+    print_results(history)
 
 
 def dense_network(model):
@@ -322,17 +408,17 @@ def cnn_lstm_network(model):
 
 
 def cnn_network(model):
-    model.add(Conv1D(filters=32, kernel_size=4, strides=2, padding='valid', use_bias=False))
+    model.add(Conv1D(filters=32, kernel_size=3, strides=1, padding='valid', use_bias=False))
     model.add(BatchNormalization())
     model.add(ReLU())
     model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(Conv1D(filters=48, kernel_size=3, strides=2, padding='valid', use_bias=False))
+    model.add(Conv1D(filters=48, kernel_size=3, strides=1, padding='valid', use_bias=False))
     model.add(BatchNormalization())
     model.add(ReLU())
     model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(Conv1D(filters=32, kernel_size=3, strides=2, padding='valid', use_bias=False))
+    model.add(Conv1D(filters=64, kernel_size=3, strides=1, padding='valid', use_bias=False))
     model.add(BatchNormalization())
     model.add(ReLU())
     model.add(MaxPool1D(pool_size=2, strides=1))
@@ -348,8 +434,6 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
 
     # get the data
     X, labels = get_data(filename=filename)
-    print(labels[:50])
-    category_labels = np_utils.to_categorical(labels)
 
     # prepare tokenizer
     t = Tokenizer()
@@ -366,7 +450,11 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
     # Split into training and test data
-    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, category_labels, test_size=0.10)
+    X_train, X_test, y_train, y_test = train_test_split(padded_docs, labels, test_size=0.10)
+
+    labels_train = np_utils.to_categorical(y_train)
+    labels_test = np_utils.to_categorical(y_test)
+
 
     # load a pre-saved model
     # model = load_model(save_path)
@@ -384,7 +472,7 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
     e.trainable = False
     model.add(e)
 
-    model.add(LSTM(units=100, recurrent_dropout=0.5, dropout=0.5))
+    model.add(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5))
 
     model.add(Dense(units=3, activation='softmax'))
 
@@ -396,18 +484,19 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
     #                     nb_epoch=30, batch_size=128, class_weight=class_weight)
 
     class_weight = {0: 1.0,
-                    1: 1.0,
-                    2: 1.0}
+                    1: 2.0,
+                    2: 2.0}
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=50, batch_size=256, class_weight=class_weight)
+                        nb_epoch=50, batch_size=128, callbacks=[three_class_metrics], class_weight=class_weight)
     # ------------------ END MODEL ------------------
 
     # evaluate
     labels_pred = model.predict_classes(x=X_test)
-    print(labels_pred)
     loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
-    print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
+    print("\bTEST_ACC = " + str(round(accuracy * 100, 2)) + "%")
+
+    print_3class_results(y_test, labels_pred, history)
 
 
 def main_2_class_model(filename="cleaned_text_messages.csv"):
@@ -440,8 +529,8 @@ def main_2_class_model(filename="cleaned_text_messages.csv"):
     # load a pre-saved model
     # model = load_model(save_path)
 
-    # embedding_matrix = get_glove_matrix(vocab_size, t)
-    embedding_matrix = get_glove_matrix_from_dump()
+    embedding_matrix = get_glove_matrix(vocab_size, t)
+    # embedding_matrix = get_glove_matrix_from_dump()
 
     # GloVe hit rate
     print(np.count_nonzero(np.count_nonzero(embedding_matrix, axis=1)) / vocab_size)
@@ -455,8 +544,10 @@ def main_2_class_model(filename="cleaned_text_messages.csv"):
                   embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
     e.trainable = False
     model.add(e)
+    model.add(Dropout(rate=0.25))
 
-    model.add(LSTM(units=100, recurrent_dropout=0.5))
+    model.add(LSTM(units=50))
+    model.add(Dropout(rate=0.5))
 
     model.add(Dense(units=1, activation='sigmoid'))
 
@@ -469,14 +560,13 @@ def main_2_class_model(filename="cleaned_text_messages.csv"):
 
     class_weight = {0: 1.0,
                     1: 1.0}
+    # my_adam = optimizers.Adam(lr=0.003, decay=0.001)
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=150, batch_size=256, callbacks=[metrics], class_weight=class_weight)
+                        nb_epoch=50, batch_size=128, callbacks=[metrics], class_weight=class_weight)
     # ------------------ END MODEL ------------------
 
     # evaluate
-    labels_pred = model.predict_classes(x=X_test)
-    print(labels_pred)
     loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
     print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
 
@@ -494,6 +584,7 @@ def main_2_class_model(filename="cleaned_text_messages.csv"):
 
 save_path = "TEST"
 loss = "cross-entropy"
-file = "cleaned_tweets_16k.csv"
-main_2_class_model(file)
-# main_3_class_model(file)
+file = "cleaned_tweets_16k_3class.csv"
+# learn_embeddings_model(file)
+# main_2_class_model(file)
+main_3_class_model(file)

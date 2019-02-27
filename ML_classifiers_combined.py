@@ -228,7 +228,7 @@ def get_glove_data(dataset_filename="cleaned_text_messages.csv"):
         print("ON THE FORMSPRING")
         MAX_LEN = 100
     else:
-        MAX_LEN = 30
+        MAX_LEN = 32
 
     print("padding vectors to maxlen =", MAX_LEN, "...")
     padded_word_vecs = np.array(
@@ -301,11 +301,11 @@ def get_avg_glove_data(dataset_filename="cleaned_formsprig.csv"):
     return X_train, X_test, y_train, y_test
 
 
-print("RUNNING ON FORMSPRING")
+print("RUNNING ON DIRTY_16K 2-class")
 for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
 
     # CHANGE THE DATASET NAME NOW
-    dataset_filename = 'cleaned_twitter_1K.csv'
+    dataset_filename = 'processed_tweets_16k.csv'
 
     # Get the right dataset (Glove features, term count, term freq, term freq idf, bigrams, trigrams)
     if vectorize_choice == "glove":
@@ -333,7 +333,7 @@ for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_
     print()
 
     # Repeat the positive examples in the training dataset twice to avoid over-fitting to negative examples
-    X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
+    # X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
 
     print("AFTER REPEATS")
     print(len(X_train[0]), "features")
@@ -345,7 +345,7 @@ for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_
     print()
 
     # loop through classifiers
-    for current_clf in range(9, 10):
+    for current_clf in range(0, 10):
         # TRAIN
         print("\ntraining on dataset", vectorize_choice, "...")
         grid_searching = False
@@ -393,7 +393,7 @@ for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_
             clf = tree.DecisionTreeClassifier()
         elif current_clf == 9:
             print("Gradient boosted classifier...")
-            clf = GradientBoostingClassifier(n_estimators=1000)
+            clf = GradientBoostingClassifier(n_estimators=200)
 
         # FIT
         print("fitting...")
@@ -411,13 +411,13 @@ for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_
 
         # EVALUATE
         print("confusion matrix:", sm.confusion_matrix(y_test, y_pred))
-        print("accuracy:", round(sm.accuracy_score(y_test, y_pred), 5))
+        print("accuracy:", round(sm.accuracy_score(y_test, y_pred), 4))
 
         # if the metrics are well defined
         if np.count_nonzero(y_pred) > 0:
-            print("recall:", round(sm.recall_score(y_test, y_pred), 5))
-            print("precision:", round(sm.precision_score(y_test, y_pred), 5))
-            print("f1 score:", round(sm.f1_score(y_test, y_pred), 5))
+            print("recall:", round(sm.recall_score(y_test, y_pred), 4))
+            print("precision:", round(sm.precision_score(y_test, y_pred), 4))
+            print("f1 score:", round(sm.f1_score(y_test, y_pred), 4))
             print("\n\n")
         else:
             print("No True predictions made\n\n")

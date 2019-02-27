@@ -326,7 +326,7 @@ def print_3class_results(y_test, y_pred, history):
     print("Max F1 micro was", max(f1_results_micro), "at epoch", f1_results_micro.index(max(f1_results_micro)) + 1, "\n")
 
 
-def learn_embeddings_model(filename="cleaned_text_messages.csv"):
+def learn_embeddings_model_2class(filename="cleaned_tweets_16k.csv"):
     print("\nLEARN EMBEDDINGS MODEL")
 
     # get the data
@@ -484,8 +484,8 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
     #                     nb_epoch=30, batch_size=128, class_weight=class_weight)
 
     class_weight = {0: 1.0,
-                    1: 2.0,
-                    2: 2.0}
+                    1: 1.0,
+                    2: 1.0}
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
                         nb_epoch=50, batch_size=128, callbacks=[three_class_metrics], class_weight=class_weight)
@@ -582,9 +582,10 @@ def main_2_class_model(filename="cleaned_text_messages.csv"):
     # plt.savefig("keras_vis/5000 graph.png")
 
 
-save_path = "TEST"
-loss = "cross-entropy"
-file = "cleaned_tweets_16k_3class.csv"
-# learn_embeddings_model(file)
-# main_2_class_model(file)
-main_3_class_model(file)
+if __name__ == "__main__":
+    save_path = "TEST"
+    loss = "cross-entropy"
+    file = "cleaned_tweets_16k_3class.csv"
+    # learn_embeddings_model(file)
+    # main_2_class_model_2class(file)
+    main_3_class_model(file)

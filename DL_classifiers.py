@@ -360,7 +360,7 @@ def learn_embeddings_model_2class(filename="cleaned_tweets_16k.csv"):
     model = Sequential()
     model.add(Embedding(input_dim=vocab_size, output_dim=100, input_length=max_len))
 
-    model.add(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=150, dropout=0.5, recurrent_dropout=0.5))
 
     model.add(Dense(units=1, activation='sigmoid'))
     # compile the model
@@ -644,7 +644,7 @@ if __name__ == "__main__":
     save_path = "TEST"
     loss = "cross-entropy"
     file = "processed_tweets_16k.csv"
-    # learn_embeddings_model_2class(file)
+    learn_embeddings_model_2class(file)
     # learn_embeddings_model_3class(file)
-    main_2_class_model(file)
+    # main_2_class_model(file)
     # main_3_class_model(file)

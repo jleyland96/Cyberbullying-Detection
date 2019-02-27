@@ -335,14 +335,14 @@ for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_
     # Repeat the positive examples in the training dataset twice to avoid over-fitting to negative examples
     # X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
 
-    print("AFTER REPEATS")
-    print(len(X_train[0]), "features")
-    print(len(X_test[0]))
-    print(len(X_train))
-    print(len(X_test))
-    print(len(y_train))
-    print(len(y_test))
-    print()
+    # print("AFTER REPEATS")
+    # print(len(X_train[0]), "features")
+    # print(len(X_test[0]), "features")
+    # print(len(X_train))
+    # print(len(X_test))
+    # print(len(y_train))
+    # print(len(y_test))
+    # print()
 
     # loop through classifiers
     for current_clf in range(0, 10):

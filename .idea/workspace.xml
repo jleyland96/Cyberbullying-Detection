@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/DL_classifiers.py" afterPath="$PROJECT_DIR$/DL_classifiers.py" />
-      <change beforePath="$PROJECT_DIR$/ML_classifiers_combined.py" afterPath="$PROJECT_DIR$/ML_classifiers_combined.py" />
-      <change beforePath="$PROJECT_DIR$/embedding_matrix.p" afterPath="$PROJECT_DIR$/embedding_matrix.p" />
-    </list>
+    <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

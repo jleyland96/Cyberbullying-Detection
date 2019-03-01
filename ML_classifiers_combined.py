@@ -302,10 +302,11 @@ def get_avg_glove_data(dataset_filename="cleaned_formsprig.csv"):
 
 
 print("RUNNING ON DIRTY_16K 2-class")
-for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
+# for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
+for vectorize_choice in ["term_freq"]:
 
     # CHANGE THE DATASET NAME NOW
-    dataset_filename = 'processed_tweets_16k.csv'
+    dataset_filename = 'processed_tweets_16k_3class.csv'
 
     # Get the right dataset (Glove features, term count, term freq, term freq idf, bigrams, trigrams)
     if vectorize_choice == "glove":
@@ -323,26 +324,8 @@ for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_
     else:
         X_train, X_test, y_train, y_test = get_ngram_data(ngram_size=3, dataset_filename=dataset_filename)
 
-    print("BEFORE REPEATS")
-    print(len(X_train[0]), "features")
-    print(len(X_test[0]))
-    print(len(X_train))
-    print(len(X_test))
-    print(len(y_train))
-    print(len(y_test))
-    print()
-
     # Repeat the positive examples in the training dataset twice to avoid over-fitting to negative examples
     # X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
-
-    # print("AFTER REPEATS")
-    # print(len(X_train[0]), "features")
-    # print(len(X_test[0]), "features")
-    # print(len(X_train))
-    # print(len(X_test))
-    # print(len(y_train))
-    # print(len(y_test))
-    # print()
 
     # loop through classifiers
     for current_clf in range(0, 10):
@@ -410,14 +393,16 @@ for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_
         print(y_pred[:20])
 
         # EVALUATE
-        print("confusion matrix:", sm.confusion_matrix(y_test, y_pred))
+        print("confusion matrix:\n", sm.confusion_matrix(y_test, y_pred))
         print("accuracy:", round(sm.accuracy_score(y_test, y_pred), 4))
 
         # if the metrics are well defined
         if np.count_nonzero(y_pred) > 0:
-            print("recall:", round(sm.recall_score(y_test, y_pred), 4))
-            print("precision:", round(sm.precision_score(y_test, y_pred), 4))
-            print("f1 score:", round(sm.f1_score(y_test, y_pred), 4))
+            # print("recall:", round(sm.recall_score(y_test, y_pred), 4))
+            # print("precision:", round(sm.precision_score(y_test, y_pred), 4))
+            print("f1 score weighted:", round(sm.f1_score(y_test, y_pred, average='weighted'), 4))
+            print("f1 score micro   :", round(sm.f1_score(y_test, y_pred, average='micro'), 4))
+
             print("\n\n")
         else:
             print("No True predictions made\n\n")

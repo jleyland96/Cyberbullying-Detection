@@ -302,8 +302,8 @@ def get_avg_glove_data(dataset_filename="cleaned_formsprig.csv"):
 
 
 print("RUNNING ON DIRTY_16K 2-class")
-# for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
-for vectorize_choice in ["term_freq"]:
+for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
+# for vectorize_choice in ["term_freq"]:
 
     # CHANGE THE DATASET NAME NOW
     dataset_filename = 'processed_tweets_16k_3class.csv'

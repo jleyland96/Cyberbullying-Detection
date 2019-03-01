@@ -360,7 +360,7 @@ def learn_embeddings_model_2class(filename="cleaned_tweets_16k.csv"):
     model = Sequential()
     model.add(Embedding(input_dim=vocab_size, output_dim=100, input_length=max_len))
 
-    model.add(LSTM(units=150, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=250, dropout=0.5, recurrent_dropout=0.5))
 
     model.add(Dense(units=1, activation='sigmoid'))
     # compile the model

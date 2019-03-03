@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/ML_classifiers_combined.py" afterPath="$PROJECT_DIR$/ML_classifiers_combined.py" />
+      <change beforePath="$PROJECT_DIR$/DL_classifiers.py" afterPath="$PROJECT_DIR$/DL_classifiers.py" />
+      <change beforePath="$PROJECT_DIR$/multichannel_cnn.py" afterPath="$PROJECT_DIR$/multichannel_cnn.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,11 +15,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ML_classifiers_combined.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
+      <file leaf-file-name="multichannel_cnn.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/multichannel_cnn.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="314" column="79" lean-forward="false" selection-start-line="314" selection-start-column="79" selection-end-line="314" selection-end-column="79" />
+            <state relative-caret-position="274">
+              <caret line="433" column="70" lean-forward="false" selection-start-line="433" selection-start-column="70" selection-end-line="433" selection-end-column="70" />
+              <folding>
+                <element signature="e#0#23#0" expanded="true" />
+                <element signature="e#1130#1658#0" expanded="false" />
+                <element signature="e#1733#1825#0" expanded="false" />
+                <element signature="e#1869#2649#0" expanded="false" />
+                <element signature="e#2703#2781#0" expanded="false" />
+                <element signature="e#2816#3148#0" expanded="false" />
+                <element signature="e#3206#4288#0" expanded="false" />
+                <element signature="e#4363#4543#0" expanded="false" />
+                <element signature="e#4575#5836#0" expanded="false" />
+                <element signature="e#5902#8296#0" expanded="false" />
+                <element signature="e#8471#10434#0" expanded="false" />
+                <element signature="e#10511#12025#0" expanded="false" />
+                <element signature="e#12053#13274#0" expanded="false" />
+                <element signature="e#13302#14633#0" expanded="false" />
+                <element signature="e#16083#17747#0" expanded="false" />
+                <element signature="e#16117#16145#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plot_val_acc.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="155">
+              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -77,10 +105,10 @@
         <option value="$PROJECT_DIR$/my_multichannel_slurm" />
         <option value="$PROJECT_DIR$/get_tweets.py" />
         <option value="$PROJECT_DIR$/dataset_analysis.py" />
-        <option value="$PROJECT_DIR$/multichannel_cnn.py" />
-        <option value="$PROJECT_DIR$/DL_classifiers.py" />
-        <option value="$PROJECT_DIR$/plot_val_acc.py" />
         <option value="$PROJECT_DIR$/ML_classifiers_combined.py" />
+        <option value="$PROJECT_DIR$/DL_classifiers.py" />
+        <option value="$PROJECT_DIR$/multichannel_cnn.py" />
+        <option value="$PROJECT_DIR$/plot_val_acc.py" />
       </list>
     </option>
   </component>
@@ -103,7 +131,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -111,10 +138,16 @@
               <item name="Cyberbullying-Detection" type="b2602c69:ProjectViewProjectNode" />
               <item name="Cyberbullying-Detection" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Cyberbullying-Detection" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Cyberbullying-Detection" type="462c0819:PsiDirectoryNode" />
+              <item name="DL_graphs" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -139,7 +172,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.ML_classifiers_combined">
+  <component name="RunManager" selected="Python.plot_val_acc">
     <configuration name="DL_classifiers" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -239,10 +272,10 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.ML_classifiers_combined" />
-        <item index="1" class="java.lang.String" itemvalue="Python.plot_val_acc" />
+        <item index="0" class="java.lang.String" itemvalue="Python.plot_val_acc" />
+        <item index="1" class="java.lang.String" itemvalue="Python.multichannel_cnn" />
         <item index="2" class="java.lang.String" itemvalue="Python.DL_classifiers" />
-        <item index="3" class="java.lang.String" itemvalue="Python.multichannel_cnn" />
+        <item index="3" class="java.lang.String" itemvalue="Python.ML_classifiers_combined" />
         <item index="4" class="java.lang.String" itemvalue="Python.dataset_analysis" />
       </list>
     </recent_temporary>
@@ -265,11 +298,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22777778" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34941176" sideWeight="0.5083333" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32941177" sideWeight="0.49166667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32588235" sideWeight="0.49166667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -293,40 +327,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="18" />
+      <option name="time" value="20" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/DL_graphs/Tweets (8000)/Page 5 (best of)/4905 rerun graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cleaned_text_messages.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-27">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/text_messages.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="5182" column="3" lean-forward="false" selection-start-line="5182" selection-start-column="2" selection-end-line="5182" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tweets_7K.numbers" />
-    <entry file="file://$PROJECT_DIR$/Screenshots/tweets_16K_length graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cleaned_more_tweets_16k.csv" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/LSTM-BN-clean graph.png" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/LSTM100 graph.png" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/LSTM100-2 graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/LSTM-BN graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/CNN graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/LSTM-clean graph.png" />
@@ -414,13 +419,6 @@
     <entry file="file://$PROJECT_DIR$/DL_graphs/LSTM50x300 graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/WE decay graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/WE graph.png" />
-    <entry file="file://$PROJECT_DIR$/multichannel_cnn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="795">
-          <caret line="162" column="40" lean-forward="false" selection-start-line="162" selection-start-column="40" selection-end-line="162" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DL_graphs/MultiCNN graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/Bi-LSTM graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/GloveTune graph.png" />
@@ -440,7 +438,15 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/Combo dirty 100 graph.png">
+    <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="545">
+          <caret line="314" column="79" lean-forward="false" selection-start-line="314" selection-start-column="79" selection-end-line="314" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/3-BI-LSTM graph.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
@@ -450,12 +456,45 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/Combo dirty 100 graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/We dirty graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.4/lib/python3.4/site-packages/keras/engine/training.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="951" column="0" lean-forward="false" selection-start-line="951" selection-start-column="0" selection-end-line="951" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="1071" column="0" lean-forward="false" selection-start-line="1071" selection-start-column="0" selection-end-line="1071" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2385">
-          <caret line="454" column="28" lean-forward="false" selection-start-line="454" selection-start-column="28" selection-end-line="454" selection-end-column="28" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#10#0" expanded="false" />
             <element signature="e#1494#2700#0" expanded="false" />
             <element signature="e#2766#5095#0" expanded="false" />
             <element signature="e#5172#5800#0" expanded="false" />
@@ -464,40 +503,80 @@
             <element signature="e#6420#6523#0" expanded="false" />
             <element signature="e#6564#6656#0" expanded="false" />
             <element signature="e#6700#7480#0" expanded="false" />
-            <element signature="e#7517#7841#0" expanded="false" />
-            <element signature="e#7877#8168#0" expanded="false" />
-            <element signature="e#8197#8568#0" expanded="false" />
-            <element signature="e#8599#9048#0" expanded="false" />
-            <element signature="e#9084#9532#0" expanded="false" />
-            <element signature="e#9567#10202#0" expanded="false" />
-            <element signature="e#10260#11342#0" expanded="false" />
-            <element signature="e#13631#15761#0" expanded="false" />
-            <element signature="e#15794#16022#0" expanded="false" />
-            <element signature="e#16058#16427#0" expanded="false" />
-            <element signature="e#16458#17150#0" expanded="false" />
-            <element signature="e#17223#19825#0" expanded="false" />
-            <element signature="e#18269#18350#0" expanded="false" />
-            <element signature="e#18724#18743#0" expanded="false" />
-            <element signature="e#21140#21221#0" expanded="false" />
-            <element signature="e#21564#21583#0" expanded="false" />
-            <element signature="e#22609#22643#0" expanded="false" />
+            <element signature="e#7517#7859#0" expanded="false" />
+            <element signature="e#7895#8186#0" expanded="false" />
+            <element signature="e#8215#8586#0" expanded="false" />
+            <element signature="e#8617#9066#0" expanded="false" />
+            <element signature="e#9102#9550#0" expanded="false" />
+            <element signature="e#9585#10220#0" expanded="false" />
+            <element signature="e#10278#11360#0" expanded="false" />
+            <element signature="e#13648#15779#0" expanded="false" />
+            <element signature="e#15812#16040#0" expanded="false" />
+            <element signature="e#16076#16445#0" expanded="false" />
+            <element signature="e#16476#17168#0" expanded="false" />
+            <element signature="e#18286#18367#0" expanded="false" />
+            <element signature="e#18774#18793#0" expanded="false" />
+            <element signature="e#19944#22974#0" expanded="false" />
+            <element signature="e#21190#21271#0" expanded="false" />
+            <element signature="e#21614#21633#0" expanded="false" />
+            <element signature="e#22659#22693#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.4/lib/python3.4/site-packages/keras/engine/training_utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        <state relative-caret-position="777">
+          <caret line="137" column="0" lean-forward="false" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
+    <entry file="file://$PROJECT_DIR$/DL_graphs/3-MultiCNN graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/3-GloveTune graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/MultiCNN-Glove graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="314" column="79" lean-forward="false" selection-start-line="314" selection-start-column="79" selection-end-line="314" selection-end-column="79" />
+        <state relative-caret-position="155">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multichannel_cnn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="433" column="70" lean-forward="false" selection-start-line="433" selection-start-column="70" selection-end-line="433" selection-end-column="70" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#1130#1658#0" expanded="false" />
+            <element signature="e#1733#1825#0" expanded="false" />
+            <element signature="e#1869#2649#0" expanded="false" />
+            <element signature="e#2703#2781#0" expanded="false" />
+            <element signature="e#2816#3148#0" expanded="false" />
+            <element signature="e#3206#4288#0" expanded="false" />
+            <element signature="e#4363#4543#0" expanded="false" />
+            <element signature="e#4575#5836#0" expanded="false" />
+            <element signature="e#5902#8296#0" expanded="false" />
+            <element signature="e#8471#10434#0" expanded="false" />
+            <element signature="e#10511#12025#0" expanded="false" />
+            <element signature="e#12053#13274#0" expanded="false" />
+            <element signature="e#13302#14633#0" expanded="false" />
+            <element signature="e#16083#17747#0" expanded="false" />
+            <element signature="e#16117#16145#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

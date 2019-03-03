@@ -233,10 +233,12 @@ def get_pad_length(filename):
         return 32
     elif filename == "cleaned_twitter_1K.csv":
         return 30
+    elif filename == "cleaned_formspring.csv":
+        return 100
     elif filename == "cleaned_tweets_16k.csv" or filename == "cleaned_tweets_16k_3class.csv":
         return 32  # was 32
-    else:  # cleaned_formspring.csv is up to length 1200
-        return 100
+    else:
+        return 32
 
 
 def save_model(model, path):
@@ -360,7 +362,7 @@ def learn_embeddings_model_2class(filename="cleaned_tweets_16k.csv"):
     model = Sequential()
     model.add(Embedding(input_dim=vocab_size, output_dim=100, input_length=max_len))
 
-    model.add(LSTM(units=250, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=50, dropout=0.5, recurrent_dropout=0.5))
 
     model.add(Dense(units=1, activation='sigmoid'))
     # compile the model
@@ -431,7 +433,7 @@ def learn_embeddings_model_3class(filename="cleaned_tweets_16k_3class.csv"):
     class_weight = {0: 1.0,
                     1: 1.0}
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        epochs=50, batch_size=128, callbacks=[three_class_metrics])
+                        epochs=150, batch_size=128, callbacks=[three_class_metrics])
     # ---------------- END LEARN EMBEDDINGS EDIT ----------------
 
     # evaluate
@@ -513,12 +515,11 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
     labels_train = np_utils.to_categorical(y_train)
     labels_test = np_utils.to_categorical(y_test)
 
-
     # load a pre-saved model
     # model = load_model(save_path)
 
-    # embedding_matrix = get_glove_matrix(vocab_size, t)
-    embedding_matrix = get_glove_matrix_from_dump()
+    embedding_matrix = get_glove_matrix(vocab_size, t)
+    # embedding_matrix = get_glove_matrix_from_dump()
 
     # ---------------- MODEL HERE ----------------
     # Embedding input
@@ -527,10 +528,10 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
     #               input_length=max_len, trainable=False)
     e = Embedding(input_dim=vocab_size, output_dim=300,
                   embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
-    e.trainable = False
+    e.trainable = True  # should be false
     model.add(e)
 
-    model.add(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5))
+    model.add(Bidirectional(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5)))
 
     model.add(Dense(units=3, activation='softmax'))
 
@@ -643,8 +644,8 @@ if __name__ == "__main__":
 
     save_path = "TEST"
     loss = "cross-entropy"
-    file = "processed_tweets_16k.csv"
-    learn_embeddings_model_2class(file)
+    file = "cleaned_tweets_16k_3class.csv"
+    # learn_embeddings_model_2class(file)
     # learn_embeddings_model_3class(file)
     # main_2_class_model(file)
-    # main_3_class_model(file)
+    main_3_class_model(file)

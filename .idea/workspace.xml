@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/DL_elmo.py" afterPath="$PROJECT_DIR$/DL_elmo.py" />
-    </list>
+    <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,11 +31,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DL_lstm_elmo.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DL_lstm_elmo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DL_lstm_elmo.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
-              <caret line="95" column="18" lean-forward="true" selection-start-line="95" selection-start-column="18" selection-end-line="95" selection-end-column="18" />
+              <caret line="95" column="18" lean-forward="false" selection-start-line="95" selection-start-column="18" selection-end-line="95" selection-end-column="18" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
                 <element signature="e#609#1815#0" expanded="false" />
@@ -48,11 +45,31 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="my_lstm_elmo_slurm" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/my_lstm_elmo_slurm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="21" column="16" lean-forward="false" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="my_python3_slurm" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/my_python3_slurm">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="21" column="11" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="DL_classifiers.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="486">
-              <caret line="729" column="50" lean-forward="true" selection-start-line="729" selection-start-column="14" selection-end-line="729" selection-end-column="50" />
+              <caret line="729" column="50" lean-forward="false" selection-start-line="729" selection-start-column="14" selection-end-line="729" selection-end-column="50" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
                 <element signature="e#1494#2700#0" expanded="false" />
@@ -147,6 +164,8 @@
         <option value="$PROJECT_DIR$/plot_val_acc.py" />
         <option value="$PROJECT_DIR$/DL_elmo.py" />
         <option value="$PROJECT_DIR$/DL_lstm_elmo.py" />
+        <option value="$PROJECT_DIR$/my_python3_slurm" />
+        <option value="$PROJECT_DIR$/my_lstm_elmo_slurm" />
       </list>
     </option>
   </component>
@@ -370,20 +389,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/cleaned_tweets_16k.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232590">
-          <caret line="15506" column="33" lean-forward="false" selection-start-line="15506" selection-start-column="33" selection-end-line="15506" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataset_analysis.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="713">
-          <caret line="1021" column="14" lean-forward="false" selection-start-line="1021" selection-start-column="14" selection-end-line="1021" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DL_graphs/test graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/COMBO-clean graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/WE-clean graph.png" />
@@ -545,7 +550,7 @@
     <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="486">
-          <caret line="729" column="50" lean-forward="true" selection-start-line="729" selection-start-column="14" selection-end-line="729" selection-end-column="50" />
+          <caret line="729" column="50" lean-forward="false" selection-start-line="729" selection-start-column="14" selection-end-line="729" selection-end-column="50" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1494#2700#0" expanded="false" />
@@ -583,12 +588,28 @@
     <entry file="file://$PROJECT_DIR$/DL_lstm_elmo.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
-          <caret line="95" column="18" lean-forward="true" selection-start-line="95" selection-start-column="18" selection-end-line="95" selection-end-column="18" />
+          <caret line="95" column="18" lean-forward="false" selection-start-line="95" selection-start-column="18" selection-end-line="95" selection-end-column="18" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
             <element signature="e#609#1815#0" expanded="false" />
             <element signature="e#1956#2483#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/my_python3_slurm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="11" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/my_lstm_elmo_slurm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="16" lean-forward="false" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>

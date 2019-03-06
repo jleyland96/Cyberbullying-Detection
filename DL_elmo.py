@@ -9,7 +9,6 @@ from keras.models import Model, load_model
 from keras.engine import Layer
 import numpy as np
 
-
 def get_data(filename):
     X = []
     y = []

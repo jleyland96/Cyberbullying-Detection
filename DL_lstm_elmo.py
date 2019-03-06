@@ -97,6 +97,7 @@ def pad_inputs(X):
     new_X = []
     for seq in X:
         new_seq = []
+        seq = seq.split()
         for i in range(max_len):
             try:
                 new_seq.append(seq[i])
@@ -119,8 +120,8 @@ if __name__ == "__main__":
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
-    input_text = Input(shape=(max_len,), dtype=tf.string)
-    embedding = Lambda(ElmoEmbedding, output_shape=(None, max_len, 1024))(input_text)
+    input_text = Input(shape=(max_len,), dtype=tf.string)  #was None,max_len,1024
+    embedding = Lambda(ElmoEmbedding, output_shape=(max_len, 1024))(input_text)
     x = LSTM(units=256, recurrent_dropout=0.2, dropout=0.2)(embedding)
     out = Dense(units=1, activation='sigmoid')(x)
 

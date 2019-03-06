@@ -328,6 +328,55 @@ def print_3class_results(y_test, y_pred, history):
     print("Max F1 micro was", max(f1_results_micro), "at epoch", f1_results_micro.index(max(f1_results_micro)) + 1, "\n")
 
 
+def learn_embeddings_2class_f1_loss(filename="cleaned_tweets_16k.csv"):
+    print("\nLEARN EMBEDDINGS MODEL")
+
+    # get the data
+    X, labels = get_data(filename=filename)
+
+    # prepare tokenizer
+    t = Tokenizer()
+    t.fit_on_texts(texts=X)
+    vocab_size = len(t.word_index) + 1
+    print("VOCAB SIZE =", vocab_size)
+
+    # integer encode the documents
+    encoded_docs = [one_hot(x, vocab_size) for x in X]
+
+    # pad documents
+    max_len = get_pad_length(filename)
+    print(max_len)
+    padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
+
+    # split to get dev data (0.2), then split to get train/test data (0.7 and 0.1)
+    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.10)
+
+    print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
+    print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
+    print()
+
+    # define the model
+    model = Sequential()
+    model.add(Embedding(input_dim=vocab_size, output_dim=100, input_length=max_len))
+
+    model.add(LSTM(units=50, dropout=0.5, recurrent_dropout=0.5))
+
+    model.add(Dense(units=1, activation='sigmoid'))
+    # compile the model
+
+    # my_adam = optimizers.Adam(lr=0.005, decay=0.05)
+    model.compile(optimizer='adam', loss=f1_loss, metrics=['acc', f1])
+    # print(model.summary())
+
+    # fit the model
+    print("Fitting the model...")
+    history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
+                        epochs=300, batch_size=128, callbacks=[metrics])
+
+    # evaluate
+    print_results(history)
+
+
 def learn_embeddings_model_2class(filename="cleaned_tweets_16k.csv"):
     print("\nLEARN EMBEDDINGS MODEL")
 
@@ -488,6 +537,78 @@ def cnn_network(model):
     return model
 
 
+def main_2_class_f1_loss(filename="cleaned_tweets_16k.csv"):
+    print("\nSIMPLE GLOVE MODEL")
+
+    # get the data
+    X, labels = get_data(filename=filename)
+
+    # prepare tokenizer
+    t = Tokenizer()
+    t.fit_on_texts(texts=X)
+    vocab_size = len(t.word_index) + 1
+    print("VOCAB SIZE =", vocab_size)
+
+    # integer encode the documents
+    encoded_docs = t.texts_to_sequences(texts=X)
+
+    # pad documents
+    max_len = get_pad_length(filename)
+    print(max_len)
+    padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
+
+    # Split into training and test data
+    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.10)
+
+    print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
+    print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
+    print()
+
+    # load a pre-saved model
+    # model = load_model(save_path)
+
+    # embedding_matrix = get_glove_matrix(vocab_size, t)
+    embedding_matrix = get_glove_matrix_from_dump()
+
+    # GloVe hit rate
+    print(np.count_nonzero(np.count_nonzero(embedding_matrix, axis=1)) / vocab_size)
+
+    # ---------------- MODEL HERE ----------------
+    # Embedding input
+    model = Sequential()
+    # e = Embedding(input_dim=vocab_size, output_dim=300, weights=[embedding_matrix],
+    #               input_length=max_len, trainable=False)
+    e = Embedding(input_dim=vocab_size, output_dim=300,
+                  embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
+    e.trainable = True
+    model.add(e)
+
+    model.add(Bidirectional(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5)))
+
+    model.add(Dense(units=1, activation='sigmoid'))
+
+    # compile the model
+    # adam = optimizers.Adam(lr=0.0005, decay=0.01, beta_1=0.92, beta_2=0.9992)
+    print("F1 LOSS")
+    model.compile(optimizer='adam', loss=f1_loss, metrics=['acc', f1])
+    history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
+                        nb_epoch=50, callbacks=[metrics], batch_size=128)
+
+    class_weight = {0: 1.0,
+                    1: 1.0}
+    # my_adam = optimizers.Adam(lr=0.003, decay=0.001)
+    # model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+    # history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
+    #                     nb_epoch=150, batch_size=128, callbacks=[metrics], class_weight=class_weight)
+    # ------------------ END MODEL ------------------
+
+    # evaluate
+    # loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
+    # print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
+
+    print_results(history)
+
+
 def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
     print("\nSIMPLE GLOVE MODEL")
     # 0=none, 1=racism, 2=sexism
@@ -558,7 +679,7 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
     print_3class_results(y_test, labels_pred, history)
 
 
-def main_2_class_model(filename="cleaned_text_messages.csv"):
+def main_2_class_model(filename="cleaned_tweets_16k.csv"):
     print("\nSIMPLE GLOVE MODEL")
 
     # get the data
@@ -643,9 +764,11 @@ if __name__ == "__main__":
     print("2 class learn embeddings")
 
     save_path = "TEST"
-    loss = "cross-entropy"
-    file = "cleaned_tweets_16k_3class.csv"
+    loss = "F1"
+    file = "cleaned_tweets_16k.csv"
     # learn_embeddings_model_2class(file)
     # learn_embeddings_model_3class(file)
+    learn_embeddings_2class_f1_loss(file)
     # main_2_class_model(file)
-    main_3_class_model(file)
+    # main_3_class_model(file)
+    # main_2_class_f1_loss(file)

@@ -4,6 +4,7 @@ import csv
 import tensorflow_hub as hub
 from keras import backend as K
 import keras.layers as layers
+from keras.layers import LSTM, Lambda
 from keras.models import Model, load_model
 from keras.engine import Layer
 from keras.callbacks import Callback
@@ -64,7 +65,7 @@ def preprocess_data():
     train_text = np.array(train_text, dtype=object)[:, np.newaxis]
     train_label = train_df['label'].tolist()
     test_text = test_df['sentence'].tolist()
-    test_text = [' '.join(t.split()[0:150]) for t in test_text]
+    test_text = [' '.join(t.split()[0:30]) for t in test_text]
     test_text = np.array(test_text, dtype=object)[:, np.newaxis]
     test_label = test_df['label'].tolist()
 
@@ -135,15 +136,18 @@ class ElmoEmbeddingLayer(Layer):
         return K.not_equal(inputs, '--PAD--')
 
     def compute_output_shape(self, input_shape):
-        return (input_shape[0], self.dimensions)
+        return (None, 30, 1024)
+        # return (input_shape[0], self.dimensions)
 
 
 # Function to build model
 def build_model(): 
+  # input shape was (1,0)
   input_text = layers.Input(shape=(1,), dtype="string")
-  embedding = ElmoEmbeddingLayer()(input_text)
-  dense = layers.Dense(64, activation='relu')(embedding)
-  pred = layers.Dense(1, activation='sigmoid')(dense)
+  embedding = Lambda(ElmoEmbeddingLayer(), output_shape=(None, 30, 1024))(input_text)
+  # dense = layers.Dense(256, activation='relu')(embedding)
+  lstm = LSTM(units=50, dropout=0.5, recurrent_dropout=0.5)(embedding)
+  pred = layers.Dense(1, activation='sigmoid')(lstm)
 
   model = Model(inputs=[input_text], outputs=pred)
 
@@ -160,8 +164,9 @@ def fit_model(train_text, test_text, train_label, test_label):
     history = model.fit(train_text,
                         train_label,
                         validation_data=(test_text, test_label),
-                        epochs=1,
-                        batch_size=128)
+                        epochs=10,
+                        batch_size=128,
+			callbacks=[metrics])
     return model, history
 
 
@@ -191,7 +196,7 @@ if __name__ == "__main__":
     print_results(history)
 
     # SAVE THE MODEL WEIGHTS
-    model.save('ElmoModel.h5')
+    model.save('ElmoDense256.h5')
 
     # RELOAD THE MODEL IF NEEDED
     model = reload_model()

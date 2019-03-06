@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/DL_classifiers.py" afterPath="$PROJECT_DIR$/DL_classifiers.py" />
+      <change beforePath="$PROJECT_DIR$/DL_elmo.py" afterPath="$PROJECT_DIR$/DL_elmo.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,22 +14,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DL_elmo.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DL_elmo.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DL_elmo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-46">
-              <caret line="4" column="9" lean-forward="false" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
-              <folding />
+            <state relative-caret-position="266">
+              <caret line="141" column="18" lean-forward="false" selection-start-line="141" selection-start-column="18" selection-end-line="141" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#23#0" expanded="true" />
+                <element signature="e#489#1016#0" expanded="false" />
+                <element signature="e#1065#1946#0" expanded="false" />
+                <element signature="e#2005#3211#0" expanded="false" />
+                <element signature="e#3427#4360#0" expanded="false" />
+                <element signature="e#4411#4795#0" expanded="false" />
+                <element signature="e#4899#5178#0" expanded="false" />
+                <element signature="e#5225#5319#0" expanded="false" />
+                <element signature="e#5385#5717#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DL_classifiers.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DL_classifiers.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="138" column="10" lean-forward="false" selection-start-line="138" selection-start-column="10" selection-end-line="138" selection-end-column="10" />
+            <state relative-caret-position="263">
+              <caret line="305" column="32" lean-forward="true" selection-start-line="294" selection-start-column="0" selection-end-line="305" selection-end-column="32" />
               <folding>
+                <element signature="e#0#10#0" expanded="true" />
                 <element signature="e#1494#2700#0" expanded="false" />
                 <element signature="e#2766#5095#0" expanded="false" />
                 <element signature="e#5172#5800#0" expanded="false" />
@@ -45,6 +56,7 @@
                 <element signature="e#9102#9550#0" expanded="false" />
                 <element signature="e#9585#10220#0" expanded="false" />
                 <element signature="e#10278#11360#0" expanded="false" />
+                <element signature="e#11439#13065#0" expanded="false" />
                 <element signature="e#13142#15269#0" expanded="false" />
                 <element signature="e#15353#17484#0" expanded="false" />
                 <element signature="e#17517#17745#0" expanded="false" />
@@ -54,7 +66,6 @@
                 <element signature="e#21764#24398#0" expanded="false" />
                 <element signature="e#22809#22890#0" expanded="false" />
                 <element signature="e#23297#23316#0" expanded="false" />
-                <element signature="e#24464#27494#0" expanded="false" />
                 <element signature="e#25710#25791#0" expanded="false" />
                 <element signature="e#26134#26153#0" expanded="false" />
                 <element signature="e#27179#27213#0" expanded="false" />
@@ -143,7 +154,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -161,6 +171,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -184,7 +195,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.DL_classifiers">
+  <component name="RunManager" selected="Python.DL_elmo">
     <configuration name="DL_classifiers" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -284,8 +295,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.DL_classifiers" />
-        <item index="1" class="java.lang.String" itemvalue="Python.DL_elmo" />
+        <item index="0" class="java.lang.String" itemvalue="Python.DL_elmo" />
+        <item index="1" class="java.lang.String" itemvalue="Python.DL_classifiers" />
         <item index="2" class="java.lang.String" itemvalue="Python.plot_val_acc" />
         <item index="3" class="java.lang.String" itemvalue="Python.multichannel_cnn" />
         <item index="4" class="java.lang.String" itemvalue="Python.ML_classifiers_combined" />
@@ -310,11 +321,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22777778" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34941176" sideWeight="0.5083333" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32588235" sideWeight="0.49166667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32588235" sideWeight="0.49166667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -338,7 +350,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="20" />
+      <option name="time" value="21" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -501,23 +513,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="21" column="26" lean-forward="true" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_elmo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-46">
-          <caret line="4" column="9" lean-forward="false" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="138" column="10" lean-forward="false" selection-start-line="138" selection-start-column="10" selection-end-line="138" selection-end-column="10" />
+        <state relative-caret-position="263">
+          <caret line="305" column="32" lean-forward="true" selection-start-line="294" selection-start-column="0" selection-end-line="305" selection-end-column="32" />
           <folding>
+            <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1494#2700#0" expanded="false" />
             <element signature="e#2766#5095#0" expanded="false" />
             <element signature="e#5172#5800#0" expanded="false" />
@@ -533,6 +537,7 @@
             <element signature="e#9102#9550#0" expanded="false" />
             <element signature="e#9585#10220#0" expanded="false" />
             <element signature="e#10278#11360#0" expanded="false" />
+            <element signature="e#11439#13065#0" expanded="false" />
             <element signature="e#13142#15269#0" expanded="false" />
             <element signature="e#15353#17484#0" expanded="false" />
             <element signature="e#17517#17745#0" expanded="false" />
@@ -542,10 +547,27 @@
             <element signature="e#21764#24398#0" expanded="false" />
             <element signature="e#22809#22890#0" expanded="false" />
             <element signature="e#23297#23316#0" expanded="false" />
-            <element signature="e#24464#27494#0" expanded="false" />
             <element signature="e#25710#25791#0" expanded="false" />
             <element signature="e#26134#26153#0" expanded="false" />
             <element signature="e#27179#27213#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_elmo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="141" column="18" lean-forward="false" selection-start-line="141" selection-start-column="18" selection-end-line="141" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#489#1016#0" expanded="false" />
+            <element signature="e#1065#1946#0" expanded="false" />
+            <element signature="e#2005#3211#0" expanded="false" />
+            <element signature="e#3427#4360#0" expanded="false" />
+            <element signature="e#4411#4795#0" expanded="false" />
+            <element signature="e#4899#5178#0" expanded="false" />
+            <element signature="e#5225#5319#0" expanded="false" />
+            <element signature="e#5385#5717#0" expanded="false" />
           </folding>
         </state>
       </provider>

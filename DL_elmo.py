@@ -136,18 +136,16 @@ class ElmoEmbeddingLayer(Layer):
         return K.not_equal(inputs, '--PAD--')
 
     def compute_output_shape(self, input_shape):
-        return (None, 30, 1024)
-        # return (input_shape[0], self.dimensions)
+        return (input_shape[0], self.dimensions)
 
 
 # Function to build model
 def build_model(): 
   # input shape was (1,0)
   input_text = layers.Input(shape=(1,), dtype="string")
-  embedding = Lambda(ElmoEmbeddingLayer(), output_shape=(None, 30, 1024))(input_text)
-  # dense = layers.Dense(256, activation='relu')(embedding)
-  lstm = LSTM(units=50, dropout=0.5, recurrent_dropout=0.5)(embedding)
-  pred = layers.Dense(1, activation='sigmoid')(lstm)
+  embedding = ElmoEmbeddingLayer()(input_text)
+  dense = layers.Dense(256, activation='relu')(embedding)
+  pred = layers.Dense(1, activation='sigmoid')(dense)
 
   model = Model(inputs=[input_text], outputs=pred)
 
@@ -166,7 +164,7 @@ def fit_model(train_text, test_text, train_label, test_label):
                         validation_data=(test_text, test_label),
                         epochs=10,
                         batch_size=128,
-			callbacks=[metrics])
+		                callbacks=[metrics])
     return model, history
 
 

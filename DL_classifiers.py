@@ -306,22 +306,12 @@ def print_results(history):
         print("F1:", f1_results)
 
 
-def print_3class_results(y_test, y_pred, history):
+def print_3class_results(history):
     # PRINT FINAL TRAIN/TEST/LOSS INFO
     print("TRAIN:", list(np.round(history.history['acc'], 4)), "\n")
     print("TEST:", list(np.round(history.history['val_acc'], 4)), "\n")
     print("LOSS:", list(np.round(history.history['loss'], 4)), "\n")
     print("\n")
-
-    # PRINT FINAL PRECISION, RECALL, F1 INFO
-    # print("Weighted precision:", precision_score(y_test, y_pred, average='weighted'))
-    # print("Weighted recall:", recall_score(y_test, y_pred, average='weighted'))
-    # print("Weighted F1", f1_score(y_test, y_pred, average='weighted'))
-    # print("\n")
-    # print("Micro precision:", precision_score(y_test, y_pred, average='micro'))
-    # print("Micro recall:", recall_score(y_test, y_pred, average='micro'))
-    # print("Micro F1", f1_score(y_test, y_pred, average='micro'))
-    # print("\n")
 
     # MAXIMUMS
     print("Max F1 weighted was", max(f1_results_weighted), "at epoch", f1_results_weighted.index(max(f1_results_weighted)) + 1, "\n")
@@ -490,7 +480,7 @@ def learn_embeddings_model_3class(filename="cleaned_tweets_16k_3class.csv"):
     loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
     print("\bTEST_ACC = " + str(round(accuracy * 100, 2)) + "%")
 
-    print_3class_results(y_test, labels_pred, history)
+    print_3class_results(history)
 
 
 def dense_network(model):
@@ -676,7 +666,7 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
     loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
     print("\bTEST_ACC = " + str(round(accuracy * 100, 2)) + "%")
 
-    print_3class_results(y_test, labels_pred, history)
+    print_3class_results(history)
 
 
 def main_2_class_model(filename="cleaned_tweets_16k.csv"):

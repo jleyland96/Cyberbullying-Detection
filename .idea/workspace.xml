@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/DL_classifiers.py" afterPath="$PROJECT_DIR$/DL_classifiers.py" />
       <change beforePath="$PROJECT_DIR$/DL_lstm_elmo.py" afterPath="$PROJECT_DIR$/DL_lstm_elmo.py" />
     </list>
@@ -18,59 +17,28 @@
       <file leaf-file-name="DL_lstm_elmo.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DL_lstm_elmo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="192" column="0" lean-forward="true" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
+            <state relative-caret-position="162">
+              <caret line="229" column="23" lean-forward="true" selection-start-line="229" selection-start-column="23" selection-end-line="229" selection-end-column="23" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
-                <element signature="e#656#1862#0" expanded="false" />
-                <element signature="e#2016#4345#0" expanded="false" />
-                <element signature="e#4506#5033#0" expanded="false" />
-                <element signature="e#5151#5439#0" expanded="false" />
-                <element signature="e#5518#5791#0" expanded="false" />
-                <element signature="e#5906#6238#0" expanded="false" />
-                <element signature="e#6320#6852#0" expanded="false" />
+                <element signature="e#689#1895#0" expanded="false" />
+                <element signature="e#2049#4378#0" expanded="false" />
+                <element signature="e#4539#5066#0" expanded="false" />
+                <element signature="e#5184#5472#0" expanded="false" />
+                <element signature="e#5551#5824#0" expanded="false" />
+                <element signature="e#5939#6271#0" expanded="false" />
+                <element signature="e#6353#6885#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DL_classifiers.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
+      <file leaf-file-name="plot_val_acc.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="294" column="0" lean-forward="false" selection-start-line="294" selection-start-column="0" selection-end-line="317" selection-end-column="121" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-                <element signature="e#1494#2700#0" expanded="false" />
-                <element signature="e#2766#5095#0" expanded="false" />
-                <element signature="e#5172#5800#0" expanded="false" />
-                <element signature="e#5854#6245#0" expanded="false" />
-                <element signature="e#6277#6389#0" expanded="false" />
-                <element signature="e#6420#6523#0" expanded="false" />
-                <element signature="e#6564#6656#0" expanded="false" />
-                <element signature="e#6700#7480#0" expanded="false" />
-                <element signature="e#7517#7859#0" expanded="false" />
-                <element signature="e#7895#8186#0" expanded="false" />
-                <element signature="e#8215#8586#0" expanded="false" />
-                <element signature="e#8617#9066#0" expanded="false" />
-                <element signature="e#9102#9550#0" expanded="false" />
-                <element signature="e#9585#10220#0" expanded="false" />
-                <element signature="e#10262#10794#0" expanded="false" />
-                <element signature="e#10873#12499#0" expanded="false" />
-                <element signature="e#12576#14703#0" expanded="false" />
-                <element signature="e#14787#16897#0" expanded="false" />
-                <element signature="e#16930#17158#0" expanded="false" />
-                <element signature="e#17194#17563#0" expanded="false" />
-                <element signature="e#17594#18286#0" expanded="false" />
-                <element signature="e#18354#21104#0" expanded="false" />
-                <element signature="e#21177#23790#0" expanded="false" />
-                <element signature="e#22222#22303#0" expanded="false" />
-                <element signature="e#22710#22729#0" expanded="false" />
-                <element signature="e#23856#26886#0" expanded="false" />
-                <element signature="e#25102#25183#0" expanded="false" />
-                <element signature="e#25526#25545#0" expanded="false" />
-                <element signature="e#26571#26605#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="32">
+              <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -130,12 +98,12 @@
         <option value="$PROJECT_DIR$/dataset_analysis.py" />
         <option value="$PROJECT_DIR$/ML_classifiers_combined.py" />
         <option value="$PROJECT_DIR$/multichannel_cnn.py" />
-        <option value="$PROJECT_DIR$/plot_val_acc.py" />
         <option value="$PROJECT_DIR$/my_python3_slurm" />
         <option value="$PROJECT_DIR$/my_lstm_elmo_slurm" />
         <option value="$PROJECT_DIR$/DL_elmo.py" />
         <option value="$PROJECT_DIR$/DL_classifiers.py" />
         <option value="$PROJECT_DIR$/DL_lstm_elmo.py" />
+        <option value="$PROJECT_DIR$/plot_val_acc.py" />
       </list>
     </option>
   </component>
@@ -199,7 +167,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.DL_elmo">
+  <component name="RunManager" selected="Python.DL_lstm_elmo">
     <configuration name="DL_classifiers" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -236,7 +204,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="ML_classifiers_combined" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="DL_lstm_elmo" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -248,7 +216,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Cyberbullying-Detection" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ML_classifiers_combined.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DL_lstm_elmo.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -294,16 +262,16 @@
       <item index="0" class="java.lang.String" itemvalue="Python.DL_classifiers" />
       <item index="1" class="java.lang.String" itemvalue="Python.plot_val_acc" />
       <item index="2" class="java.lang.String" itemvalue="Python.multichannel_cnn" />
-      <item index="3" class="java.lang.String" itemvalue="Python.ML_classifiers_combined" />
-      <item index="4" class="java.lang.String" itemvalue="Python.DL_elmo" />
+      <item index="3" class="java.lang.String" itemvalue="Python.DL_elmo" />
+      <item index="4" class="java.lang.String" itemvalue="Python.DL_lstm_elmo" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.DL_elmo" />
-        <item index="1" class="java.lang.String" itemvalue="Python.DL_classifiers" />
-        <item index="2" class="java.lang.String" itemvalue="Python.plot_val_acc" />
-        <item index="3" class="java.lang.String" itemvalue="Python.multichannel_cnn" />
-        <item index="4" class="java.lang.String" itemvalue="Python.ML_classifiers_combined" />
+        <item index="0" class="java.lang.String" itemvalue="Python.DL_lstm_elmo" />
+        <item index="1" class="java.lang.String" itemvalue="Python.plot_val_acc" />
+        <item index="2" class="java.lang.String" itemvalue="Python.DL_elmo" />
+        <item index="3" class="java.lang.String" itemvalue="Python.DL_classifiers" />
+        <item index="4" class="java.lang.String" itemvalue="Python.multichannel_cnn" />
       </list>
     </recent_temporary>
   </component>
@@ -325,12 +293,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22777778" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34941176" sideWeight="0.5083333" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32588235" sideWeight="0.49166667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32588235" sideWeight="0.49166667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -359,7 +326,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/DL_graphs/test graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/COMBO-clean graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/WE-clean graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/COMBO graph.png" />
@@ -492,13 +458,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="21" column="26" lean-forward="true" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/my_python3_slurm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -520,7 +479,7 @@
         <state relative-caret-position="-352">
           <caret line="122" column="48" lean-forward="false" selection-start-line="122" selection-start-column="48" selection-end-line="122" selection-end-column="48" />
           <folding>
-            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#0#23#0" expanded="false" />
             <element signature="e#527#1054#0" expanded="false" />
             <element signature="e#1103#1983#0" expanded="false" />
             <element signature="e#2042#3248#0" expanded="false" />
@@ -532,8 +491,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="294" column="0" lean-forward="false" selection-start-line="294" selection-start-column="0" selection-end-line="317" selection-end-column="121" />
+        <state relative-caret-position="542">
+          <caret line="737" column="4" lean-forward="false" selection-start-line="737" selection-start-column="4" selection-end-line="738" selection-end-column="69" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1494#2700#0" expanded="false" />
@@ -558,30 +517,41 @@
             <element signature="e#17194#17563#0" expanded="false" />
             <element signature="e#17594#18286#0" expanded="false" />
             <element signature="e#18354#21104#0" expanded="false" />
-            <element signature="e#21177#23790#0" expanded="false" />
             <element signature="e#22222#22303#0" expanded="false" />
             <element signature="e#22710#22729#0" expanded="false" />
-            <element signature="e#23856#26886#0" expanded="false" />
-            <element signature="e#25102#25183#0" expanded="false" />
-            <element signature="e#25526#25545#0" expanded="false" />
-            <element signature="e#26571#26605#0" expanded="false" />
+            <element signature="e#25104#25185#0" expanded="false" />
+            <element signature="e#25528#25547#0" expanded="false" />
+            <element signature="e#26573#26607#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/Elmo-Dense graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DL_lstm_elmo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="192" column="0" lean-forward="true" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
+        <state relative-caret-position="162">
+          <caret line="229" column="23" lean-forward="true" selection-start-line="229" selection-start-column="23" selection-end-line="229" selection-end-column="23" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
-            <element signature="e#656#1862#0" expanded="false" />
-            <element signature="e#2016#4345#0" expanded="false" />
-            <element signature="e#4506#5033#0" expanded="false" />
-            <element signature="e#5151#5439#0" expanded="false" />
-            <element signature="e#5518#5791#0" expanded="false" />
-            <element signature="e#5906#6238#0" expanded="false" />
-            <element signature="e#6320#6852#0" expanded="false" />
+            <element signature="e#689#1895#0" expanded="false" />
+            <element signature="e#2049#4378#0" expanded="false" />
+            <element signature="e#4539#5066#0" expanded="false" />
+            <element signature="e#5184#5472#0" expanded="false" />
+            <element signature="e#5551#5824#0" expanded="false" />
+            <element signature="e#5939#6271#0" expanded="false" />
+            <element signature="e#6353#6885#0" expanded="false" />
           </folding>
         </state>
       </provider>

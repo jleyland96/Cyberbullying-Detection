@@ -662,7 +662,7 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
     # ------------------ END MODEL ------------------
 
     # evaluate
-    labels_pred = model.predict_classes(x=X_test)
+    # labels_pred = model.predict_classes(x=X_test)
     loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
     print("\bTEST_ACC = " + str(round(accuracy * 100, 2)) + "%")
 

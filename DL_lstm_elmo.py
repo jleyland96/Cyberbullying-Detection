@@ -3,6 +3,7 @@ import pandas as pd
 import csv
 import tensorflow_hub as hub
 from keras import backend as K
+from keras.utils import np_utils
 import keras.layers as layers
 from keras.layers import LSTM, Lambda, Input, Dense
 from keras.models import Model, load_model
@@ -192,15 +193,20 @@ def print_3class_results(history):
 
 
 if __name__ == "__main__":
+    num_classes = 2
+
     sess = tf.Session()
     K.set_session(sess)
     elmo_model = hub.Module("https://tfhub.dev/google/elmo/2", trainable=True)
     sess.run(tf.global_variables_initializer())
     sess.run(tf.tables_initializer())
 
-    X, y = get_data(filename='cleaned_tweets_16k.csv')
-    X = pad_inputs(X)
+    if num_classes == 2:
+        X, y = get_data(filename='cleaned_tweets_16k.csv')
+    elif num_classes == 3:
+        X, y = get_data(filename='cleaned_tweets_16k_3class.csv')
 
+    X = pad_inputs(X)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
     # Take a slice of the data so that we don't have half a batch at the end of the epoch
     X_train = X_train[:12544]   # 392 batches of size 32
@@ -208,15 +214,44 @@ if __name__ == "__main__":
     y_train = y_train[:12544]   # one label for each train X
     y_test = y_test[:3136]      # one label for each test X
 
-    input_text = Input(shape=(max_len,), dtype=tf.string) 
-    embedding = Lambda(ElmoEmbedding, output_shape=(max_len, 1024))(input_text)
-    x = LSTM(units=256, recurrent_dropout=0.5, dropout=0.5)(embedding)
-    out = Dense(units=1, activation='sigmoid')(x)
+    if num_classes == 2:
+        # CREATE MODEL
+        input_text = Input(shape=(max_len,), dtype=tf.string)
+        embedding = Lambda(ElmoEmbedding, output_shape=(max_len, 1024))(input_text)
+        x = LSTM(units=256, recurrent_dropout=0.5, dropout=0.5)(embedding)
+        out = Dense(units=1, activation='sigmoid')(x)
+        model = Model(input_text, out)
+        model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"])
 
-    model = Model(input_text, out)
-    model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"])
+        # FIT THE MODEL
+        history = model.fit(np.array(X_train), y_train, validation_data=(np.array(X_test), y_test),
+                            batch_size=batch_size, epochs=2, verbose=1, callbacks=[metrics])
 
-    history = model.fit(np.array(X_train), y_train, validation_data=(np.array(X_test), y_test),
-                        batch_size=batch_size, epochs=2, verbose=1, callbacks=[metrics])
+        # PRINT RESULTS
+        loss, accuracy = model.evaluate(x=X_test, y=y_test, verbose=0)
+        print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
+        print_results(history)
+
+    elif num_classes == 3:
+        # CONVERT THE TAGS TO CATEGORICAL DATA
+        y_train = np_utils.to_categorical(y_train)
+        y_test = np_utils.to_categorical(y_test)
+
+        # CREATE THE MODEL
+        input_text = Input(shape=(max_len,), dtype=tf.string)
+        embedding = Lambda(ElmoEmbedding, output_shape=(max_len, 1024))(input_text)
+        x = LSTM(units=256, recurrent_dropout=0.5, dropout=0.5)(embedding)
+        out = Dense(units=3, activation='softmax')(x)
+        model = Model(input_text, out)
+        model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
+
+        # FIT THE MODEL
+        history = model.fit(np.array(X_train), y_train, validation_data=(np.array(X_test), y_test),
+                            batch_size=batch_size, epochs=2, verbose=1, callbacks=[three_class_metrics])
+
+        # PRINT RESULTS
+        loss, accuracy = model.evaluate(x=X_test, y=y_test, verbose=0)
+        print("\bTEST_ACC = " + str(round(accuracy * 100, 2)) + "%")
+        print_3class_results(history)
 
 

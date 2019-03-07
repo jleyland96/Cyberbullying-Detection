@@ -116,11 +116,19 @@ if __name__ == "__main__":
 
     X, y = get_data(filename='cleaned_tweets_16k.csv')
     X = pad_inputs(X)
-    print(X[:3])
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+    X_train = X_train[:12544]   # 392 batches of size 32
+    X_test = X_test[:3136]      # 98 validation batches of size 32
+    y_train = y_train[:12544]   # one label for each train X
+    y_test = y_test[:3136]      # one label for each test X
 
-    input_text = Input(shape=(max_len,), dtype=tf.string)  #was None,max_len,1024
+    print(X_train[0])
+    print(y_train[0])
+    print(X_test[0])
+    print(y_test[0])
+
+    input_text = Input(shape=(max_len,), dtype=tf.string) 
     embedding = Lambda(ElmoEmbedding, output_shape=(max_len, 1024))(input_text)
     x = LSTM(units=256, recurrent_dropout=0.2, dropout=0.2)(embedding)
     out = Dense(units=1, activation='sigmoid')(x)
@@ -129,6 +137,6 @@ if __name__ == "__main__":
     model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"])
 
     history = model.fit(np.array(X_train), y_train, validation_data=(np.array(X_test), y_test),
-                        batch_size=batch_size, epochs=5, verbose=1)
+                        batch_size=batch_size, epochs=2, verbose=1)
 
 

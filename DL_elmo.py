@@ -163,7 +163,7 @@ def fit_model(train_text, test_text, train_label, test_label):
                         train_label,
                         validation_data=(test_text, test_label),
                         epochs=10,
-                        batch_size=128,
+                        batch_size=32,
 		                callbacks=[metrics])
     return model, history
 
@@ -197,6 +197,6 @@ if __name__ == "__main__":
     model.save('ElmoDense256.h5')
 
     # RELOAD THE MODEL IF NEEDED
-    model = reload_model()
+    # model = reload_model()
 
 

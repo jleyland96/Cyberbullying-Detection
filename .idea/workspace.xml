@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="" />
+    <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/DL_elmo.py" afterPath="$PROJECT_DIR$/DL_elmo.py" />
+      <change beforePath="$PROJECT_DIR$/DL_lstm_elmo.py" afterPath="$PROJECT_DIR$/DL_lstm_elmo.py" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,21 +15,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DL_elmo.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DL_elmo.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DL_elmo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="488">
-              <caret line="187" column="0" lean-forward="false" selection-start-line="187" selection-start-column="0" selection-end-line="199" selection-end-column="26" />
+            <state relative-caret-position="148">
+              <caret line="122" column="48" lean-forward="false" selection-start-line="122" selection-start-column="48" selection-end-line="122" selection-end-column="48" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
                 <element signature="e#527#1054#0" expanded="false" />
                 <element signature="e#1103#1983#0" expanded="false" />
                 <element signature="e#2042#3248#0" expanded="false" />
-                <element signature="e#3464#4397#0" expanded="false" />
-                <element signature="e#4448#4859#0" expanded="false" />
-                <element signature="e#4963#5282#0" expanded="false" />
-                <element signature="e#5329#5423#0" expanded="false" />
-                <element signature="e#5489#5821#0" expanded="false" />
+                <element signature="e#5328#5422#0" expanded="false" />
+                <element signature="e#5488#5820#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -34,8 +35,8 @@
       <file leaf-file-name="DL_lstm_elmo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DL_lstm_elmo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="95" column="18" lean-forward="false" selection-start-line="95" selection-start-column="18" selection-end-line="95" selection-end-column="18" />
+            <state relative-caret-position="503">
+              <caret line="128" column="20" lean-forward="false" selection-start-line="128" selection-start-column="20" selection-end-line="128" selection-end-column="20" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
                 <element signature="e#609#1815#0" expanded="false" />
@@ -45,31 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="my_lstm_elmo_slurm" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/my_lstm_elmo_slurm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="16" lean-forward="false" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="my_python3_slurm" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/my_python3_slurm">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="11" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="DL_classifiers.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="729" column="50" lean-forward="false" selection-start-line="729" selection-start-column="14" selection-end-line="729" selection-end-column="50" />
+            <state relative-caret-position="426">
+              <caret line="725" column="16" lean-forward="true" selection-start-line="725" selection-start-column="16" selection-end-line="725" selection-end-column="16" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
                 <element signature="e#1494#2700#0" expanded="false" />
@@ -162,10 +143,10 @@
         <option value="$PROJECT_DIR$/multichannel_cnn.py" />
         <option value="$PROJECT_DIR$/DL_classifiers.py" />
         <option value="$PROJECT_DIR$/plot_val_acc.py" />
-        <option value="$PROJECT_DIR$/DL_elmo.py" />
-        <option value="$PROJECT_DIR$/DL_lstm_elmo.py" />
         <option value="$PROJECT_DIR$/my_python3_slurm" />
         <option value="$PROJECT_DIR$/my_lstm_elmo_slurm" />
+        <option value="$PROJECT_DIR$/DL_elmo.py" />
+        <option value="$PROJECT_DIR$/DL_lstm_elmo.py" />
       </list>
     </option>
   </component>
@@ -188,7 +169,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -205,6 +185,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -529,28 +510,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DL_elmo.py">
+    <entry file="file://$PROJECT_DIR$/my_python3_slurm">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="187" column="0" lean-forward="false" selection-start-line="187" selection-start-column="0" selection-end-line="199" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-            <element signature="e#527#1054#0" expanded="false" />
-            <element signature="e#1103#1983#0" expanded="false" />
-            <element signature="e#2042#3248#0" expanded="false" />
-            <element signature="e#3464#4397#0" expanded="false" />
-            <element signature="e#4448#4859#0" expanded="false" />
-            <element signature="e#4963#5282#0" expanded="false" />
-            <element signature="e#5329#5423#0" expanded="false" />
-            <element signature="e#5489#5821#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="315">
+          <caret line="21" column="11" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="729" column="50" lean-forward="false" selection-start-line="729" selection-start-column="14" selection-end-line="729" selection-end-column="50" />
+        <state relative-caret-position="426">
+          <caret line="725" column="16" lean-forward="true" selection-start-line="725" selection-start-column="16" selection-end-line="725" selection-end-column="16" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1494#2700#0" expanded="false" />
@@ -585,10 +556,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/my_lstm_elmo_slurm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="16" lean-forward="false" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/DL_lstm_elmo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="95" column="18" lean-forward="false" selection-start-line="95" selection-start-column="18" selection-end-line="95" selection-end-column="18" />
+        <state relative-caret-position="503">
+          <caret line="128" column="20" lean-forward="false" selection-start-line="128" selection-start-column="20" selection-end-line="128" selection-end-column="20" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
             <element signature="e#609#1815#0" expanded="false" />
@@ -597,19 +576,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/my_python3_slurm">
+    <entry file="file://$PROJECT_DIR$/DL_elmo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="11" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/my_lstm_elmo_slurm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="16" lean-forward="false" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
-          <folding />
+        <state relative-caret-position="148">
+          <caret line="122" column="48" lean-forward="false" selection-start-line="122" selection-start-column="48" selection-end-line="122" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#527#1054#0" expanded="false" />
+            <element signature="e#1103#1983#0" expanded="false" />
+            <element signature="e#2042#3248#0" expanded="false" />
+            <element signature="e#5328#5422#0" expanded="false" />
+            <element signature="e#5488#5820#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

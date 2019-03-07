@@ -17,6 +17,7 @@ saved_slurms/
 saved_models/
 embedding_matrix.p
 *.p
+*.h5
 
 DL_graphs/
 

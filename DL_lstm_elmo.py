@@ -5,7 +5,7 @@ import tensorflow_hub as hub
 from keras import backend as K
 from keras.utils import np_utils
 import keras.layers as layers
-from keras.layers import LSTM, Lambda, Input, Dense
+from keras.layers import LSTM, Lambda, Input, Dense, Bidirectional
 from keras.models import Model, load_model
 from keras.engine import Layer
 from keras.callbacks import Callback
@@ -193,7 +193,7 @@ def print_3class_results(history):
 
 
 if __name__ == "__main__":
-    num_classes = 2
+    num_classes = 3
 
     sess = tf.Session()
     K.set_session(sess)
@@ -240,17 +240,17 @@ if __name__ == "__main__":
         # CREATE THE MODEL
         input_text = Input(shape=(max_len,), dtype=tf.string)
         embedding = Lambda(ElmoEmbedding, output_shape=(max_len, 1024))(input_text)
-        x = LSTM(units=256, recurrent_dropout=0.5, dropout=0.5)(embedding)
+        x = Bidirectional(LSTM(units=128, recurrent_dropout=0.5, dropout=0.5))(embedding)
         out = Dense(units=3, activation='softmax')(x)
         model = Model(input_text, out)
         model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
 
-        # FIT THE MODEL
+        # FIT THE MODEL - 3_class
         history = model.fit(np.array(X_train), y_train, validation_data=(np.array(X_test), y_test),
-                            batch_size=batch_size, epochs=2, verbose=1, callbacks=[three_class_metrics])
+                            batch_size=batch_size, epochs=10, verbose=1, callbacks=[three_class_metrics])
 
         # PRINT RESULTS
-        loss, accuracy = model.evaluate(x=X_test, y=y_test, verbose=0)
+        loss, accuracy = model.evaluate(x=np.array(X_test), y=y_test, verbose=0)
         print("\bTEST_ACC = " + str(round(accuracy * 100, 2)) + "%")
         print_3class_results(history)
 

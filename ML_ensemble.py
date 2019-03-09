@@ -228,8 +228,6 @@ def two_class_ensemble():
     # TF-IDF            - NB Bernoulli
     # TF-IDF            - Log_reg
 
-    pass
-
 
 def three_class_ensemble():
     file = "cleaned_tweets_16k_3class.csv"
@@ -257,7 +255,7 @@ def three_class_ensemble():
     print("Classifier 4")
     clf4 = tree.DecisionTreeClassifier().fit(X_train_term_count, y_train)
     print("Classifier 5")
-    clf5 = GradientBoostingClassifier(200).fit(X_train_term_count, y_train)
+    clf5 = GradientBoostingClassifier(n_estimators=200).fit(X_train_term_count, y_train)
 
     print("Classifier 6")
     clf6 = BernoulliNB().fit(X_train_tf, y_train)
@@ -266,21 +264,21 @@ def three_class_ensemble():
     print("Classifier 8")
     clf8 = AdaBoostClassifier().fit(X_train_tf, y_train)
     print("Classifier 9")
-    clf9 = GradientBoostingClassifier(200).fit(X_train_tf, y_train)
+    clf9 = GradientBoostingClassifier(n_estimators=200).fit(X_train_tf, y_train)
 
     print("Classifier 10")
     clf10 = BernoulliNB().fit(X_train_tf_idf, y_train)
     print("Classifier 11")
     clf11 = LogisticRegression(penalty="l2", solver="liblinear", max_iter=200).fit(X_train_tf_idf, y_train)
     print("Classifier 12")
-    clf12 = GradientBoostingClassifier(200).fit(X_train_tf_idf, y_train)
+    clf12 = GradientBoostingClassifier(n_estimators=200).fit(X_train_tf_idf, y_train)
 
     print("Classifier 13")
     clf13 = LogisticRegression(penalty="l2", solver="liblinear", max_iter=200).fit(X_train_trigrams, y_train)
     print("Classifier 14")
     clf14 = svm.SVC(C=10, kernel="rbf", gamma=0.001).fit(X_train_trigrams, y_train)
     print("Classifier 15")
-    clf15 = GradientBoostingClassifier(200).fit(X_train_trigrams, y_train)
+    clf15 = GradientBoostingClassifier(n_estimators=200).fit(X_train_trigrams, y_train)
 
     # Let the classifiers make their votes
     y_preds = []
@@ -337,4 +335,5 @@ def three_class_ensemble():
     # Trigrams      - GBC (200)
 
 
+# two_class_ensemble()
 three_class_ensemble()

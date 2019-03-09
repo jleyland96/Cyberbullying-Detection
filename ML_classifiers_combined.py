@@ -6,10 +6,8 @@ import numpy as np
 import keras
 import sklearn
 import sklearn.metrics as sm
-from sklearn.model_selection import GridSearchCV
 from sklearn import svm, tree
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, GradientBoostingClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import BernoulliNB, GaussianNB, MultinomialNB

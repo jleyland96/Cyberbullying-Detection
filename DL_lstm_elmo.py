@@ -218,14 +218,14 @@ if __name__ == "__main__":
         # CREATE MODEL
         input_text = Input(shape=(max_len,), dtype=tf.string)
         embedding = Lambda(ElmoEmbedding, output_shape=(max_len, 1024))(input_text)
-        x = LSTM(units=256, recurrent_dropout=0.5, dropout=0.5)(embedding)
+        x = Bidirectional(LSTM(units=512, recurrent_dropout=0.5, dropout=0.5))(embedding)
         out = Dense(units=1, activation='sigmoid')(x)
         model = Model(input_text, out)
         model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"])
 
         # FIT THE MODEL
         history = model.fit(np.array(X_train), y_train, validation_data=(np.array(X_test), y_test),
-                            batch_size=batch_size, epochs=2, verbose=1, callbacks=[metrics])
+                            batch_size=batch_size, epochs=10, verbose=1, callbacks=[metrics])
 
         # PRINT RESULTS
         loss, accuracy = model.evaluate(x=X_test, y=y_test, verbose=0)
@@ -240,7 +240,7 @@ if __name__ == "__main__":
         # CREATE THE MODEL
         input_text = Input(shape=(max_len,), dtype=tf.string)
         embedding = Lambda(ElmoEmbedding, output_shape=(max_len, 1024))(input_text)
-        x = Bidirectional(LSTM(units=128, recurrent_dropout=0.5, dropout=0.5))(embedding)
+        x = LSTM(units=512, recurrent_dropout=0.5, dropout=0.5)(embedding)
         out = Dense(units=3, activation='softmax')(x)
         model = Model(input_text, out)
         model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])

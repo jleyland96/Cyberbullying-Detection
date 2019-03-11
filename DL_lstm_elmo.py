@@ -193,7 +193,8 @@ def print_3class_results(history):
 
 
 if __name__ == "__main__":
-    num_classes = 3
+    num_classes = 2
+    print(num_classes)
 
     sess = tf.Session()
     K.set_session(sess)
@@ -218,7 +219,7 @@ if __name__ == "__main__":
         # CREATE MODEL
         input_text = Input(shape=(max_len,), dtype=tf.string)
         embedding = Lambda(ElmoEmbedding, output_shape=(max_len, 1024))(input_text)
-        x = Bidirectional(LSTM(units=512, recurrent_dropout=0.5, dropout=0.5))(embedding)
+        x = LSTM(units=512, recurrent_dropout=0.5, dropout=0.5)(embedding)
         out = Dense(units=1, activation='sigmoid')(x)
         model = Model(input_text, out)
         model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"])
@@ -228,7 +229,7 @@ if __name__ == "__main__":
                             batch_size=batch_size, epochs=10, verbose=1, callbacks=[metrics])
 
         # PRINT RESULTS
-        loss, accuracy = model.evaluate(x=X_test, y=y_test, verbose=0)
+        loss, accuracy = model.evaluate(x=np.array(X_test), y=y_test, verbose=0)
         print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
         print_results(history)
 
@@ -240,7 +241,7 @@ if __name__ == "__main__":
         # CREATE THE MODEL
         input_text = Input(shape=(max_len,), dtype=tf.string)
         embedding = Lambda(ElmoEmbedding, output_shape=(max_len, 1024))(input_text)
-        x = LSTM(units=512, recurrent_dropout=0.5, dropout=0.5)(embedding)
+        x = Bidirectional(LSTM(units=512, recurrent_dropout=0.5, dropout=0.5))(embedding)
         out = Dense(units=3, activation='softmax')(x)
         model = Model(input_text, out)
         model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])

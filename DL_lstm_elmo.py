@@ -171,16 +171,19 @@ def pad_inputs(X):
 
 
 # print the results so that we can plot a graph of the f1/acc/val_acc over time
-def print_results(history):
+def print_results(history, y_pred, y_test):
     print("TRAIN:", list(np.round(history.history['acc'], 4)), "\n")
     print("TEST:", list(np.round(history.history['val_acc'], 4)), "\n")
     print("LOSS:", list(np.round(history.history['loss'], 4)), "\n")
     print("Max F1 was", max(f1_results), "at epoch", f1_results.index(max(f1_results)) + 1, "\n")
     print("F1:", f1_results)
 
+    # CONFUSION MATRIX
+    print("confusion matrix:\n", confusion_matrix(y_test, y_pred))
+
 
 # 3 class version of the above function
-def print_3class_results(history):
+def print_3class_results(history, y_pred, y_test):
     # PRINT FINAL TRAIN/TEST/LOSS INFO
     print("TRAIN:", list(np.round(history.history['acc'], 4)), "\n")
     print("TEST:", list(np.round(history.history['val_acc'], 4)), "\n")
@@ -190,6 +193,9 @@ def print_3class_results(history):
     # MAXIMUMS
     print("Max F1 weighted was", max(f1_results_weighted), "at epoch", f1_results_weighted.index(max(f1_results_weighted)) + 1, "\n")
     print("Max F1 micro was", max(f1_results_micro), "at epoch", f1_results_micro.index(max(f1_results_micro)) + 1, "\n")
+
+    # CONFUSION MATRIX
+    print("confusion matrix:\n", confusion_matrix(y_test, y_pred))
 
 
 if __name__ == "__main__":
@@ -219,7 +225,7 @@ if __name__ == "__main__":
         # CREATE MODEL
         input_text = Input(shape=(max_len,), dtype=tf.string)
         embedding = Lambda(ElmoEmbedding, output_shape=(max_len, 1024))(input_text)
-        x = LSTM(units=512, recurrent_dropout=0.5, dropout=0.5)(embedding)
+        x = Bidirectional(LSTM(units=512, recurrent_dropout=0.5, dropout=0.5))(embedding)
         out = Dense(units=1, activation='sigmoid')(x)
         model = Model(input_text, out)
         model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"])
@@ -230,29 +236,33 @@ if __name__ == "__main__":
 
         # PRINT RESULTS
         loss, accuracy = model.evaluate(x=np.array(X_test), y=y_test, verbose=0)
+        y_pred = model.predict(x=np.array(X_test))
+        y_pred = np.round(y_pred, 0)
         print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
-        print_results(history)
+        print_results(history, y_pred, y_test)
 
     elif num_classes == 3:
         # CONVERT THE TAGS TO CATEGORICAL DATA
-        y_train = np_utils.to_categorical(y_train)
-        y_test = np_utils.to_categorical(y_test)
+        y_train_cat = np_utils.to_categorical(y_train)
+        y_test_cat = np_utils.to_categorical(y_test)
 
         # CREATE THE MODEL
         input_text = Input(shape=(max_len,), dtype=tf.string)
         embedding = Lambda(ElmoEmbedding, output_shape=(max_len, 1024))(input_text)
-        x = Bidirectional(LSTM(units=512, recurrent_dropout=0.5, dropout=0.5))(embedding)
+        x = LSTM(units=512, recurrent_dropout=0.5, dropout=0.5)(embedding)
         out = Dense(units=3, activation='softmax')(x)
         model = Model(input_text, out)
         model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
 
         # FIT THE MODEL - 3_class
-        history = model.fit(np.array(X_train), y_train, validation_data=(np.array(X_test), y_test),
+        history = model.fit(np.array(X_train), y_train_cat, validation_data=(np.array(X_test), y_test_cat),
                             batch_size=batch_size, epochs=10, verbose=1, callbacks=[three_class_metrics])
 
         # PRINT RESULTS
-        loss, accuracy = model.evaluate(x=np.array(X_test), y=y_test, verbose=0)
+        loss, accuracy = model.evaluate(x=np.array(X_test), y=y_test_cat, verbose=0)
+        y_prob = model.predict(x=np.array(X_test))
+        labels_pred = y_prob.argmax(axis=-1)
         print("\bTEST_ACC = " + str(round(accuracy * 100, 2)) + "%")
-        print_3class_results(history)
+        print_3class_results(history, labels_pred, y_test)
 
 

@@ -145,6 +145,36 @@ def get_data(filename):
     return X, y
 
 
+# F1 loss and calculation
+def f1(y_true, y_pred):
+    y_pred = K.round(y_pred)
+    tp = K.sum(K.cast(y_true*y_pred, 'float'), axis=0)
+    tn = K.sum(K.cast((1-y_true)*(1-y_pred), 'float'), axis=0)
+    fp = K.sum(K.cast((1-y_true)*y_pred, 'float'), axis=0)
+    fn = K.sum(K.cast(y_true*(1-y_pred), 'float'), axis=0)
+
+    p = tp / (tp + fp + K.epsilon())
+    r = tp / (tp + fn + K.epsilon())
+
+    f1 = 2*p*r / (p+r+K.epsilon())
+    f1 = tf.where(tf.is_nan(f1), tf.zeros_like(f1), f1)
+    return K.mean(f1)
+
+
+def f1_loss(y_true, y_pred):
+    tp = K.sum(K.cast(y_true * y_pred, 'float'), axis=0)
+    tn = K.sum(K.cast((1 - y_true) * (1 - y_pred), 'float'), axis=0)
+    fp = K.sum(K.cast((1 - y_true) * y_pred, 'float'), axis=0)
+    fn = K.sum(K.cast(y_true * (1 - y_pred), 'float'), axis=0)
+
+    p = tp / (tp + fp + K.epsilon())
+    r = tp / (tp + fn + K.epsilon())
+
+    f1 = 2 * p * r / (p + r + K.epsilon())
+    f1 = tf.where(tf.is_nan(f1), tf.zeros_like(f1), f1)
+    return 1 - K.mean(f1)
+
+
 # Takes a sequence of strings and returns sequence of 1024-dim vectors of ELMo embedding
 def ElmoEmbedding(x):
     return elmo_model(inputs={
@@ -175,8 +205,14 @@ def print_results(history, y_pred, y_test):
     print("TRAIN:", list(np.round(history.history['acc'], 4)), "\n")
     print("TEST:", list(np.round(history.history['val_acc'], 4)), "\n")
     print("LOSS:", list(np.round(history.history['loss'], 4)), "\n")
-    print("Max F1 was", max(f1_results), "at epoch", f1_results.index(max(f1_results)) + 1, "\n")
-    print("F1:", f1_results)
+    if loss == "F1":
+        val_f1 = list(np.round(history.history['val_f1'], 4))
+        print("VAL_F1:", val_f1, "\n")
+        print("Max val_f1 was", max(val_f1), "at epoch", val_f1.index(max(val_f1)) + 1, "\n")
+        print("TRAIN_F1:", list(np.round(history.history['f1'], 4)))
+    else:
+        print("Max F1 was", max(f1_results), "at epoch", f1_results.index(max(f1_results)) + 1, "\n")
+        print("F1:", f1_results)
 
     # CONFUSION MATRIX
     print("confusion matrix:\n", confusion_matrix(y_test, y_pred))
@@ -200,19 +236,23 @@ def print_3class_results(history, y_pred, y_test):
 
 if __name__ == "__main__":
     num_classes = 2
+    loss = "not F1"
     print(num_classes)
 
+    # Create session and get the ELMo embeddings
     sess = tf.Session()
     K.set_session(sess)
     elmo_model = hub.Module("https://tfhub.dev/google/elmo/2", trainable=True)
     sess.run(tf.global_variables_initializer())
     sess.run(tf.tables_initializer())
 
+    # Get the data according to the number of classes
     if num_classes == 2:
         X, y = get_data(filename='cleaned_tweets_16k.csv')
     elif num_classes == 3:
         X, y = get_data(filename='cleaned_tweets_16k_3class.csv')
 
+    # pre-preparation of data
     X = pad_inputs(X)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
     # Take a slice of the data so that we don't have half a batch at the end of the epoch

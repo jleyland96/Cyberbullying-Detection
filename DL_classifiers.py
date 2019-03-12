@@ -583,7 +583,7 @@ def main_2_class_f1_loss(filename="cleaned_tweets_16k.csv"):
     #               input_length=max_len, trainable=False)
     e = Embedding(input_dim=vocab_size, output_dim=300,
                   embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
-    e.trainable = True
+    e.trainable = False
     model.add(e)
 
     model.add(Bidirectional(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5)))

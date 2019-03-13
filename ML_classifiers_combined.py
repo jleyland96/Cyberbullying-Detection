@@ -197,8 +197,8 @@ def get_glove_data(dataset_filename="cleaned_text_messages.csv"):
         word_arrays.append(s.split(' '))
 
     # GLOVE. Create dictionary where keys are words and the values are the vectors for the words
-    print("getting GLOVE embeddings size 300...")
-    file = open('glove.6B/glove.6B.300d.txt', "r").readlines()
+    print("getting GLOVE embeddings size 50...")
+    file = open('glove.6B/glove.6B.50d.txt', "r").readlines()
     gloveDict = {}
     for line in file:
         info = line.split(' ')

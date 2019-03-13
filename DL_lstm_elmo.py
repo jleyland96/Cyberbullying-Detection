@@ -236,7 +236,7 @@ def print_3class_results(history, y_pred, y_test):
 
 if __name__ == "__main__":
     num_classes = 2
-    loss = "not F1"
+    loss = "F1"
     print(num_classes)
 
     # Create session and get the ELMo embeddings
@@ -268,17 +268,17 @@ if __name__ == "__main__":
         x = Bidirectional(LSTM(units=512, recurrent_dropout=0.5, dropout=0.5))(embedding)
         out = Dense(units=1, activation='sigmoid')(x)
         model = Model(input_text, out)
-        model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"])
+        model.compile(optimizer="adam", loss=f1_loss, metrics=["acc", f1])
 
         # FIT THE MODEL
         history = model.fit(np.array(X_train), y_train, validation_data=(np.array(X_test), y_test),
-                            batch_size=batch_size, epochs=10, verbose=1, callbacks=[metrics])
+                            batch_size=batch_size, epochs=1, verbose=1, callbacks=[metrics])
 
         # PRINT RESULTS
-        loss, accuracy = model.evaluate(x=np.array(X_test), y=y_test, verbose=0)
+        # loss, accuracy = model.evaluate(x=np.array(X_test), y=y_test, verbose=0)
         y_pred = model.predict(x=np.array(X_test))
         y_pred = np.round(y_pred, 0)
-        print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
+        # print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
         print_results(history, y_pred, y_test)
 
     elif num_classes == 3:

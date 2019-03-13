@@ -222,8 +222,11 @@ def get_glove_data(dataset_filename="cleaned_text_messages.csv"):
     # PADDING
     if dataset_filename == "cleaned_text_messages.csv":
         MAX_LEN = 40
+    elif dataset_filename == "cleaned_twitter_1K.csv":
+        MAX_LEN = 30
+    elif dataset_filename == "cleaned_dixon.csv":
+        MAX_LEN = 500
     elif dataset_filename == "cleaned_formspring.csv":
-        print("ON THE FORMSPRING")
         MAX_LEN = 100
     else:
         MAX_LEN = 32
@@ -242,7 +245,7 @@ def get_glove_data(dataset_filename="cleaned_text_messages.csv"):
     return X_train, X_test, y_train, y_test
 
 
-def get_avg_glove_data(dataset_filename="cleaned_formsprig.csv"):
+def get_avg_glove_data(dataset_filename="cleaned_formspring.csv"):
     # SPLIT COMMENTS/SENTENCES
     print("Getting avg_glove data")
 
@@ -299,12 +302,12 @@ def get_avg_glove_data(dataset_filename="cleaned_formsprig.csv"):
     return X_train, X_test, y_train, y_test
 
 
-print("RUNNING ON DIRTY_16K 2-class")
+print("RUNNING ON CLEAN DIXON_16K 2-class")
 for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
 # for vectorize_choice in ["term_freq"]:
 
     # CHANGE THE DATASET NAME NOW
-    dataset_filename = 'processed_tweets_16k_3class.csv'
+    dataset_filename = 'cleaned_dixon.csv'
 
     # Get the right dataset (Glove features, term count, term freq, term freq idf, bigrams, trigrams)
     if vectorize_choice == "glove":
@@ -374,7 +377,7 @@ for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_
             clf = tree.DecisionTreeClassifier()
         elif current_clf == 9:
             print("Gradient boosted classifier...")
-            clf = GradientBoostingClassifier(n_estimators=200)
+            clf = GradientBoostingClassifier(n_estimators=100)
 
         # FIT
         print("fitting...")
@@ -398,8 +401,8 @@ for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_
         if np.count_nonzero(y_pred) > 0:
             # print("recall:", round(sm.recall_score(y_test, y_pred), 4))
             # print("precision:", round(sm.precision_score(y_test, y_pred), 4))
-            print("f1 score weighted:", round(sm.f1_score(y_test, y_pred, average='weighted'), 4))
-            print("f1 score micro   :", round(sm.f1_score(y_test, y_pred, average='micro'), 4))
+            print("f1 score weighted:", round(sm.f1_score(y_test, y_pred), 4))
+            print("f1 score micro   :", round(sm.f1_score(y_test, y_pred), 4))
 
             print("\n\n")
         else:

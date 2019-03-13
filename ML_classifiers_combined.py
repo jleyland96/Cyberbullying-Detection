@@ -225,7 +225,7 @@ def get_glove_data(dataset_filename="cleaned_text_messages.csv"):
     elif dataset_filename == "cleaned_twitter_1K.csv":
         MAX_LEN = 30
     elif dataset_filename == "cleaned_dixon.csv":
-        MAX_LEN = 500
+        MAX_LEN = 50
     elif dataset_filename == "cleaned_formspring.csv":
         MAX_LEN = 100
     else:

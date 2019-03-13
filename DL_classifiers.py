@@ -40,6 +40,10 @@ validation_results = []
 f1_results = []
 f1_results_weighted = []
 f1_results_micro = []
+max_f1 = 0
+max_f1_micro = 0
+max_f1_weighted = 0
+best_confusion_matrix = ""
 
 
 class Metrics(Callback):
@@ -49,6 +53,8 @@ class Metrics(Callback):
         self.val_precisions = []
 
     def on_epoch_end(self, epoch, logs={}):
+        global best_confusion_matrix
+
         print()
         val_predict = (np.asarray(self.model.predict(self.validation_data[0]))).round()
         val_targ = self.validation_data[1]
@@ -71,8 +77,15 @@ class Metrics(Callback):
         print("\n\n")
         print("F1:\n", f1_results)
 
-        # Save the model for another time
-        # save_model(self.model, save_path)
+        # if the current f1 value is bigger than all of the previous f1 scores, save the model
+        if len(f1_results) > 1 and _val_f1 > max(f1_results[:-1]):
+            print("SAVING NEW MODEL")
+            best_confusion_matrix = confusion_matrix(val_targ, val_predict)
+            # Save the model for another time
+            # save_model(self.model, save_path)
+
+        print()
+        print(confusion_matrix(val_targ, val_predict))
         return
 
 
@@ -89,6 +102,8 @@ class Three_Class_Metrics(Callback):
         self.val_precisions_micro = []
 
     def on_epoch_end(self, epoch, logs={}):
+        global best_confusion_matrix
+
         print()
         val_predict = (np.asarray(self.model.predict(self.validation_data[0]))).round()
         val_targ = self.validation_data[1]
@@ -128,8 +143,11 @@ class Three_Class_Metrics(Callback):
         print("F1 weighted:\n", f1_results_weighted)
         print("F1 micro:\n", f1_results_micro)
 
-        # Save the model for another time
-        # save_model(self.model, save_path)
+        if len(f1_results_micro) > 1 and _val_f1_micro > max(f1_results_micro[:-1]):
+            print("SAVING NEW MODEL")
+            # Save the model for another time
+            # save_model(self.model, save_path)
+
         return
 
 
@@ -237,6 +255,8 @@ def get_pad_length(filename):
         return 100
     elif filename == "cleaned_tweets_16k.csv" or filename == "cleaned_tweets_16k_3class.csv":
         return 32  # was 32
+    elif filename == "cleaned_dixon.csv":
+        return 500
     else:
         return 32
 
@@ -586,7 +606,7 @@ def main_2_class_f1_loss(filename="cleaned_tweets_16k.csv"):
     e.trainable = False
     model.add(e)
 
-    model.add(Bidirectional(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5)))
+    model.add(LSTM(units=50, dropout=0.5, recurrent_dropout=0.5))
 
     model.add(Dense(units=1, activation='sigmoid'))
 
@@ -595,7 +615,7 @@ def main_2_class_f1_loss(filename="cleaned_tweets_16k.csv"):
     print("F1 LOSS")
     model.compile(optimizer='adam', loss=f1_loss, metrics=['acc', f1])
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=50, callbacks=[metrics], batch_size=128)
+                        nb_epoch=2, callbacks=[metrics], batch_size=128)
 
     class_weight = {0: 1.0,
                     1: 1.0}
@@ -607,7 +627,8 @@ def main_2_class_f1_loss(filename="cleaned_tweets_16k.csv"):
 
     # evaluate
     # loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
-    # print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
+    loss, accuracy, _ = model.evaluate(x=X_test, y=labels_test, verbose=0)
+    print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
 
     y_pred = model.predict(x=X_test)
     y_pred = np.round(y_pred, 0)
@@ -657,7 +678,7 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
     e.trainable = False  # should be false
     model.add(e)
 
-    model.add(LSTM(units=20, dropout=0.2, recurrent_dropout=0.2))
+    model.add(LSTM(units=50, dropout=0.5, recurrent_dropout=0.5))
 
     model.add(Dense(units=3, activation='softmax'))
 
@@ -673,7 +694,7 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
                     2: 1.0}
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=5, batch_size=128, callbacks=[three_class_metrics], class_weight=class_weight)
+                        nb_epoch=3, batch_size=128, callbacks=[three_class_metrics], class_weight=class_weight)
     # ------------------ END MODEL ------------------
 
     # evaluate
@@ -732,16 +753,9 @@ def main_2_class_model(filename="cleaned_tweets_16k.csv"):
     e.trainable = False
     model.add(e)
 
-    model.add(LSTM(units=20, dropout=0.4, recurrent_dropout=0.4))
+    model.add(LSTM(units=50, dropout=0.5, recurrent_dropout=0.5))
 
     model.add(Dense(units=1, activation='sigmoid'))
-
-    # compile the model
-    # adam = optimizers.Adam(lr=0.0005, decay=0.01, beta_1=0.92, beta_2=0.9992)
-    # print("F1 LOSS")
-    # model.compile(optimizer='adam', loss=f1_loss, metrics=['acc', f1])
-    # history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-    #                     nb_epoch=30, batch_size=128, class_weight=class_weight)
 
     class_weight = {0: 1.0,
                     1: 1.0}
@@ -758,6 +772,8 @@ def main_2_class_model(filename="cleaned_tweets_16k.csv"):
     print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
 
     print_results(history, y_pred, labels_test)
+    print("BEST:")
+    print(best_confusion_matrix)
 
     # plt.plot(history.history['acc'])
     # plt.plot(history.history['val_acc'])
@@ -774,10 +790,10 @@ if __name__ == "__main__":
 
     save_path = "TEST"
     loss = "not F1"
-    file = "cleaned_tweets_16k.csv"
+    file = "cleaned_tweets_16k_3class.csv"
     # learn_embeddings_model_2class(file)
     # learn_embeddings_model_3class(file)
     # learn_embeddings_2class_f1_loss(file)
-    main_2_class_model(file)
-    # main_3_class_model(file)
+    # main_2_class_model(file)
+    main_3_class_model(file)
     # main_2_class_f1_loss(file)

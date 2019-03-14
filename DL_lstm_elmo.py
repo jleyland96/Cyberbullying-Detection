@@ -145,6 +145,18 @@ def get_data(filename):
     return X, y
 
 
+# Get the right MAX_LEN for this data
+def get_pad_length(filename):
+    if filename == "1k":
+        return 30
+    elif filename == "16k_2class" or filename == "16k_3class":
+        return 32  # was 32
+    elif filename == "dixon":
+        return 500
+    else:
+        return 32
+
+
 # F1 loss and calculation
 def f1(y_true, y_pred):
     y_pred = K.round(y_pred)
@@ -205,14 +217,8 @@ def print_results(history, y_pred, y_test):
     print("TRAIN:", list(np.round(history.history['acc'], 4)), "\n")
     print("TEST:", list(np.round(history.history['val_acc'], 4)), "\n")
     print("LOSS:", list(np.round(history.history['loss'], 4)), "\n")
-    if loss == "F1":
-        val_f1 = list(np.round(history.history['val_f1'], 4))
-        print("VAL_F1:", val_f1, "\n")
-        print("Max val_f1 was", max(val_f1), "at epoch", val_f1.index(max(val_f1)) + 1, "\n")
-        print("TRAIN_F1:", list(np.round(history.history['f1'], 4)))
-    else:
-        print("Max F1 was", max(f1_results), "at epoch", f1_results.index(max(f1_results)) + 1, "\n")
-        print("F1:", f1_results)
+    print("Max F1 was", max(f1_results), "at epoch", f1_results.index(max(f1_results)) + 1, "\n")
+    print("F1:", f1_results)
 
     # CONFUSION MATRIX
     print("confusion matrix:\n", confusion_matrix(y_test, y_pred))
@@ -235,9 +241,10 @@ def print_3class_results(history, y_pred, y_test):
 
 
 if __name__ == "__main__":
-    num_classes = 2
-    loss = "F1"
-    print(num_classes)
+    dataset = "16k_3class"  # dixon, 1k, 16k_2class, 16k_3class
+    max_len = get_pad_length(dataset)
+    print(dataset)
+    print(max_len)
 
     # Create session and get the ELMo embeddings
     sess = tf.Session()
@@ -247,28 +254,43 @@ if __name__ == "__main__":
     sess.run(tf.tables_initializer())
 
     # Get the data according to the number of classes
-    if num_classes == 2:
+    if dataset == "16k_2class":
         X, y = get_data(filename='cleaned_tweets_16k.csv')
-    elif num_classes == 3:
+        train_max = 12544  # 392 batches of size 32
+        test_max = 3136    # 98 batches of size 32
+    elif dataset == "16k_3class":
         X, y = get_data(filename='cleaned_tweets_16k_3class.csv')
+        train_max = 12544  # 392 batches of size 32
+        test_max = 3136    # 98 batches of size 32
+    elif dataset == "1k":
+        X, y = get_data(filename='cleaned_twitter_1K.csv')
+        train_max = 768  # 24 batches of 32
+        test_max = 192   # 6 batches of 32
+    else:  # data set == "dixon"
+        X, y = get_data(filename='cleaned_dixon.csv')
+        train_max = 55552  # 1736 batches of 32
+        test_max = 13888   # 434 batches of 32
 
     # pre-preparation of data
     X = pad_inputs(X)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-    # Take a slice of the data so that we don't have half a batch at the end of the epoch
-    X_train = X_train[:12544]   # 392 batches of size 32
-    X_test = X_test[:3136]      # 98 validation batches of size 32
-    y_train = y_train[:12544]   # one label for each train X
-    y_test = y_test[:3136]      # one label for each test X
 
-    if num_classes == 2:
+    # Take a slice of the data so that we don't have half a batch at the end of the epoch
+    X_train = X_train[:train_max]   # 392 batches of size 32
+    X_test = X_test[:test_max]      # 98 validation batches of size 32
+    y_train = y_train[:train_max]   # one label for each train X
+    y_test = y_test[:test_max]      # one label for each test X
+
+    if dataset in ["dixon", "1k", "16k_2class"]:
+        print("2class")
+
         # CREATE MODEL
         input_text = Input(shape=(max_len,), dtype=tf.string)
         embedding = Lambda(ElmoEmbedding, output_shape=(max_len, 1024))(input_text)
         x = Bidirectional(LSTM(units=512, recurrent_dropout=0.5, dropout=0.5))(embedding)
         out = Dense(units=1, activation='sigmoid')(x)
         model = Model(input_text, out)
-        model.compile(optimizer="adam", loss=f1_loss, metrics=["acc", f1])
+        model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["acc"])
 
         # FIT THE MODEL
         history = model.fit(np.array(X_train), y_train, validation_data=(np.array(X_test), y_test),
@@ -281,7 +303,9 @@ if __name__ == "__main__":
         # print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
         print_results(history, y_pred, y_test)
 
-    elif num_classes == 3:
+    elif dataset == "16k_3class":
+        print("3class")
+
         # CONVERT THE TAGS TO CATEGORICAL DATA
         y_train_cat = np_utils.to_categorical(y_train)
         y_test_cat = np_utils.to_categorical(y_test)

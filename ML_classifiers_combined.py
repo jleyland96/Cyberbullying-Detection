@@ -85,7 +85,7 @@ def get_data(filename):
     return X, y
 
 
-def get_ngram_data(ngram_size, dataset_filename="cleaned_text_messages.csv"):
+def get_ngram_data(ngram_size, dataset_filename="cleaned_text_messages.csv", N=20000):
     X = []
     y = []
     print("\nGETTING DATA - " + str(ngram_size) + "-grams")
@@ -105,33 +105,34 @@ def get_ngram_data(ngram_size, dataset_filename="cleaned_text_messages.csv"):
             if line_count == 0:
                 print(row)
             else:
-                if line_count % 200 == 0:
-                    print(str(line_count) + " ngrams computed")
+                if line_count < N:
+                    if line_count % 200 == 0:
+                        print(str(line_count) + " ngrams computed")
 
-                label_bullying = int(row[0])
-                text_message = row[1]
+                    label_bullying = int(row[0])
+                    text_message = row[1]
 
-                # current features
-                temp_x = []
-                this_bigram_dict = global_grams.copy()
+                    # current features
+                    temp_x = []
+                    this_bigram_dict = global_grams.copy()
 
-                # split text messages into a list of its ngrams
-                ngram = [text_message[j:j+ngram_size] for j in range(len(text_message)-(ngram_size-1))]
+                    # split text messages into a list of its ngrams
+                    ngram = [text_message[j:j+ngram_size] for j in range(len(text_message)-(ngram_size-1))]
 
-                # TODO: change this to 'count' so we get better performance
-                # count occurences of each character ngram
-                for gram in ngram:
-                    if gram in this_bigram_dict:
-                        this_bigram_dict[gram] += 1
+                    # TODO: change this to 'count' so we get better performance
+                    # count occurences of each character ngram
+                    for gram in ngram:
+                        if gram in this_bigram_dict:
+                            this_bigram_dict[gram] += 1
 
-                # create feature vector for this instance (take just the values)
-                for key in this_bigram_dict:
-                    temp_x.append(this_bigram_dict[key])
+                    # create feature vector for this instance (take just the values)
+                    for key in this_bigram_dict:
+                        temp_x.append(this_bigram_dict[key])
 
-                X.append(temp_x)
-                y.append(label_bullying)
+                    X.append(temp_x)
+                    y.append(label_bullying)
 
-                del this_bigram_dict
+                    del this_bigram_dict
             line_count += 1
     print("processed", line_count-1, "comments\n")
 
@@ -324,9 +325,9 @@ for vectorize_choice in ["trigrams"]:
     elif vectorize_choice == "term_freq_idf":
         X_train, X_test, y_train, y_test = get_term_freq_data(use_idf=True, dataset_filename=dataset_filename)
     elif vectorize_choice == "bigrams":
-        X_train, X_test, y_train, y_test = get_ngram_data(ngram_size=2, dataset_filename=dataset_filename)
+        X_train, X_test, y_train, y_test = get_ngram_data(ngram_size=2, dataset_filename=dataset_filename, N=69446)
     else:
-        X_train, X_test, y_train, y_test = get_ngram_data(ngram_size=3, dataset_filename=dataset_filename)
+        X_train, X_test, y_train, y_test = get_ngram_data(ngram_size=3, dataset_filename=dataset_filename, N=20000)
 
     # Repeat the positive examples in the training dataset twice to avoid over-fitting to negative examples
     # X_train, y_train = repeat_positives(X_train, y_train, repeats=2)

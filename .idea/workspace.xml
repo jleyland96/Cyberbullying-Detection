@@ -17,15 +17,25 @@
       <file leaf-file-name="ML_classifiers_combined.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="150" column="38" lean-forward="false" selection-start-line="150" selection-start-column="38" selection-end-line="150" selection-end-column="38" />
+            <state relative-caret-position="-113">
+              <caret line="329" column="114" lean-forward="false" selection-start-line="329" selection-start-column="114" selection-end-line="329" selection-end-column="114" />
               <folding>
                 <element signature="e#1867#2321#0" expanded="false" />
-                <element signature="e#2406#4320#0" expanded="false" />
-                <element signature="e#5023#5692#0" expanded="false" />
-                <element signature="e#5765#7597#0" expanded="false" />
-                <element signature="e#7671#9505#0" expanded="false" />
+                <element signature="e#4522#5061#0" expanded="false" />
+                <element signature="e#5147#5816#0" expanded="false" />
+                <element signature="e#5889#7721#0" expanded="false" />
+                <element signature="e#7795#9629#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plot_val_acc.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="3" column="19" lean-forward="false" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -116,7 +126,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -128,6 +137,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -278,11 +288,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32588235" sideWeight="0.51111114" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32470587" sideWeight="0.4888889" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32470587" sideWeight="0.4888889" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -311,20 +322,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.4/lib/python3.4/site-packages/keras/engine/training.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="951" column="0" lean-forward="false" selection-start-line="951" selection-start-column="0" selection-end-line="951" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
@@ -365,11 +362,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DL_graphs/Tweets (16K) 2-class/Page 3 (LSTM)/LSTM250 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/Tweets (16K) 2-class/Page 3 (LSTM)/LSTM50x300 graph.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
@@ -439,26 +431,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/CF 3-LSTM50-BN graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/CF LSTM50 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/CF 3-ELMo-LSTM512 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/CF ELMo-BI-LSTM512 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/CF 3-LSTM50-BN graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/CF LSTM50 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/CF 3-ELMo-LSTM512 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/CF ELMo-BI-LSTM512 graph.png" />
     <entry file="file://$PROJECT_DIR$/dixon_train_data.csv">
       <provider selected="true" editor-type-id="LargeFileEditor">
         <state relative-caret-position="0">
@@ -492,24 +468,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/CF BI-LSTM F1 loss graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/CF ELMo F1 loss graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/CF BI-LSTM F1 loss graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/CF ELMo F1 loss graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/1K-ELMo512 graph.png" />
-    <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -517,16 +478,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/Tweets (16K) 2-class/Page 3 (LSTM)/LSTM50x300 graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-ELMo256 graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-ELMo128 graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="3" column="19" lean-forward="false" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="150" column="38" lean-forward="false" selection-start-line="150" selection-start-column="38" selection-end-line="150" selection-end-column="38" />
+        <state relative-caret-position="-113">
+          <caret line="329" column="114" lean-forward="false" selection-start-line="329" selection-start-column="114" selection-end-line="329" selection-end-column="114" />
           <folding>
             <element signature="e#1867#2321#0" expanded="false" />
-            <element signature="e#2406#4320#0" expanded="false" />
-            <element signature="e#5023#5692#0" expanded="false" />
-            <element signature="e#5765#7597#0" expanded="false" />
-            <element signature="e#7671#9505#0" expanded="false" />
+            <element signature="e#4522#5061#0" expanded="false" />
+            <element signature="e#5147#5816#0" expanded="false" />
+            <element signature="e#5889#7721#0" expanded="false" />
+            <element signature="e#7795#9629#0" expanded="false" />
           </folding>
         </state>
       </provider>

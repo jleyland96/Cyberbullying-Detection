@@ -17,12 +17,14 @@
       <file leaf-file-name="ML_classifiers_combined.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2">
-              <caret line="174" column="36" lean-forward="false" selection-start-line="174" selection-start-column="36" selection-end-line="174" selection-end-column="36" />
+            <state relative-caret-position="294">
+              <caret line="150" column="38" lean-forward="false" selection-start-line="150" selection-start-column="38" selection-end-line="150" selection-end-column="38" />
               <folding>
-                <element signature="e#4398#4925#0" expanded="false" />
-                <element signature="e#5753#7585#0" expanded="false" />
-                <element signature="e#7659#9493#0" expanded="false" />
+                <element signature="e#1867#2321#0" expanded="false" />
+                <element signature="e#2406#4320#0" expanded="false" />
+                <element signature="e#5023#5692#0" expanded="false" />
+                <element signature="e#5765#7597#0" expanded="false" />
+                <element signature="e#7671#9505#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -114,7 +116,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -123,15 +124,11 @@
               <item name="Cyberbullying-Detection" type="b2602c69:ProjectViewProjectNode" />
               <item name="Cyberbullying-Detection" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Cyberbullying-Detection" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Cyberbullying-Detection" type="462c0819:PsiDirectoryNode" />
-              <item name="DL_graphs" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -281,12 +278,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32588235" sideWeight="0.51111114" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32470587" sideWeight="0.4888889" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32470587" sideWeight="0.4888889" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -493,13 +489,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="945">
           <caret line="270" column="25" lean-forward="false" selection-start-line="270" selection-start-column="25" selection-end-line="270" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-            <element signature="e#704#1910#0" expanded="false" />
-            <element signature="e#2064#4393#0" expanded="false" />
-            <element signature="e#4554#5081#0" expanded="false" />
-            <element signature="e#5156#5361#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -513,16 +502,11 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-ELMo512 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-ELMo512 graph.png" />
     <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -530,43 +514,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="248" column="0" lean-forward="false" selection-start-line="248" selection-start-column="0" selection-end-line="260" selection-end-column="17" />
-          <folding>
-            <element signature="e#1569#3169#0" expanded="false" />
-            <element signature="e#5811#6439#0" expanded="false" />
-            <element signature="e#6493#6884#0" expanded="false" />
-            <element signature="e#6916#7028#0" expanded="false" />
-            <element signature="e#7059#7162#0" expanded="false" />
-            <element signature="e#7203#7295#0" expanded="false" />
-            <element signature="e#7339#8119#0" expanded="false" />
-            <element signature="e#8156#8559#0" expanded="false" />
-            <element signature="e#8595#8886#0" expanded="false" />
-            <element signature="e#8915#9286#0" expanded="false" />
-            <element signature="e#9317#9766#0" expanded="false" />
-            <element signature="e#9802#10250#0" expanded="false" />
-            <element signature="e#10301#11035#0" expanded="false" />
-            <element signature="e#11093#11724#0" expanded="false" />
-            <element signature="e#11803#13520#0" expanded="false" />
-            <element signature="e#13597#15815#0" expanded="false" />
-            <element signature="e#15899#18058#0" expanded="false" />
-            <element signature="e#18091#18319#0" expanded="false" />
-            <element signature="e#18355#18724#0" expanded="false" />
-            <element signature="e#18755#19447#0" expanded="false" />
-            <element signature="e#19515#22413#0" expanded="false" />
-            <element signature="e#22486#25184#0" expanded="false" />
-            <element signature="e#25250#28056#0" expanded="false" />
-            <element signature="e#27741#27775#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2">
-          <caret line="174" column="36" lean-forward="false" selection-start-line="174" selection-start-column="36" selection-end-line="174" selection-end-column="36" />
+        <state relative-caret-position="294">
+          <caret line="150" column="38" lean-forward="false" selection-start-line="150" selection-start-column="38" selection-end-line="150" selection-end-column="38" />
           <folding>
-            <element signature="e#4398#4925#0" expanded="false" />
-            <element signature="e#5753#7585#0" expanded="false" />
-            <element signature="e#7659#9493#0" expanded="false" />
+            <element signature="e#1867#2321#0" expanded="false" />
+            <element signature="e#2406#4320#0" expanded="false" />
+            <element signature="e#5023#5692#0" expanded="false" />
+            <element signature="e#5765#7597#0" expanded="false" />
+            <element signature="e#7671#9505#0" expanded="false" />
           </folding>
         </state>
       </provider>

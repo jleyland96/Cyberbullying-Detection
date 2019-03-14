@@ -148,7 +148,7 @@ def get_ngram_data(ngram_size, dataset_filename="cleaned_text_messages.csv"):
 def get_term_count_data(dataset_filename="cleaned_text_messages.csv"):
     corpus, y = get_data(dataset_filename)
     print("vectorising...")
-    vec = CountVectorizer()
+    vec = CountVectorizer(min_df=0.001)
 
     print("splitting...")
     X_train, X_test, y_train, y_test = train_test_split(corpus, y, test_size=0.20)
@@ -307,7 +307,8 @@ print("RUNNING ON CLEAN DIXON_16K 2-class")
 # for vectorize_choice in ["term_freq"]:
 # for vectorize_choice in ["glove_avg"]:
 # for vectorize_choice in ["bigrams"]:
-for vectorize_choice in ["term_freq", "term_freq_idf"]:
+# for vectorize_choice in ["term_freq", "term_freq_idf"]:
+for vectorize_choice in ["term_count"]:
     # CHANGE THE DATASET NAME NOW
     dataset_filename = 'cleaned_dixon.csv'
 

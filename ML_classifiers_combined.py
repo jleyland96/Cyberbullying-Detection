@@ -306,9 +306,9 @@ print("RUNNING ON CLEAN DIXON_16K 2-class")
 # for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
 # for vectorize_choice in ["term_freq"]:
 # for vectorize_choice in ["glove_avg"]:
-# for vectorize_choice in ["bigrams"]:
+for vectorize_choice in ["trigrams"]:
 # for vectorize_choice in ["term_freq", "term_freq_idf"]:
-for vectorize_choice in ["term_count"]:
+# for vectorize_choice in ["term_count"]:
     # CHANGE THE DATASET NAME NOW
     dataset_filename = 'cleaned_dixon.csv'
 

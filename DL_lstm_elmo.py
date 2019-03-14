@@ -152,7 +152,7 @@ def get_pad_length(filename):
     elif filename == "16k_2class" or filename == "16k_3class":
         return 32  # was 32
     elif filename == "dixon":
-        return 32
+        return 100
     else:
         return 32
 
@@ -241,7 +241,7 @@ def print_3class_results(history, y_pred, y_test):
 
 
 if __name__ == "__main__":
-    dataset = "1k"  # dixon, 1k, 16k_2class, 16k_3class
+    dataset = "dixon"  # dixon, 1k, 16k_2class, 16k_3class
     max_len = get_pad_length(dataset)
     print(dataset)
     print(max_len)
@@ -287,7 +287,7 @@ if __name__ == "__main__":
         # CREATE MODEL
         input_text = Input(shape=(max_len,), dtype=tf.string)
         embedding = Lambda(ElmoEmbedding, output_shape=(max_len, 1024))(input_text)
-        x = Bidirectional(LSTM(units=128, recurrent_dropout=0.5, dropout=0.5))(embedding)
+        x = LSTM(units=300, recurrent_dropout=0.5, dropout=0.5)(embedding)
         out = Dense(units=1, activation='sigmoid')(x)
         model = Model(input_text, out)
         model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["acc"])

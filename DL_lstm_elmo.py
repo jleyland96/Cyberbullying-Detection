@@ -294,7 +294,7 @@ if __name__ == "__main__":
 
         # FIT THE MODEL
         history = model.fit(np.array(X_train), y_train, validation_data=(np.array(X_test), y_test),
-                            batch_size=batch_size, epochs=1, verbose=1, callbacks=[metrics])
+                            batch_size=batch_size, epochs=10, verbose=1, callbacks=[metrics])
 
         # PRINT RESULTS
         # loss, accuracy = model.evaluate(x=np.array(X_test), y=y_test, verbose=0)

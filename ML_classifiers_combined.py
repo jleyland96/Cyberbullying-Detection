@@ -172,7 +172,7 @@ def get_term_freq_data(use_idf, dataset_filename="cleaned_text_messages.csv"):
     # GET THE DATA
     corpus, y = get_data(dataset_filename)
     print("vectorising...")
-    vec = TfidfVectorizer(min_df=0.0001, max_df=1.0)
+    vec = TfidfVectorizer(min_df=0.001, max_df=1.0)
 
     X_train, X_test, y_train, y_test = train_test_split(corpus, y, test_size=0.20)
     corpus_fit_transform = vec.fit_transform(corpus)
@@ -307,7 +307,7 @@ print("RUNNING ON CLEAN DIXON_16K 2-class")
 # for vectorize_choice in ["term_freq"]:
 # for vectorize_choice in ["glove_avg"]:
 # for vectorize_choice in ["bigrams"]:
-for vectorize_choice in ["term_freq, term_freq_idf"]:
+for vectorize_choice in ["term_freq", "term_freq_idf"]:
     # CHANGE THE DATASET NAME NOW
     dataset_filename = 'cleaned_dixon.csv'
 

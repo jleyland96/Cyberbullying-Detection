@@ -152,7 +152,7 @@ def get_pad_length(filename):
     elif filename == "16k_2class" or filename == "16k_3class":
         return 32  # was 32
     elif filename == "dixon":
-        return 500
+        return 32
     else:
         return 32
 
@@ -241,7 +241,7 @@ def print_3class_results(history, y_pred, y_test):
 
 
 if __name__ == "__main__":
-    dataset = "16k_3class"  # dixon, 1k, 16k_2class, 16k_3class
+    dataset = "dixon"  # dixon, 1k, 16k_2class, 16k_3class
     max_len = get_pad_length(dataset)
     print(dataset)
     print(max_len)
@@ -268,8 +268,8 @@ if __name__ == "__main__":
         test_max = 192   # 6 batches of 32
     else:  # data set == "dixon"
         X, y = get_data(filename='cleaned_dixon.csv')
-        train_max = 55552  # 1736 batches of 32
-        test_max = 13888   # 434 batches of 32
+        train_max = 12544  # 1736 batches of 32
+        test_max = 3136   # 434 batches of 32
 
     # pre-preparation of data
     X = pad_inputs(X)

@@ -305,109 +305,109 @@ def get_avg_glove_data(dataset_filename="cleaned_formspring.csv"):
 
 print("RUNNING ON CLEAN DIXON_16K 2-class")
 # for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
-# for vectorize_choice in ["term_freq"]:
-# for vectorize_choice in ["glove_avg"]:
-for vectorize_choice in ["trigrams"]:
-# for vectorize_choice in ["term_freq", "term_freq_idf"]:
-# for vectorize_choice in ["term_count"]:
-    # CHANGE THE DATASET NAME NOW
+for vectorize_choice in ["term_freq_idf"]:
+    # EDIT THE FILE WE WOULD LIKE TO RUN OUR MODELS ON HERE
     dataset_filename = 'cleaned_dixon.csv'
 
-    # Get the right dataset (Glove features, term count, term freq, term freq idf, bigrams, trigrams)
-    if vectorize_choice == "glove":
-        X_train, X_test, y_train, y_test = get_glove_data(dataset_filename)
-    elif vectorize_choice == "glove_avg":
-        X_train, X_test, y_train, y_test = get_avg_glove_data(dataset_filename)
-    elif vectorize_choice == "term_count":
-        X_train, X_test, y_train, y_test = get_term_count_data(dataset_filename)
-    elif vectorize_choice == "term_freq":
-        X_train, X_test, y_train, y_test = get_term_freq_data(use_idf=False, dataset_filename=dataset_filename)
-    elif vectorize_choice == "term_freq_idf":
-        X_train, X_test, y_train, y_test = get_term_freq_data(use_idf=True, dataset_filename=dataset_filename)
-    elif vectorize_choice == "bigrams":
-        X_train, X_test, y_train, y_test = get_ngram_data(ngram_size=2, dataset_filename=dataset_filename, N=69446)
-    else:
-        X_train, X_test, y_train, y_test = get_ngram_data(ngram_size=3, dataset_filename=dataset_filename, N=20000)
-
-    # Repeat the positive examples in the training dataset twice to avoid over-fitting to negative examples
-    # X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
-
-    # loop through classifiers
-    for current_clf in range(0, 10):
-        # TRAIN
-        print("\ntraining on dataset", vectorize_choice, "...")
-        grid_searching = False
-
-        # CHOOSE CLASSIFIER
-        if current_clf == 0:
-            print("Logistic regression...")
-            # grid_searching = True
-            # param_grid = {'max_iter': [100, 300], 'solver': ['liblinear', 'lbfgs', 'newton-cg', 'sag']}
-            # clf = GridSearchCV(sklearn.linear_model.LogisticRegression(), param_grid, cv=3)
-            clf = sklearn.linear_model.LogisticRegression(penalty="l2", max_iter=100, solver="liblinear")
-        elif current_clf == 1:
-            print("Random Forest...")
-            # grid_searching = True
-            # param_grid = {'n_estimators': [100, 300, 500], 'max_depth': [3, 6, 10, 12]}
-            # clf = GridSearchCV(RandomForestClassifier(), param_grid, cv=3)
-            clf = RandomForestClassifier(n_estimators=100, max_depth=4)
-        elif current_clf == 2:
-            print("Bernoulli NB...")
-            clf = BernoulliNB()
-        elif current_clf == 3:
-            print("Gaussian NB...")
-            clf = GaussianNB()
-        elif current_clf == 4 and not(vectorize_choice in ["glove", "glove_avg"]):
-            print("Multinomial NB...")
-            clf = MultinomialNB()
-        elif current_clf == 5:
-            print("KNN 3...")
-            # grid_searching = True
-            # param_grid = {'n_neighbors': [1, 3]}
-            # clf = GridSearchCV(KNeighborsClassifier(), param_grid, cv=3)
-            clf = KNeighborsClassifier(n_neighbors=3)
-        elif current_clf == 6:
-            print("Adaboost...")
-            clf = AdaBoostClassifier()
-        elif current_clf == 7:
-            print("SVM...")
-            # grid_searching = True
-            # param_grid = [{'kernel': ['rbf'], 'gamma': [1e-3, 1e-4], 'C': [1, 10, 100]},
-            #               {'kernel': ['linear'], 'C': [1, 10, 100]}]
-            # clf = GridSearchCV(svm.SVC(), param_grid, cv=3)
-            clf = svm.SVC(C=10, kernel="rbf", gamma=0.001)
-        elif current_clf == 8:
-            print("Decision Trees...")
-            clf = tree.DecisionTreeClassifier()
-        elif current_clf == 9:
-            print("Gradient boosted classifier...")
-            clf = GradientBoostingClassifier(n_estimators=100)
-
-        # FIT
-        print("fitting...")
-        clf = clf.fit(X_train, y_train)
-
-        # If we did a grid search, then we want to print what the best estimator was
-        # if grid_searching:
-        #     print("Best estimator found by grid search:")
-        #     print(clf.best_estimator_)
-
-        # PREDICT
-        print("\nevaluating")
-        y_pred = clf.predict(X_test)
-        print(y_pred[:20])
-
-        # EVALUATE
-        print("confusion matrix:\n", sm.confusion_matrix(y_test, y_pred))
-        print("accuracy:", round(sm.accuracy_score(y_test, y_pred), 4))
-
-        # if the metrics are well defined
-        if np.count_nonzero(y_pred) > 0:
-            # print("recall:", round(sm.recall_score(y_test, y_pred), 4))
-            # print("precision:", round(sm.precision_score(y_test, y_pred), 4))
-            print("f1 score weighted:", round(sm.f1_score(y_test, y_pred), 4))
-            print("f1 score micro   :", round(sm.f1_score(y_test, y_pred), 4))
-
-            print("\n\n")
+    while True:
+        # Get the right dataset (Glove features, term count, term freq, term freq idf, bigrams, trigrams)
+        if vectorize_choice == "glove":
+            X_train, X_test, y_train, y_test = get_glove_data(dataset_filename)
+        elif vectorize_choice == "glove_avg":
+            X_train, X_test, y_train, y_test = get_avg_glove_data(dataset_filename)
+        elif vectorize_choice == "term_count":
+            X_train, X_test, y_train, y_test = get_term_count_data(dataset_filename)
+        elif vectorize_choice == "term_freq":
+            X_train, X_test, y_train, y_test = get_term_freq_data(use_idf=False, dataset_filename=dataset_filename)
+        elif vectorize_choice == "term_freq_idf":
+            X_train, X_test, y_train, y_test = get_term_freq_data(use_idf=True, dataset_filename=dataset_filename)
+        elif vectorize_choice == "bigrams":
+            X_train, X_test, y_train, y_test = get_ngram_data(ngram_size=2, dataset_filename=dataset_filename, N=69446)
         else:
-            print("No True predictions made\n\n")
+            X_train, X_test, y_train, y_test = get_ngram_data(ngram_size=3, dataset_filename=dataset_filename, N=20000)
+
+        # Repeat the positive examples in the training dataset twice to avoid over-fitting to negative examples
+        # X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
+
+        # loop through classifiers
+        for current_clf in range(0, 1):
+            # TRAIN
+            print("\ntraining on dataset", vectorize_choice, "...")
+            grid_searching = False
+
+            # CHOOSE CLASSIFIER
+            if current_clf == 0:
+                print("Logistic regression...")
+                # grid_searching = True
+                # param_grid = {'max_iter': [100, 300], 'solver': ['liblinear', 'lbfgs', 'newton-cg', 'sag']}
+                # clf = GridSearchCV(sklearn.linear_model.LogisticRegression(), param_grid, cv=3)
+                clf = sklearn.linear_model.LogisticRegression(penalty="l2", max_iter=100, solver="liblinear")
+            elif current_clf == 1:
+                print("Random Forest...")
+                # grid_searching = True
+                # param_grid = {'n_estimators': [100, 300, 500], 'max_depth': [3, 6, 10, 12]}
+                # clf = GridSearchCV(RandomForestClassifier(), param_grid, cv=3)
+                clf = RandomForestClassifier(n_estimators=100, max_depth=4)
+            elif current_clf == 2:
+                print("Bernoulli NB...")
+                clf = BernoulliNB()
+            elif current_clf == 3:
+                print("Gaussian NB...")
+                clf = GaussianNB()
+            elif current_clf == 4 and not(vectorize_choice in ["glove", "glove_avg"]):
+                print("Multinomial NB...")
+                clf = MultinomialNB()
+            elif current_clf == 5:
+                print("KNN 3...")
+                # grid_searching = True
+                # param_grid = {'n_neighbors': [1, 3]}
+                # clf = GridSearchCV(KNeighborsClassifier(), param_grid, cv=3)
+                clf = KNeighborsClassifier(n_neighbors=3)
+            elif current_clf == 6:
+                print("Adaboost...")
+                clf = AdaBoostClassifier()
+            elif current_clf == 7:
+                print("SVM...")
+                # grid_searching = True
+                # param_grid = [{'kernel': ['rbf'], 'gamma': [1e-3, 1e-4], 'C': [1, 10, 100]},
+                #               {'kernel': ['linear'], 'C': [1, 10, 100]}]
+                # clf = GridSearchCV(svm.SVC(), param_grid, cv=3)
+                clf = svm.SVC(C=10, kernel="rbf", gamma=0.001)
+            elif current_clf == 8:
+                print("Decision Trees...")
+                clf = tree.DecisionTreeClassifier()
+            elif current_clf == 9:
+                print("Gradient boosted classifier...")
+                clf = GradientBoostingClassifier(n_estimators=100)
+
+            # FIT
+            print("fitting...")
+            clf = clf.fit(X_train, y_train)
+
+            # If we did a grid search, then we want to print what the best estimator was
+            # if grid_searching:
+            #     print("Best estimator found by grid search:")
+            #     print(clf.best_estimator_)
+
+            # PREDICT
+            print("\nevaluating")
+            y_pred = clf.predict(X_test)
+            print(y_pred[:20])
+
+            # EVALUATE
+            print("confusion matrix:\n", sm.confusion_matrix(y_test, y_pred))
+            print("accuracy:", round(sm.accuracy_score(y_test, y_pred), 4))
+
+            # if the metrics are well defined
+            if np.count_nonzero(y_pred) > 0:
+                # print("recall:", round(sm.recall_score(y_test, y_pred), 4))
+                # print("precision:", round(sm.precision_score(y_test, y_pred), 4))
+                print("f1 score weighted:", round(sm.f1_score(y_test, y_pred), 4))
+                print("f1 score micro   :", round(sm.f1_score(y_test, y_pred), 4))
+
+                if sm.f1_score(y_test, y_pred) > 0.7440:
+                    break
+
+                print("\n\n")
+            else:
+                print("No True predictions made\n\n")

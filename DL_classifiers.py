@@ -622,7 +622,7 @@ def main_2_class_f1_loss(filename="cleaned_tweets_16k.csv"):
     e.trainable = False
     model.add(e)
 
-    model.add(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=150, dropout=0.5, recurrent_dropout=0.5))
 
     model.add(Dense(units=1, activation='sigmoid'))
 
@@ -631,7 +631,7 @@ def main_2_class_f1_loss(filename="cleaned_tweets_16k.csv"):
     print("F1 LOSS")
     model.compile(optimizer='adam', loss=f1_loss, metrics=['acc', f1])
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=300, callbacks=[metrics], batch_size=32)
+                        nb_epoch=30, callbacks=[metrics], batch_size=32)
 
     # evaluate
     # loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
@@ -739,7 +739,7 @@ def main_2_class_model(filename="cleaned_twitter_1K.csv"):
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
     # Split into training and test data
-    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.10)
+    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.20)
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
@@ -748,8 +748,8 @@ def main_2_class_model(filename="cleaned_twitter_1K.csv"):
     # load a pre-saved model
     # model = load_model(save_path)
 
-    # embedding_matrix = get_glove_matrix(vocab_size, t)
-    embedding_matrix = get_glove_matrix_from_dump()
+    embedding_matrix = get_glove_matrix(vocab_size, t)
+    # embedding_matrix = get_glove_matrix_from_dump()
 
     # GloVe hit rate
     print(np.count_nonzero(np.count_nonzero(embedding_matrix, axis=1)) / vocab_size)
@@ -764,7 +764,7 @@ def main_2_class_model(filename="cleaned_twitter_1K.csv"):
     e.trainable = False
     model.add(e)
 
-    model.add(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
 
     model.add(Dense(units=1, activation='sigmoid'))
 
@@ -773,7 +773,7 @@ def main_2_class_model(filename="cleaned_twitter_1K.csv"):
     # my_adam = optimizers.Adam(lr=0.003, decay=0.001)
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=150, batch_size=32, callbacks=[metrics], class_weight=class_weight)
+                        nb_epoch=30, batch_size=256, callbacks=[metrics], class_weight=class_weight)
     # ------------------ END MODEL ------------------
 
     # evaluate
@@ -785,18 +785,18 @@ def main_2_class_model(filename="cleaned_twitter_1K.csv"):
     print_results(history, y_pred, labels_test)
     print("BEST:")
     print(best_confusion_matrix)
-    draw_graph(history)
+    # draw_graph(history)
 
 
 if __name__ == "__main__":
     print("2 class learn embeddings")
 
-    save_path = "1K-LSTM-F1Loss"
-    loss = "F1"
-    file = "cleaned_twitter_1K.csv"
+    save_path = "Dixon-LSTM500"
+    loss = "not F1"
+    file = "cleaned_dixon.csv"
     # learn_embeddings_model_2class(file)
     # learn_embeddings_model_3class(file)
     # learn_embeddings_2class_f1_loss(file)
-    # main_2_class_model(file)
+    main_2_class_model(file)
     # main_3_class_model(file)
-    main_2_class_f1_loss(file)
+    # main_2_class_f1_loss(file)

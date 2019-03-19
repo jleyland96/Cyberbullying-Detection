@@ -2,6 +2,8 @@ from pickle import load
 import numpy as np
 import matplotlib.pyplot as plt
 import csv
+import keras.backend as K
+import tensorflow as tf
 from numpy import array
 from numpy import asarray, zeros
 from keras.utils import np_utils
@@ -105,7 +107,7 @@ def print_results(history, y_pred, y_test):
     print("LOSS:", list(np.round(history.history['loss'], 4)), "\n")
 
     # Print F1 history (additional if using F1 loss function)
-    if loss == "F1":
+    if loss_fn == "F1":
         val_f1 = list(np.round(history.history['val_f1'], 4))
         print("VAL_F1:", val_f1, "\n")
         print("Max val_f1 was", max(val_f1), "at epoch", val_f1.index(max(val_f1)) + 1, "\n")
@@ -345,7 +347,7 @@ def define_glove_model(length, vocab_size, embedding_matrix, num_classes):
     if num_classes == 2:
         outputs = Dense(1, activation='sigmoid')(dense1)
         model = Model(inputs=[inputs1, inputs2, inputs3], outputs=outputs)
-        if loss == "F1":
+        if loss_fn == "F1":
             model.compile(loss=f1_loss, optimizer='adam', metrics=['acc', f1])
         else:
             model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
@@ -509,10 +511,14 @@ def glove_2class(filename):
                     2: 1.0}
     history = model.fit(x=[X_train, X_train, X_train], y=y_train,
                         validation_data=([X_test, X_test, X_test], y_test),
-                        nb_epoch=50, batch_size=32, callbacks=[metrics], class_weight=class_weight, verbose=0)
+                        nb_epoch=100, batch_size=32, callbacks=[metrics], class_weight=class_weight, verbose=0)
 
     # Evaluate
-    loss, accuracy = model.evaluate(x=[X_test, X_test, X_test], y=y_test, verbose=0)
+    if loss_fn == "F1":
+        loss, accuracy, _ = model.evaluate(x=[X_test, X_test, X_test], y=y_test, verbose=0)
+    else:
+        loss, accuracy = model.evaluate(x=[X_test, X_test, X_test], y=y_test, verbose=0)
+
     print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
     y_pred = model.predict(x=[X_test, X_test, X_test])
     y_pred = np.round(y_pred, 0)
@@ -573,5 +579,5 @@ def glove_3class():
 
 save_path = "1K-MultiCNN-TESTING"
 file = 'cleaned_twitter_1K.csv'
-loss = "not F1"
-onehot_2class(filename=file)
+loss_fn = "F1"
+glove_2class(filename=file)

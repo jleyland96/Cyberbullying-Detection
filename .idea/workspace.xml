@@ -4,7 +4,6 @@
     <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/DL_classifiers.py" afterPath="$PROJECT_DIR$/DL_classifiers.py" />
-      <change beforePath="$PROJECT_DIR$/ML_classifiers_combined.py" afterPath="$PROJECT_DIR$/ML_classifiers_combined.py" />
       <change beforePath="$PROJECT_DIR$/multichannel_cnn.py" afterPath="$PROJECT_DIR$/multichannel_cnn.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,8 +18,8 @@
       <file leaf-file-name="DL_classifiers.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="642" column="4" lean-forward="true" selection-start-line="642" selection-start-column="4" selection-end-line="642" selection-end-column="4" />
+            <state relative-caret-position="253">
+              <caret line="741" column="100" lean-forward="false" selection-start-line="741" selection-start-column="100" selection-end-line="741" selection-end-column="100" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
                 <element signature="e#1569#3225#0" expanded="false" />
@@ -44,19 +43,9 @@
                 <element signature="e#18634#18862#0" expanded="false" />
                 <element signature="e#18898#19230#0" expanded="false" />
                 <element signature="e#19261#19953#0" expanded="false" />
-                <element signature="e#22600#25298#0" expanded="false" />
-                <element signature="e#25364#27875#0" expanded="false" />
+                <element signature="e#20021#22526#0" expanded="false" />
+                <element signature="e#22599#25297#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="plot_val_acc.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -128,7 +117,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="width" value="714" />
     <option name="height" value="900" />
   </component>
@@ -147,19 +136,14 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="Cyberbullying-Detection" type="b2602c69:ProjectViewProjectNode" />
               <item name="Cyberbullying-Detection" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Cyberbullying-Detection" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Cyberbullying-Detection" type="462c0819:PsiDirectoryNode" />
-              <item name="DL_graphs" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -313,12 +297,13 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="6" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32588235" sideWeight="0.51111114" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3682353" sideWeight="0.4888889" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3682353" sideWeight="0.4888889" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -408,31 +393,14 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-ELMo128 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-ELMo64 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-ELMo256 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/Dixon-BI-LSTM512 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-ELMo128 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-ELMo64 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-ELMo256 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/Dixon-BI-LSTM512 graph.png" />
     <entry file="file://$PROJECT_DIR$/cleaned_twitter_1K.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -440,13 +408,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="214">
           <caret line="339" column="35" lean-forward="true" selection-start-line="339" selection-start-column="35" selection-end-line="339" selection-end-column="35" />
-          <folding>
-            <element signature="e#1867#2321#0" expanded="false" />
-            <element signature="e#4522#5061#0" expanded="false" />
-            <element signature="e#5147#5816#0" expanded="false" />
-            <element signature="e#5889#7721#0" expanded="false" />
-            <element signature="e#7795#9629#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -457,89 +418,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-Elmo512 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM100-BN graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM100-BNxDropout graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-CNN graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-Combo graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-WETrain graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM100 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM100x100 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM200 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM150 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-ELMo64x40 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM64 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM32 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-BI-LSTM100 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-GloveTune graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-MultiCNN-GloVe graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-MultiCNN-TESTING graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-Elmo512 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM100-BN graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM100-BNxDropout graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-CNN graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-Combo graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-WETrain graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM100 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM100x100 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM200 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM150 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-ELMo64x40 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM64 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM32 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-BI-LSTM100 graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-GloveTune graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-MultiCNN-GloVe graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-MultiCNN-TESTING graph.png" />
+    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM-F1Loss graph.png" />
+    <entry file="file://$PROJECT_DIR$/multichannel_cnn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-13">
+          <caret line="200" column="24" lean-forward="false" selection-start-line="200" selection-start-column="24" selection-end-line="200" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#23#0" expanded="false" />
+            <element signature="e#1239#1767#0" expanded="false" />
+            <element signature="e#1842#1934#0" expanded="false" />
+            <element signature="e#1978#2758#0" expanded="false" />
+            <element signature="e#2812#2890#0" expanded="false" />
+            <element signature="e#3915#4997#0" expanded="false" />
+            <element signature="e#5072#5252#0" expanded="false" />
+            <element signature="e#5321#5705#0" expanded="false" />
+            <element signature="e#5748#6197#0" expanded="false" />
+            <element signature="e#6252#6700#0" expanded="false" />
+            <element signature="e#6732#8397#0" expanded="false" />
+            <element signature="e#8463#10857#0" expanded="false" />
+            <element signature="e#13271#14787#0" expanded="false" />
+            <element signature="e#14823#16201#0" expanded="false" />
+            <element signature="e#16229#17490#0" expanded="false" />
+            <element signature="e#19276#20940#0" expanded="false" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
@@ -550,39 +469,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/multichannel_cnn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="516" column="54" lean-forward="true" selection-start-line="516" selection-start-column="54" selection-end-line="516" selection-end-column="54" />
-          <folding>
-            <element signature="e#1189#1717#0" expanded="false" />
-            <element signature="e#1792#1884#0" expanded="false" />
-            <element signature="e#1928#2708#0" expanded="false" />
-            <element signature="e#2762#2840#0" expanded="false" />
-            <element signature="e#3862#4944#0" expanded="false" />
-            <element signature="e#5019#5199#0" expanded="false" />
-            <element signature="e#5268#5652#0" expanded="false" />
-            <element signature="e#5695#6144#0" expanded="false" />
-            <element signature="e#6199#6647#0" expanded="false" />
-            <element signature="e#6679#8344#0" expanded="false" />
-            <element signature="e#8410#10804#0" expanded="false" />
-            <element signature="e#13215#14731#0" expanded="false" />
-            <element signature="e#14767#16145#0" expanded="false" />
-            <element signature="e#16173#17434#0" expanded="false" />
-            <element signature="e#19088#20752#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM-F1Loss graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="642" column="4" lean-forward="true" selection-start-line="642" selection-start-column="4" selection-end-line="642" selection-end-column="4" />
+        <state relative-caret-position="253">
+          <caret line="741" column="100" lean-forward="false" selection-start-line="741" selection-start-column="100" selection-end-line="741" selection-end-column="100" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
             <element signature="e#1569#3225#0" expanded="false" />
@@ -606,8 +496,8 @@
             <element signature="e#18634#18862#0" expanded="false" />
             <element signature="e#18898#19230#0" expanded="false" />
             <element signature="e#19261#19953#0" expanded="false" />
-            <element signature="e#22600#25298#0" expanded="false" />
-            <element signature="e#25364#27875#0" expanded="false" />
+            <element signature="e#20021#22526#0" expanded="false" />
+            <element signature="e#22599#25297#0" expanded="false" />
           </folding>
         </state>
       </provider>

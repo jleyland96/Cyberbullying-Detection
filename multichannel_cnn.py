@@ -1,5 +1,6 @@
 from pickle import load
 import numpy as np
+import matplotlib.pyplot as plt
 import csv
 from numpy import array
 from numpy import asarray, zeros
@@ -28,6 +29,7 @@ validation_results = []
 f1_results = []
 f1_results_weighted = []
 f1_results_micro = []
+best_confusion_matrix = ""
 
 
 # load a clean dataset
@@ -95,12 +97,26 @@ def create_tokenizer(lines):
     return tokenizer
 
 
-def print_results(history):
-    print("TRAIN:", list(np.round(history.history['acc'], 4)), "\n")
+# Print results at the end of a 2 class run
+def print_results(history, y_pred, y_test):
+    print("TRAIN:", list(np.round(history.history['acc'], 4)))
+    print("train_acc =", list(np.round(history.history['acc'], 4))[-1], "\n")
     print("TEST:", list(np.round(history.history['val_acc'], 4)), "\n")
     print("LOSS:", list(np.round(history.history['loss'], 4)), "\n")
-    print("Max F1 was", max(f1_results), "at epoch", f1_results.index(max(f1_results)) + 1, "\n")
-    print("F1:", f1_results)
+
+    # Print F1 history (additional if using F1 loss function)
+    if loss == "F1":
+        val_f1 = list(np.round(history.history['val_f1'], 4))
+        print("VAL_F1:", val_f1, "\n")
+        print("Max val_f1 was", max(val_f1), "at epoch", val_f1.index(max(val_f1)) + 1, "\n")
+        print("TRAIN_F1:", list(np.round(history.history['f1'], 4)))
+    else:
+        print("Max F1 was", max(f1_results), "at epoch", f1_results.index(max(f1_results)) + 1, "\n")
+        print("F1:", f1_results)
+
+    # CONFUSION MATRIX
+    print("confusion matrix:")
+    print(confusion_matrix(y_test, y_pred))
 
 
 def print_3class_results(y_test, y_pred, history):
@@ -135,6 +151,51 @@ def encode_text(tokenizer, lines, length):
     return padded
 
 
+# draw graph at the end of execution
+def draw_graph(history):
+    plt.plot(history.history['acc'])
+    plt.plot(history.history['val_acc'])
+    plt.plot(f1_results)
+    plt.plot(history.history['loss'])
+    plt.title('model accuracy and f1 score')
+    plt.ylabel('accuracy/f1/loss')
+    plt.xlabel('epoch')
+    plt.legend(['train', 'test', 'f1', 'loss'], loc='lower right')
+    plt.savefig('DL_graphs/' + str(save_path) + ' graph.png')
+    plt.show()
+
+
+# f1 metric
+def f1(y_true, y_pred):
+    y_pred = K.round(y_pred)
+    tp = K.sum(K.cast(y_true*y_pred, 'float'), axis=0)
+    tn = K.sum(K.cast((1-y_true)*(1-y_pred), 'float'), axis=0)
+    fp = K.sum(K.cast((1-y_true)*y_pred, 'float'), axis=0)
+    fn = K.sum(K.cast(y_true*(1-y_pred), 'float'), axis=0)
+
+    p = tp / (tp + fp + K.epsilon())
+    r = tp / (tp + fn + K.epsilon())
+
+    f1 = 2*p*r / (p+r+K.epsilon())
+    f1 = tf.where(tf.is_nan(f1), tf.zeros_like(f1), f1)
+    return K.mean(f1)
+
+
+# f1 loss function
+def f1_loss(y_true, y_pred):
+    tp = K.sum(K.cast(y_true * y_pred, 'float'), axis=0)
+    tn = K.sum(K.cast((1 - y_true) * (1 - y_pred), 'float'), axis=0)
+    fp = K.sum(K.cast((1 - y_true) * y_pred, 'float'), axis=0)
+    fn = K.sum(K.cast(y_true * (1 - y_pred), 'float'), axis=0)
+
+    p = tp / (tp + fp + K.epsilon())
+    r = tp / (tp + fn + K.epsilon())
+
+    f1 = 2 * p * r / (p + r + K.epsilon())
+    f1 = tf.where(tf.is_nan(f1), tf.zeros_like(f1), f1)
+    return 1 - K.mean(f1)
+
+
 class Metrics(Callback):
     def on_train_begin(self, logs={}):
         self.val_f1s = []
@@ -142,6 +203,8 @@ class Metrics(Callback):
         self.val_precisions = []
 
     def on_epoch_end(self, epoch, logs={}):
+        global best_confusion_matrix
+
         val_predict = (np.asarray(
             self.model.predict([self.validation_data[0], self.validation_data[1], self.validation_data[2]]))).round()
         val_targ = self.validation_data[3]
@@ -152,20 +215,27 @@ class Metrics(Callback):
         self.val_f1s.append(_val_f1)
         self.val_recalls.append(_val_recall)
         self.val_precisions.append(_val_precision)
-        print("METRICS")
+        # print("METRICS")
         print("F1       :", _val_f1)
-        print("PRECISION:", _val_precision)
-        print("RECALL   :", _val_recall)
+        # print("PRECISION:", _val_precision)
+        # print("RECALL   :", _val_recall)
         validation_results.append(round(_val_acc, 3))
         f1_results.append(round(_val_f1, 3))
+
+        # if the current f1 value is bigger than all of the previous f1 scores, save the model
+        if len(f1_results) > 1 and _val_f1 > max(f1_results[:-1]):
+            print("SAVING NEW MODEL")
+            best_confusion_matrix = confusion_matrix(val_targ, val_predict)
+            # Save the model for another time
+            # save_model(self.model, save_path)
 
         # Print validation accuracy and f1 scores (so we can plot later)
         # print("\nVAL_ACC:\n", validation_results)
         # print("\n\n")
         # print("F1:\n", f1_results)
 
-        # Save the model for another time
-        # save_model(self.model, save_path)
+        # print()
+        # print(confusion_matrix(val_targ, val_predict))
         return
 
 
@@ -238,7 +308,7 @@ def define_glove_model(length, vocab_size, embedding_matrix, num_classes):
                    embeddings_initializer=Constant(embedding_matrix), input_length=length)
     e1.trainable = False
     embedding1 = e1(inputs1)
-    conv1 = Conv1D(filters=32, kernel_size=2, activation='relu')(embedding1)
+    conv1 = Conv1D(filters=16, kernel_size=1, activation='relu')(embedding1)
     drop1 = Dropout(0.5)(conv1)
     pool1 = MaxPooling1D(pool_size=2)(drop1)
     flat1 = Flatten()(pool1)
@@ -249,7 +319,7 @@ def define_glove_model(length, vocab_size, embedding_matrix, num_classes):
                    embeddings_initializer=Constant(embedding_matrix), input_length=length)
     e2.trainable = False
     embedding2 = e2(inputs2)
-    conv2 = Conv1D(filters=32, kernel_size=3, activation='relu')(embedding2)
+    conv2 = Conv1D(filters=16, kernel_size=2, activation='relu')(embedding2)
     drop2 = Dropout(0.5)(conv2)
     pool2 = MaxPooling1D(pool_size=2)(drop2)
     flat2 = Flatten()(pool2)
@@ -260,7 +330,54 @@ def define_glove_model(length, vocab_size, embedding_matrix, num_classes):
                    embeddings_initializer=Constant(embedding_matrix), input_length=length)
     e3.trainable = False
     embedding3 = e3(inputs3)
-    conv3 = Conv1D(filters=32, kernel_size=5, activation='relu')(embedding3)
+    conv3 = Conv1D(filters=16, kernel_size=3, activation='relu')(embedding3)
+    drop3 = Dropout(0.5)(conv3)
+    pool3 = MaxPooling1D(pool_size=2)(drop3)
+    flat3 = Flatten()(pool3)
+
+    # merge
+    merged = concatenate([flat1, flat2, flat3])
+
+    # interpretation
+    dense1 = Dense(10, activation='relu')(merged)
+
+    # DEFINE the right model based on number of classes and loss function
+    if num_classes == 2:
+        outputs = Dense(1, activation='sigmoid')(dense1)
+        model = Model(inputs=[inputs1, inputs2, inputs3], outputs=outputs)
+        if loss == "F1":
+            model.compile(loss=f1_loss, optimizer='adam', metrics=['acc', f1])
+        else:
+            model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    else:  # num_classes=3
+        outputs = Dense(3, activation='softmax')(dense1)
+        model = Model(inputs=[inputs1, inputs2, inputs3], outputs=outputs)
+        model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+    return model
+
+
+# define the model
+def define_model(length, vocab_size, num_classes):
+    # channel 1
+    inputs1 = Input(shape=(length,))
+    embedding1 = Embedding(vocab_size, 100)(inputs1)
+    conv1 = Conv1D(filters=16, kernel_size=2, activation='relu')(embedding1)
+    drop1 = Dropout(0.5)(conv1)
+    pool1 = MaxPooling1D(pool_size=2)(drop1)
+    flat1 = Flatten()(pool1)
+
+    # channel 2
+    inputs2 = Input(shape=(length,))
+    embedding2 = Embedding(vocab_size, 100)(inputs2)
+    conv2 = Conv1D(filters=16, kernel_size=3, activation='relu')(embedding2)
+    drop2 = Dropout(0.5)(conv2)
+    pool2 = MaxPooling1D(pool_size=2)(drop2)
+    flat2 = Flatten()(pool2)
+
+    # channel 3
+    inputs3 = Input(shape=(length,))
+    embedding3 = Embedding(vocab_size, 100)(inputs3)
+    conv3 = Conv1D(filters=16, kernel_size=4, activation='relu')(embedding3)
     drop3 = Dropout(0.5)(conv3)
     pool3 = MaxPooling1D(pool_size=2)(drop3)
     flat3 = Flatten()(pool3)
@@ -282,52 +399,9 @@ def define_glove_model(length, vocab_size, embedding_matrix, num_classes):
     return model
 
 
-# define the model
-def define_model(length, vocab_size, num_classes):
-    # channel 1
-    inputs1 = Input(shape=(length,))
-    embedding1 = Embedding(vocab_size, 100)(inputs1)
-    conv1 = Conv1D(filters=32, kernel_size=2, activation='relu')(embedding1)
-    drop1 = Dropout(0.5)(conv1)
-    pool1 = MaxPooling1D(pool_size=2)(drop1)
-    flat1 = Flatten()(pool1)
-
-    # channel 2
-    inputs2 = Input(shape=(length,))
-    embedding2 = Embedding(vocab_size, 100)(inputs2)
-    conv2 = Conv1D(filters=32, kernel_size=3, activation='relu')(embedding2)
-    drop2 = Dropout(0.5)(conv2)
-    pool2 = MaxPooling1D(pool_size=2)(drop2)
-    flat2 = Flatten()(pool2)
-
-    # channel 3
-    inputs3 = Input(shape=(length,))
-    embedding3 = Embedding(vocab_size, 100)(inputs3)
-    conv3 = Conv1D(filters=32, kernel_size=5, activation='relu')(embedding3)
-    drop3 = Dropout(0.5)(conv3)
-    pool3 = MaxPooling1D(pool_size=2)(drop3)
-    flat3 = Flatten()(pool3)
-
-    # merge
-    merged = concatenate([flat1, flat2, flat3])
-
-    # interpretation
-    dense1 = Dense(10, activation='relu')(merged)
-
-    if num_classes==2:
-        outputs = Dense(1, activation='sigmoid')(dense1)
-        model = Model(inputs=[inputs1, inputs2, inputs3], outputs=outputs)
-        model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
-    else:  # num_classes=3
-        outputs = Dense(3, activation='softmax')(dense1)
-        model = Model(inputs=[inputs1, inputs2, inputs3], outputs=outputs)
-        model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-    return model
-
-
-def onehot_2class():
+def onehot_2class(filename):
     # load training dataset
-    trainLines, trainLabels = get_data()
+    trainLines, trainLabels = get_data(filename=filename)
 
     # create tokenizer and encode data
     tokenizer = create_tokenizer(trainLines)
@@ -352,14 +426,18 @@ def onehot_2class():
                     1: 1.0}
     history = model.fit(x=[trainX, trainX, trainX], y=array(trainLabels),
                         validation_data=([testX, testX, testX], array(testLabels)),
-                        nb_epoch=30, batch_size=64, callbacks=[metrics], class_weight=class_weight)
+                        nb_epoch=50, batch_size=32, callbacks=[metrics], class_weight=class_weight, verbose=0)
 
     # Evaluate
-    # labels_pred = model.predict_classes(x=X_test)
     loss, accuracy = model.evaluate(x=[testX, testX, testX], y=testLabels, verbose=0)
     print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
+    y_pred = model.predict(x=[testX, testX, testX])
+    y_pred = np.round(y_pred, 0)
 
-    print_results(history)
+    print_results(history, y_pred, testLabels)
+    print("BEST:")
+    print(best_confusion_matrix)
+    draw_graph(history)
 
 
 def onehot_3class():
@@ -390,19 +468,18 @@ def onehot_3class():
                         nb_epoch=50, batch_size=64, callbacks=[three_class_metrics], class_weight=class_weight)
 
     # Evaluate
-    labels_pred = model.predict(x=[X_test, X_test, X_test])
-    # labels_pred = model.predict_classes(x=[X_test, X_test, X_test])
     loss, accuracy = model.evaluate(x=[X_test, X_test, X_test], y=labels_test, verbose=0)
     print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
+    labels_pred = model.predict(x=[X_test, X_test, X_test])
 
     print_3class_results(y_test, labels_pred, history)
 
 
-def glove_2class():
+def glove_2class(filename):
     print("\nSIMPLE GLOVE MODEL")
 
     # get the data
-    X, labels = get_data(filename="cleaned_tweets_16k.csv")
+    X, labels = get_data(filename=filename)
 
     # prepare tokenizer
     t = Tokenizer()
@@ -420,9 +497,10 @@ def glove_2class():
     # Split into training and test data
     X_train, X_test, y_train, y_test = train_test_split(padded_docs, labels, test_size=0.10)
 
-    embedding_matrix = get_glove_matrix(vocab_size, t)
-    # embedding_matrix = get_glove_matrix_from_dump()
+    # embedding_matrix = get_glove_matrix(vocab_size, t)
+    embedding_matrix = get_glove_matrix_from_dump()
 
+    # Define our model, taking glove embeddings as inputs and outputting classes
     model = define_glove_model(max_len, vocab_size, embedding_matrix, num_classes=2)
 
     # FIT
@@ -431,14 +509,18 @@ def glove_2class():
                     2: 1.0}
     history = model.fit(x=[X_train, X_train, X_train], y=y_train,
                         validation_data=([X_test, X_test, X_test], y_test),
-                        nb_epoch=50, batch_size=64, callbacks=[metrics], class_weight=class_weight)
+                        nb_epoch=50, batch_size=32, callbacks=[metrics], class_weight=class_weight, verbose=0)
 
     # Evaluate
-    labels_pred = model.predict(x=[X_test, X_test, X_test])
     loss, accuracy = model.evaluate(x=[X_test, X_test, X_test], y=y_test, verbose=0)
     print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
+    y_pred = model.predict(x=[X_test, X_test, X_test])
+    y_pred = np.round(y_pred, 0)
 
-    print_results(history)
+    print_results(history, y_pred, y_test)
+    print("BEST:")
+    print(best_confusion_matrix)
+    draw_graph(history)
 
 
 def glove_3class():
@@ -489,4 +571,7 @@ def glove_3class():
     print_3class_results(y_test, labels_pred, history)
 
 
-glove_2class()
+save_path = "1K-MultiCNN-TESTING"
+file = 'cleaned_twitter_1K.csv'
+loss = "not F1"
+onehot_2class(filename=file)

@@ -307,7 +307,7 @@ print("RUNNING ON CLEAN DIXON_16K 2-class")
 # for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
 for vectorize_choice in ["term_freq_idf"]:
     # EDIT THE FILE WE WOULD LIKE TO RUN OUR MODELS ON HERE
-    dataset_filename = 'cleaned_dixon.csv'
+    dataset_filename = 'cleaned_twitter_1K.csv'
 
     # Get the right dataset (Glove features, term count, term freq, term freq idf, bigrams, trigrams)
     if vectorize_choice == "glove":

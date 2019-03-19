@@ -19,4 +19,4 @@
 source /etc/profile
 
 # Run your program (replace this with your program)
-python DL_classifiers.py
+python3 DL_classifiers.py

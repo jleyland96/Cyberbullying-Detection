@@ -152,7 +152,7 @@ def get_pad_length(filename):
     elif filename == "16k_2class" or filename == "16k_3class":
         return 32  # was 32
     elif filename == "dixon":
-        return 100
+        return 50
     else:
         return 32
 
@@ -241,7 +241,7 @@ def print_3class_results(history, y_pred, y_test):
 
 
 if __name__ == "__main__":
-    dataset = "1k"  # dixon, 1k, 16k_2class, 16k_3class
+    dataset = "dixon"  # dixon, 1k, 16k_2class, 16k_3class
     max_len = get_pad_length(dataset)
     print(dataset)
     print(max_len)
@@ -287,14 +287,14 @@ if __name__ == "__main__":
         # CREATE MODEL
         input_text = Input(shape=(max_len,), dtype=tf.string)
         embedding = Lambda(ElmoEmbedding, output_shape=(max_len, 1024))(input_text)
-        x = LSTM(units=64, recurrent_dropout=0.5, dropout=0.5)(embedding)
+        x = LSTM(units=200, recurrent_dropout=0.5, dropout=0.5)(embedding)
         out = Dense(units=1, activation='sigmoid')(x)
         model = Model(input_text, out)
         model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["acc"])
 
         # FIT THE MODEL
         history = model.fit(np.array(X_train), y_train, validation_data=(np.array(X_test), y_test),
-                            batch_size=batch_size, epochs=40, verbose=1, callbacks=[metrics])
+                            batch_size=batch_size, epochs=20, verbose=1, callbacks=[metrics])
 
         # PRINT RESULTS
         # loss, accuracy = model.evaluate(x=np.array(X_test), y=y_test, verbose=0)

@@ -7,18 +7,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pickle
 
+
 # GLOVE. Create dictionary where keys are words and the values are the vectors for the words
-# print("getting GLOVE embeddings size 300...")
-# file = open('glove.6B/glove.6B.300d.txt', "r").readlines()
-# gloveDict = {}
-# for line in file:
-#     info = line.split(' ')
-#     key = info[0]
-#     vec = []
-#     for elem in info[1:]:
-#         vec.append(elem.rstrip())
-#     gloveDict[key] = vec
-# print(len(gloveDict), "words in the GLOVE dictionary\n")
+print("getting GLOVE embeddings size 300...")
+file = open('glove.6B/glove.6B.300d.txt', "r").readlines()
+gloveDict = {}
+for line in file:
+    info = line.split(' ')
+    key = info[0]
+    vec = []
+    for elem in info[1:]:
+        vec.append(elem.rstrip())
+    gloveDict[key] = vec
+print(len(gloveDict), "words in the GLOVE dictionary\n")
 
 
 def correlation():
@@ -307,6 +308,8 @@ def tweets_1000():
         glove_zero_count_before = 0
         glove_running_total_after = 0
         glove_zero_count_after = 0
+        glove_misses_before = 0
+        glove_misses_after = 0
         max_glove_len = 0
 
         # titles: ['rev_id', 'comment', 'year', 'logged_in', 'ns', 'sample', 'split', 'attack']
@@ -388,6 +391,8 @@ def tweets_1000():
                         # if the word is in our gloveDict, then add element-wise to our output X
                         if word in gloveDict:
                             count += 1
+                        else:
+                            glove_misses_before += 1
 
                     glove_running_total_before += count
                     if count == 0:
@@ -403,6 +408,8 @@ def tweets_1000():
                         # if the word is in our gloveDict, then add element-wise to our output X
                         if word in gloveDict:
                             count += 1
+                        else:
+                            glove_misses_after += 1
 
                     glove_running_total_after += count
                     if count == 0:
@@ -427,20 +434,28 @@ def tweets_1000():
                   "negative examples in naughty tweets")
             print("There are", label_count_not_naughty[1], "positive examples, and", label_count_not_naughty[0],
                   "negative examples in non-naughty tweets")
+
             print(http_row_count, "tweets with a URL")
             print(blank_row_count, "rows with no text")
+
             print("Average norm value:", norm_sum / 1065)
             print("Average norm value in naughty word tweets:", norm_naughty_sum / 471)
             print("Maximum norm:", max_norm_naughty)
             print("String:", max_norm_naughty_str)
             print("Label:", max_norm_naughty_label)
+
             print("Average tweet length:", length_running_total / 1065)
             print("Average glove count before:", glove_running_total_before / 1065)
             print("Glove zero count before:", glove_zero_count_before)
+            print("Glove word hits before:", glove_running_total_before)
+            print("Glove word misses before:", glove_misses_before)
+
             print("Average glove count after:", glove_running_total_after / 1065)
             print("Glove zero count after:", glove_zero_count_after)
-            print("Max glove count:", max_glove_len)
+            print("Glove word hits after:", glove_running_total_after)
+            print("Glove word misses after:", glove_misses_after)
 
+            print("Max glove count:", max_glove_len)
             print(max(list(length_dict.keys())))
 
             # # NAUGHTY DICT PLOT
@@ -1232,9 +1247,9 @@ def count_labels():
 
 # formspring()
 # tweets_8000()
-# tweets_1000()
+tweets_1000()
 # tweets_16k()
 # clean_tweets_16k()
-correlation()
+# correlation()
 # count_labels()
 # dixon()

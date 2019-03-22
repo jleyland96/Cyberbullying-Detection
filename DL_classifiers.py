@@ -445,9 +445,9 @@ def learn_embeddings_model_2class(filename="cleaned_tweets_16k.csv"):
     # ---------------- EDIT LEARN EMBEDDINGS HERE ----------------
     # define the model
     model = Sequential()
-    model.add(Embedding(input_dim=vocab_size, output_dim=100, input_length=max_len))
+    model.add(Embedding(input_dim=vocab_size, output_dim=300, input_length=max_len))
 
-    model.add(LSTM(units=50, dropout=0.3, recurrent_dropout=0.3))
+    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
 
     model.add(Dense(units=1, activation='sigmoid'))
     # compile the model
@@ -461,7 +461,7 @@ def learn_embeddings_model_2class(filename="cleaned_tweets_16k.csv"):
     class_weight = {0: 1.0,
                     1: 1.0}
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        epochs=300, batch_size=32, callbacks=[metrics])
+                        epochs=300, batch_size=256, callbacks=[metrics])
     # ---------------- END LEARN EMBEDDINGS EDIT ----------------
 
     # evaluate
@@ -539,40 +539,36 @@ def dense_network(model):
     model.add(BatchNormalization())
     model.add(ReLU())
     model.add(Dropout(rate=0.4))
-    model.add(Dense(units=1, activation='sigmoid'))
     return model
 
 
 def cnn_lstm_network(model):
-    model.add(Conv1D(filters=30, kernel_size=3, strides=2, padding='valid', use_bias=False))
+    model.add(Conv1D(filters=64, kernel_size=4, strides=2, padding='valid', use_bias=False))
     model.add(BatchNormalization())
     model.add(ReLU())
     model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(LSTM(units=50, dropout=0.5, recurrent_dropout=0.5))
-
-    model.add(Dense(units=1, activation='sigmoid'))
+    model.add(LSTM(units=300, dropout=0.5, recurrent_dropout=0.5))
     return model
 
 
 def cnn_network(model):
-    model.add(Conv1D(filters=40, kernel_size=3, strides=2, padding='valid', use_bias=False))
+    model.add(Conv1D(filters=64, kernel_size=4, strides=2, padding='valid', use_bias=False))
     model.add(BatchNormalization())
     model.add(ReLU())
     model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(Conv1D(filters=20, kernel_size=3, strides=1, padding='valid', use_bias=False))
+    model.add(Conv1D(filters=128, kernel_size=4, strides=1, padding='valid', use_bias=False))
     model.add(BatchNormalization())
     model.add(ReLU())
     model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(Conv1D(filters=10, kernel_size=3, strides=1, padding='valid', use_bias=False))
+    model.add(Conv1D(filters=64, kernel_size=3, strides=1, padding='valid', use_bias=False))
     model.add(BatchNormalization())
     model.add(ReLU())
     model.add(MaxPool1D(pool_size=2, strides=1))
 
     model.add(Flatten())
-    model.add(Dense(units=1, activation='sigmoid'))
     return model
 
 
@@ -764,7 +760,8 @@ def main_2_class_model(filename="cleaned_twitter_1K.csv"):
     e.trainable = False
     model.add(e)
 
-    model.
+    # model = cnn_network(model)
+    model = cnn_lstm_network(model)
 
     model.add(Dense(units=1, activation='sigmoid'))
 

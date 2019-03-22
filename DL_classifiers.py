@@ -764,8 +764,7 @@ def main_2_class_model(filename="cleaned_twitter_1K.csv"):
     e.trainable = False
     model.add(e)
 
-    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
-    model.add(BatchNormalization())
+    model.
 
     model.add(Dense(units=1, activation='sigmoid'))
 

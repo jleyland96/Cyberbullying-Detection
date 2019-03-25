@@ -310,7 +310,7 @@ def define_glove_model(length, vocab_size, embedding_matrix, num_classes):
                    embeddings_initializer=Constant(embedding_matrix), input_length=length)
     e1.trainable = False
     embedding1 = e1(inputs1)
-    conv1 = Conv1D(filters=16, kernel_size=1, activation='relu')(embedding1)
+    conv1 = Conv1D(filters=64, kernel_size=3, activation='relu')(embedding1)
     drop1 = Dropout(0.5)(conv1)
     pool1 = MaxPooling1D(pool_size=2)(drop1)
     flat1 = Flatten()(pool1)
@@ -321,7 +321,7 @@ def define_glove_model(length, vocab_size, embedding_matrix, num_classes):
                    embeddings_initializer=Constant(embedding_matrix), input_length=length)
     e2.trainable = False
     embedding2 = e2(inputs2)
-    conv2 = Conv1D(filters=16, kernel_size=2, activation='relu')(embedding2)
+    conv2 = Conv1D(filters=64, kernel_size=4, activation='relu')(embedding2)
     drop2 = Dropout(0.5)(conv2)
     pool2 = MaxPooling1D(pool_size=2)(drop2)
     flat2 = Flatten()(pool2)
@@ -332,7 +332,7 @@ def define_glove_model(length, vocab_size, embedding_matrix, num_classes):
                    embeddings_initializer=Constant(embedding_matrix), input_length=length)
     e3.trainable = False
     embedding3 = e3(inputs3)
-    conv3 = Conv1D(filters=16, kernel_size=3, activation='relu')(embedding3)
+    conv3 = Conv1D(filters=64, kernel_size=5, activation='relu')(embedding3)
     drop3 = Dropout(0.5)(conv3)
     pool3 = MaxPooling1D(pool_size=2)(drop3)
     flat3 = Flatten()(pool3)
@@ -341,7 +341,7 @@ def define_glove_model(length, vocab_size, embedding_matrix, num_classes):
     merged = concatenate([flat1, flat2, flat3])
 
     # interpretation
-    dense1 = Dense(10, activation='relu')(merged)
+    dense1 = Dense(30, activation='relu')(merged)
 
     # DEFINE the right model based on number of classes and loss function
     if num_classes == 2:
@@ -362,8 +362,8 @@ def define_glove_model(length, vocab_size, embedding_matrix, num_classes):
 def define_model(length, vocab_size, num_classes):
     # channel 1
     inputs1 = Input(shape=(length,))
-    embedding1 = Embedding(vocab_size, 100)(inputs1)
-    conv1 = Conv1D(filters=16, kernel_size=2, activation='relu')(embedding1)
+    embedding1 = Embedding(vocab_size, 300)(inputs1)
+    conv1 = Conv1D(filters=64, kernel_size=3, activation='relu')(embedding1)
     drop1 = Dropout(0.5)(conv1)
     pool1 = MaxPooling1D(pool_size=2)(drop1)
     flat1 = Flatten()(pool1)
@@ -371,7 +371,7 @@ def define_model(length, vocab_size, num_classes):
     # channel 2
     inputs2 = Input(shape=(length,))
     embedding2 = Embedding(vocab_size, 100)(inputs2)
-    conv2 = Conv1D(filters=16, kernel_size=3, activation='relu')(embedding2)
+    conv2 = Conv1D(filters=64, kernel_size=4, activation='relu')(embedding2)
     drop2 = Dropout(0.5)(conv2)
     pool2 = MaxPooling1D(pool_size=2)(drop2)
     flat2 = Flatten()(pool2)
@@ -379,7 +379,7 @@ def define_model(length, vocab_size, num_classes):
     # channel 3
     inputs3 = Input(shape=(length,))
     embedding3 = Embedding(vocab_size, 100)(inputs3)
-    conv3 = Conv1D(filters=16, kernel_size=4, activation='relu')(embedding3)
+    conv3 = Conv1D(filters=64, kernel_size=5, activation='relu')(embedding3)
     drop3 = Dropout(0.5)(conv3)
     pool3 = MaxPooling1D(pool_size=2)(drop3)
     flat3 = Flatten()(pool3)
@@ -405,14 +405,14 @@ def onehot_2class(filename):
     # load training dataset
     trainLines, trainLabels = get_data(filename=filename)
 
-    # create tokenizer and encode data
+    # create tokenizer and encode data TODO: change length based on dataset
     tokenizer = create_tokenizer(trainLines)
-    length = 32
+    length = 500
     vocab_size = len(tokenizer.word_index) + 1
     trainX = encode_text(tokenizer, trainLines, length)
 
     # split the data
-    trainX, testX, trainLabels, testLabels = train_test_split(trainX, trainLabels, test_size=0.10)
+    trainX, testX, trainLabels, testLabels = train_test_split(trainX, trainLabels, test_size=0.20)
 
     # define, fit and save model
     model = define_model(length, vocab_size, num_classes=2)
@@ -428,10 +428,10 @@ def onehot_2class(filename):
                     1: 1.0}
     history = model.fit(x=[trainX, trainX, trainX], y=array(trainLabels),
                         validation_data=([testX, testX, testX], array(testLabels)),
-                        nb_epoch=50, batch_size=32, callbacks=[metrics], class_weight=class_weight, verbose=0)
+                        nb_epoch=30, batch_size=256, callbacks=[metrics], class_weight=class_weight, verbose=1)
 
     # Evaluate
-    loss, accuracy = model.evaluate(x=[testX, testX, testX], y=testLabels, verbose=0)
+    loss, accuracy = model.evaluate(x=[testX, testX, testX], y=testLabels, verbose=1)
     print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
     y_pred = model.predict(x=[testX, testX, testX])
     y_pred = np.round(y_pred, 0)
@@ -439,7 +439,7 @@ def onehot_2class(filename):
     print_results(history, y_pred, testLabels)
     print("BEST:")
     print(best_confusion_matrix)
-    draw_graph(history)
+    # draw_graph(history)
 
 
 def onehot_3class():
@@ -492,15 +492,15 @@ def glove_2class(filename):
     # integer encode the documents
     encoded_docs = t.texts_to_sequences(texts=X)
 
-    # pad documents
-    max_len = 32
+    # pad documents TODO: Change max_len based on dataset
+    max_len = 500
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
     # Split into training and test data
-    X_train, X_test, y_train, y_test = train_test_split(padded_docs, labels, test_size=0.10)
+    X_train, X_test, y_train, y_test = train_test_split(padded_docs, labels, test_size=0.20)
 
-    # embedding_matrix = get_glove_matrix(vocab_size, t)
-    embedding_matrix = get_glove_matrix_from_dump()
+    embedding_matrix = get_glove_matrix(vocab_size, t)
+    # embedding_matrix = get_glove_matrix_from_dump()
 
     # Define our model, taking glove embeddings as inputs and outputting classes
     model = define_glove_model(max_len, vocab_size, embedding_matrix, num_classes=2)
@@ -511,13 +511,13 @@ def glove_2class(filename):
                     2: 1.0}
     history = model.fit(x=[X_train, X_train, X_train], y=y_train,
                         validation_data=([X_test, X_test, X_test], y_test),
-                        nb_epoch=100, batch_size=32, callbacks=[metrics], class_weight=class_weight, verbose=0)
+                        nb_epoch=30, batch_size=256, callbacks=[metrics], class_weight=class_weight, verbose=1)
 
     # Evaluate
     if loss_fn == "F1":
-        loss, accuracy, _ = model.evaluate(x=[X_test, X_test, X_test], y=y_test, verbose=0)
+        loss, accuracy, _ = model.evaluate(x=[X_test, X_test, X_test], y=y_test, verbose=1)
     else:
-        loss, accuracy = model.evaluate(x=[X_test, X_test, X_test], y=y_test, verbose=0)
+        loss, accuracy = model.evaluate(x=[X_test, X_test, X_test], y=y_test, verbose=1)
 
     print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
     y_pred = model.predict(x=[X_test, X_test, X_test])
@@ -526,7 +526,7 @@ def glove_2class(filename):
     print_results(history, y_pred, y_test)
     print("BEST:")
     print(best_confusion_matrix)
-    draw_graph(history)
+    # draw_graph(history)
 
 
 def glove_3class():
@@ -577,7 +577,8 @@ def glove_3class():
     print_3class_results(y_test, labels_pred, history)
 
 
-save_path = "1K-MultiCNN-TESTING"
-file = 'cleaned_twitter_1K.csv'
-loss_fn = "F1"
+save_path = "Testing"
+file = 'cleaned_dixon.csv'
+loss_fn = "not F1"
 glove_2class(filename=file)
+# onehot_2class(filename=file)

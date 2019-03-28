@@ -1,0 +1,32 @@
+Questions:
+	- Include Reddit? Mention compromises.
+	- Do Machine Learning and Deep Learning have capital letters?
+	- Where should I put examples of racism, sexism, cyberbullying, neither?
+	- What should I call my datasets?
+	- How to approach my 0.930 state of the art value (since it's from the 3-class task)
+	- MACRO F1?
+	- Send draft midway through the holidays?
+
+
+Notes:
+	- Put link to GitHub code in solution section
+	- Keep 3-class problem details until the end (as an expansion in results section).
+	- Mention that this is research. Beating SOTA is not *too* important.
+	- Examples of racism, sexism, cyberbullying, neither at literature review. Define + example in table
+	- Reddit, Twitter_small, Twitter_big_2class, Twitter_big_3class.
+	- All technical terms in italics
+	- Include the dixon dataset stuff, but mention the compromises in the conclusion
+	- Conclude whether it is worth investing time/effort/resources into DL instead of ML.
+
+
+
+TODO on final paper:
+	- abstract
+	- what I have achieved (in introduction)
+
+	- Final Dixon results
+
+	- Put everything in present tense
+	
+
+

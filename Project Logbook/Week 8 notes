@@ -1,0 +1,13 @@
+Week 8 Notes
+- 74% is our baseline for TF-IDF
+- Have reached 71.5% so far with DL approach
+
+TODO:
+- Shuffle the data
+- Split data into Training, Development, Testing (70%, 20%, 10%)
+- Analyse the distribution within data sets
+- Generate graphs of validation and testing set accuracy
+- Tune hyperparameters
+- Batch normalization
+- Apply some convolutional layers
+

@@ -1,0 +1,8 @@
+	- Good that train and test curves (F1 loss) follow same shape. 	 Model generalises better.
+	- Confusion matrix good for the final paper
+
+
+TODO:
+	- Pick classifiers (3-class) with >80% F1, majority vote
+	- Finish ELMo
+	- Think about F1 for the 3 classes

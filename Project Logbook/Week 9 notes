@@ -1,0 +1,4 @@
+TODO:
+- Play around with dropout
+- Plot F1 (similar to val_acc)
+- Look at saving model so we can continue later

@@ -1,0 +1,21 @@
+Final paper
+	- show examples of racism, sexism, none
+	- speak mostly about 2 class (for consistency of metric)
+	- 1 page on 3-class but make the difference clear
+	- Use the ML/DL graph in conclusion, we need more data
+	- No-one would go out and collect Cyberbullying and hate-speech data, 18+
+
+
+Project
+	- Datasets:
+		- DROP those with poor F1 (text messages and formspring)
+		- KEEP 2-class, 3-class, Twitter1K and Dixon
+	- ELMo on each dataset
+	- Correlation between label and count of swear words for each dataset
+	- Try GRU
+
+
+Demo
+	- Save pre-trained versions of best examples for each dataset
+	- Ask Magnus (?) in the demo which model he would like to see
+	- Print results

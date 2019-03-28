@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/DL_classifiers.py" afterPath="$PROJECT_DIR$/DL_classifiers.py" />
+      <change beforePath="$PROJECT_DIR$/Project Logbook/Week 8 notes" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/Project Logbook/Week 9 notes" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,11 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ML_classifiers_combined.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
+      <file leaf-file-name="DL_classifiers.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="379" column="34" lean-forward="false" selection-start-line="379" selection-start-column="26" selection-end-line="379" selection-end-column="34" />
+            <state relative-caret-position="265">
+              <caret line="792" column="28" lean-forward="false" selection-start-line="792" selection-start-column="28" selection-end-line="792" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -85,9 +87,9 @@
         <option value="$PROJECT_DIR$/DL_lstm_elmo.py" />
         <option value="$PROJECT_DIR$/ML_classifiers_combined.py" />
         <option value="$PROJECT_DIR$/dataset_analysis.py" />
-        <option value="$PROJECT_DIR$/DL_classifiers.py" />
         <option value="$PROJECT_DIR$/multichannel_cnn.py" />
         <option value="$PROJECT_DIR$/plot_val_acc.py" />
+        <option value="$PROJECT_DIR$/DL_classifiers.py" />
       </list>
     </option>
   </component>
@@ -118,11 +120,6 @@
               <item name="Cyberbullying-Detection" type="b2602c69:ProjectViewProjectNode" />
               <item name="Cyberbullying-Detection" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Cyberbullying-Detection" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Cyberbullying-Detection" type="462c0819:PsiDirectoryNode" />
-              <item name="DL_graphs" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -151,7 +148,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.plot_val_acc">
+  <component name="RunManager" selected="Python.DL_classifiers">
     <configuration name="DL_classifiers" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -251,9 +248,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.plot_val_acc" />
-        <item index="1" class="java.lang.String" itemvalue="Python.multichannel_cnn" />
-        <item index="2" class="java.lang.String" itemvalue="Python.DL_classifiers" />
+        <item index="0" class="java.lang.String" itemvalue="Python.DL_classifiers" />
+        <item index="1" class="java.lang.String" itemvalue="Python.plot_val_acc" />
+        <item index="2" class="java.lang.String" itemvalue="Python.multichannel_cnn" />
         <item index="3" class="java.lang.String" itemvalue="Python.dataset_analysis" />
         <item index="4" class="java.lang.String" itemvalue="Python.ML_classifiers_combined" />
       </list>
@@ -399,13 +396,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3405">
-          <caret line="763" column="4" lean-forward="false" selection-start-line="763" selection-start-column="4" selection-end-line="763" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DL_graphs/Dixon-Combo graph.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -464,14 +454,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ML_classifiers_combined.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
+        <state relative-caret-position="278">
           <caret line="379" column="34" lean-forward="false" selection-start-line="379" selection-start-column="26" selection-end-line="379" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="792" column="28" lean-forward="false" selection-start-line="792" selection-start-column="28" selection-end-line="792" selection-end-column="28" />
           <folding />
         </state>
       </provider>

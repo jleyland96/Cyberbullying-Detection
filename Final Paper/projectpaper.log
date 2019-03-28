@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.3.12)  28 MAR 2019 14:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.3.12)  28 MAR 2019 18:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -218,11 +218,11 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10.95> not available
 (Font)              Font shape `OT1/ptm/b/it' tried instead on input line 32.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 38.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 48.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 38.
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 48.
 
-Underfull \hbox (badness 10000) in paragraph at lines 67--71
+Underfull \hbox (badness 10000) in paragraph at lines 77--81
 
  []
 
@@ -231,13 +231,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 67--71
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 [2]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 104.
+(Font)              <12> on input line 114.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 104.
+(Font)              <8> on input line 114.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 104.
+(Font)              <6> on input line 114.
 
-Underfull \hbox (badness 10000) in paragraph at lines 107--107
+Underfull \hbox (badness 10000) in paragraph at lines 117--117
 []\OT1/ptm/m/it/12 @Lithobolos @Po-lit-i-calAnt @Za-ibat-
  []
 
@@ -245,76 +245,76 @@ Missing character: There is no â in font ptmri7t!
 Missing character: There is no € in font ptmri7t!
 Missing character: There is no ™ in font ptmri7t!
 
-Overfull \hbox (40.92815pt too wide) in paragraph at lines 103--112
+Overfull \hbox (40.92815pt too wide) in paragraph at lines 113--122
  []|  [] 
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 150--150
+Underfull \hbox (badness 10000) in paragraph at lines 160--160
 \OT1/ptm/m/n/12 (weighted
  []
 
 
-Overfull \hbox (48.47491pt too wide) in paragraph at lines 145--153
+Overfull \hbox (48.47491pt too wide) in paragraph at lines 155--163
  []|  [] 
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 155.
+(Font)              <7> on input line 165.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 155.
+(Font)              <5> on input line 165.
 [4] [5] [6]
-Overfull \hbox (0.2368pt too wide) in paragraph at lines 214--215
+Overfull \hbox (0.2368pt too wide) in paragraph at lines 224--225
 []\OT1/ptm/m/n/12 Traditional Ma-chine Learn-ing mod-els re-quire fixed length 
 nu-mer-i-cal vec-tors as in-puts. There-
  []
 
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 219.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 229.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 219.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 229.
  [7]
 <"dixon_length graph".png, id=31, 569.12625pt x 416.55624pt>
 File: "dixon_length graph".png Graphic file (type png)
 
 <use "dixon_length graph".png>
-Package pdftex.def Info: "dixon_length graph".png used on input line 256.
+Package pdftex.def Info: "dixon_length graph".png used on input line 266.
 (pdftex.def)             Requested size: 166.00775pt x 121.50374pt.
 
 <"twitter_length graph".png, id=33, 551.05875pt x 417.56pt>
 File: "twitter_length graph".png Graphic file (type png)
 
 <use "twitter_length graph".png>
-Package pdftex.def Info: "twitter_length graph".png used on input line 257.
+Package pdftex.def Info: "twitter_length graph".png used on input line 267.
 (pdftex.def)             Requested size: 166.00775pt x 125.79141pt.
 
 
-LaTeX Warning: File `"tweets_16K_length graph.png' not found on input line 258.
+LaTeX Warning: File `"tweets_16K_length graph.png' not found on input line 268.
 
 
 <"tweets_16K_length graph.png, id=34, 561.09625pt x 417.56pt>
 File: "tweets_16K_length graph.png Graphic file (type png)
 
 <use "tweets_16K_length graph.png>
-Package pdftex.def Info: "tweets_16K_length graph.png used on input line 258.
+Package pdftex.def Info: "tweets_16K_length graph.png used on input line 268.
 (pdftex.def)             Requested size: 166.00775pt x 123.53592pt.
  [8] [9 <./dixon_length graph.png> <./twitter_length graph.png> <./tweets_16K_l
 ength graph.png>]
 <RNN.png, id=47, 280.04625pt x 222.8325pt>
 File: RNN.png Graphic file (type png)
  <use RNN.png>
-Package pdftex.def Info: RNN.png used on input line 288.
+Package pdftex.def Info: RNN.png used on input line 297.
 (pdftex.def)             Requested size: 207.50793pt x 165.12128pt.
 
-Overfull \hbox (23.058pt too wide) in paragraph at lines 288--291
+Overfull \hbox (23.058pt too wide) in paragraph at lines 297--300
 [][]
  []
 
 
-Underfull \hbox (badness 1701) in paragraph at lines 300--301
+Underfull \hbox (badness 1701) in paragraph at lines 309--310
 []\OT1/ptm/m/n/12 Specificaly, Long-Short Term Mem-ory (LSTM)
  []
 
@@ -322,10 +322,10 @@ Underfull \hbox (badness 1701) in paragraph at lines 300--301
 File: "multichannel".png Graphic file (type png)
 
 <use "multichannel".png>
-Package pdftex.def Info: "multichannel".png used on input line 322.
+Package pdftex.def Info: "multichannel".png used on input line 331.
 (pdftex.def)             Requested size: 426.79134pt x 171.17435pt.
  [11 <./multichannel.png>]
-Overfull \hbox (1.89436pt too wide) in paragraph at lines 339--340
+Overfull \hbox (1.89436pt too wide) in paragraph at lines 348--349
 []\OT1/ptm/b/n/12 Batch Nor-mal-iza-tion --- \OT1/ptm/m/n/12 The layer where Ba
 tch Nor-mal-iza-tion is ap-plied is reparametrized
  []
@@ -334,34 +334,69 @@ tch Nor-mal-iza-tion is ap-plied is reparametrized
 File: "1K-LSTM32 graph".png Graphic file (type png)
 
 <use "1K-LSTM32 graph".png>
-Package pdftex.def Info: "1K-LSTM32 graph".png used on input line 391.
+Package pdftex.def Info: "1K-LSTM32 graph".png used on input line 400.
 (pdftex.def)             Requested size: 284.52756pt x 213.40593pt.
  [13]
-Overfull \hbox (21.01086pt too wide) in paragraph at lines 404--419
+Overfull \hbox (21.01086pt too wide) in paragraph at lines 413--428
  []|  [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 421--422
+Underfull \hbox (badness 10000) in paragraph at lines 430--431
 
  []
 
 
-Overfull \hbox (21.01085pt too wide) in paragraph at lines 430--445
+Overfull \hbox (21.01085pt too wide) in paragraph at lines 439--454
  []|  [] 
  []
 
 [14 <./1K-LSTM32 graph.png>]
-Overfull \hbox (21.01085pt too wide) in paragraph at lines 452--467
+Overfull \hbox (21.01085pt too wide) in paragraph at lines 461--476
  []|  [] 
  []
 
 
-Overfull \hbox (38.08269pt too wide) in paragraph at lines 482--498
+Overfull \hbox (1.36215pt too wide) in paragraph at lines 499--499
+[]\OT1/ptm/b/n/12 Twitter[]big[]2class| 
+ []
+
+
+Overfull \hbox (38.70131pt too wide) in paragraph at lines 489--502
  []|  [] 
  []
 
-[15] (./projectpaper.bbl
+<"lstm_train".png, id=69, 699.61375pt x 553.06625pt>
+File: "lstm_train".png Graphic file (type png)
+ <use "lstm_train".png>
+Package pdftex.def Info: "lstm_train".png used on input line 509.
+(pdftex.def)             Requested size: 207.50793pt x 164.03923pt.
+
+<"f1_train".png, id=70, 557.08125pt x 442.65375pt>
+File: "f1_train".png Graphic file (type png)
+ <use "f1_train".png>
+Package pdftex.def Info: "f1_train".png used on input line 510.
+(pdftex.def)             Requested size: 207.50793pt x 164.88026pt.
+
+[15]
+Overfull \hbox (38.08269pt too wide) in paragraph at lines 530--546
+ []|  [] 
+ []
+
+[16 <./lstm_train.png> <./f1_train.png>]
+<"2class_CM".png, id=79, 377.41pt x 368.37625pt>
+File: "2class_CM".png Graphic file (type png)
+ <use "2class_CM".png>
+Package pdftex.def Info: "2class_CM".png used on input line 555.
+(pdftex.def)             Requested size: 115.28296pt x 112.5204pt.
+
+<"3class_CM".png, id=80, 248.93pt x 177.66376pt>
+File: "3class_CM".png Graphic file (type png)
+ <use "3class_CM".png>
+Package pdftex.def Info: "3class_CM".png used on input line 557.
+(pdftex.def)             Requested size: 161.39897pt x 115.19542pt.
+
+(./projectpaper.bbl [17 <./2class_CM.png> <./3class_CM.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 22--26
 []| | \OT1/ptm/m/n/12 Dixon, E. (2018), Au-toma-tion and ha-rass-ment de-tec-ti
 on.
@@ -373,29 +408,29 @@ Underfull \hbox (badness 5217) in paragraph at lines 32--36
 1/ptm/m/it/12 Deep Learn-ing\OT1/ptm/m/n/12 , MIT Press.
  []
 
-[16]) [17] (./projectpaper.aux) ) 
+) [18] (./projectpaper.aux) ) 
 Here is how much of TeX's memory you used:
- 2082 strings out of 492995
- 29915 string characters out of 6132704
- 101353 words of memory out of 5000000
- 5591 multiletter control sequences out of 15000+600000
- 22973 words of font info for 44 fonts, out of 8000000 for 9000
+ 2106 strings out of 492995
+ 30319 string characters out of 6132704
+ 102380 words of memory out of 5000000
+ 5610 multiletter control sequences out of 15000+600000
+ 24080 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  39i,10n,25p,953b,235s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2017/texmf-dist/fonts/enc/
-dvips/base/8r.enc}</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmmi12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmmi8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-sy10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><
-/usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/loca
-l/texlive/2017/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/
-2017/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on projectpaper.pdf (17 pages, 403340 bytes).
+{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvip
+s/base/8r.enc}</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmmi12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmmi8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
+8.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
+.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr
+/local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/te
+xlive/2017/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017
+/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on projectpaper.pdf (18 pages, 886087 bytes).
 PDF statistics:
- 109 PDF objects out of 1000 (max. 8388607)
- 68 compressed objects within 1 object stream
+ 120 PDF objects out of 1000 (max. 8388607)
+ 70 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

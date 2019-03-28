@@ -735,7 +735,7 @@ def main_2_class_model(filename="cleaned_twitter_1K.csv"):
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
     # Split into training and test data
-    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.20)
+    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.10)
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
@@ -761,7 +761,8 @@ def main_2_class_model(filename="cleaned_twitter_1K.csv"):
     model.add(e)
 
     # model = cnn_network(model)
-    model = cnn_lstm_network(model)
+    # model = cnn_lstm_network(model)
+    model.add(LSTM(units=50, dropout=0.5, recurrent_dropout=0.5))
 
     model.add(Dense(units=1, activation='sigmoid'))
 
@@ -769,8 +770,9 @@ def main_2_class_model(filename="cleaned_twitter_1K.csv"):
                     1: 1.0}
     # my_adam = optimizers.Adam(lr=0.003, decay=0.001)
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+    print(model.summary())
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=30, batch_size=256, callbacks=[metrics], class_weight=class_weight)
+                        nb_epoch=300, batch_size=128, callbacks=[metrics], class_weight=class_weight)
     # ------------------ END MODEL ------------------
 
     # evaluate
@@ -788,9 +790,9 @@ def main_2_class_model(filename="cleaned_twitter_1K.csv"):
 if __name__ == "__main__":
     print("2 class learn embeddings")
 
-    save_path = "Dixon-LSTM500"
+    save_path = "tweets-test"
     loss = "not F1"
-    file = "cleaned_dixon.csv"
+    file = "cleaned_tweets_16k.csv"
     # learn_embeddings_model_2class(file)
     # learn_embeddings_model_3class(file)
     # learn_embeddings_2class_f1_loss(file)

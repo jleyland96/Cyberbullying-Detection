@@ -1,0 +1,73 @@
+\begin{thebibliography}{xx}
+
+\harvarditem[Badjatiya et~al.]{Badjatiya, Gupta, Gupta \harvardand\
+  Varma}{2017}{Badjatiya}
+Badjatiya, P., Gupta, S., Gupta, M. \harvardand\ Varma, V.  \harvardyearleft
+  2017\harvardyearright , {\em Deep Learning for Hate Speech Detection in
+  Tweets}, Hyderabad, Microsoft.
+
+\harvarditem[Bastidas et~al.]{Bastidas, Dixon, Loo \harvardand\
+  Ryan}{2016}{Hack}
+Bastidas, A., Dixon, E., Loo, C. \harvardand\ Ryan, J.  \harvardyearleft
+  2016\harvardyearright , {\em Harrassment detection: a benchmark on the
+  \#HackHarrassment dataset}, Intel.
+
+\harvarditem[Chatzakou et~al.]{Chatzakou, Kourtellis, Blackburn, Cristofaro,
+  Stringhini \harvardand\ Vakali}{2017}{Birds}
+Chatzakou, D., Kourtellis, N., Blackburn, J., Cristofaro, E.~D., Stringhini, G.
+  \harvardand\ Vakali, A.  \harvardyearleft 2017\harvardyearright , {\em Mean
+  Birds: Detecting Agression and Bullying on Twitter}, Aristotle University of
+  Thessaloniki and Telefonica Research and University College London.
+
+\harvarditem{Dixon}{2018}{Dixon}
+Dixon, E.  \harvardyearleft 2018\harvardyearright , Automation and harassment
+  detection.
+\newblock https://github.com/EdwardDixon/Automation-and-Harassment-Detection.
+
+\harvarditem{Golbeck}{2018}{Golbeck}
+Golbeck, J.  \harvardyearleft 2018\harvardyearright , {\em Online Harassment},
+  Springer International Publishing.
+
+\harvarditem[Goodfellow et~al.]{Goodfellow, Bengio \harvardand\
+  Courville}{2016}{DL}
+Goodfellow, I., Bengio, Y. \harvardand\ Courville, A.  \harvardyearleft
+  2016\harvardyearright , {\em Deep Learning}, MIT Press.
+\newblock http://www.deeplearningbook.org.
+
+\harvarditem{Ioffe \harvardand\ Szegedy}{2015}{Sergey}
+Ioffe, S. \harvardand\ Szegedy, C.  \harvardyearleft 2015\harvardyearright ,
+  {\em Batch Normalization: Accelerating Deep Network Training by Reducing
+  Internal Covariate Shift}, Google Inc.
+
+\harvarditem{Kim}{2014}{Kim}
+Kim, Y.  \harvardyearleft 2014\harvardyearright , {\em Convolutional Neural
+  Networks for Sentence Classification}, New York University.
+
+\harvarditem{Ofcom}{2017}{Ofcom}
+Ofcom  \harvardyearleft 2017\harvardyearright , Children and parents: Media use
+  and attitudes report.
+\newblock unpublished.
+
+\harvarditem[Pennington et~al.]{Pennington, Socher \harvardand\
+  Manning}{2014}{glove}
+Pennington, J., Socher, R. \harvardand\ Manning, C.~D.  \harvardyearleft
+  2014\harvardyearright , Glove: Global vectors for word representation.
+\newblock Online research document.
+
+\harvarditem[Peters et~al.]{Peters, Neumann, Iyyer, Gardner, Clark, Lee
+  \harvardand\ Zettlemoyer}{2018}{Peters}
+Peters, M.~E., Neumann, M., Iyyer, M., Gardner, M., Clark, C., Lee, K.
+  \harvardand\ Zettlemoyer, L.  \harvardyearleft 2018\harvardyearright , {\em
+  Deep contextualized word representations}, University of Washington.
+
+\harvarditem{Reynolds \harvardand\ Kontostathis}{2011}{Reynolds}
+Reynolds, K. \harvardand\ Kontostathis, A.  \harvardyearleft
+  2011\harvardyearright , {\em Using Machine Learning to Detect Cyberbullying},
+  Ursinus College.
+
+\harvarditem{Waseem \harvardand\ Hovy}{2016}{Waseem}
+Waseem, Z. \harvardand\ Hovy, D.  \harvardyearleft 2016\harvardyearright , {\em
+  Hateful Symbols or Hateful People?Predictive Features for Hate Speech
+  Detection on Twitter}, NAACL-HLT 2016.
+
+\end{thebibliography}

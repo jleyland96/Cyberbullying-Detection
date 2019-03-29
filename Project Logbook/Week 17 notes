@@ -1,0 +1,19 @@
+Something interesting:
+	- ELMO embeddings, Bert embeddings
+	- F1 score as a loss function
+	- Look into mislabellings (insight into F1 score)
+	- Ensemble of models, majority voting
+	- LSTM auto-encoder, model per class
+
+In final paper, discuss:
+	- Comparison between clean and dirty data
+	- Discussion about 2-class and 3-class problem
+	- Comparison between datasets, why were they good/bad?
+	- LOTS OF TABLES/GRAPHS/FIGURES etc.
+
+
+
+Schools
+	- They are learning some Machine Learning now
+	- Run my normal lesson, but make clear the potential of ML with cyberbullying
+	- Write the letter, include what words a bully would use. Example sentences

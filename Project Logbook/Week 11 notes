@@ -1,0 +1,14 @@
+Week 11 meeting:
+PROJECT
+* could pre-train on old dataset, fine tune on the new one
+* Maximise F1 (implement f1 loss function)
+
+DESIGN REPORT
+- statistics table about datasets on the design report
+- smoother transitions between each subsection
+- highlight why LSTM is more suitable than RNN
+
+PRESENTATION
+- more graphs/tables in my presentation 
+- break down Q's and A's in Formspring dataset, confusing otherwise
+- talk about speaking in a school about Cyberbullying

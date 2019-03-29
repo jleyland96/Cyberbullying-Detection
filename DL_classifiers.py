@@ -461,7 +461,7 @@ def learn_embeddings_model_2class(filename="cleaned_tweets_16k.csv"):
     class_weight = {0: 1.0,
                     1: 1.0}
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        epochs=300, batch_size=256, callbacks=[metrics])
+                        epochs=30, batch_size=256, callbacks=[metrics])
     # ---------------- END LEARN EMBEDDINGS EDIT ----------------
 
     # evaluate
@@ -761,7 +761,8 @@ def main_2_class_model(filename="cleaned_twitter_1K.csv"):
     model.add(e)
 
     # model = cnn_network(model)
-    model = cnn_lstm_network(model)
+    model.add(LSTM(units=200, dropout=0.5, recurrent_dropout=0.5))
+    # model = cnn_lstm_network(model)
 
     model.add(Dense(units=1, activation='sigmoid'))
 

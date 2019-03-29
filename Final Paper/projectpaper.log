@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.3.12)  29 MAR 2019 16:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.3.12)  29 MAR 2019 17:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -268,9 +268,9 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 168.
 [5] [6]
-Overfull \hbox (0.2368pt too wide) in paragraph at lines 227--228
-[]\OT1/ptm/m/n/12 Traditional Ma-chine Learn-ing mod-els re-quire fixed length 
-nu-mer-i-cal vec-tors as in-puts. There-
+Overfull \hbox (0.741pt too wide) in paragraph at lines 227--228
+[]\OT1/ptm/m/n/12 Traditional \OT1/ptm/m/it/12 Ma-chine Learn-ing \OT1/ptm/m/n/
+12 mod-els re-quire fixed length nu-mer-i-cal vec-tors as in-puts. There-
  []
 
 LaTeX Font Info:    Try loading font information for OMS+ptm on input line 232.
@@ -317,11 +317,6 @@ Overfull \hbox (23.058pt too wide) in paragraph at lines 302--305
 [][]
  []
 
-
-Underfull \hbox (badness 1701) in paragraph at lines 314--315
-[]\OT1/ptm/m/n/12 Specificaly, Long-Short Term Mem-ory (LSTM)
- []
-
 [10 <./RNN.png>] <"multichannel".png, id=52, 563.10374pt x 225.84375pt>
 File: "multichannel".png Graphic file (type png)
 
@@ -332,100 +327,99 @@ Package pdftex.def Info: "multichannel".png used on input line 336.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[11]
-Overfull \hbox (1.89436pt too wide) in paragraph at lines 353--354
-[]\OT1/ptm/b/n/12 Batch Nor-mal-iza-tion --- \OT1/ptm/m/n/12 The layer where Ba
-tch Nor-mal-iza-tion is ap-plied is reparametrized
- []
-
-[12 <./multichannel.png>]
+[11] [12 <./multichannel.png>]
 <"1K-LSTM32 graph".png, id=60, 555.07375pt x 442.65375pt>
 File: "1K-LSTM32 graph".png Graphic file (type png)
 
 <use "1K-LSTM32 graph".png>
-Package pdftex.def Info: "1K-LSTM32 graph".png used on input line 402.
+Package pdftex.def Info: "1K-LSTM32 graph".png used on input line 400.
 (pdftex.def)             Requested size: 256.0748pt x 204.21082pt.
 
-Overfull \hbox (28.45276pt too wide) in paragraph at lines 402--403
+Overfull \hbox (28.45276pt too wide) in paragraph at lines 400--401
  [][] 
  []
 
-[13]
-Overfull \hbox (21.01086pt too wide) in paragraph at lines 426--441
+
+Underfull \hbox (badness 2111) in paragraph at lines 407--408
+[]\OT1/ptm/m/it/12 Deep Learn-ing \OT1/ptm/m/n/12 train-ing is much more
+ []
+
+[13 <./1K-LSTM32 graph.png>]
+Overfull \hbox (21.01086pt too wide) in paragraph at lines 427--442
  []|  [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 443--444
+Underfull \hbox (badness 10000) in paragraph at lines 444--445
 
  []
 
 
-Overfull \hbox (21.01085pt too wide) in paragraph at lines 454--469
+Overfull \hbox (21.01085pt too wide) in paragraph at lines 455--470
  []|  [] 
  []
 
-[14 <./1K-LSTM32 graph.png>]
-Overfull \hbox (21.01085pt too wide) in paragraph at lines 481--496
+[14]
+Overfull \hbox (21.01085pt too wide) in paragraph at lines 482--497
  []|  [] 
  []
 
 [15]
-Overfull \hbox (1.36215pt too wide) in paragraph at lines 521--521
+Overfull \hbox (1.36215pt too wide) in paragraph at lines 522--522
 []\OT1/ptm/b/n/12 Twitter[]big[]2class| 
  []
 
 
-Overfull \hbox (38.70131pt too wide) in paragraph at lines 511--524
+Overfull \hbox (38.70131pt too wide) in paragraph at lines 512--525
  []|  [] 
  []
 
 <"lstm_train".png, id=72, 699.61375pt x 553.06625pt>
 File: "lstm_train".png Graphic file (type png)
  <use "lstm_train".png>
-Package pdftex.def Info: "lstm_train".png used on input line 531.
+Package pdftex.def Info: "lstm_train".png used on input line 532.
 (pdftex.def)             Requested size: 207.50793pt x 164.03923pt.
 
 <"f1_train".png, id=73, 557.08125pt x 442.65375pt>
 File: "f1_train".png Graphic file (type png)
  <use "f1_train".png>
-Package pdftex.def Info: "f1_train".png used on input line 532.
+Package pdftex.def Info: "f1_train".png used on input line 533.
 (pdftex.def)             Requested size: 207.50793pt x 164.88026pt.
 
 [16 <./lstm_train.png> <./f1_train.png>]
-Overfull \hbox (38.08269pt too wide) in paragraph at lines 552--568
+Overfull \hbox (38.08269pt too wide) in paragraph at lines 553--569
  []|  [] 
  []
 
 <"2class_CM".png, id=79, 377.41pt x 368.37625pt>
 File: "2class_CM".png Graphic file (type png)
  <use "2class_CM".png>
-Package pdftex.def Info: "2class_CM".png used on input line 577.
+Package pdftex.def Info: "2class_CM".png used on input line 578.
 (pdftex.def)             Requested size: 115.28296pt x 112.5204pt.
 
 <"3class_CM".png, id=80, 248.93pt x 177.66376pt>
 File: "3class_CM".png Graphic file (type png)
  <use "3class_CM".png>
-Package pdftex.def Info: "3class_CM".png used on input line 579.
+Package pdftex.def Info: "3class_CM".png used on input line 580.
 (pdftex.def)             Requested size: 161.39897pt x 115.19542pt.
  [17 <./2class_CM.png> <./3class_CM.png>] <"MLvsDL".png, id=86, 515.526pt x 424
 .4658pt>
 File: "MLvsDL".png Graphic file (type png)
 
 <use "MLvsDL".png>
-Package pdftex.def Info: "MLvsDL".png used on input line 619.
+Package pdftex.def Info: "MLvsDL".png used on input line 621.
 (pdftex.def)             Requested size: 207.50793pt x 170.85197pt.
 
-Overfull \hbox (36.79141pt too wide) in paragraph at lines 619--620
+Overfull \hbox (36.79141pt too wide) in paragraph at lines 621--622
  [][] 
  []
 
 
-Underfull \hbox (badness 3229) in paragraph at lines 620--620
+Underfull \hbox (badness 3229) in paragraph at lines 622--622
 []\OT1/ptm/m/n/12 Figure 7: \OT1/ptm/b/n/12 The im-por-tance of
  []
 
-[18 <./MLvsDL.png>] [19] (./projectpaper.bbl
+[18] [19 <./MLvsDL.png>] (./projectpaper.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 26--30
 []| | \OT1/ptm/m/n/12 Dixon, E. (2018), Au-toma-tion and ha-rass-ment de-tec-ti
 on.
@@ -439,13 +433,13 @@ Underfull \hbox (badness 5217) in paragraph at lines 36--40
 
 ) [20] (./projectpaper.aux) ) 
 Here is how much of TeX's memory you used:
- 2307 strings out of 492995
- 32765 string characters out of 6132704
+ 2309 strings out of 492995
+ 32790 string characters out of 6132704
  200271 words of memory out of 5000000
- 5806 multiletter control sequences out of 15000+600000
- 24080 words of font info for 45 fonts, out of 8000000 for 9000
+ 5807 multiletter control sequences out of 15000+600000
+ 25764 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,10n,25p,953b,239s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,10n,25p,980b,235s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvip
 s/base/8r.enc}</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmmi12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm
@@ -456,7 +450,7 @@ mr12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
 /local/texlive/2017/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/te
 xlive/2017/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2017
 /texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on projectpaper.pdf (20 pages, 1010788 bytes).
+Output written on projectpaper.pdf (20 pages, 1014541 bytes).
 PDF statistics:
  129 PDF objects out of 1000 (max. 8388607)
  75 compressed objects within 1 object stream

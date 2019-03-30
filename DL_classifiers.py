@@ -714,7 +714,7 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
     print_3class_results(history, labels_pred, y_test)
 
 
-def main_2_class_model(filename="cleaned_twitter_1K.csv"):
+def main_2_class_model(filename="cleaned_dixon.csv"):
     print("\nSIMPLE GLOVE MODEL")
 
     # get the data
@@ -735,7 +735,7 @@ def main_2_class_model(filename="cleaned_twitter_1K.csv"):
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
     # Split into training and test data
-    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.10)
+    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.20)
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
@@ -757,11 +757,12 @@ def main_2_class_model(filename="cleaned_twitter_1K.csv"):
     #               input_length=max_len, trainable=False)
     e = Embedding(input_dim=vocab_size, output_dim=300,
                   embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
-    e.trainable = False
+    e.trainable = True  # TODO: change to False after this run
     model.add(e)
 
     # model = cnn_network(model)
-    model.add(LSTM(units=200, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
+    # model.add(Bidirectional(LSTM(units=400, dropout=0.5, recurrent_dropout=0.5)))
     model.add(Dense(units=1, activation='sigmoid'))
 
     class_weight = {0: 1.0,
@@ -770,7 +771,7 @@ def main_2_class_model(filename="cleaned_twitter_1K.csv"):
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
     print(model.summary())
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=300, batch_size=128, callbacks=[metrics], class_weight=class_weight)
+                        nb_epoch=30, batch_size=256, callbacks=[metrics], class_weight=class_weight)
     # ------------------ END MODEL ------------------
 
     # evaluate
@@ -790,7 +791,7 @@ if __name__ == "__main__":
 
     save_path = "tweets-test"
     loss = "not F1"
-    file = "cleaned_tweets_16k.csv"
+    file = "cleaned_dixon.csv"
     # learn_embeddings_model_2class(file)
     # learn_embeddings_model_3class(file)
     # learn_embeddings_2class_f1_loss(file)

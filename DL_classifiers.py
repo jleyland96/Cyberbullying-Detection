@@ -543,12 +543,12 @@ def dense_network(model):
 
 
 def cnn_lstm_network(model):
-    model.add(Conv1D(filters=64, kernel_size=4, strides=2, padding='valid', use_bias=False))
+    model.add(Conv1D(filters=32, kernel_size=4, strides=2, padding='valid', use_bias=False))
     model.add(BatchNormalization())
     model.add(ReLU())
     model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(LSTM(units=300, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=64, dropout=0.5, recurrent_dropout=0.5))
     return model
 
 
@@ -757,11 +757,12 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
     #               input_length=max_len, trainable=False)
     e = Embedding(input_dim=vocab_size, output_dim=300,
                   embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
-    e.trainable = True  # TODO: change to False after this run
+    e.trainable = False  # TODO: change to False after this run
     model.add(e)
 
     # model = cnn_network(model)
-    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
+    # model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
+    model = cnn_lstm_network(model)
     # model.add(Bidirectional(LSTM(units=400, dropout=0.5, recurrent_dropout=0.5)))
     model.add(Dense(units=1, activation='sigmoid'))
 
@@ -771,7 +772,7 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
     print(model.summary())
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=30, batch_size=256, callbacks=[metrics], class_weight=class_weight)
+                        nb_epoch=150, batch_size=128, callbacks=[metrics], class_weight=class_weight)
     # ------------------ END MODEL ------------------
 
     # evaluate
@@ -791,7 +792,7 @@ if __name__ == "__main__":
 
     save_path = "tweets-test"
     loss = "not F1"
-    file = "cleaned_dixon.csv"
+    file = "cleaned_tweets_16k.csv"
     # learn_embeddings_model_2class(file)
     # learn_embeddings_model_3class(file)
     # learn_embeddings_2class_f1_loss(file)

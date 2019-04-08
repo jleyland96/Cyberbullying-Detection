@@ -580,5 +580,5 @@ def glove_3class():
 save_path = "Testing"
 file = 'cleaned_dixon.csv'
 loss_fn = "not F1"
-glove_2class(filename=file)
-# onehot_2class(filename=file)
+# glove_2class(filename=file)
+onehot_2class(filename=file)

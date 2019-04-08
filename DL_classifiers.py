@@ -543,12 +543,12 @@ def dense_network(model):
 
 
 def cnn_lstm_network(model):
-    model.add(Conv1D(filters=32, kernel_size=4, strides=2, padding='valid', use_bias=False))
+    model.add(Conv1D(filters=64, kernel_size=4, strides=2, padding='valid', use_bias=False))
     model.add(BatchNormalization())
     model.add(ReLU())
     model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(LSTM(units=64, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=300, dropout=0.5, recurrent_dropout=0.5))
     return model
 
 
@@ -602,8 +602,8 @@ def main_2_class_f1_loss(filename="cleaned_tweets_16k.csv"):
     # load a pre-saved model
     # model = load_model(save_path)
 
-    # embedding_matrix = get_glove_matrix(vocab_size, t)
-    embedding_matrix = get_glove_matrix_from_dump()
+    embedding_matrix = get_glove_matrix(vocab_size, t)
+    # embedding_matrix = get_glove_matrix_from_dump()
 
     # GloVe hit rate
     print(np.count_nonzero(np.count_nonzero(embedding_matrix, axis=1)) / vocab_size)
@@ -618,7 +618,11 @@ def main_2_class_f1_loss(filename="cleaned_tweets_16k.csv"):
     e.trainable = False
     model.add(e)
 
-    model.add(LSTM(units=150, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
+    # model.add(BatchNormalization())
+    # model.add(Bidirectional(LSTM(units=400, dropout=0.5, recurrent_dropout=0.5)))
+
+    # model = cnn_lstm_network(model)
 
     model.add(Dense(units=1, activation='sigmoid'))
 
@@ -627,7 +631,7 @@ def main_2_class_f1_loss(filename="cleaned_tweets_16k.csv"):
     print("F1 LOSS")
     model.compile(optimizer='adam', loss=f1_loss, metrics=['acc', f1])
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=30, callbacks=[metrics], batch_size=32)
+                        nb_epoch=30, callbacks=[metrics], batch_size=256)
 
     # evaluate
     # loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
@@ -639,7 +643,7 @@ def main_2_class_f1_loss(filename="cleaned_tweets_16k.csv"):
     print_results(history, y_pred, labels_test)
     print("BEST:")
     print(best_confusion_matrix)
-    draw_graph(history)
+    # draw_graph(history)
 
 
 def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
@@ -791,11 +795,11 @@ if __name__ == "__main__":
     print("2 class learn embeddings")
 
     save_path = "tweets-test"
-    loss = "not F1"
-    file = "cleaned_tweets_16k.csv"
+    loss = "F1"
+    file = "cleaned_dixon.csv"
     # learn_embeddings_model_2class(file)
     # learn_embeddings_model_3class(file)
     # learn_embeddings_2class_f1_loss(file)
-    main_2_class_model(file)
+    # main_2_class_model(file)
     # main_3_class_model(file)
-    # main_2_class_f1_loss(file)
+    main_2_class_f1_loss(file)

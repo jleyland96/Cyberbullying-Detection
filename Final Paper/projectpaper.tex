@@ -39,16 +39,16 @@
 	Cyberbullying has affected an estimated 14.9\% of high-school students in the last 12 months alone and is now as common as face-to-face bullying. This illustrates the potential and the need for a method of automatic cyberbullying detection using \textit{Machine Learning} and \textit{Deep Learning}.
 	
 	{\bf Aims -- }
-	The aim of this project is to improve on the current state of the art for cyberbullying detection and evaluating if \textit{Deep Learning} reliably out-performs traditional \textit{Machine Learning} methods in this task. Additionally, the ability of a model to distinguish between different types of cyberbullying (e.g. racism, sexism) will be critically assessed, along with the importance of a good quality dataset.
+	The aim of this project is to improve on the current state of the art for cyberbullying detection and evaluating if \textit{Deep Learning} reliably out-performs traditional \textit{Machine Learning} methods in this task. Additionally, the ability of a model to distinguish between different types of cyberbullying (e.g. racism, sexism) is critically assessed, along with the importance of a good quality dataset.
 	
 	{\bf Method -- }
-	A number of open-source datasets will be collected, and the state of the art for each dataset identified if used in past research. A number of \textit{Machine Learning} models will be implemented (\textit{SVM, Naive Bayes, Gradient Boosted Classifier} etc.) to form a baseline of performance which provides motivation to improve these results with \textit{Deep Learning} methods (\textit{RNNs, CNNs,} etc). The improvement in performance (if any) will be assessed. Furthermore, cutting-edge methods such as \textit{ELMo} word representations and new ideas such as custom loss functions will be evaluated along the way.
+	Datasets were collected where used in related research \textit{and} made publically available by the author; the accompanying results forming a benchmark in performance for this project. Other datasets were found online in public Git repositories. A number of \textit{Machine Learning} models are implemented (SVM, Naive Bayes, Gradient Boosted Classifier etc.), then improved upon with \textit{Deep Learning} methods (RNNs, CNNs, etc). The improvement in performance (if any) is assessed. Furthermore, cutting-edge methods such as \textit{ELMo} word representations and new ideas such as custom loss functions are evaluated.
 	
 	{\bf Results -- }
-	High performance is achieved - above 0.76 F1 score on all four datasets used in this project, including 0.833 on one Twitter dataset. For the binary problem (detecting if cyberbullying is present or not), \textit{Deep Learning} methods out-performed traditional \textit{Machine Learning} methods by approximately 3\%, however no improvement was seen on the 3-class problem (racism, sexism or neither). The extra time and resources required to implement such complex \textit{Deep Learning} models (such as using \textit{ELMo} word representations) must be considered for such marginal performance improvements on this task.
+	High performance is achieved; 0.76 F1 score on all four datasets used in this project, including 0.8372 on one Twitter dataset. For the 2-class problem (detecting if cyberbullying is present or not), \textit{Deep Learning} methods out-performed traditional \textit{Machine Learning} methods by approximately 3\%, however no improvement was seen on the 3-class problem (racism, sexism or neither). The running times and computational overhead associated with such complex \textit{Deep Learning} models (such as using \textit{ELMo} word representations) must be considered for such marginal performance improvements on this task.
 	
 	{\bf Conclusions -- }
-	The solution detects cyberbullying with rather high performance which renders the project a success, yet there is definitely room for improvement. A good underlying dataset is vital for success in this task, and the publicly available datasets are too small, most likely due to the offensive nature of the data which provides a deterrent for anyone wanting to gather such data. One might want to gather as much open-source data as possible, and combine these small datasets into one large corpus.
+	The solution detects cyberbullying with rather high performance which renders the project a success, and it is concluded that \textit{Deep Learning} methods distinguish between \textit{types} of cyberbullying better than they can detect the presence of cyberbullying or not. However, a good underlying dataset is vital for success in this task, and the publicly available datasets are too small, likely due to the offensive nature of the messages which provides a deterrent for anyone wanting to gather such data. One might want to gather as much open-source data as possible, and combine these small datasets into one large corpus.
 \end{abstract}
 
 \begin{keywords}
@@ -57,7 +57,7 @@
 
 
 
-\section{Introduction - 2/3 pages}
+\section{Introduction}
 % This section briefly introduces the general project background, the research question you are addressing, and the project objectives.  It should be between 2 to 3 pages in length.  Do not change the font sizes or line spacing in order to put in more text.
 %\begin{itemize}
 %	\item *What is the project about (Bullying, Cyberbullying).
@@ -75,7 +75,7 @@ Worryingly, 12\% of 12-15-year-olds have said that they have been bullied on soc
 
 Due to its nature, cyberbullying is much harder to see and detect than physical bullying. As a result, we are reliant on manual reporting features provided by social media sites - with 75\% of 12-15-year-olds saying they are aware of these features \cite[p.5]{Ofcom} and only 12.5\% having used them. This highlights the scope for automatic cyberbullying detection in messages and the potential for \textit{Machine Learning} and \textit{Deep Learning} to achieve this.
 
-This task is inherently difficult even for a human to accomplish; whether we classify something as cyberbullying or not is relatively subjective. The same meaning/semantics can be represented in different ways, and in reality, context is important; looking at messages in isolation often doesn't provide enough information to make well-informed classifications. Furthermore, there are many different types of cyberbullying, such as racism, sexism, aggression etc. Natural language also provides more challenges than numerical data, since we must find meaningful representations of this information that \textit{Machine} and \textit{Deep Learning} models are able to exploit.
+This task is inherently difficult even for a human to accomplish; whether we classify something as cyberbullying or not is relatively subjective. The same meaning/semantics can be represented in different ways, and in reality, context is important; looking at messages in isolation often doesn't provide enough information to make well-informed classifications. Furthermore, there are many different types of cyberbullying, such as racism, sexism, aggression etc. Natural language also provides more challenges than numerical data, since meaningful representations of this information must be found that \textit{Machine} and \textit{Deep Learning} models are able to exploit.
 
 
 
@@ -85,18 +85,18 @@ The research questions for my project are as follows: \newline
 \textit{'What makes a good dataset for this task? How can datasets be pre-processed to ensure the models perform well? Which Deep Learning architectures give the best results for the classification of messages as cyberbullying? Is Deep Learning more appropriate than traditional Machine Learning for this task?'} \newline
 % \end{center}
 
-The minimum objective of this project is to be able to implement a traditional \textit{Machine Learning} model on one dataset that performs better than the trivial classifier. The trivial classifier is one which either predicts randomly (would achieve 50\% accuracy in a binary classification task) or makes the same prediction each time (for example, this could achieve 80\% accuracy in a task where 80\% of instances belong to one class). Surpassing this benchmark indicates that a model has learnt something about the underlying data which is being modelled. A prerequisite of this is the exploration of datasets; I will research into existing work around this topic, identify the current state of the art performance and investigate the datasets used if made publicly available, weighing up their suitability for this project. Furthermore, a method of evaluation will be established  including F1 score, enabling comparison to previous work.
+The minimum objective of this project is to to implement a traditional \textit{Machine Learning} model on one dataset that performs better than the trivial classifier. The trivial classifier is one which either predicts randomly (would achieve 50\% accuracy in a binary classification task) or makes the same prediction each time (for example, this could achieve 80\% accuracy in a task where 80\% of instances belong to one class). Surpassing this benchmark indicates that a model has learnt something about the underlying data which is being modelled. A prerequisite of this is the exploration of datasets; I researched into existing work around this topic, identifying the current state of the art performance and investigate the datasets used if made publicly available, weighing up their suitability for this project. Furthermore, a method of evaluation is established  including F1 score, enabling comparison to previous work.
 
-The intermediate objectives are to experiment with \textit{Deep Learning} architectures and surpass the performance of the traditional \textit{Machine Learning} methods. These models will be thoroughly evaluated, using F1 score. Also, training curves will be generated, providing insight into whether a given model is overfitting, underfitting, etc. These, combined, will allow for a conclusion as to whether \textit{Deep Learning} performance reliably exceeds that of \textit{Machine Learning}. The ability to save and re-load models for later use will be implemented, allowing us to recreate results and further train models which may be underfitting.
+The intermediate objectives are to experiment with \textit{Deep Learning} architectures and surpass the performance of the traditional \textit{Machine Learning} methods. These models are thoroughly evaluated, using F1 score. Also, training curves are generated, providing insight into whether a given model is overfitting, underfitting, etc. These, combined, allow for a conclusion as to whether \textit{Deep Learning} performance reliably exceeds that of \textit{Machine Learning}. The ability to save and re-load models for later use is implemented, allowing recreation of results and further training of models which may be underfitting.
 
-Finally, the advanced objectives for the project will be to extend this experimentation into numerous datasets. Results will be compared, providing an insight into the influence of the underlying data in \textit{Machine Learning} and \textit{Deep Learning} tasks. A wide range of architectures will be implemented and experimented, including state of the art technologies where existing research is limited such as \textit{ELMo} deep contextualised word representations. Putting all of this together will hopefully, ultimately, result in results which equal or beat the state of the art performance for this task.
+Finally, the advanced objectives for the project are firstly to extend this experimentation into numerous datasets. Results are compared, providing an insight into the influence of the underlying data in \textit{Machine Learning} and \textit{Deep Learning} tasks. A wide range of architectures are implemented and experimented, including state of the art technologies where existing research is limited such as \textit{ELMo} deep contextualised word representations. Putting all of this together hopefully, results in results which equal or beat the state of the art performance for this task.
 
-Conversely, there are a number of non-functional requirements associated with this task. For example, once completed, the code will be made public on \textit{github.com} to aid further research into this field. The code must also be modular, scalable and maintainable, to increase efficiency for those who may adapt this code in the future. A comprehensive README will be provided to aid navigation of the wealth of files associated with the project.
-
-
+Conversely, there are a number of non-functional requirements associated with this task. For example, once completed, the code will be made public on \textit{github.com} to aid further research into this field. The code must also be modular, scalable and maintainable, to increase efficiency for those who may adapt this code in the future. A comprehensive README is provided to aid navigation of the wealth of files associated with the project.
 
 
-\section{Related Work - 2-4 pages}
+
+
+\section{Related Work}
 % This section presents a survey of existing work on the problems that this project addresses.  it should be between 2 to 4 pages in length. 
 %\begin{itemize}
 %   \item * Definition + Example of cyberbullying, racism, sexism, and neither.
@@ -127,9 +127,9 @@ Existing work into this field, datasets, and this project refer to the terms 'cy
 \subsection{Machine Learning}
 There have been attempts in the past to use \textit{Machine} and \textit{Deep Learning} for detecting cyberbullying and hateful speech. For example, Reynolds and Kontostathis \citeyear[p.4]{Reynolds} attempted to solve a binary classification task, either cyberbullying or not cyberbullying. This endeavour achieved 67\% recall still meant that approximately 1/3 of bullying examples went undetected. Three things inspired me from Reynold and Kontostathis' \citeyear{Reynolds} work:
 
-Firstly, they stress the importance of pre-processing the data. We cannot simply input text into \textit{Machine Learning} models. Fixed length feature vectors must be generated for each instance and there are many ways to do this. Reynolds and Kontostathis opted for counting swear words in text, the density of swear words, and the number of swear words at numerous severity levels.  Secondly, repeating positive cyberbullying examples in the training dataset (if the dataset is imbalanced) gives the model more motivation to learn to detect positive examples, increasing performance. Finally, I will evaluate my model based on precision/recall/F1 score instead of overall accuracy, as it's most important that I detect the positive examples, and this is especially prevalent in imbalanced datasets.
+Firstly, the importance of pre-processing the data is stressed. One cannot simply input text into \textit{Machine Learning} models. Fixed length feature vectors must be generated for each instance and there are many ways to do so. Reynolds and Kontostathis opted for counting swear words in text, the density of swear words, and the number of swear words at numerous severity levels.  Secondly, repeating positive cyberbullying examples in the training dataset (if the dataset is imbalanced) gives the model more motivation to learn to detect positive examples, increasing performance. Finally, models are evaluated based on precision/recall/F1 score instead of overall accuracy, as it's most important that I detect the positive examples, and this is especially prevalent in imbalanced datasets.
 
-Furthermore, \cite{Dixon} has provided code accompanying chapters from Online Harassment by Golbeck \citeyear{Golbeck}. Logistic Regression and Gradient Boosted Classifiers are applied to reddit comments, achieving up to 0.61 F1 score. This dataset is the largest publicly available cyberbullying dataset with approximately 70,000 instances. 
+Furthermore, Dixon \citeyear{Dixon} provided code accompanying chapters from Online Harassment by Golbeck \citeyear{Golbeck}. Logistic Regression and Gradient Boosted Classifiers are applied to reddit comments, achieving up to 0.61 F1 score. This dataset is the largest publicly available cyberbullying dataset with approximately 70,000 instances. 
 
 Additionally, Bastidas et al. \citeyear[p.2/3]{Hack} used a slightly different method. They tokenised the text (broke it into words), hashed resulting unigrams, bigrams and trigrams, and computed TF-IDF for each hashed value. This provides another potential method for pre-processing data to extract features in my work. Here, using these features along with Gradient-Boosted Decision Trees, 0.8 precision, 0.71 recall and 0.75 F1 score was achieved. 
 
@@ -138,13 +138,13 @@ Another notable paper with regards to this topic was from \cite{Birds}. Here, a 
 \subsection{Deep Learning}
 Bastidas et al. \citeyear[p.3]{Hack} also used some \textit{Deep Learning} methods, however these actually gave worse results than their traditional \textit{Machine Learning} methods. This shows that I need to represent my data appropriately to get the most out of these \textit{Deep Learning} methods.
 
-For example, Badjatiya et al. \cite{Badjatiya} tried many architectures. It is possible to use \textit{Convolutional Neural Networks} (CNNs) and \textit{Recurrent Neural Networks} (RNNs) on a number of input features (Bag of Word Vectors (BoWV), Pre-trained word embeddings and character n-grams). I will consider many of these approaches in my project, evaluating and comparing as many different architectures as possible in an endeavour to find the best combination.
+For example, Badjatiya et al. \cite{Badjatiya} tried many architectures. It is possible to use \textit{Convolutional Neural Networks} (CNNs) and \textit{Recurrent Neural Networks} (RNNs) on a number of input features (Bag of Word Vectors (BoWV), Pre-trained word embeddings and character n-grams). Many of these approaches in my project are considered in this project, evaluating and comparing as many different architectures as possible in an endeavour to find the best combination.
 
 Badjatiya et al. \cite{Badjatiya} attempted to solve a 3-class problem; individual tweets were classified as sexist, racist or neither sexist or racist. Here, 0.93 weighted macro Recall, Precision and F1 score were achieved, by randomly initialising the input word embeddings, applying a \textit{LSTM} and running the output through a Gradient Boosted Decision Tree classifier. 
 
 In conclusion, many have tried to apply traditional \textit{Machine Learning} methods within the context of cyberbullying to varying levels of success, and \textit{Deep Learning} applications in this field are relatively limited - with the exception of \cite{Badjatiya}, achieving impressive results in the aforementioned 3-class problem. 
 
-Therefore 0.93 weighted macro F1 score provides the \textbf{state of the art} figure that will be used to evaluate the overall quality of my achievements on the 3-class problem at the close of the project. For the 2-class problem, I will refer to 0.75 as the \textbf{state of the art} \cite{Hack}. However, I must consider that the exact results achieved in this project are likely to vary depending on the dataset being used.
+Therefore 0.93 weighted macro F1 score provides the \textbf{state of the art} figure used to evaluate the overall quality of achievements on the 3-class problem at the close of the project. For the 2-class problem, 0.75 is the highest performance achieved, and so is reffered to as the \textbf{state of the art} \cite{Hack}. However, it is considered that the exact results achieved are likely to vary depending on the dataset being used.
 
 
 \subsection{Datasets}
@@ -165,16 +165,16 @@ Some of the aforementioned papers used publicly available datasets. If so, these
 	\end{tabular}
 \end{table}
 
-The \textbf{Reddit} dataset came from Online Harassment \cite{Golbeck}, with the accompanying F1 score coming from Dixon's work \citeyear{Dixon} on this dataset\footnote{https://github.com/EdwardDixon/Automation-and-Harassment-Detection}. This is a vast dataset containing approximately 70,000 instances of average length 593 words, containing a huge amount of 'dirt' in the form of misspellings and excessive punctuation. The comments are not hand-tagged by humans, instead they are automatically assigned an attack value based on the frequency of certain swear words in the messages. This limits the quality of the dataset, but it will be interesting to see if our models can exploit this and perform particularly well.
+The \textbf{Reddit} dataset came from Online Harassment \cite{Golbeck}, with the accompanying F1 score coming from Dixon's work \citeyear{Dixon} on this dataset\footnote{https://github.com/EdwardDixon/Automation-and-Harassment-Detection}. This is a vast dataset containing approximately 70,000 instances of average length 593 words, containing a huge amount of 'dirt' in the form of misspellings and excessive punctuation. The comments are not hand-tagged by humans, instead they are automatically assigned an attack value based on the frequency of certain swear words in the messages. This limits the quality of the dataset, but it is interesting to see if models can exploit this and perform particularly well.
 
 The \textbf{Twitter\_small} dataset came from a public online Git repository\footnote{https://github.com/chantelmariediaz/Predicting-Cyberbulling-on-Twitter}, where tweets are obtained using a keyword search covering sexuality, appearance, culture, etc. There are no published results accompanying this data. However, the data has already been cleaned, containing no hashtags, retweets tags or mentions. A limitation to this dataset is that there are a small number of examples (only 1066) and they are short (15.6 words on average), meaning that models might overfit to this data and show poor performance when generalising to any unseen data.
 
 \textbf{Twitter\_big\_3class} is the public dataset\footnote{https://github.com/zeerakw/hatespeech} originally created by Waseem et al. \citeyear{Waseem} and used by Badjatiya et al.\citeyear{Badjatiya} to achieve 0.930 weighted macro F1. F1 is only defined on 2 classes, thus, the 3-class variant weighted macro F1 is used to evaluate the performance on this dataset. 17K tweets were collected containing words and hashtags often present in racist/sexist tweets, so those tweets which fall under neither category contain such words but are non-discriminatory in their use.
 
-Furthermore, I will experiment with combining the racism and sexism classes in this dataset and approaching this as a binary task. I will hereby refer to this as the \textbf{Twitter\_big\_2class} dataset, where 32\% of instances are positive. There are a reasonable number of examples but the short average length (28.1 words) could limit the amount of information we can extract from each tweet and thus make this a more difficult dataset to work with. Furthermore, since this is a raw Twitter dataset, there are a wealth of retweet tags, mentions, hashtags which add noise to the dataset; their removal must be considered.
+Furthermore, it is possible to combine the racism and sexism classes in this dataset and approach this as a binary task. I will hereby refer to this dataset in this paper as the \textbf{Twitter\_big\_2class} dataset, where 32\% of instances are positive. There are a reasonable number of examples but the short average length (28.1 words) could limit the amount of information that can be extracted from each tweet and thus make this a more difficult dataset to work with. Furthermore, since this is a raw Twitter dataset, there are a wealth of retweet tags, mentions, hashtags which add noise to the dataset; their removal must be considered.
 
 
-\section{Solution - 4/7 pages}
+\section{Solution}
 % This section presents the solutions to the problems in detail.  The design and implementation details should all be placed in this section.  You may create a number of subsections, each focussing on one issue.  
 %This section should be between 4 to 7 pages in length.
 %\begin{itemize}
@@ -201,7 +201,7 @@ For example, Python library \textbf{Sci-kit Learn} (Sklearn) provides a number o
 Additionally, Python libraries such as \textbf{NumPy} (for mathematical operations) and \textbf{CSV} (for reading in the datasets) are used.
 
 \subsection{Pre-processing the data}
-Each dataset contains a considerable amount of dirt. All contain excessive punctuation and inconsistent capitalisation which adds noise and would make it harder for the models to make informed decisions on unseen data. For example, we would want a training example containing \textit{'Can't'} to inform decisions on a testing example containing \textit{'cant'}. As a result, all punctuation is removed and all text is coverted to lower case in each dataset. 
+Each dataset contains a considerable amount of dirt. All contain excessive punctuation and inconsistent capitalisation which adds noise and would make it harder for the models to make informed decisions on unseen data. For example, ideally, a training example containing \textit{'Can't'} would inform decisions on a testing example containing \textit{'cant'}. As a result, all punctuation is removed and all text is coverted to lower case in each dataset. 
 
 The \textbf{Twitter 1K} dataset has been cleaned already, however the \textbf{Twitter 16K} dataset contains raw tweets with a number of hashtags, RT tags, mentions and URLs. RT tags, mentions and URLs are removed as I believe that these have no bearing on if a given instance is cyberbullying, but hashtags are left in since these are meaningful pieces of text which could be cyberbullying, e.g. \textit{\#deathtokat}.
 
@@ -226,14 +226,14 @@ Finally, in imbalanced datasets such as the \textbf{Twitter\_small} dataset wher
 \subsection{Feature Extraction}
 Traditional \textit{Machine Learning} models require fixed length numerical vectors as inputs. Therefore, the input to the functions provided by Sci-kit Learn cannot simply be the text (of varying length). This textual data must be represented numerically in some way and then used as the input features.
 
-This project consists of experimentation with 6 methods of feature extraction.
+\textit{Deep Learning} in this project contains experimentation with One-hot, GloVe and ELMo word representations, whereas traditional \textit{Machine Learning} makes use of the following 6 methods of feature extraction.
 
 \begin{itemize}
 	\item \textbf{GloVe --- } Global vectors for word representation \cite{glove}. These are pre-trained vectors that represent many words in the English language. They are pre-trained on a huge dataset and the motivation for using them is that similar words ('cat' and 'dog') have similar vectors, different words ('cheese' and 'running') have different vectors. 
 	
 	Concatenating all vectors for each word in a message could be effective. The motivation is that the resulting vectors of cyberbullying instances may be similar as they could contain similar words. 
 	
-	\textit{GloVe} vectors have 300 elements for each word, therefore the feature vectors are of length $300 \times$ the number of words that the input sentences are padded to. If the feature space is too large (observed by particularly poor F1 score), the vectors corresponding to all words in a given instance could be averaged, fixing the feature vectors to length 300. 
+	\textit{GloVe} vectors have 300 elements for each word, therefore the feature vectors are of length $300 \times$ the number of words that the input sentences are padded to. If the feature space is too large (observed by particularly poor F1 score), the vectors corresponding to all words in a given instance could be \textbf{averaged}, fixing the feature vectors to length 300. 
 	
 	\item \textbf{TF (Term Frequency) --- } Each message is represented as a vector. Each vector element represents a word that appears in any document (the dataset). The value is the number of occurrences of this word in this document (text message) divided by length of message. The motivation behind this (and the following 2 methods) is that there may be sets of words that occur more often in cyberbullying examples.
 	
@@ -246,16 +246,16 @@ This project consists of experimentation with 6 methods of feature extraction.
 	\item \textbf{Character trigrams --- } Each element of vector represents a character trigram ('aaa', 'aab', 'aac',...,'zzz'), and the value is the number of times this trigram appears in this message.
 \end{itemize}
 
-\subsection{Word Embeddings}
+\subsubsection{Word Embeddings}
 Another simple way of representing a sentence as a vector is using \textbf{one-hot encoding}. Each word, $w$ is represented as a vector of size $n$, where n is the vocab size of the entire dataset. Every element of the vector is 0, except for the one element that corresponds to the word $w$, which is set to 1 - hence, \textit{one}-hot. This, however, is an extremely sparse representation - a huge vector of mostly 0s is required for just one word's worth of information.
 
-An improvement for when using \textit{Deep Learning}, is where input (messages) aer represented with Word Embeddings. This is where words are represented as points in an n-dimensional vector space, in a way such that words often used in similar contexts (e.g. 'cat' and 'dog') are close to each other in this space and vice versa \cite[p.464]{DL}. This, for example, allows messages containing the word 'cat' to help inform predictions on messages containing 'dog'.
+An improvement for when using \textit{Deep Learning}, is where input (messages) are represented with Word Embeddings. This is where words are represented as points in an n-dimensional vector space, in a way such that words often used in similar contexts (e.g. 'cat' and 'dog') are close to each other in this space and vice versa \cite[p.464]{DL}. This, for example, allows messages containing the word 'cat' to help inform predictions on messages containing 'dog'.
 
 \textbf{GloVe} \cite{glove} - as already mentioned - is an example of a general-purpose pre-trained word-embedding. This embedding is applied to the input data and then fixed, training and tuning only the succeeding model that uses these inputs. Alternatively, \textbf{not} fixing \textit{GloVe} vectors would allow them to be trained along with the model, tuning them to fit the given training dataset more than they already do.
 
-Alternatively, word embeddings can be \textbf{randomly initiated} and then trained with the rest of the model to fit the training dataset from scratch. The model will take longer to train; however, the resulting embedding will be more specific to the given dataset and the cyberbullying context and thus \textit{could} lead to better performance. 
+Alternatively, word embeddings can be \textbf{randomly initiated} and then trained with the rest of a model to fit the training dataset from scratch. The model takes longer to train; however, the resulting embedding is likely to be more specific to the given dataset and the cyberbullying context and thus \textit{could} lead to better performance. 
 
-\subsection{ELMo}
+\subsubsection{ELMo}
 \textit{GloVe} is a widely-used method of word representation, but the latest cutting-edge advancements in this field have led to Contextualised WordVectors (CoVe), specifically, \textbf{Embeddings for Language Models (\textit{ELMo})} \cite{Peters}. This word representation models syntax and semantics, as well as polysemy (how word use varies across linguistic contexts). Peters et al. pre-trained a deep bidirectional \textit{LSTM} with a coupled language model objective on a large text corpus, and for any given word, its \textit{ELMo} representation is a function of the entire input sentence in all of the internal layers of the \textit{LSTM}. They have been used to improve the state of the art in six challenging NLP problems including question answering and sentiment analysis - so they are likely to show high performance in this project.
 
 \subsection{Other Data Considerations}
@@ -334,11 +334,11 @@ Three different representations of the text data are being used for \textit{Deep
 		\centering
 		\label{multichannel}
 		\includegraphics[width=15cm]{"multichannel".png}
-		\caption{Multi-channel CNN. NOTE: I apply sigmoid for the 2-class problem, not softmax as in this diagram.}
+		\caption{Multi-channel CNN. NOTE: I apply sigmoid for the 2-class problem, softmax for 3-class.}
 	\end{figure}
 
 	\subsubsection{Loss functions}
-	\textit{Binary Cross-Entropy} is used as the loss function of the models in this project, and the objective in training a model is to minimise this. However, it also seems logical to maximise the metric that we are using to evaluate our models (F1 score) directly. Therefore, using ($1-F1$) as the loss function and minimising this, is synonymous with maximising the F1 score of our model. 
+	\textit{Binary Cross-Entropy} is used as the loss function of the models in this project, and the objective in training a model is to minimise this. However, it also seems logical to maximise the metric being used to evaluate our models (F1 score) directly. Therefore, using ($1-F1$) as the loss function and minimising this, is synonymous with maximising the F1 score of our model. 
 	
 	This loss function isn't supported by Keras by default, but a custom metric can be designed. F1 must be written using built-in Keras backend functions - this allows the loss function to be differentiable, which is required for backpropagation, thus the network parameters can be shifted accordingly.
 	
@@ -349,9 +349,9 @@ Three different representations of the text data are being used for \textit{Deep
 	
 	During experimentation in this project, the following methods of regularization are used:
 	\begin{itemize}
-		\item \textbf{\textit{Dropout} --- }On each training batch, each cell of the network is removed (activation is set to zero) with a given probability. The loss is therefore backpropagated through a different sub-network for each batch, meaning that over many batches a bagged ensemble of many neural networks is trained. This provides a computationally cheap way of regularising our model \cite[p.273]{DL}. In our RNNs, \textit{Dropout} is applied on the inputs to each cell, however we can apply \textbf{\textit{Recurrent Dropout}} which is where the connections between the recurrent cells are removed at random for each batch, again with a given probability.
+		\item \textbf{\textit{Dropout} --- }On each training batch, each cell of the network is removed (activation is set to zero) with a given probability. The loss is therefore backpropagated through a different sub-network for each batch, meaning that over many batches a bagged ensemble of many neural networks is trained. This provides a computationally cheap way of regularising our model \cite[p.273]{DL}. In our RNNs, \textit{Dropout} is applied on the inputs to each cell, however \textbf{\textit{Recurrent Dropout}} can be applied which is where the connections between the recurrent cells are removed at random for each batch, again with a given probability.
 		\item \textbf{\textit{Batch Normalization} --- }The layer where \textit{Batch Normalization} is applied is reparametrized which normalizes the activations of each cell across a batch. The primary effect of this is to improve optimization but it can also have a regularizing effect on models in practice \cite[p.1]{Sergey}. 
-		\item \textbf{\textit{Early-stopping} --- }When we train a model for a long time, we might find that validation error starts to increase after a model starts to overfit to the training data. This means that we are likely to obtain a model with better generalization by saving the parameter setting that achieves the lowest validation set error. When training ceases, we return these parameters, rather than the latest parameters in training.
+		\item \textbf{\textit{Early-stopping} --- }When a model is trained long time, it is found that validation error starts to increase after a model starts to overfit to the training data. This means that a model with better generalization is likely to be obtained by saving the parameter setting that achieves the lowest validation set error. When training ceases, these parameters are returned, rather than the latest parameters in training.
 	\end{itemize}
 
 
@@ -359,7 +359,7 @@ Three different representations of the text data are being used for \textit{Deep
 
 
 
-\section{Results - 2/3 pages}
+\section{Results}
 % This section should be between 2 to 3 pages in length.
 % This section presents the results of the solutions.  It should include information on experimental settings.  The results should demonstrate the claimed benefits/disadvantages of the proposed solutions.
 %\begin{itemize}
@@ -372,8 +372,8 @@ Three different representations of the text data are being used for \textit{Deep
 %   \item * Comparison between normal loss and F1 loss
 %   \itme * 3-class problem! Extension style. Confusion matrix! \newline
 %\end{itemize}
-
-\subsection{F1 score}
+\subsection{Evaluation method}
+\subsubsection{F1 score}
 Once a model has been trained, it is evaluated by observing predictions made on the test set. Throughout this project, F1 score is used as a metric to evaluate the performance of any given \textit{Machine Learning} or \textit{Deep Learning} model. Keeping this metric consistent allows meaningful direct comparison between different models.
 
 The following equations define Precision, Recall and F1 score metrics (TP=number of true positives, FP=number of false positives, FN=number of false negatives). These metrics are more appropriate than accuracy in this project since three of the four datasets contains an imbalanced number of positives and negatives, i.e. most tweets will not be cyberbullying/racism/sexism. Therefore, a high accuracy is achieved if negative is predicted every single time. F1 score ensures that a good balance is achieved; correctly identifying positive examples, but not wrongly identifying cyberbullying too often (predicting 'cyberbullying' every time). As a result, the aim is to maximise F1 score.
@@ -392,7 +392,7 @@ The following equations define Precision, Recall and F1 score metrics (TP=number
 	\end{equation}
 \end{multicols}
 
-\subsection{Training curves}
+\subsubsection{Training curves}
 \begin{wrapfigure}{R}{8cm}
 	\centering
 	%	\rule{3cm}{7cm}
@@ -406,7 +406,7 @@ In the 3-class problem, F1 score isn't defined this way since there isn't a simp
 
 \textit{Deep Learning} training is much more complex than traditional \textit{Machine Learning}. Firstly, there are many more network parameters to tune. Secondly, these models train over many epochs, shifting their weights with each batch to fit the training data. Accuracy, f1 score and loss can all be observed over time to help infer things about the current model architecture.
 
-As a result, the training accuracy, training loss, validation accuracy  and f1 score on the validation set were calculated at the end of each epoch when training my \textit{Deep Learning} models, and plotted on a graph - these are known as training curves. From these, it is inferred where the maximum performance is achieved (which epoch's parameters were saved with \textit{Early-stopping}) and if a model is overfitting or underfitting - changes to the model can be made accordingly. For example, in Figure \ref{training} we can see that the model is overfitting after approximately 60 epochs as the test accuracy starts to go down and the generalization error becomes significant.
+As a result, the training accuracy, training loss, validation accuracy  and f1 score on the validation set were calculated at the end of each epoch when training my \textit{Deep Learning} models, and plotted on a graph - these are known as training curves. From these, it is inferred where the maximum performance is achieved (which epoch's parameters were saved with \textit{Early-stopping}) and if a model is overfitting or underfitting - changes to the model can be made accordingly. For example, in Figure \ref{training} it can be seen that the model is overfitting after approximately 60 epochs as the test accuracy starts to go down and the generalization error becomes significant.
 
 %\begin{figure}[H]
 %	\centering
@@ -416,8 +416,10 @@ As a result, the training accuracy, training loss, validation accuracy  and f1 s
 %\end{figure}
 
 
-\subsection{Final results}
-The tables below show the best results achieved in the 2-class problem with both \textit{Machine Learning} and \textit{Deep Learning} methods, for each dataset. The F1 score shown is that achieved through the predictions on the test dataset.
+\subsection{Final Results (2-class Problem)}
+In this subsection, the results from \textit{Machine Learning} and \textit{Deep Learning} experimentation on the 2-class datasets are shown. The \textbf{Reddit} and \textbf{Twitter\_small} datasets distinguish between Cyberbullying and not-Cyberbullying. Conversely, the \textbf{Twitter\_big\_2class} dataset's positive class contains a combination of Racist and Sexist comments and the negative class contains tweets that fall under neither sexism nor racism. 
+
+The F1 scores shown are those achieved through the predictions on the test dataset.
 
 \begin{table}[H]
 	\centering
@@ -445,7 +447,7 @@ The tables below show the best results achieved in the 2-class problem with both
 
 This table illustrates that on the \textbf{Reddit} dataset, the performance of \textit{Deep Learning} did exceed that of \textit{Machine Learning} by approximately 2\%. The previous state of the art for \textit{this} dataset was 0.61, and this has been beaten by far. It is interesting to observe that \textit{ELMo} representations are not part of the highest performing model, yet they do come very close at 0.7604 F1 compared to the best \textit{GloVe} model which achieved 0.7645 F1. Perhaps, given greater computational power and then increasing the capacity of the \textit{LSTM} and input pad length would have allowed the models to fully exploit the contextual information that \textit{ELMo} provides.
 
-This data isn't hand-tagged, Instead, instanced are labelled based on the number of swear words in the comments. Swear words don't necessarily indicate the presence of cyberbullying, meaning the dataset is of a poor quality. Sine we had to truncate these inputs for our \textit{Deep Learning} models, they might not have been able to infer this simple labelling technique as many swear words will have been cut out - making this task more difficult and potentially a reason for why the performance is good but not exceptional.
+This data isn't hand-tagged, Instead, instances are labelled based on the number of swear words in the comments. Swear words don't necessarily indicate the presence of cyberbullying, meaning the dataset is of a poor quality. Since these inputs need to be truncated for \textit{Deep Learning} models, they might not have been able to infer this simple labelling technique as many swear words will have been cut out - making this task more difficult and potentially a reason for why the performance is good but not exceptional.
 
 \begin{table}[H]
 	\centering
@@ -464,14 +466,14 @@ This data isn't hand-tagged, Instead, instanced are labelled based on the number
 		\textbf{Deep Learning} & ELMo + LSTM (256 units) & 0.7784 \\
 		& Trained word embeddings + LSTM (50 units) + Dropout & 0.7789 \\
 		& GloVe + LSTM (100 units) + Dropout & 0.8140 \\ 
-		& GloVe + LSTM (150 units) + Dropout & 0.8269 \\
-		& GloVe + Multi-channel CNN + Batch Normalization & \textbf{0.8330} \\ \hline
+		& GloVe + Multi-channel CNN + Batch Normalization & 0.8330 \\ 
+		& GloVe + LSTM (150 units) + Dropout & \textbf{0.8372} \\\hline
 	\end{tabular}
 \end{table}
 
-Again, the performance of \textit{Deep Learning} models has exceeded that of the \textit{Machine Learning} models, this time by approximately 3\%. Interestingly, the highest-performing \textit{Machine Learning} model makes use of repeating positive examples in the dataset. The reasoning is that the model had more motivation to fit ot the positive examples, reducing any overfitting that might occur to the negative class. Furthermore, the Multi-Channel \textit{CNN} method gave the best \textit{Deep Learning} results, which shows the effectiveness of this novel method of combining parallel convolutions. 
+Again, the performance of \textit{Deep Learning} models has exceeded that of the \textit{Machine Learning} models, this time by approximately 4\%. Interestingly, the highest-performing \textit{Machine Learning} model makes use of repeating positive examples in the dataset. The reasoning is that the model had more motivation to fit ot the positive examples, reducing any overfitting that might occur to the negative class. Furthermore, the Multi-Channel \textit{CNN} method gave some of the best \textit{Deep Learning} results, which shows the effectiveness of combining parallel convolutions. 
 
-Finally, 0.8330 F1 is extremely high and provides evidence to conclude that cyberbullying has effectively been detected. The performance is much better than that on the Reddit dataset. This could be due to the fact that this is a much smaller dataset, which has been collected based on keyword around sexuality, appearance, culture etc. This reduces the feature space as messages will be in a similar context - meaning it might be a simpler dataset to model.
+Finally, 0.8372 F1 is extremely high and provides evidence to conclude that cyberbullying has effectively been detected. The performance is much better than that on the Reddit dataset. This could be due to the fact that this is a much smaller dataset, which has been collected based on keyword around sexuality, appearance, culture etc. This reduces the feature space as messages are in a similar context - meaning it might be a simpler dataset to model.
 
 
 \begin{table}[H]
@@ -500,9 +502,11 @@ From the 2-class problem results, one can observe that our models are performing
 
 Furthermore, on all three datasets, a simple \textit{LSTM} model with \textit{Dropout} performs reliably well, meaning that good results are obtainable with little experimentation.
 
+\subsection{Further Analysis}
+\subsubsection{Binary Cross-Entropy Loss vs F1 loss}
+As mentioned in the Solution, Binary Cross-Entropy is used as the loss function for the majority of experimentation in this project - which means the Cross-Entropy is being minimised between the test labels and test predictions. However, since F1 score is the metric being used to evaluate the models' performance, there is motivation to attempt to maximise the F1 score directly. $(1-F1\_score)$ is implemented as a custom loss function and then minimised. 
 
-\subsection{Binary Cross-Entropy Loss vs F1 loss}
-As mentioned in the Solution, Binary Cross-Entropy is used as the loss function for the majority of experimentation in this project - which means we are minimising the Cross-Entropy between the test labels and test predictions. However, since F1 score is the metric being used to evaluate my models' performance, there is motivation to attempt to maximise the F1 score directly. In practice, $(1-F1\_score)$ is implemented as a custom less function and then minimised. My best results with each loss function are as follows:
+The best results with each loss function are as follows:
 
 \begin{table}[H]
 	\centering
@@ -514,9 +518,9 @@ As mentioned in the Solution, Binary Cross-Entropy is used as the loss function 
 		\textbf{Dataset} & \textbf{Model} & \textbf{Loss function} & \textbf{F1 score}  \\ \hline
 		
 		\textbf{Reddit} & GloVe + LSTM (500 units) + Dropout & Binary Cross-Entropy & 0.7645  \\
-		& XXXX & Custom $(1-F1)$ & 0.XXX  \\ \hline
+		& GloVe + Bidirectional LSTM (400 units) + Dropout & Custom $(1-F1)$ & 0.6707  \\ \hline
 		
-		\textbf{Twitter\_small} & GloVe + Multi-Channel CNN + Batch Normalization & Binary Cross-Entropy & 0.8330 \\
+		\textbf{Twitter\_small} & GloVe + LSTM (150 units) + Dropout & Binary Cross-Entropy & 0.8372 \\
 		& GloVe + Multi-Channel CNN + Batch Normalization & Custom $(1-F1)$ & 0.7227 \\ \hline
 		
 		\textbf{Twitter\_big\_2class} & GloVe + LSTM (50 units) + Dropout & Binary Cross-Entropy & 0.7716 \\
@@ -525,6 +529,8 @@ As mentioned in the Solution, Binary Cross-Entropy is used as the loss function 
 \end{table}
 
 In no case does directly maximising F1 increase the model's performance on the test data. 
+
+However, Figure \ref{train:train2} shows 2 training graphs on the \textbf{Twitter\_big\_2class} dataset. The left shows an \textit{LSTM} applied with Cross-Entropy loss, the second shows a Bidirectional \textit{LSTM} applied with custom $(1-F1)$ loss; the best results achieved with the respective loss functions on this dataset. There is little difference between the two graphs, except that the generalization error is larger with Cross-Entropy loss, which is inferred from the larger gap between the train and test accuracy curves. Perhaps, directly maximising F1 score is informing the model to prioritise generalization across the 2 classes rather than overfitting to one class.
 
 \begin{figure}[H]
 	\centering
@@ -537,13 +543,11 @@ In no case does directly maximising F1 increase the model's performance on the t
 	\label{train:train2}
 \end{figure}
 
-Figure \ref{train:train2} shows 2 training graphs on the \textbf{Twitter\_big\_2class} dataset. The left shows an \textit{LSTM} applied with Cross-Entropy loss, the second shows a Bidirectional \textit{LSTM} applied with custom $(1-F1)$ loss; the best results achieved with the respective loss functions on this dataset. There is little difference between the two graphs, except that the generalization error is larger with Cross-Entropy loss, which is inferred from the larger gap between the train and test accuracy curves. Perhaps, directly maximising F1 score is directly informing the model to prioritise generalization across the 2 classes rather than overfitting to one class.
-
 Although there was no increase in performance here, it was an interesting experiment.
 
-\subsection{3-class problem}
+\subsubsection{3-class problem}
 
-With successful results in the 2-class problem, experimentation continued but now around the 3-class problem on the \textbf{Twitter\_big\_3class} dataset. The aim was to beat the state of the art for this problem, 0.93 weighted-macro F1 \cite{Badjatiya}. Additionally, Categorical Cross-Entropy is used as the loss function, since we now have 3 classes.
+With success in the 2-class problem, experimentation continued around the 3-class problem on the \textbf{Twitter\_big\_3class} dataset, with classes Racism, Sexism and Neither Racism nor Sexism. The aim was to beat the state of the art for this problem, 0.93 weighted-macro F1 \cite{Badjatiya}. Categorical Cross-Entropy is used as the loss function, since there are 3 classes.
 
 \begin{table}[H]
 	\centering
@@ -587,10 +591,10 @@ Confusion matrices allow visualisation of a model's predictions against the test
 
 The 2-class matrix shows that misclassification occurs both ways, our model often predicting positive instead of negative and vice versa. However, the 3-class matrix shows that although the model often wrongly predicts 0/None instead of racism or sexism and vice versa, the model almost never misclassifies between racism and sexism classes, only 0.1\% of examples being classified as sexism instead of racism, and 0.2\% as racism instead of sexism.
 
-From this, we can conclude that \textit{Deep Learning} models are much more effective at distinguishing between the different \textit{types} of hateful speech, as opposed to detecting in a binary task whether hateful speech is present or not.
+From this, it is concluded that \textit{Deep Learning} models are much more effective at distinguishing between the different \textit{types} of hateful speech, as opposed to detecting in a binary task whether hateful speech is present or not.
 
 
-\section{Evaluation - 2/3 pages}
+\section{Evaluation}
 % This section should between 1 to 2 pages in length.
 %\begin{itemize}
 %	\item * Strengths and Weakness of solution
@@ -603,7 +607,7 @@ From this, we can conclude that \textit{Deep Learning} models are much more effe
 \subsection{Strengths and Limitations}
 Firstly, due to a rapid increase in interest \textit{Deep Learning} is becoming an extremely popular field of research. The most important thing in this project, aside from trying to beat the state of the art performance for this task, was providing research into this topic with cutting edge or completely new ideas. For example, \textit{ELMo} representations formed a core part of the experimentation in this project; the results illustrating their potential strengths, achieving reliably good results on all datasets and the \textit{best} results on the \textbf{Twitter\_big\_3class} dataset. Additionally, \textit{directly} maximising the F1 score as part of the loss function was an intriguing idea - not necessarily improving results but demonstrating good generalisation and providing a potential idea for future research.
 
-State of the Art for the 2-class problem is 0.75 \cite{Hack}, and 0.833 was achieved on the \textbf{Twitter\_small} dataset. However it must be considered that results are somewhat dependent on the dataset, so a concrete comparison can not be made as the \#HackHarrassment dataset is not publicly available. 
+State of the Art for the 2-class problem is 0.75 \cite{Hack}, and 0.8372 was achieved on the \textbf{Twitter\_small} dataset. However it must be considered that results are somewhat dependent on the dataset, so a concrete comparison can not be made as the \#HackHarrassment dataset is not publicly available. 
 
 Unfortunately, a limitation to the project was that the 3-class State of the Art, 0.930 \cite{Badjatiya} was not beaten (0.8419 was achieved), however, observing that models can distinguish between \textit{types} of hate-speech more than they can detect the \textit{presence} of hate-speech is a valuable insight.
 
@@ -623,18 +627,18 @@ A huge variety of models were used in this research. 10 different traditional \t
 	\label{MLvsDL}
 \end{wrapfigure}
 
-Although not the case in the 3-class problem, where \textit{Machine Learning} performed marginally better, it can be concluded that \textit{Deep Learning} models exceed the performance of traditional \textit{Machine Learning} for the 2-class problem when detecting Cyberbullying, since for all three 2-class datasets, we see a 0.0195, 0.0333 and 0.0352 increase in the best f1 score achieved respectively. 
+Although not the case in the 3-class problem, where \textit{Machine Learning} performed marginally better, it can be concluded that \textit{Deep Learning} models exceed the performance of traditional \textit{Machine Learning} for the 2-class problem when detecting Cyberbullying, since for all three 2-class datasets, there is a 0.0195, 0.0333 and 0.0394 increase in the best f1 score achieved respectively. 
 
 However, \textit{Deep Learning} architectures are far more varied, contain more network parameters and the time and computational resources required for experimentation are far greater than that of simple traditional \textit{Machine Learning} models. This extra difficulty must be considered for what is a relatively marginal (approx. 3\% on average) performance increase.
 
-Additionally, the amount of data that we have affects the difference in \textit{Machine Learning} and \textit{Deep Learning} performance. Figure \ref{MLvsDL} illustrates the difference here \cite{BuildDeeper}. The improvement of \textit{Deep Learning} performance over \textit{Machine Learning} (approximately 3\% on the 2-class problem), suggests that we are yet to reach \textit{Machine Learning}'s 'Plateau in Performance'. As a result, a larger dataset for this task would be likely to increase the value of \textit{Deep Learning}'s experimentation.
+Additionally, the amount of data affects the difference in \textit{Machine Learning} and \textit{Deep Learning} performance. Figure \ref{MLvsDL} illustrates the difference here \cite{BuildDeeper}. The improvement of \textit{Deep Learning} performance over \textit{Machine Learning} (approximately 3\% on the 2-class problem), suggests that \textit{Machine Learning}'s 'Plateau in Performance' is yet to be reached. As a result, a larger dataset for this task would be likely to increase the value of \textit{Deep Learning}'s experimentation.
 
 
 \subsection{The Importance of Data}
 
 A good dataset is vital in \textit{Machine Learning} and \textit{Deep Learning} tasks. The maximum F1 achieved in this project varied by approximately 7\% between datasets, despite extensive architecture experimentation and in-depth model-tuning. This shows how reliant our models are on good underlying data. 
 
-For example, the Reddit dataset automatically tags comments based on swear word count which is unreliable, meaning that the semantics of an instance might not actually correlate with the label. This limited the performance in models for this dataset. Contrary to this, the Twitter\_small dataset consists of only 1,066 instances, collected based on a limited keyword search. This is likely to limit the feature space, perhaps making this an easier task - leading to the impressive F1 of 0.833 that was achieved.
+For example, the Reddit dataset automatically tags comments based on swear word count which is unreliable, meaning that the semantics of an instance might not actually correlate with the label. This limited the performance in models for this dataset. Contrary to this, the Twitter\_small dataset consists of only 1,066 instances, collected based on a limited keyword search. This is likely to limit the feature space, perhaps making this an easier task - leading to the impressive F1 of 0.8372 that was achieved.
 
 
 
@@ -649,11 +653,11 @@ For example, the Reddit dataset automatically tags comments based on swear word 
 %	\item * Better at differentiating between types of hateful language than detecting presence or not.
 %	\item * Future work (more CPU power, bigger dataset) \newline
 %\end{itemize}
-In this project, it has been concluded that \textit{Deep Learning} is able to perform better than \textit{Machine Learning} in the 2-class problem, an improvement of approximately 3\% when experimenting with Deep Methods. However, the extra time and resources that are required to create and tune an effective \textit{Deep Learning} model require consideration - as illustrated by the compromises made on the Reddit dataset that limited \textit{Deep Learning} performance. 
+In this project, it has been concluded that \textit{Deep Learning} is able to perform better than \textit{Machine Learning} in the 2-class problem, an improvement of approximately 3\% when experimenting with Deep Methods. However, the extra running time and computational resources that are required to create and tune an effective \textit{Deep Learning} model require consideration - as illustrated by the compromises made on the Reddit dataset that limited \textit{Deep Learning} performance. 
 
 As inferred from the findings in the 3-class problem, \textit{Deep Learning} models are much better at distinguishing between types of hate-speech (namely, sexism and racism) than they are at detecting the actual presence of hate-speech. Additionally, the potential for using the cutting-edge \textit{ELMo} word representations has been illustrated, achieving some of the best results in this project.
 
-Finally, good data is vital to a high-performing \textit{Deep Learning} model, as we have observed from the difference in results across datasets. No perfect dataset exists online that is large enough, and nobody would want to collect this data themselves due to the offensive nature of the task. This may limit the potential for future research in this subject area.
+Finally, good data is vital to a high-performing \textit{Deep Learning} model, as observed from the difference in results across datasets. No perfect dataset exists online that is large enough, and nobody would want to collect this data themselves due to the offensive nature of the task. This may limit the potential for future research in this subject area.
 
 \subsection{Future work}
 Further to the compromises made on the Reddit dataset, it would be ideal to obtain greater computational resources and experiment with \textit{Deep Learning} methods on the entire dataset, with no truncation of inputs. An insight could be gained into whether more information would lead to greater results - I believe that this would be the case.

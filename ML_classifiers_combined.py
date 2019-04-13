@@ -303,9 +303,8 @@ def get_avg_glove_data(dataset_filename="cleaned_formspring.csv"):
     return X_train, X_test, y_train, y_test
 
 
-print("RUNNING ON CLEAN DIXON_16K 2-class")
 # for vectorize_choice in ["glove", "glove_avg", "term_count", "term_freq", "term_freq_idf", "bigrams", "trigrams"]:
-for vectorize_choice in ["term_freq_idf"]:
+for vectorize_choice in ["term_freq"]:
     # EDIT THE FILE WE WOULD LIKE TO RUN OUR MODELS ON HERE
     dataset_filename = 'cleaned_twitter_1K.csv'
 
@@ -326,10 +325,10 @@ for vectorize_choice in ["term_freq_idf"]:
         X_train, X_test, y_train, y_test = get_ngram_data(ngram_size=3, dataset_filename=dataset_filename, N=20000)
 
     # Repeat the positive examples in the training dataset twice to avoid over-fitting to negative examples
-    # X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
+    X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
 
     # loop through classifiers
-    for current_clf in range(0, 1):
+    for current_clf in range(0, 10):
         # TRAIN
         print("\ntraining on dataset", vectorize_choice, "...")
         grid_searching = False
@@ -399,10 +398,14 @@ for vectorize_choice in ["term_freq_idf"]:
 
         # if the metrics are well defined
         if np.count_nonzero(y_pred) > 0:
-            # print("recall:", round(sm.recall_score(y_test, y_pred), 4))
-            # print("precision:", round(sm.precision_score(y_test, y_pred), 4))
-            print("f1 score weighted:", round(sm.f1_score(y_test, y_pred), 4))
-            print("f1 score micro   :", round(sm.f1_score(y_test, y_pred), 4))
+            if dataset_filename == "cleaned_tweets_16k_3class.csv":
+                print("recall:", round(sm.recall_score(y_test, y_pred, average='micro'), 4))
+                print("precision:", round(sm.precision_score(y_test, y_pred, average='micro'), 4))
+                print("f1 score micro   :", round(sm.f1_score(y_test, y_pred, average='micro'), 4))
+            else:
+                print("recall:", round(sm.recall_score(y_test, y_pred), 4))
+                print("precision:", round(sm.precision_score(y_test, y_pred), 4))
+                print("f1 score micro   :", round(sm.f1_score(y_test, y_pred), 4))
             print("\n\n")
         else:
             print("No True predictions made\n\n")

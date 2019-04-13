@@ -24,6 +24,7 @@ from keras import optimizers
 from sklearn.model_selection import train_test_split
 from keras.callbacks import Callback
 from sklearn.metrics import confusion_matrix, f1_score, precision_score, recall_score, accuracy_score
+from keras.models import model_from_json
 import pickle
 
 # 'global' variable to store sequence of validation accuracies
@@ -164,7 +165,7 @@ def draw_graph(history):
     plt.xlabel('epoch')
     plt.legend(['train', 'test', 'f1', 'loss'], loc='lower right')
     plt.savefig('DL_graphs/' + str(SAVE_PATH) + ' graph.png')
-    plt.show()
+    # plt.show()
 
 
 # f1 metric
@@ -423,11 +424,9 @@ def define_model(length, vocab_size, num_classes):
     if num_classes == 2:
         outputs = Dense(1, activation='sigmoid')(dense1)
         model = Model(inputs=[inputs1, inputs2, inputs3], outputs=outputs)
-        model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
     else:  # num_classes=3
         outputs = Dense(3, activation='softmax')(dense1)
         model = Model(inputs=[inputs1, inputs2, inputs3], outputs=outputs)
-        model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
     return model
 
 
@@ -435,17 +434,14 @@ def onehot_2class(filename):
     # load training dataset
     trainLines, trainLabels = get_data(filename=filename)
 
-    # create tokenizer and encode data TODO: change length based on dataset
+    # create tokenizer and encode data
     tokenizer = create_tokenizer(trainLines)
-    length = 500
+    length = 30
     vocab_size = len(tokenizer.word_index) + 1
     trainX = encode_text(tokenizer, trainLines, length)
 
     # split the data
-    trainX, testX, trainLabels, testLabels = train_test_split(trainX, trainLabels, test_size=0.20)
-
-    # define, fit and save model
-    model = define_model(length, vocab_size, num_classes=2)
+    trainX, testX, trainLabels, testLabels = train_test_split(trainX, trainLabels, test_size=0.10, random_state=RANDOM_STATE)
 
     # fit model
     # trainX = np.array(trainX)
@@ -453,31 +449,53 @@ def onehot_2class(filename):
     # testX = np.array(testX)
     # testLabels = np.array(testLabels)
 
-    # FIT
-    class_weight = {0: 1.0, 1: 1.0}
-    history = model.fit(x=[trainX, trainX, trainX], y=array(trainLabels),
-                        validation_data=([testX, testX, testX], array(testLabels)),
-                        nb_epoch=30, batch_size=256, callbacks=[metrics], class_weight=class_weight, verbose=1)
+    if LOAD_MODEL:
+        model = load_model(SAVE_PATH)
+        model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+        print(model.summary())
 
-    # Evaluate
-    loss, accuracy = model.evaluate(x=[testX, testX, testX], y=testLabels, verbose=1)
-    print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
-    y_pred = model.predict(x=[testX, testX, testX])
-    y_pred = np.round(y_pred, 0)
+        # Evaluate
+        loss, accuracy = model.evaluate(x=[testX, testX, testX], y=testLabels, verbose=1)
+        print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
+        y_pred = model.predict(x=[testX, testX, testX])
+        y_pred = np.round(y_pred, 0)
+        print("Precision = ", round(precision_score(testLabels, y_pred), 4))
+        print("Recall = ", round(recall_score(testLabels, y_pred), 4))
+        print("F1 = ", round(f1_score(testLabels, y_pred), 4), "\n\n")
+        print("Confusion matrix:\n", confusion_matrix(testLabels, y_pred))
+    else:
+        # define, fit and save model
+        model = define_model(length, vocab_size, num_classes=2)
 
-    print_results(history, y_pred, testLabels)
-    print("BEST:")
-    print(best_confusion_matrix)
-    # draw_graph(history)
+        # FIT
+        model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+    # If we are defining thie model from scratch or if we want to train a loaded model further
+    if (LOAD_MODEL and CONTINUE_TRAINING) or (not LOAD_MODEL):
+        class_weight = {0: 1.0, 1: 1.0}
+        history = model.fit(x=[trainX, trainX, trainX], y=array(trainLabels),
+                            validation_data=([testX, testX, testX], array(testLabels)),
+                            nb_epoch=30, batch_size=32, callbacks=[metrics], class_weight=class_weight, verbose=0)
+
+        # Evaluate
+        loss, accuracy = model.evaluate(x=[testX, testX, testX], y=testLabels, verbose=1)
+        print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
+        y_pred = model.predict(x=[testX, testX, testX])
+        y_pred = np.round(y_pred, 0)
+
+        print_results(history, y_pred, testLabels)
+        print("BEST:")
+        print(best_confusion_matrix)
+        draw_graph(history)
 
 
-def onehot_3class():
+def onehot_3class(filename):
     # load training dataset
-    trainLines, labels = get_data(filename="cleaned_tweets_16k_3class.csv")
+    trainLines, labels = get_data(filename=filename)
 
     # create tokenizer and encode data
     tokenizer = create_tokenizer(trainLines)
-    length = 32
+    length = 30
     vocab_size = len(tokenizer.word_index) + 1
     trainX = encode_text(tokenizer, trainLines, length)
 
@@ -491,9 +509,8 @@ def onehot_3class():
     model = define_model(length, vocab_size, num_classes=3)
 
     # FIT
-    class_weight = {0: 1.0,
-                    1: 1.0,
-                    2: 1.0}
+    class_weight = {0: 1.0, 1: 1.0, 2: 1.0}
+    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
     history = model.fit(x=[X_train, X_train, X_train], y=labels_train,
                         validation_data=([X_test, X_test, X_test], labels_test),
                         nb_epoch=50, batch_size=64, callbacks=[three_class_metrics], class_weight=class_weight)
@@ -603,12 +620,13 @@ def glove_3class():
 
 
 # FILE NAMES
-matrix = "cleaned_tweets_16k"
+matrix = "cleaned_twitter_1K"
 file = matrix + str(".csv")
 
 # PARAMETERS
-SAVE_PATH = "twitter_2class_LSTM50"
+SAVE_PATH = "twitter_small_MultiCNN"
 LOAD_MODEL = False
+CONTINUE_TRAINING = False
 RANDOM_STATE = 2
 loss_fn = "not F1"
 

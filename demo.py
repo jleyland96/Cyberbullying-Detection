@@ -431,7 +431,7 @@ def test_2_class(filename="cleaned_dixon.csv"):
     print("Precision = ", round(precision_score(labels_test, y_pred), 4))
     print("Recall = ", round(recall_score(labels_test, y_pred), 4))
     print("F1 = ", round(f1_score(labels_test, y_pred), 4), "\n\n")
-    print("Confusion matrix:", confusion_matrix(labels_test, y_pred))
+    print("Confusion matrix:\n", confusion_matrix(labels_test, y_pred))
 
     # if we want to continue training, run more epochs, evaluate on test and print training graph
     if CONTINUE_TRAIN:

@@ -1,18 +1,18 @@
 \relax 
 \bibstyle{agsm}
 \citation{Ofcom}
-\@writefile{toc}{\contentsline {section}{\numberline {I}Introduction - 2/3 pages}{1}}
+\@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A}Context}{1}}
 \citation{Ofcom}
 \@writefile{toc}{\contentsline {subsection}{\numberline {B}Objectives}{2}}
 \citation{Reynolds}
 \citation{Reynolds}
-\citation{Dixon}
-\citation{Golbeck}
-\@writefile{toc}{\contentsline {section}{\numberline {II}Related Work - 2-4 pages}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {II}Related Work}{3}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Definitions of subjective terms}}{3}}
 \newlabel{terms}{{1}{3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A}Machine Learning}{3}}
+\citation{Dixon}
+\citation{Golbeck}
 \citation{Hack}
 \citation{Birds}
 \citation{Hack}
@@ -29,7 +29,7 @@
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Public datasets used in this project}}{5}}
 \newlabel{data}{{2}{5}}
 \citation{Reynolds}
-\@writefile{toc}{\contentsline {section}{\numberline {III}Solution - 4/7 pages}{6}}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Solution}{6}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A}Tools Used}{6}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {B}Pre-processing the data}{6}}
 \citation{glove}
@@ -39,35 +39,36 @@
 \citation{DL}
 \citation{glove}
 \citation{Peters}
-\@writefile{toc}{\contentsline {subsection}{\numberline {D}Word Embeddings}{8}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {E}ELMo}{8}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {F}Other Data Considerations}{8}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {C.1}Word Embeddings}{8}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {C.2}ELMo}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {D}Other Data Considerations}{8}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Length distribution of data: \textbf  {Left}: Reddit, \textbf  {Centre}: Twitter\_small, \textbf  {Right}: Twitter\_big}}{9}}
 \newlabel{len:len3}{{1}{9}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {G}Machine Learning methods}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {E}Machine Learning methods}{9}}
 \citation{DL}
 \citation{DL}
-\@writefile{toc}{\contentsline {subsection}{\numberline {H}Deep Learning methods}{10}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {H.1}Recurrent Neural Networks (RNNs)}{10}}
-\newlabel{RNN}{{H.1}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {F}Deep Learning methods}{10}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {F.1}Recurrent Neural Networks (RNNs)}{10}}
+\newlabel{RNN}{{F.1}{10}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \textbf  {RNNs. $h$=state, $x$=input, $y$=gold label, $\sigma (T)$=predicted label, $t$=time/index}}}{10}}
 \citation{DL}
 \citation{DL}
 \citation{Kim}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {H.2}Convolutional Neural Networks (CNNs)}{11}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {H.3}Loss functions}{11}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {F.2}Convolutional Neural Networks (CNNs)}{11}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {F.3}Loss functions}{11}}
 \citation{DL}
 \citation{Sergey}
-\newlabel{multichannel}{{H.2}{12}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Multi-channel CNN. NOTE: I apply sigmoid for the 2-class problem, not softmax as in this diagram.}}{12}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {H.4}Regularization}{12}}
+\newlabel{multichannel}{{F.2}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Multi-channel CNN. NOTE: I apply sigmoid for the 2-class problem, softmax for 3-class.}}{12}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {F.4}Regularization}{12}}
 \citation{Badjatiya}
-\@writefile{toc}{\contentsline {section}{\numberline {IV}Results - 2/3 pages}{13}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A}F1 score}{13}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B}Training curves}{13}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Results}{13}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A}Evaluation method}{13}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {A.1}F1 score}{13}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {A.2}Training curves}{13}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Example training graph, LSTM on \textbf  {Twitter\_small} dataset}}}{13}}
 \newlabel{training}{{4}{13}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {C}Final results}{14}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B}Final Results (2-class Problem)}{14}}
 \@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Results on \textbf  {Reddit} dataset}}{14}}
 \newlabel{results1}{{4}{14}}
 \citation{Hack}
@@ -76,12 +77,13 @@
 \@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Results on \textbf  {Twitter\_big\_2class} dataset}}{15}}
 \newlabel{results3}{{6}{15}}
 \citation{Badjatiya}
-\@writefile{toc}{\contentsline {subsection}{\numberline {D}Binary Cross-Entropy Loss vs F1 loss}{16}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C}Further Analysis}{16}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {C.1}Binary Cross-Entropy Loss vs F1 loss}{16}}
 \@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Binary Cross-Entropy vs F1 loss function}}{16}}
 \newlabel{F1Loss}{{7}{16}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Training curves on \textbf  {Twitter\_big\_2class}. \textbf  {Left:} Cross-Entropy loss, \textbf  {Right:} F1 loss.}}{16}}
 \newlabel{train:train2}{{5}{16}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {E}3-class problem}{16}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {C.2}3-class problem}{17}}
 \@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Results on \textbf  {Twitter\_big\_3class} dataset}}{17}}
 \newlabel{results4}{{8}{17}}
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Confusion matrices. \newline  \textbf  {Left:} 2-class problem, \textbf  {Right:} 3-class problem (0=None, 1=Racism, 2=Sexism)}}{17}}
@@ -89,7 +91,7 @@
 \citation{Hack}
 \citation{Badjatiya}
 \citation{BuildDeeper}
-\@writefile{toc}{\contentsline {section}{\numberline {V}Evaluation - 2/3 pages}{18}}
+\@writefile{toc}{\contentsline {section}{\numberline {V}Evaluation}{18}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A}Strengths and Limitations}{18}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {B}Is Deep Learning worth it?}{18}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {C}The Importance of Data}{19}}

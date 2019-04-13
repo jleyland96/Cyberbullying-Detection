@@ -695,7 +695,7 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
     e.trainable = False  # should be false
     model.add(e)
 
-    model.add(LSTM(units=50, dropout=0.5, recurrent_dropout=0.5))
+    model.add(Bidirectional(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5)))
 
     model.add(Dense(units=3, activation='softmax'))
 
@@ -706,12 +706,10 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
     # history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
     #                     nb_epoch=30, batch_size=128, class_weight=class_weight)
 
-    class_weight = {0: 1.0,
-                    1: 1.0,
-                    2: 1.0}
+    class_weight = {0: 1.0, 1: 1.0, 2: 1.0}
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        epochs=3, batch_size=128, callbacks=[three_class_metrics], class_weight=class_weight)
+                        epochs=100, batch_size=128, callbacks=[three_class_metrics], class_weight=class_weight)
     # ------------------ END MODEL ------------------
 
     # evaluate
@@ -799,7 +797,7 @@ if __name__ == "__main__":
     file = matrix + str(".csv")
 
     # PARAMETERS
-    SAVE_PATH = "TEST"
+    SAVE_PATH = "twitter_3class_BI-LSTM"
     LOAD_MODEL = False
     RANDOM_STATE = 2
     loss = "not F1"

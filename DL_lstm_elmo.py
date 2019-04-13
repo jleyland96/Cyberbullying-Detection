@@ -134,7 +134,7 @@ three_class_metrics = Three_Class_Metrics()
 
 def save_model(model, path):
     # serialize weights to HDF5
-    model.save_weights("saved_models/" + str(path) + ".h5")
+    model.save_weights(str(path) + str(".h5"))
     print("Saved model to disk")
 
 

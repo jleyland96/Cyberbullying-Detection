@@ -618,11 +618,11 @@ def main_2_class_f1_loss(filename="cleaned_tweets_16k.csv"):
     e.trainable = False
     model.add(e)
 
-    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
+    # model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
     # model.add(BatchNormalization())
     # model.add(Bidirectional(LSTM(units=400, dropout=0.5, recurrent_dropout=0.5)))
 
-    # model = cnn_lstm_network(model)
+    model = cnn_lstm_network(model)
 
     model.add(Dense(units=1, activation='sigmoid'))
 

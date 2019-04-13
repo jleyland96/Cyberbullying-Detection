@@ -19,6 +19,7 @@ f1_results_micro = []
 f1_results_weighted = []
 batch_size = 32
 max_len = 32
+best_confusion_matrix = ""
 
 # Custom callback function
 class Metrics(Callback):
@@ -28,6 +29,8 @@ class Metrics(Callback):
         self.val_precisions = []
 
     def on_epoch_end(self, epoch, logs={}):
+        global best_confusion_matrix
+
         print()
         val_predict = (np.asarray(self.model.predict(self.validation_data[0]))).round()
         val_targ = self.validation_data[1]
@@ -47,11 +50,16 @@ class Metrics(Callback):
 
         # Print validation accuracy and f1 scores (so we can plot later)
         print("\nVAL_ACC:\n", validation_results)
-        print("\n\n")
+        print("")
         print("F1:\n", f1_results)
 
-        # Save the model for another time
-        # save_model(self.model, save_path)
+        # if the current f1 value is bigger than all previous f1 scores, save the model and matrix
+        if (len(f1_results) > 1 and _val_f1 > max(f1_results[:-1])) or (len(f1_results) == 1):
+            best_confusion_matrix = confusion_matrix(val_targ, val_predict)
+
+            # Save the model for another time
+            print("SAVING NEW MODEL")
+            save_model(self.model, SAVE_PATH)
         return
 
 
@@ -85,9 +93,9 @@ class Three_Class_Metrics(Callback):
         self.val_f1s_weighted.append(_val_f1_weighted)
         self.val_recalls_weighted.append(_val_recall_weighted)
         self.val_precisions_weighted.append(_val_precision_weighted)
-        print("F1 WEIGHTED       :", _val_f1_weighted)
-        print("PRECISION WEIGHTED:", _val_precision_weighted)
-        print("RECALL WEIGHTED   :", _val_recall_weighted)
+        # print("F1 WEIGHTED       :", _val_f1_weighted)
+        # print("PRECISION WEIGHTED:", _val_precision_weighted)
+        # print("RECALL WEIGHTED   :", _val_recall_weighted)
         f1_results_weighted.append(round(_val_f1_weighted, 4))
         print("\n")
 
@@ -106,16 +114,28 @@ class Three_Class_Metrics(Callback):
         # Print validation accuracy and f1 scores (so we can plot later)
         print("\nVAL_ACC:\n", validation_results)
         print("\n\n")
-        print("F1 weighted:\n", f1_results_weighted)
+        # print("F1 weighted:\n", f1_results_weighted)
         print("F1 micro:\n", f1_results_micro)
 
         # Save the model for another time
         # save_model(self.model, save_path)
+        if (len(f1_results_micro) > 1 and _val_f1_micro > max(f1_results_micro[:-1])) or (len(f1_results_micro) == 1):
+            best_confusion_matrix = confusion_matrix(val_targ, val_predict)
+
+            print("SAVING NEW MODEL")
+            # Save the model for another time
+            save_model(self.model, SAVE_PATH)
         return
 
 
 # create an instance of the 3 class metric
 three_class_metrics = Three_Class_Metrics()
+
+
+def save_model(model, path):
+    # serialize weights to HDF5
+    model.save_weights("saved_models/" + str(path) + ".h5")
+    print("Saved model to disk")
 
 
 # Get the original data from my CSV file
@@ -214,34 +234,39 @@ def pad_inputs(X):
 
 # print the results so that we can plot a graph of the f1/acc/val_acc over time
 def print_results(history, y_pred, y_test):
-    print("TRAIN:", list(np.round(history.history['acc'], 4)), "\n")
-    print("TEST:", list(np.round(history.history['val_acc'], 4)), "\n")
-    print("LOSS:", list(np.round(history.history['loss'], 4)), "\n")
-    print("Max F1 was", max(f1_results), "at epoch", f1_results.index(max(f1_results)) + 1, "\n")
+    print("TRAIN:", list(np.round(history.history['acc'], 4)))
+    print("TEST:", list(np.round(history.history['val_acc'], 4)))
+    print("LOSS:", list(np.round(history.history['loss'], 4)))
+    print("Max F1 was", max(f1_results), "at epoch", f1_results.index(max(f1_results)) + 1)
     print("F1:", f1_results)
 
     # CONFUSION MATRIX
-    print("confusion matrix:\n", confusion_matrix(y_test, y_pred))
+    # print("confusion matrix:\n", confusion_matrix(y_test, y_pred))
 
 
 # 3 class version of the above function
 def print_3class_results(history, y_pred, y_test):
     # PRINT FINAL TRAIN/TEST/LOSS INFO
-    print("TRAIN:", list(np.round(history.history['acc'], 4)), "\n")
-    print("TEST:", list(np.round(history.history['val_acc'], 4)), "\n")
-    print("LOSS:", list(np.round(history.history['loss'], 4)), "\n")
-    print("\n")
+    print("TRAIN:", list(np.round(history.history['acc'], 4)))
+    print("TEST:", list(np.round(history.history['val_acc'], 4)))
+    print("LOSS:", list(np.round(history.history['loss'], 4)))
+    print("")
 
     # MAXIMUMS
-    print("Max F1 weighted was", max(f1_results_weighted), "at epoch", f1_results_weighted.index(max(f1_results_weighted)) + 1, "\n")
+    # print("F1 WEIGHTED:", list(np.round(f1_results_weighted, 4)))
+    # print("Max F1 weighted was", max(f1_results_weighted), "at epoch", f1_results_weighted.index(max(f1_results_weighted)) + 1)
+    print("F1 MICRO:", list(np.round(f1_results_micro, 4)))
     print("Max F1 micro was", max(f1_results_micro), "at epoch", f1_results_micro.index(max(f1_results_micro)) + 1, "\n")
 
     # CONFUSION MATRIX
-    print("confusion matrix:\n", confusion_matrix(y_test, y_pred))
+    # print("confusion matrix:\n", confusion_matrix(y_test, y_pred))
 
 
 if __name__ == "__main__":
-    dataset = "dixon"  # dixon, 1k, 16k_2class, 16k_3class
+    dataset = "16k_3class"  # dixon, 1k, 16k_2class, 16k_3class
+    SAVE_PATH = "twitter_3class_ELMO"
+    LOAD_MODEL = False
+    TRAINING = True
     max_len = get_pad_length(dataset)
     print(dataset)
     print(max_len)
@@ -273,7 +298,7 @@ if __name__ == "__main__":
 
     # pre-preparation of data
     X = pad_inputs(X)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=2)
 
     # Take a slice of the data so that we don't have half a batch at the end of the epoch
     X_train = X_train[:train_max]   # 392 batches of size 32
@@ -287,14 +312,17 @@ if __name__ == "__main__":
         # CREATE MODEL
         input_text = Input(shape=(max_len,), dtype=tf.string)
         embedding = Lambda(ElmoEmbedding, output_shape=(max_len, 1024))(input_text)
-        x = LSTM(units=200, recurrent_dropout=0.5, dropout=0.5)(embedding)
+        x = LSTM(units=400, recurrent_dropout=0.5, dropout=0.5)(embedding)
         out = Dense(units=1, activation='sigmoid')(x)
         model = Model(input_text, out)
         model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["acc"])
 
+        if LOAD_MODEL:
+            model.load_weights(SAVE_PATH + str('.h5'))
+
         # FIT THE MODEL
         history = model.fit(np.array(X_train), y_train, validation_data=(np.array(X_test), y_test),
-                            batch_size=batch_size, epochs=20, verbose=1, callbacks=[metrics])
+                            batch_size=batch_size, epochs=10, verbose=1, callbacks=[metrics])
 
         # PRINT RESULTS
         # loss, accuracy = model.evaluate(x=np.array(X_test), y=y_test, verbose=0)
@@ -317,16 +345,38 @@ if __name__ == "__main__":
         out = Dense(units=3, activation='softmax')(x)
         model = Model(input_text, out)
         model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
+        print(model.summary())
 
-        # FIT THE MODEL - 3_class
-        history = model.fit(np.array(X_train), y_train_cat, validation_data=(np.array(X_test), y_test_cat),
-                            batch_size=batch_size, epochs=10, verbose=1, callbacks=[three_class_metrics])
+        if LOAD_MODEL:
+            # load weights if needed
+            model.load_weights(SAVE_PATH + str(".h5"))
 
-        # PRINT RESULTS
-        loss, accuracy = model.evaluate(x=np.array(X_test), y=y_test_cat, verbose=0)
-        y_prob = model.predict(x=np.array(X_test))
-        labels_pred = y_prob.argmax(axis=-1)
-        print("\bTEST_ACC = " + str(round(accuracy * 100, 2)) + "%")
-        print_3class_results(history, labels_pred, y_test)
+        if TRAINING:
+            # Fit the 3-class model, evaluate, and print training results
+            # FIT THE MODEL - 3_class
+            history = model.fit(np.array(X_train), y_train_cat, validation_data=(np.array(X_test), y_test_cat),
+                                batch_size=batch_size, epochs=10, verbose=1, callbacks=[three_class_metrics])
+
+            # PRINT RESULTS
+            loss, accuracy = model.evaluate(x=np.array(X_test), y=y_test_cat, verbose=0)
+            y_prob = model.predict(x=np.array(X_test))
+            labels_pred = y_prob.argmax(axis=-1)
+            print("\bTEST_ACC = " + str(round(accuracy, 4)))
+            print_3class_results(history, labels_pred, y_test)
+            print(best_confusion_matrix)
+            print("Micro Precision = ", round(precision_score(y_test, labels_pred, average='micro'), 4))
+            print("Micro Recall = ", round(recall_score(y_test, labels_pred, average='micro'), 4))
+            print("Micro F1 = ", round(f1_score(y_test, labels_pred, average='micro'), 4), "\n")
+        else:
+            # PRINT RESULTS
+            loss, accuracy = model.evaluate(x=np.array(X_test), y=y_test_cat, verbose=0)
+            y_prob = model.predict(x=np.array(X_test))
+            labels_pred = y_prob.argmax(axis=-1)
+            print("\bTEST_ACC = " + str(round(accuracy, 4)))
+            print("Micro Precision = ", round(precision_score(y_test, labels_pred, average='micro'), 4))
+            print("Micro Recall = ", round(recall_score(y_test, labels_pred, average='micro'), 4))
+            print("Micro F1 = ", round(f1_score(y_test, labels_pred, average='micro'), 4), "\n")
+
+
 
 

@@ -16,7 +16,6 @@ output_graphs/
 saved_slurms/
 embedding_matrix.p
 *.p
-*.h5
 
 DL_graphs/
 

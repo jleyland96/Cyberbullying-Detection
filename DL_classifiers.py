@@ -121,9 +121,9 @@ class Three_Class_Metrics(Callback):
         self.val_f1s_weighted.append(_val_f1_weighted)
         self.val_recalls_weighted.append(_val_recall_weighted)
         self.val_precisions_weighted.append(_val_precision_weighted)
-        print("F1 WEIGHTED       :", _val_f1_weighted)
-        print("PRECISION WEIGHTED:", _val_precision_weighted)
-        print("RECALL WEIGHTED   :", _val_recall_weighted)
+        # print("F1 WEIGHTED       :", _val_f1_weighted)
+        # print("PRECISION WEIGHTED:", _val_precision_weighted)
+        # print("RECALL WEIGHTED   :", _val_recall_weighted)
         f1_results_weighted.append(round(_val_f1_weighted, 4))
         print("\n")
 
@@ -142,7 +142,7 @@ class Three_Class_Metrics(Callback):
         # Print validation accuracy and f1 scores (so we can plot later)
         print("\nVAL_ACC:\n", validation_results)
         print("\n\n")
-        print("F1 weighted:\n", f1_results_weighted)
+        # print("F1 weighted:\n", f1_results_weighted)
         print("F1 micro:\n", f1_results_micro)
 
         if (len(f1_results_micro) > 1 and _val_f1_micro > max(f1_results_micro[:-1])) or (len(f1_results_micro) == 1):
@@ -266,6 +266,13 @@ def get_pad_length(filename):
         return 500
     else:
         return 32
+
+
+def get_test_size(filename):
+    if filename == "cleaned_dixon.csv":
+        return 0.20
+    else:
+        return 0.10
 
 
 def save_model(model, path):
@@ -674,7 +681,7 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
     # Split into training and test data
-    X_train, X_test, y_train, y_test = train_test_split(padded_docs, labels, test_size=0.10)
+    X_train, X_test, y_train, y_test = train_test_split(padded_docs, labels, test_size=TEST_SIZE, random_state=RANDOM_STATE)
 
     labels_train = np_utils.to_categorical(y_train)
     labels_test = np_utils.to_categorical(y_test)
@@ -709,7 +716,7 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
     class_weight = {0: 1.0, 1: 1.0, 2: 1.0}
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        epochs=100, batch_size=128, callbacks=[three_class_metrics], class_weight=class_weight)
+                        epochs=50, batch_size=128, callbacks=[three_class_metrics], class_weight=class_weight)
     # ------------------ END MODEL ------------------
 
     # evaluate
@@ -744,8 +751,8 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
     print(max_len)
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
-    # Split into training and test data TODO: fix split to ensure saved models are not tested on training data
-    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.20, random_state=RANDOM_STATE)
+    # Split into training and test data
+    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=TEST_SIZE, random_state=RANDOM_STATE)
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
@@ -799,6 +806,8 @@ if __name__ == "__main__":
     # PARAMETERS
     SAVE_PATH = "twitter_3class_BI-LSTM"
     LOAD_MODEL = False
+    TEST_SIZE = get_test_size(file)
+    print(TEST_SIZE)
     RANDOM_STATE = 2
     loss = "not F1"
 

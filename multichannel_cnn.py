@@ -259,10 +259,10 @@ class Metrics(Callback):
 
         # Print validation accuracy and f1 scores (so we can plot later)
         print("\nVAL_ACC:\n", validation_results)
-        print("")
         print("F1:\n", f1_results)
 
-        print("\n", confusion_matrix(val_targ, val_predict))
+        print("Confusion Matrix:\n", confusion_matrix(val_targ, val_predict))
+        print("--------------------")
         return
 
 
@@ -475,10 +475,10 @@ def onehot_2class(filename):
         class_weight = {0: 1.0, 1: 1.0}
         history = model.fit(x=[trainX, trainX, trainX], y=array(trainLabels),
                             validation_data=([testX, testX, testX], array(testLabels)),
-                            nb_epoch=30, batch_size=32, callbacks=[metrics], class_weight=class_weight, verbose=0)
+                            nb_epoch=30, batch_size=32, callbacks=[metrics], class_weight=class_weight, verbose=1)
 
         # Evaluate
-        loss, accuracy = model.evaluate(x=[testX, testX, testX], y=testLabels, verbose=1)
+        loss, accuracy = model.evaluate(x=[testX, testX, testX], y=testLabels, verbose=0)
         print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
         y_pred = model.predict(x=[testX, testX, testX])
         y_pred = np.round(y_pred, 0)
@@ -627,7 +627,7 @@ file = matrix + str(".csv")
 SAVE_PATH = "twitter_small_MultiCNN"
 LOAD_MODEL = False
 CONTINUE_TRAINING = False
-RANDOM_STATE = 2
+RANDOM_STATE = 3
 loss_fn = "not F1"
 
 # ARCHITECTURES

@@ -243,6 +243,13 @@ def get_pad_length(filename):
         return 32
 
 
+def get_test_size(filename):
+    if filename == "cleaned_dixon.csv":
+        return 0.20
+    else:
+        return 0.10
+
+
 def save_model(model, path):
     if not(file == "cleaned_dixon.csv"):
         # serialize model to JSON
@@ -336,7 +343,7 @@ def test_3_class(filename="cleaned_tweets_16k_3class.csv"):
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
     # Split into training and test data
-    X_train, X_test, y_train, y_test = train_test_split(padded_docs, labels, test_size=0.10)
+    X_train, X_test, y_train, y_test = train_test_split(padded_docs, labels, test_size=TEST_SIZE, random_state=RANDOM_STATE)
 
     labels_train = np_utils.to_categorical(y_train)
     labels_test = np_utils.to_categorical(y_test)
@@ -405,7 +412,7 @@ def test_2_class(filename="cleaned_dixon.csv"):
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
     # Split into training and test data
-    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.10, random_state=RANDOM_STATE)
+    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=TEST_SIZE, random_state=RANDOM_STATE)
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
@@ -455,15 +462,17 @@ def test_2_class(filename="cleaned_dixon.csv"):
 
 if __name__ == "__main__":
     # FILE NAMES
-    matrix = "cleaned_tweets_16k"
+    matrix = "cleaned_tweets_16k_3class"
     file = matrix + str(".csv")
 
     # PARAMETERS
-    LOAD_PATH = "twitter_2class_LSTM50"
+    LOAD_PATH = "twitter_3class_BI-LSTM"
     SAVE_PATH = LOAD_PATH + str("_retrain")
+    TEST_SIZE = get_test_size(file)
+    print(TEST_SIZE)
     CONTINUE_TRAIN = False
-    RANDOM_STATE = 3
+    RANDOM_STATE = 2
 
     # ARCHITECTURE
-    test_2_class(file)
-    # test_3_class(file)
+    # test_2_class(file)
+    test_3_class(file)

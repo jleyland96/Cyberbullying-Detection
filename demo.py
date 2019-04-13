@@ -219,7 +219,8 @@ def get_glove_matrix(vocab_size, t):
         if embedding_vector is not None:
             embedding_matrix[i] = embedding_vector
 
-    pickle.dump(embedding_matrix, open('embedding_matrices/' + str(matrix) + '.p', 'wb'), protocol=2)
+    if not(file == "cleaned_dixon.csv"):
+        pickle.dump(embedding_matrix, open('embedding_matrices/' + str(matrix) + '.p', 'wb'), protocol=2)
 
     return embedding_matrix
 
@@ -240,10 +241,11 @@ def get_pad_length(filename):
 
 
 def save_model(model, path):
-    # serialize model to JSON
-    model_json = model.to_json()
-    with open("saved_models/" + str(path) + ".json", "w") as json_file:
-        json_file.write(model_json)
+    if not(file == "cleaned_dixon.csv"):
+        # serialize model to JSON
+        model_json = model.to_json()
+        with open("saved_models/" + str(path) + ".json", "w") as json_file:
+            json_file.write(model_json)
     # serialize weights to HDF5
     model.save_weights("saved_models/" + str(path) + ".h5")
     print("Saved model to disk")

@@ -245,7 +245,8 @@ def get_glove_matrix(vocab_size, t):
         if embedding_vector is not None:
             embedding_matrix[i] = embedding_vector
 
-    pickle.dump(embedding_matrix, open('embedding_matrices/' + str(matrix) + '.p', 'wb'), protocol=2)
+    if not(file == "cleaned_dixon.csv"):
+        pickle.dump(embedding_matrix, open('embedding_matrices/' + str(matrix) + '.p', 'wb'), protocol=2)
 
     return embedding_matrix
 
@@ -266,10 +267,11 @@ def get_pad_length(filename):
 
 
 def save_model(model, path):
-    # serialize model to JSON
-    model_json = model.to_json()
-    with open("saved_models/" + str(path) + ".json", "w") as json_file:
-        json_file.write(model_json)
+    if not(file == "cleaned_dixon.csv"):
+        # serialize model to JSON
+        model_json = model.to_json()
+        with open("saved_models/" + str(path) + ".json", "w") as json_file:
+            json_file.write(model_json)
     # serialize weights to HDF5
     model.save_weights("saved_models/" + str(path) + ".h5")
     print("Saved model to disk")
@@ -741,7 +743,7 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
     # Split into training and test data TODO: fix split to ensure saved models are not tested on training data
-    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.10, random_state=RANDOM_STATE)
+    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.20, random_state=RANDOM_STATE)
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
@@ -764,7 +766,7 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
         e.trainable = False
         model.add(e)
 
-        model.add(LSTM(units=50, dropout=0.5, recurrent_dropout=0.5))
+        model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
         model.add(Dense(units=1, activation='sigmoid'))
 
     # class_weight = {0: 1.0, 1: 1.0}
@@ -772,7 +774,7 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
     print(model.summary())
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=200, batch_size=32, callbacks=[metrics], verbose=1)
+                        nb_epoch=30, batch_size=256, callbacks=[metrics], verbose=1)
     # ------------------ END MODEL ------------------
 
     # evaluate
@@ -793,7 +795,7 @@ if __name__ == "__main__":
     file = matrix + str(".csv")
 
     # PARAMETERS
-    SAVE_PATH = "twitter_test"
+    SAVE_PATH = "dixon_LSTM500"
     LOAD_MODEL = False
     RANDOM_STATE = 2
     loss = "not F1"

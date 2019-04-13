@@ -122,7 +122,7 @@ class Three_Class_Metrics(Callback):
         # Save the model for another time
         # save_model(self.model, save_path)
         if (len(f1_results_micro) > 1 and _val_f1_micro > max(f1_results_micro[:-1])) or (len(f1_results_micro) == 1):
-            best_confusion_matrix = confusion_matrix(val_targ, val_predict)
+            # best_confusion_matrix = confusion_matrix(val_targ, val_predict)
 
             print("SAVING NEW MODEL")
             # Save the model for another time
@@ -261,7 +261,7 @@ def print_3class_results(history, y_pred, y_test):
     print("Max F1 micro was", max(f1_results_micro), "at epoch", f1_results_micro.index(max(f1_results_micro)) + 1, "\n")
 
     # CONFUSION MATRIX
-    # print("confusion matrix:\n", confusion_matrix(y_test, y_pred))
+    print("confusion matrix:\n", confusion_matrix(y_test, y_pred))
 
 
 if __name__ == "__main__":
@@ -342,6 +342,7 @@ if __name__ == "__main__":
             print("Precision = ", round(precision_score(y_test, y_pred), 4))
             print("Recall = ", round(recall_score(y_test, y_pred), 4))
             print("F1 = ", round(f1_score(y_test, y_pred), 4), "\n\n")
+	    print("Confusion matrix:\n", confusion_matrix(y_test, y_pred))
 
     # 3-class models
     elif dataset == "16k_3class":
@@ -375,11 +376,12 @@ if __name__ == "__main__":
             y_prob = model.predict(x=np.array(X_test))
             labels_pred = y_prob.argmax(axis=-1)
             print("\bTEST_ACC = " + str(round(accuracy, 4)))
-            print_3class_results(history, labels_pred, y_test)
-            print(best_confusion_matrix)
+            # print_3class_results(history, labels_pred, y_test)
+            # print(best_confusion_matrix)
             print("Micro Precision = ", round(precision_score(y_test, labels_pred, average='micro'), 4))
             print("Micro Recall = ", round(recall_score(y_test, labels_pred, average='micro'), 4))
             print("Micro F1 = ", round(f1_score(y_test, labels_pred, average='micro'), 4), "\n")
+	    print_3class_results(history, labels_pred, y_test)
         else:
             # Evaluate on the loaded model
             loss, accuracy = model.evaluate(x=np.array(X_test), y=y_test_cat, verbose=0)
@@ -389,6 +391,7 @@ if __name__ == "__main__":
             print("Micro Precision = ", round(precision_score(y_test, labels_pred, average='micro'), 4))
             print("Micro Recall = ", round(recall_score(y_test, labels_pred, average='micro'), 4))
             print("Micro F1 = ", round(f1_score(y_test, labels_pred, average='micro'), 4), "\n")
+            print("Confusion matrix:\n", confusion_matrix(y_test, labels_pred))
 
 
 

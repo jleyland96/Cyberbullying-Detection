@@ -78,6 +78,8 @@ class Three_Class_Metrics(Callback):
         self.val_precisions_micro = []
 
     def on_epoch_end(self, epoch, logs={}):
+        global best_confusion_matrix
+
         print()
         val_predict = (np.asarray(self.model.predict(self.validation_data[0]))).round()
         val_targ = self.validation_data[1]
@@ -134,7 +136,7 @@ three_class_metrics = Three_Class_Metrics()
 
 def save_model(model, path):
     # serialize weights to HDF5
-    model.save_weights(str(path) + str(".h5"))
+    model.save_weights(path + str(".h5"))
     print("Saved model to disk")
 
 
@@ -306,6 +308,7 @@ if __name__ == "__main__":
     y_train = y_train[:train_max]   # one label for each train X
     y_test = y_test[:test_max]      # one label for each test X
 
+    # 2-class models
     if dataset in ["dixon", "1k", "16k_2class"]:
         print("2class")
 
@@ -320,17 +323,27 @@ if __name__ == "__main__":
         if LOAD_MODEL:
             model.load_weights(SAVE_PATH + str('.h5'))
 
-        # FIT THE MODEL
-        history = model.fit(np.array(X_train), y_train, validation_data=(np.array(X_test), y_test),
-                            batch_size=batch_size, epochs=10, verbose=1, callbacks=[metrics])
+        if TRAINING:
+            # FIT THE MODEL
+            history = model.fit(np.array(X_train), y_train, validation_data=(np.array(X_test), y_test),
+                                batch_size=batch_size, epochs=10, verbose=1, callbacks=[metrics])
 
-        # PRINT RESULTS
-        # loss, accuracy = model.evaluate(x=np.array(X_test), y=y_test, verbose=0)
-        y_pred = model.predict(x=np.array(X_test))
-        y_pred = np.round(y_pred, 0)
-        # print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
-        print_results(history, y_pred, y_test)
+            # PRINT RESULTS
+            # loss, accuracy = model.evaluate(x=np.array(X_test), y=y_test, verbose=0)
+            y_pred = model.predict(x=np.array(X_test))
+            y_pred = np.round(y_pred, 0)
+            # print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
+            print_results(history, y_pred, y_test)
+        else:
+            loss, accuracy = model.evaluate(x=np.array(X_test), y=y_test, verbose=0)
+            y_pred = model.predict(x=np.array(X_test))
+            y_pred = np.round(y_pred, 0)
+            print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
+            print("Precision = ", round(precision_score(y_test, y_pred), 4))
+            print("Recall = ", round(recall_score(y_test, y_pred), 4))
+            print("F1 = ", round(f1_score(y_test, y_pred), 4), "\n\n")
 
+    # 3-class models
     elif dataset == "16k_3class":
         print("3class")
 
@@ -347,12 +360,12 @@ if __name__ == "__main__":
         model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accuracy"])
         print(model.summary())
 
+        # load weights if needed
         if LOAD_MODEL:
-            # load weights if needed
             model.load_weights(SAVE_PATH + str(".h5"))
 
+        # Continue training if requested. Evaluate.
         if TRAINING:
-            # Fit the 3-class model, evaluate, and print training results
             # FIT THE MODEL - 3_class
             history = model.fit(np.array(X_train), y_train_cat, validation_data=(np.array(X_test), y_test_cat),
                                 batch_size=batch_size, epochs=10, verbose=1, callbacks=[three_class_metrics])
@@ -368,7 +381,7 @@ if __name__ == "__main__":
             print("Micro Recall = ", round(recall_score(y_test, labels_pred, average='micro'), 4))
             print("Micro F1 = ", round(f1_score(y_test, labels_pred, average='micro'), 4), "\n")
         else:
-            # PRINT RESULTS
+            # Evaluate on the loaded model
             loss, accuracy = model.evaluate(x=np.array(X_test), y=y_test_cat, verbose=0)
             y_prob = model.predict(x=np.array(X_test))
             labels_pred = y_prob.argmax(axis=-1)

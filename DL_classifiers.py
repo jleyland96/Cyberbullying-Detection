@@ -78,13 +78,13 @@ class Metrics(Callback):
         print("F1:\n", f1_results)
         print("Best F1 so far", max(f1_results), "\n")
 
-        # if the current f1 value is bigger than all of the previous f1 scores, save the model
-        if len(f1_results) > 1 and _val_f1 > max(f1_results[:-1]):
-            print("SAVING NEW MODEL")
+        # if the current f1 value is bigger than all previous f1 scores, save the model and matrix
+        if (len(f1_results) > 1 and _val_f1 > max(f1_results[:-1])) or (len(f1_results) == 1):
             best_confusion_matrix = confusion_matrix(val_targ, val_predict)
-            # Save the model for another time
-            # save_model(self.model, save_path)
 
+            # Save the model for another time
+            print("SAVING NEW MODEL")
+            save_model(self.model, SAVE_PATH)
 
         print()
         print(confusion_matrix(val_targ, val_predict))
@@ -145,10 +145,12 @@ class Three_Class_Metrics(Callback):
         print("F1 weighted:\n", f1_results_weighted)
         print("F1 micro:\n", f1_results_micro)
 
-        if len(f1_results_micro) > 1 and _val_f1_micro > max(f1_results_micro[:-1]):
+        if (len(f1_results_micro) > 1 and _val_f1_micro > max(f1_results_micro[:-1])) or (len(f1_results_micro) == 1):
+            best_confusion_matrix = confusion_matrix(val_targ, val_predict)
+
             print("SAVING NEW MODEL")
             # Save the model for another time
-            # save_model(self.model, save_path)
+            save_model(self.model, SAVE_PATH)
 
         return
 
@@ -218,7 +220,7 @@ def shuffle_data(X, y):
 
 
 def get_glove_matrix_from_dump():
-    embedding_matrix = pickle.load(open('embedding_matrix.p', 'rb'))
+    embedding_matrix = pickle.load(open('embedding_matrices/' + str(matrix) + '.p', 'rb'))
     return embedding_matrix
 
 
@@ -243,7 +245,7 @@ def get_glove_matrix(vocab_size, t):
         if embedding_vector is not None:
             embedding_matrix[i] = embedding_vector
 
-    pickle.dump(embedding_matrix, open('embedding_matrix.p', 'wb'), protocol=2)
+    pickle.dump(embedding_matrix, open('embedding_matrices/' + str(matrix) + '.p', 'wb'), protocol=2)
 
     return embedding_matrix
 
@@ -329,21 +331,21 @@ def f1_loss(y_true, y_pred):
 
 def print_results(history, y_pred, y_test):
     print("TRAIN:", list(np.round(history.history['acc'], 4)))
-    print("train_acc =", list(np.round(history.history['acc'], 4))[-1], "\n")
-    print("TEST:", list(np.round(history.history['val_acc'], 4)), "\n")
-    print("LOSS:", list(np.round(history.history['loss'], 4)), "\n")
+    # print("train acc =", list(np.round(history.history['acc'], 4))[-1])
+    print("TEST:", list(np.round(history.history['val_acc'], 4)))
+    print("LOSS:", list(np.round(history.history['loss'], 4)))
     if loss == "F1":
         val_f1 = list(np.round(history.history['val_f1'], 4))
         print("VAL_F1:", val_f1, "\n")
         print("Max val_f1 was", max(val_f1), "at epoch", val_f1.index(max(val_f1)) + 1, "\n")
         print("TRAIN_F1:", list(np.round(history.history['f1'], 4)))
     else:
-        print("Max F1 was", max(f1_results), "at epoch", f1_results.index(max(f1_results)) + 1, "\n")
-        print("F1:", f1_results)
+        print("F1:", f1_results, "\n")
+        print("Max F1 was", max(f1_results), "at epoch", f1_results.index(max(f1_results)) + 1)
 
     # CONFUSION MATRIX
-    print("confusion matrix:")
-    print(confusion_matrix(y_test, y_pred))
+    # print("confusion matrix:")
+    # print(confusion_matrix(y_test, y_pred))
 
 
 def print_3class_results(history, y_pred, y_test):
@@ -705,7 +707,7 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
                     2: 1.0}
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=3, batch_size=128, callbacks=[three_class_metrics], class_weight=class_weight)
+                        epochs=3, batch_size=128, callbacks=[three_class_metrics], class_weight=class_weight)
     # ------------------ END MODEL ------------------
 
     # evaluate
@@ -738,68 +740,68 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
     print(max_len)
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
-    # Split into training and test data
-    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.20)
+    # Split into training and test data TODO: fix split to ensure saved models are not tested on training data
+    X_train, X_test, labels_train, labels_test = train_test_split(padded_docs, labels, test_size=0.10, random_state=RANDOM_STATE)
 
     print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
     print()
 
-    # load a pre-saved model
-    # model = load_model(save_path)
-
     embedding_matrix = get_glove_matrix(vocab_size, t)
     # embedding_matrix = get_glove_matrix_from_dump()
 
-    # GloVe hit rate
-    print(np.count_nonzero(np.count_nonzero(embedding_matrix, axis=1)) / vocab_size)
+    if LOAD_MODEL:
+        # load a pre-saved model
+        model = load_model(SAVE_PATH)
+    else:
+        # ---------------- MODEL HERE ----------------
+        # Embedding input
+        model = Sequential()
+        # e = Embedding(input_dim=vocab_size, output_dim=300, weights=[embedding_matrix],
+        #               input_length=max_len, trainable=False)
+        e = Embedding(input_dim=vocab_size, output_dim=300,
+                      embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
+        e.trainable = False
+        model.add(e)
 
-    # ---------------- MODEL HERE ----------------
-    # Embedding input
-    model = Sequential()
-    # e = Embedding(input_dim=vocab_size, output_dim=300, weights=[embedding_matrix],
-    #               input_length=max_len, trainable=False)
-    e = Embedding(input_dim=vocab_size, output_dim=300,
-                  embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
-    e.trainable = False  # TODO: change to False after this run
-    model.add(e)
+        model.add(LSTM(units=50, dropout=0.5, recurrent_dropout=0.5))
+        model.add(Dense(units=1, activation='sigmoid'))
 
-    # model = cnn_network(model)
-    # model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
-    model = cnn_lstm_network(model)
-    # model.add(Bidirectional(LSTM(units=400, dropout=0.5, recurrent_dropout=0.5)))
-    model.add(Dense(units=1, activation='sigmoid'))
-
-    class_weight = {0: 1.0,
-                    1: 1.0}
+    # class_weight = {0: 1.0, 1: 1.0}
     # my_adam = optimizers.Adam(lr=0.003, decay=0.001)
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
     print(model.summary())
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=150, batch_size=128, callbacks=[metrics], class_weight=class_weight)
+                        nb_epoch=200, batch_size=32, callbacks=[metrics], verbose=1)
     # ------------------ END MODEL ------------------
 
     # evaluate
     loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
     y_pred = model.predict(x=X_test)
     y_pred = np.round(y_pred, 0)
-    print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
+    print("\bTest accuracy = " + str(round(accuracy, 4)))
 
     print_results(history, y_pred, labels_test)
-    print("BEST:")
+    print("Best confusion matrix:")
     print(best_confusion_matrix)
     # draw_graph(history)
 
 
 if __name__ == "__main__":
-    print("2 class learn embeddings")
+    # FILE NAMES
+    matrix = "cleaned_dixon"
+    file = matrix + str(".csv")
 
-    save_path = "tweets-test"
-    loss = "F1"
-    file = "cleaned_dixon.csv"
+    # PARAMETERS
+    SAVE_PATH = "twitter_test"
+    LOAD_MODEL = False
+    RANDOM_STATE = 2
+    loss = "not F1"
+
+    # ARCHITECTURE
     # learn_embeddings_model_2class(file)
     # learn_embeddings_model_3class(file)
     # learn_embeddings_2class_f1_loss(file)
-    # main_2_class_model(file)
+    # main_2_class_f1_loss(file)
+    main_2_class_model(file)
     # main_3_class_model(file)
-    main_2_class_f1_loss(file)

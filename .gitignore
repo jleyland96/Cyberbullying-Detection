@@ -14,7 +14,6 @@ plot_val_acc.py
 val_acc_graphs/
 output_graphs/
 saved_slurms/
-saved_models/
 embedding_matrix.p
 *.p
 *.h5

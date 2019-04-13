@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40655ca1-fecf-45a9-a5e7-fef1e93f65a6" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/DL_classifiers.py" afterPath="$PROJECT_DIR$/DL_classifiers.py" />
-      <change beforePath="$PROJECT_DIR$/Project Logbook/Week 20 notes" afterPath="$PROJECT_DIR$/Project Logbook/Week 20 notes" />
+      <change beforePath="$PROJECT_DIR$/DL_lstm_elmo.py" afterPath="$PROJECT_DIR$/DL_lstm_elmo.py" />
+      <change beforePath="$PROJECT_DIR$/multichannel_cnn.py" afterPath="$PROJECT_DIR$/multichannel_cnn.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,12 +20,29 @@
       <file leaf-file-name="DL_classifiers.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="633" column="35" lean-forward="false" selection-start-line="633" selection-start-column="35" selection-end-line="633" selection-end-column="35" />
+            <state relative-caret-position="390">
+              <caret line="709" column="30" lean-forward="false" selection-start-line="709" selection-start-column="30" selection-end-line="709" selection-end-column="30" />
               <folding>
-                <element signature="e#19158#19799#0" expanded="false" />
-                <element signature="e#22609#25307#0" expanded="false" />
-                <element signature="e#25368#28103#0" expanded="false" />
+                <element signature="e#6006#6634#0" expanded="false" />
+                <element signature="e#6688#7079#0" expanded="false" />
+                <element signature="e#7111#7223#0" expanded="false" />
+                <element signature="e#7254#7357#0" expanded="false" />
+                <element signature="e#8395#8798#0" expanded="false" />
+                <element signature="e#9154#9525#0" expanded="false" />
+                <element signature="e#9557#9941#0" expanded="false" />
+                <element signature="e#9972#10421#0" expanded="false" />
+                <element signature="e#10457#10905#0" expanded="false" />
+                <element signature="e#10956#11750#0" expanded="false" />
+                <element signature="e#11808#12439#0" expanded="false" />
+                <element signature="e#12518#14235#0" expanded="false" />
+                <element signature="e#14312#16530#0" expanded="false" />
+                <element signature="e#16614#18773#0" expanded="false" />
+                <element signature="e#18806#18982#0" expanded="false" />
+                <element signature="e#19018#19298#0" expanded="false" />
+                <element signature="e#19329#19970#0" expanded="false" />
+                <element signature="e#20038#22707#0" expanded="false" />
+                <element signature="e#26714#26760#0" expanded="false" />
+                <element signature="e#26824#26905#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -32,8 +51,8 @@
       <file leaf-file-name="plot_val_acc.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="31" column="36" lean-forward="false" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
+            <state relative-caret-position="272">
+              <caret line="35" column="91" lean-forward="false" selection-start-line="35" selection-start-column="91" selection-end-line="35" selection-end-column="91" />
               <folding />
             </state>
           </provider>
@@ -98,10 +117,11 @@
         <option value="$PROJECT_DIR$/DL_elmo.py" />
         <option value="$PROJECT_DIR$/ML_ensemble.py" />
         <option value="$PROJECT_DIR$/my_ensemble_slurm" />
-        <option value="$PROJECT_DIR$/DL_lstm_elmo.py" />
         <option value="$PROJECT_DIR$/ML_classifiers_combined.py" />
         <option value="$PROJECT_DIR$/dataset_analysis.py" />
         <option value="$PROJECT_DIR$/multichannel_cnn.py" />
+        <option value="$PROJECT_DIR$/DL_lstm_elmo.py" />
+        <option value="$PROJECT_DIR$/demo.py" />
         <option value="$PROJECT_DIR$/plot_val_acc.py" />
         <option value="$PROJECT_DIR$/DL_classifiers.py" />
       </list>
@@ -142,15 +162,12 @@
             <path>
               <item name="Cyberbullying-Detection" type="b2602c69:ProjectViewProjectNode" />
               <item name="Cyberbullying-Detection" type="462c0819:PsiDirectoryNode" />
-              <item name="DL_graphs" type="462c0819:PsiDirectoryNode" />
-              <item name="Tweets (16K) 2-class" type="462c0819:PsiDirectoryNode" />
+              <item name="embedding_matrices" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Cyberbullying-Detection" type="b2602c69:ProjectViewProjectNode" />
               <item name="Cyberbullying-Detection" type="462c0819:PsiDirectoryNode" />
-              <item name="DL_graphs" type="462c0819:PsiDirectoryNode" />
-              <item name="Tweets (16K) 2-class" type="462c0819:PsiDirectoryNode" />
-              <item name="Page 6 (maximising F1)" type="462c0819:PsiDirectoryNode" />
+              <item name="saved_models" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -199,24 +216,6 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="ML_classifiers_combined" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Cyberbullying-Detection" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ML_classifiers_combined.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
     <configuration name="dataset_analysis" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -230,6 +229,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Cyberbullying-Detection" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dataset_analysis.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="demo" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Cyberbullying-Detection" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -274,17 +291,17 @@
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.DL_classifiers" />
       <item index="1" class="java.lang.String" itemvalue="Python.plot_val_acc" />
-      <item index="2" class="java.lang.String" itemvalue="Python.ML_classifiers_combined" />
-      <item index="3" class="java.lang.String" itemvalue="Python.multichannel_cnn" />
-      <item index="4" class="java.lang.String" itemvalue="Python.dataset_analysis" />
+      <item index="2" class="java.lang.String" itemvalue="Python.multichannel_cnn" />
+      <item index="3" class="java.lang.String" itemvalue="Python.dataset_analysis" />
+      <item index="4" class="java.lang.String" itemvalue="Python.demo" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.DL_classifiers" />
         <item index="1" class="java.lang.String" itemvalue="Python.plot_val_acc" />
-        <item index="2" class="java.lang.String" itemvalue="Python.multichannel_cnn" />
-        <item index="3" class="java.lang.String" itemvalue="Python.dataset_analysis" />
-        <item index="4" class="java.lang.String" itemvalue="Python.ML_classifiers_combined" />
+        <item index="2" class="java.lang.String" itemvalue="Python.demo" />
+        <item index="3" class="java.lang.String" itemvalue="Python.multichannel_cnn" />
+        <item index="4" class="java.lang.String" itemvalue="Python.dataset_analysis" />
       </list>
     </recent_temporary>
   </component>
@@ -308,16 +325,16 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19375" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18819444" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3682353" sideWeight="0.5138889" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3682353" sideWeight="0.51666665" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3682353" sideWeight="0.48333332" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3682353" sideWeight="0.4861111" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -335,34 +352,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="30" />
+      <option name="time" value="32" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Screenshots/dixon_length graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_lstm_elmo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="945">
-          <caret line="270" column="25" lean-forward="false" selection-start-line="270" selection-start-column="25" selection-end-line="270" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/CF BI-LSTM F1 loss graph.png" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/CF ELMo F1 loss graph.png" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/Tweets (16K) 2-class/Page 3 (LSTM)/LSTM50x300 graph.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-ELMo128 graph.png" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-ELMo64 graph.png" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-ELMo256 graph.png" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/Dixon-BI-LSTM512 graph.png" />
     <entry file="file://$PROJECT_DIR$/cleaned_twitter_1K.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -434,13 +428,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/multichannel_cnn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="501" column="4" lean-forward="false" selection-start-line="501" selection-start-column="4" selection-end-line="501" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DL_graphs/Dixon-LSTM400 graph.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -488,14 +475,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="31" column="36" lean-forward="false" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/DL_graphs/Tweets (1K)/Page 5 (F1 loss)/1K-LSTM100-F1Loss graph.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -511,14 +490,140 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/Dixon-LSTM F1 loss graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/Dixon-LSTM-BN F1 loss graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/Dixon-BI-LSTM400 F1 loss graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multichannel_cnn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-890">
+          <caret line="456" column="28" lean-forward="false" selection-start-line="456" selection-start-column="28" selection-end-line="456" selection-end-column="28" />
+          <folding>
+            <element signature="e#1239#1767#0" expanded="false" />
+            <element signature="e#1842#1956#0" expanded="false" />
+            <element signature="e#2000#2802#0" expanded="false" />
+            <element signature="e#2856#2934#0" expanded="false" />
+            <element signature="e#3029#3901#0" expanded="false" />
+            <element signature="e#3959#5041#0" expanded="false" />
+            <element signature="e#5116#5296#0" expanded="false" />
+            <element signature="e#5365#5749#0" expanded="false" />
+            <element signature="e#5792#6241#0" expanded="false" />
+            <element signature="e#6296#6744#0" expanded="false" />
+            <element signature="e#6797#7088#0" expanded="false" />
+            <element signature="e#7134#7505#0" expanded="false" />
+            <element signature="e#17332#18593#0" expanded="false" />
+            <element signature="e#20380#22004#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/Tweets (16K) 3-class/Page 3 (ELMo)/3-Elmo-LSTM512 graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_elmo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="174" column="38" lean-forward="false" selection-start-line="174" selection-start-column="38" selection-end-line="174" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#23#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/twitter_small_LSTM150_retrain graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_lstm_elmo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="453">
+          <caret line="383" column="42" lean-forward="false" selection-start-line="383" selection-start-column="42" selection-end-line="383" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#23#0" expanded="false" />
+            <element signature="e#731#2286#0" expanded="false" />
+            <element signature="e#2440#5141#0" expanded="false" />
+            <element signature="e#7355#7643#0" expanded="false" />
+            <element signature="e#7722#7995#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="450" column="33" lean-forward="false" selection-start-line="450" selection-start-column="33" selection-end-line="450" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#10#0" expanded="false" />
+            <element signature="e#1527#3209#0" expanded="false" />
+            <element signature="e#3275#5880#0" expanded="false" />
+            <element signature="e#5957#6585#0" expanded="false" />
+            <element signature="e#6617#6729#0" expanded="false" />
+            <element signature="e#6770#6884#0" expanded="false" />
+            <element signature="e#6928#7730#0" expanded="false" />
+            <element signature="e#7767#8170#0" expanded="false" />
+            <element signature="e#8206#8497#0" expanded="false" />
+            <element signature="e#8526#8897#0" expanded="false" />
+            <element signature="e#8940#9430#0" expanded="false" />
+            <element signature="e#9481#9972#0" expanded="false" />
+            <element signature="e#10030#10635#0" expanded="false" />
+            <element signature="e#10702#13402#0" expanded="false" />
+            <element signature="e#13457#16137#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/DEMO 2class-LSTM50 graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="35" column="91" lean-forward="false" selection-start-line="35" selection-start-column="91" selection-end-line="35" selection-end-column="91" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="633" column="35" lean-forward="false" selection-start-line="633" selection-start-column="35" selection-end-line="633" selection-end-column="35" />
+        <state relative-caret-position="390">
+          <caret line="709" column="30" lean-forward="false" selection-start-line="709" selection-start-column="30" selection-end-line="709" selection-end-column="30" />
           <folding>
-            <element signature="e#19158#19799#0" expanded="false" />
-            <element signature="e#22609#25307#0" expanded="false" />
-            <element signature="e#25368#28103#0" expanded="false" />
+            <element signature="e#6006#6634#0" expanded="false" />
+            <element signature="e#6688#7079#0" expanded="false" />
+            <element signature="e#7111#7223#0" expanded="false" />
+            <element signature="e#7254#7357#0" expanded="false" />
+            <element signature="e#8395#8798#0" expanded="false" />
+            <element signature="e#9154#9525#0" expanded="false" />
+            <element signature="e#9557#9941#0" expanded="false" />
+            <element signature="e#9972#10421#0" expanded="false" />
+            <element signature="e#10457#10905#0" expanded="false" />
+            <element signature="e#10956#11750#0" expanded="false" />
+            <element signature="e#11808#12439#0" expanded="false" />
+            <element signature="e#12518#14235#0" expanded="false" />
+            <element signature="e#14312#16530#0" expanded="false" />
+            <element signature="e#16614#18773#0" expanded="false" />
+            <element signature="e#18806#18982#0" expanded="false" />
+            <element signature="e#19018#19298#0" expanded="false" />
+            <element signature="e#19329#19970#0" expanded="false" />
+            <element signature="e#20038#22707#0" expanded="false" />
+            <element signature="e#26714#26760#0" expanded="false" />
+            <element signature="e#26824#26905#0" expanded="false" />
           </folding>
         </state>
       </provider>

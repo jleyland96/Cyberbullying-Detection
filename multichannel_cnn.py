@@ -62,7 +62,7 @@ def get_data(filename="cleaned_tweets_16k.csv"):
 
 # get glove matrix for this vocab
 def get_glove_matrix_from_dump():
-    embedding_matrix = pickle.load(open('embedding_matrix.p', 'rb'))
+    embedding_matrix = pickle.load(open('embedding_matrices/' + str(matrix) + '.p', 'rb'))
     return embedding_matrix
 
 
@@ -87,7 +87,7 @@ def get_glove_matrix(vocab_size, t):
         if embedding_vector is not None:
             embedding_matrix[i] = embedding_vector
 
-    pickle.dump(embedding_matrix, open('embedding_matrix.p', 'wb'), protocol=2)
+    pickle.dump(embedding_matrix, open('embedding_matrices/' + str(matrix) + '.p', 'wb'), protocol=2)
 
     return embedding_matrix
 
@@ -163,7 +163,7 @@ def draw_graph(history):
     plt.ylabel('accuracy/f1/loss')
     plt.xlabel('epoch')
     plt.legend(['train', 'test', 'f1', 'loss'], loc='lower right')
-    plt.savefig('DL_graphs/' + str(save_path) + ' graph.png')
+    plt.savefig('DL_graphs/' + str(SAVE_PATH) + ' graph.png')
     plt.show()
 
 
@@ -198,6 +198,30 @@ def f1_loss(y_true, y_pred):
     return 1 - K.mean(f1)
 
 
+# save the model
+def save_model(model, path):
+    # serialize model to JSON
+    model_json = model.to_json()
+    with open("saved_models/" + str(path) + ".json", "w") as json_file:
+        json_file.write(model_json)
+    # serialize weights to HDF5
+    model.save_weights("saved_models/" + str(path) + ".h5")
+    print("Saved model to disk")
+
+
+# load the model
+def load_model(path):
+    # load json and create model
+    json_file = open("saved_models/" + str(path) + ".json", 'r')
+    loaded_model_json = json_file.read()
+    json_file.close()
+    loaded_model = model_from_json(loaded_model_json)
+    # load weights into new model
+    loaded_model.load_weights("saved_models/" + str(path) + ".h5")
+    print("Loaded model from disk")
+    return loaded_model
+
+
 class Metrics(Callback):
     def on_train_begin(self, logs={}):
         self.val_f1s = []
@@ -225,19 +249,19 @@ class Metrics(Callback):
         f1_results.append(round(_val_f1, 3))
 
         # if the current f1 value is bigger than all of the previous f1 scores, save the model
-        if len(f1_results) > 1 and _val_f1 > max(f1_results[:-1]):
-            print("SAVING NEW MODEL")
+        if (len(f1_results) > 1 and _val_f1 > max(f1_results[:-1])) or (len(f1_results) == 1):
             best_confusion_matrix = confusion_matrix(val_targ, val_predict)
+
+            print("SAVING NEW MODEL")
             # Save the model for another time
-            # save_model(self.model, save_path)
+            save_model(self.model, SAVE_PATH)
 
         # Print validation accuracy and f1 scores (so we can plot later)
-        # print("\nVAL_ACC:\n", validation_results)
-        # print("\n\n")
-        # print("F1:\n", f1_results)
+        print("\nVAL_ACC:\n", validation_results)
+        print("")
+        print("F1:\n", f1_results)
 
-        # print()
-        # print(confusion_matrix(val_targ, val_predict))
+        print("\n", confusion_matrix(val_targ, val_predict))
         return
 
 
@@ -254,6 +278,8 @@ class Three_Class_Metrics(Callback):
         self.val_precisions_micro = []
 
     def on_epoch_end(self, epoch, logs={}):
+        global best_confusion_matrix
+
         print()
         val_predict = (np.asarray(
             self.model.predict([self.validation_data[0], self.validation_data[1], self.validation_data[2]]))).round()
@@ -290,12 +316,16 @@ class Three_Class_Metrics(Callback):
 
         # Print validation accuracy and f1 scores (so we can plot later)
         print("\nVAL_ACC:\n", validation_results)
-        print("\n\n")
+        print("")
         print("F1 weighted:\n", f1_results_weighted)
         print("F1 micro:\n", f1_results_micro)
 
-        # Save the model for another time
-        # save_model(self.model, save_path)
+        if (len(f1_results_micro) > 1 and _val_f1_micro > max(f1_results_micro[:-1])) or (len(f1_results_micro) == 1):
+            best_confusion_matrix = confusion_matrix(val_targ, val_predict)
+
+            print("SAVING NEW MODEL")
+            # Save the model for another time
+            save_model(self.model, SAVE_PATH)
         return
 
 
@@ -424,8 +454,7 @@ def onehot_2class(filename):
     # testLabels = np.array(testLabels)
 
     # FIT
-    class_weight = {0: 1.0,
-                    1: 1.0}
+    class_weight = {0: 1.0, 1: 1.0}
     history = model.fit(x=[trainX, trainX, trainX], y=array(trainLabels),
                         validation_data=([testX, testX, testX], array(testLabels)),
                         nb_epoch=30, batch_size=256, callbacks=[metrics], class_weight=class_weight, verbose=1)
@@ -506,9 +535,7 @@ def glove_2class(filename):
     model = define_glove_model(max_len, vocab_size, embedding_matrix, num_classes=2)
 
     # FIT
-    class_weight = {0: 1.0,
-                    1: 1.0,
-                    2: 1.0}
+    class_weight = {0: 1.0, 1: 1.0, 2: 1.0}
     history = model.fit(x=[X_train, X_train, X_train], y=y_train,
                         validation_data=([X_test, X_test, X_test], y_test),
                         nb_epoch=30, batch_size=256, callbacks=[metrics], class_weight=class_weight, verbose=1)
@@ -561,9 +588,7 @@ def glove_3class():
     model = define_glove_model(max_len, vocab_size, embedding_matrix, num_classes=3)
 
     # FIT
-    class_weight = {0: 1.0,
-                    1: 1.0,
-                    2: 1.0}
+    class_weight = {0: 1.0, 1: 1.0, 2: 1.0}
     history = model.fit(x=[X_train, X_train, X_train], y=labels_train,
                         validation_data=([X_test, X_test, X_test], labels_test),
                         nb_epoch=50, batch_size=64, callbacks=[three_class_metrics], class_weight=class_weight)
@@ -577,8 +602,16 @@ def glove_3class():
     print_3class_results(y_test, labels_pred, history)
 
 
-save_path = "Testing"
-file = 'cleaned_dixon.csv'
+# FILE NAMES
+matrix = "cleaned_tweets_16k"
+file = matrix + str(".csv")
+
+# PARAMETERS
+SAVE_PATH = "twitter_2class_LSTM50"
+LOAD_MODEL = False
+RANDOM_STATE = 2
 loss_fn = "not F1"
+
+# ARCHITECTURES
 # glove_2class(filename=file)
 onehot_2class(filename=file)

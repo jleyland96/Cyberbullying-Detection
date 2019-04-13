@@ -146,6 +146,8 @@ class Three_Class_Metrics(Callback):
         print("F1 micro:\n", f1_results_micro)
 
         if (len(f1_results_micro) > 1 and _val_f1_micro > max(f1_results_micro[:-1])) or (len(f1_results_micro) == 1):
+            val_targ = val_targ.argmax(axis=-1)
+            val_predict = val_predict.argmax(axis=-1)
             best_confusion_matrix = confusion_matrix(val_targ, val_predict)
 
             print("SAVING NEW MODEL")
@@ -362,8 +364,8 @@ def print_3class_results(history, y_pred, y_test):
     print("Max F1 micro was", max(f1_results_micro), "at epoch", f1_results_micro.index(max(f1_results_micro)) + 1, "\n")
 
     # CONFUSION MATRIX
-    print("confusion matrix:")
-    print(confusion_matrix(y_test, y_pred))
+    # print("confusion matrix:")
+    # print(confusion_matrix(y_test, y_pred))
 
 
 def learn_embeddings_2class_f1_loss(filename="cleaned_tweets_16k.csv"):
@@ -720,6 +722,8 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
     print("\bTEST_ACC = " + str(round(accuracy * 100, 2)) + "%")
 
     print_3class_results(history, labels_pred, y_test)
+    print("Best confusion matrix:")
+    print(best_confusion_matrix)
 
 
 def main_2_class_model(filename="cleaned_dixon.csv"):
@@ -749,8 +753,8 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
     print()
 
-    embedding_matrix = get_glove_matrix(vocab_size, t)
-    # embedding_matrix = get_glove_matrix_from_dump()
+    # embedding_matrix = get_glove_matrix(vocab_size, t)
+    embedding_matrix = get_glove_matrix_from_dump()
 
     if LOAD_MODEL:
         # load a pre-saved model
@@ -791,11 +795,11 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
 
 if __name__ == "__main__":
     # FILE NAMES
-    matrix = "cleaned_dixon"
+    matrix = "cleaned_tweets_16k_3class"
     file = matrix + str(".csv")
 
     # PARAMETERS
-    SAVE_PATH = "dixon_LSTM500"
+    SAVE_PATH = "TEST"
     LOAD_MODEL = False
     RANDOM_STATE = 2
     loss = "not F1"
@@ -805,5 +809,5 @@ if __name__ == "__main__":
     # learn_embeddings_model_3class(file)
     # learn_embeddings_2class_f1_loss(file)
     # main_2_class_f1_loss(file)
-    main_2_class_model(file)
-    # main_3_class_model(file)
+    # main_2_class_model(file)
+    main_3_class_model(file)

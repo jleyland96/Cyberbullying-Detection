@@ -146,9 +146,12 @@ class Three_Class_Metrics(Callback):
         print("F1 micro:\n", f1_results_micro)
 
         if (len(f1_results_micro) > 1 and _val_f1_micro > max(f1_results_micro[:-1])) or (len(f1_results_micro)==1):
+            val_targ = val_targ.argmax(axis=-1)
+            val_predict = val_predict.argmax(axis=-1)
+            best_confusion_matrix = confusion_matrix(val_targ, val_predict)
+
             print("SAVING NEW MODEL")
             # Save the model for another time
-            best_confusion_matrix = confusion_matrix(val_targ, val_predict)
             save_model(self.model, SAVE_PATH)
 
         return
@@ -360,6 +363,7 @@ def test_3_class(filename="cleaned_tweets_16k_3class.csv"):
     print("Micro Precision = ", round(precision_score(y_test, labels_pred, average='micro'), 4))
     print("Micro Recall = ", round(recall_score(y_test, labels_pred, average='micro'), 4))
     print("Micro F1 = ", round(f1_score(y_test, labels_pred, average='micro'), 4), "\n\n")
+    print("Confusion matrix:\n", confusion_matrix(y_test, labels_pred))
 
     if CONTINUE_TRAIN:
         print("Continuing to train!")
@@ -427,6 +431,7 @@ def test_2_class(filename="cleaned_dixon.csv"):
     print("Precision = ", round(precision_score(labels_test, y_pred), 4))
     print("Recall = ", round(recall_score(labels_test, y_pred), 4))
     print("F1 = ", round(f1_score(labels_test, y_pred), 4), "\n\n")
+    print("Confusion matrix:", confusion_matrix(labels_test, y_pred))
 
     # if we want to continue training, run more epochs, evaluate on test and print training graph
     if CONTINUE_TRAIN:

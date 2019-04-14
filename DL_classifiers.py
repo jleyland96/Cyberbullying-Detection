@@ -84,7 +84,7 @@ class Metrics(Callback):
 
             # Save the model for another time
             print("SAVING NEW MODEL")
-            save_model(self.model, SAVE_PATH)
+            save_model(self.model)
 
         print()
         print(confusion_matrix(val_targ, val_predict))
@@ -152,7 +152,7 @@ class Three_Class_Metrics(Callback):
 
             print("SAVING NEW MODEL")
             # Save the model for another time
-            save_model(self.model, SAVE_PATH)
+            save_model(self.model)
 
         return
 
@@ -275,25 +275,25 @@ def get_test_size(filename):
         return 0.10
 
 
-def save_model(model, path):
+def save_model(model):
     if not(file == "cleaned_dixon.csv"):
         # serialize model to JSON
         model_json = model.to_json()
-        with open("saved_models/" + str(path) + ".json", "w") as json_file:
+        with open("saved_models/" + str(SAVE_PATH) + ".json", "w") as json_file:
             json_file.write(model_json)
     # serialize weights to HDF5
-    model.save_weights("saved_models/" + str(path) + ".h5")
+    model.save_weights("saved_models/" + str(SAVE_PATH) + ".h5")
     print("Saved model to disk")
 
 
-def load_model(path):
+def load_model():
     # load json and create model
-    json_file = open("saved_models/" + str(path) + ".json", 'r')
+    json_file = open("saved_models/" + str(LOAD_PATH) + ".json", 'r')
     loaded_model_json = json_file.read()
     json_file.close()
     loaded_model = model_from_json(loaded_model_json)
     # load weights into new model
-    loaded_model.load_weights("saved_models/" + str(path) + ".h5")
+    loaded_model.load_weights("saved_models/" + str(LOAD_PATH) + ".h5")
     print("Loaded model from disk")
     return loaded_model
 
@@ -556,27 +556,27 @@ def dense_network(model):
 
 
 def cnn_lstm_network(model):
-    model.add(Conv1D(filters=64, kernel_size=4, strides=2, padding='valid', use_bias=False))
+    model.add(Conv1D(filters=32, kernel_size=3, strides=2, padding='valid', use_bias=False))
     model.add(BatchNormalization())
     model.add(ReLU())
     model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(LSTM(units=300, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=64, dropout=0.5, recurrent_dropout=0.5))
     return model
 
 
 def cnn_network(model):
-    model.add(Conv1D(filters=64, kernel_size=4, strides=2, padding='valid', use_bias=False))
+    model.add(Conv1D(filters=32, kernel_size=4, strides=2, padding='valid', use_bias=False))
     model.add(BatchNormalization())
     model.add(ReLU())
     model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(Conv1D(filters=128, kernel_size=4, strides=1, padding='valid', use_bias=False))
+    model.add(Conv1D(filters=32, kernel_size=3, strides=1, padding='valid', use_bias=False))
     model.add(BatchNormalization())
     model.add(ReLU())
     model.add(MaxPool1D(pool_size=2, strides=1))
 
-    model.add(Conv1D(filters=64, kernel_size=3, strides=1, padding='valid', use_bias=False))
+    model.add(Conv1D(filters=32, kernel_size=3, strides=1, padding='valid', use_bias=False))
     model.add(BatchNormalization())
     model.add(ReLU())
     model.add(MaxPool1D(pool_size=2, strides=1))
@@ -585,8 +585,8 @@ def cnn_network(model):
     return model
 
 
-def main_2_class_f1_loss(filename="cleaned_tweets_16k.csv"):
-    print("\nSIMPLE GLOVE MODEL")
+def main_2_class_f1_loss(filename="cleaned_twitter_1K.csv"):
+    print("\nGLOVE MODEL")
 
     # get the data
     X, labels = get_data(filename=filename)
@@ -615,11 +615,8 @@ def main_2_class_f1_loss(filename="cleaned_tweets_16k.csv"):
     # load a pre-saved model
     # model = load_model(save_path)
 
-    embedding_matrix = get_glove_matrix(vocab_size, t)
-    # embedding_matrix = get_glove_matrix_from_dump()
-
-    # GloVe hit rate
-    print(np.count_nonzero(np.count_nonzero(embedding_matrix, axis=1)) / vocab_size)
+    # embedding_matrix = get_glove_matrix(vocab_size, t)
+    embedding_matrix = get_glove_matrix_from_dump()
 
     # ---------------- MODEL HERE ----------------
     # Embedding input
@@ -631,11 +628,11 @@ def main_2_class_f1_loss(filename="cleaned_tweets_16k.csv"):
     e.trainable = False
     model.add(e)
 
-    # model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=50, dropout=0.5, recurrent_dropout=0.5))
     # model.add(BatchNormalization())
     # model.add(Bidirectional(LSTM(units=400, dropout=0.5, recurrent_dropout=0.5)))
 
-    model = cnn_lstm_network(model)
+    # model = cnn_lstm_network(model)
 
     model.add(Dense(units=1, activation='sigmoid'))
 
@@ -644,7 +641,7 @@ def main_2_class_f1_loss(filename="cleaned_tweets_16k.csv"):
     print("F1 LOSS")
     model.compile(optimizer='adam', loss=f1_loss, metrics=['acc', f1])
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=30, callbacks=[metrics], batch_size=256)
+                        epochs=5, callbacks=[metrics], batch_size=32)
 
     # evaluate
     # loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
@@ -660,7 +657,7 @@ def main_2_class_f1_loss(filename="cleaned_tweets_16k.csv"):
 
 
 def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
-    print("\nSIMPLE GLOVE MODEL")
+    print("\nGLOVE MODEL")
     # 0=none, 1=racism, 2=sexism
 
     # get the data
@@ -692,47 +689,66 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
     # embedding_matrix = get_glove_matrix(vocab_size, t)
     embedding_matrix = get_glove_matrix_from_dump()
 
-    # ---------------- MODEL HERE ----------------
-    # Embedding input
-    model = Sequential()
-    # e = Embedding(input_dim=vocab_size, output_dim=300, weights=[embedding_matrix],
-    #               input_length=max_len, trainable=False)
-    e = Embedding(input_dim=vocab_size, output_dim=300,
-                  embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
-    e.trainable = False  # should be false
-    model.add(e)
+    # if we want to load the model or not
+    if LOAD_MODEL:
+        model = load_model()
+    else:
+        model = Sequential()
+        e = Embedding(input_dim=vocab_size, output_dim=300,
+                      embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
+        e.trainable = False  # should be false
+        model.add(e)
 
-    model.add(Bidirectional(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5)))
+        if ARCH_CHOICE == "1":
+            model.add(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5))
+        elif ARCH_CHOICE == "2":
+            model = cnn_network(model)
+        elif ARCH_CHOICE == "3":
+            model = cnn_lstm_network(model)
+        else:
+            model.add(Bidirectional(LSTM(units=64, dropout=0.5, recurrent_dropout=0.5)))
 
-    model.add(Dense(units=3, activation='softmax'))
-
-    # compile the model
-    # adam = optimizers.Adam(lr=0.0005, decay=0.01, beta_1=0.92, beta_2=0.9992)
-    # print("F1 LOSS")
-    # model.compile(optimizer='adam', loss=f1_loss, metrics=['acc', f1])
-    # history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-    #                     nb_epoch=30, batch_size=128, class_weight=class_weight)
-
-    class_weight = {0: 1.0, 1: 1.0, 2: 1.0}
+        model.add(Dense(units=3, activation='softmax'))
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-    history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        epochs=50, batch_size=128, callbacks=[three_class_metrics], class_weight=class_weight)
-    # ------------------ END MODEL ------------------
 
-    # evaluate
-    # labels_pred = model.predict_classes(x=X_test)
-    y_prob = model.predict(x=X_test)
-    labels_pred = y_prob.argmax(axis=-1)
-    loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
-    print("\bTEST_ACC = " + str(round(accuracy * 100, 2)) + "%")
+    NUM_EPOCHS = 7
+    global CONTINUE_TRAINING
+    if not CONTINUE_TRAINING:
+        y_prob = model.predict(x=X_test)
+        labels_pred = y_prob.argmax(axis=-1)
+        loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
+        print("\bTEST_ACC = " + str(round(accuracy * 100, 2)) + "%")
+        print("Micro Precision = ", round(precision_score(y_test, labels_pred, average='micro'), 4))
+        print("Micro Recall = ", round(recall_score(y_test, labels_pred, average='micro'), 4))
+        print("Micro F1 = ", round(f1_score(y_test, labels_pred, average='micro'), 4), "\n\n")
+        print("Confusion matrix:\n", confusion_matrix(y_test, labels_pred))
 
-    print_3class_results(history, labels_pred, y_test)
-    print("Best confusion matrix:")
-    print(best_confusion_matrix)
+        print("Would you like to continue training? ('y' or 'n')")
+        inp = input()
+        if inp == 'y':
+            CONTINUE_TRAINING = True
+            NUM_EPOCHS = 3
+
+    # If we want to continue training
+    if CONTINUE_TRAINING:
+        class_weight = {0: 1.0, 1: 1.0, 2: 1.0}
+        history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
+                            epochs=NUM_EPOCHS, batch_size=128, callbacks=[three_class_metrics], class_weight=class_weight)
+
+        # evaluate
+        # labels_pred = model.predict_classes(x=X_test)
+        y_prob = model.predict(x=X_test)
+        labels_pred = y_prob.argmax(axis=-1)
+        loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
+        print("\bTEST_ACC = " + str(round(accuracy * 100, 2)) + "%")
+
+        print_3class_results(history, labels_pred, y_test)
+        print("Best confusion matrix:")
+        print(best_confusion_matrix)
 
 
 def main_2_class_model(filename="cleaned_dixon.csv"):
-    print("\nSIMPLE GLOVE MODEL")
+    print("\nGLOVE MODEL")
 
     # get the data
     X, labels = get_data(filename=filename)
@@ -763,7 +779,16 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
 
     if LOAD_MODEL:
         # load a pre-saved model
-        model = load_model(SAVE_PATH)
+        if file == "cleaned_dixon.csv":
+            # construct the model and just load the weights
+            model = Sequential()
+            e = Embedding(input_dim=vocab_size, output_dim=300, embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
+            e.trainable = False
+            model.add(e)
+            model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
+            model.add(Dense(units=1, activation='sigmoid'))
+        else:
+            model = load_model()
     else:
         # ---------------- MODEL HERE ----------------
         # Embedding input
@@ -775,46 +800,164 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
         e.trainable = False
         model.add(e)
 
-        model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
+        if ARCH_CHOICE == "1":
+            model.add(LSTM(units=100, dropout=0.5, recurrent_dropout=0.5))
+        elif ARCH_CHOICE == "2":
+            model = cnn_network(model)
+        elif ARCH_CHOICE == "3":
+            model = cnn_lstm_network(model)
+        else:
+            model.add(Bidirectional(LSTM(units=64, dropout=0.5, recurrent_dropout=0.5)))
         model.add(Dense(units=1, activation='sigmoid'))
 
     # class_weight = {0: 1.0, 1: 1.0}
     # my_adam = optimizers.Adam(lr=0.003, decay=0.001)
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
     print(model.summary())
-    history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        nb_epoch=30, batch_size=256, callbacks=[metrics], verbose=1)
-    # ------------------ END MODEL ------------------
 
-    # evaluate
-    loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
-    y_pred = model.predict(x=X_test)
-    y_pred = np.round(y_pred, 0)
-    print("\bTest accuracy = " + str(round(accuracy, 4)))
+    NUM_EPOCHS = 7
+    global CONTINUE_TRAINING
+    if not CONTINUE_TRAINING:
+        # Evaluate
+        loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
+        y_pred = model.predict(x=X_test)
+        y_pred = np.round(y_pred, 0)
+        print("Test accuracy = ", round(accuracy, 4))
+        print("Precision = ", round(precision_score(labels_test, y_pred), 4))
+        print("Recall = ", round(recall_score(labels_test, y_pred), 4))
+        print("F1 = ", round(f1_score(labels_test, y_pred), 4), "\n\n")
 
-    print_results(history, y_pred, labels_test)
-    print("Best confusion matrix:")
-    print(best_confusion_matrix)
-    # draw_graph(history)
+        print("Would you like to continue training? ('y' or 'n')")
+        inp = input()
+        if inp == 'y':
+            CONTINUE_TRAINING = True
+            NUM_EPOCHS = 3
+
+    if CONTINUE_TRAINING:
+        history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
+                            nb_epoch=NUM_EPOCHS, batch_size=128, callbacks=[metrics], verbose=1)
+        # ------------------ END MODEL ------------------
+
+        # evaluate
+        loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
+        y_pred = model.predict(x=X_test)
+        y_pred = np.round(y_pred, 0)
+        print("\bTest accuracy = " + str(round(accuracy, 4)))
+
+        print_results(history, y_pred, labels_test)
+        print("Best confusion matrix:")
+        print(best_confusion_matrix)
+        # draw_graph(history)
+
+
+def main_menu():
+    global loss
+    global matrix
+    global file
+    global RANDOM_STATE
+    global LOAD_MODEL
+    global SAVE_PATH
+    global TEST_SIZE
+    global LOAD_PATH
+    global CONTINUE_TRAINING
+    global ARCH_CHOICE
+
+    print("  MENU\n--------")
+
+    # --- DATASET ---
+    print("Choose a dataset: ('1', '2', '3' or '4')")
+    print("1. Twitter_small")
+    print("2. Twitter_big_2class")
+    print("3. Twitter_big_3class")
+    print("4. Reddit")
+    data_choice = input()
+    if data_choice == "1":
+        print("Twitter_small")
+        matrix = "cleaned_twitter_1K"
+    elif data_choice == "2":
+        print("Twitter_big_2class")
+        matrix = "cleaned_tweets_16k"
+    elif data_choice == "3":
+        print("Twitter_big_3class")
+        matrix = "cleaned_tweets_16k_3class"
+    else:
+        print("Reddit")
+        matrix = "cleaned_dixon"
+    file = matrix + str(".csv")
+    TEST_SIZE = get_test_size(file)
+    loss = "not F1"
+    print(matrix)
+    print(file)
+
+    # --- LOAD or TRAIN ---
+    print("Observe a saved model ('1'), or train a new model ('2')?")
+    choice = input()
+    if choice == "1":
+        # Loading a saved model
+        LOAD_MODEL = True
+        CONTINUE_TRAINING = False
+        SAVE_PATH = "DEMO SAVE PATH"
+        if data_choice == "1":
+            print("Loading LSTM model on twitter_small")
+            LOAD_PATH = "twitter_small_LSTM150"
+            RANDOM_STATE = 2
+            main_2_class_model(file)
+        elif data_choice == "2":
+            print("Loading LSTM model on twitter_big_2class")
+            LOAD_PATH = "twitter_2class_LSTM50"
+            RANDOM_STATE = 3
+            main_2_class_model(file)
+        elif data_choice == "3":
+            print("Loading Bidirectional LSTM model on twitter_big_3class")
+            LOAD_PATH = "twitter_3class_BI-LSTM"
+            RANDOM_STATE = 2
+            main_3_class_model(file)
+        else:
+            print("Loading LSTM model on dixon dataset")
+            LOAD_PATH = ""  # TODO: fill in dixon data
+            RANDOM_STATE = 2
+            main_2_class_model(file)
+    else:
+        # training a new model
+        LOAD_MODEL = False
+        CONTINUE_TRAINING = True
+        RANDOM_STATE = 5
+        SAVE_PATH = "DEMO TRAIN SAVE PATH"
+        print("Which model would you like to try? ('1', '2', '3' or '4')")
+        print("1. LSTM")
+        print("2. CNN")
+        print("3. Combo (CNN + LSTM)")
+        print("4. Bidirectional LSTM")
+        ARCH_CHOICE = input()
+
+        if data_choice in ["1", "2", "4"]:
+            main_2_class_model(file)
+        else:
+            main_3_class_model(file)
 
 
 if __name__ == "__main__":
-    # FILE NAMES
-    matrix = "cleaned_tweets_16k_3class"
-    file = matrix + str(".csv")
+    # # FILE NAMES
+    # matrix = "cleaned_tweets_16k"
+    # file = matrix + str(".csv")
+    #
+    # # PARAMETERS
+    # LOAD_PATH = "TEST"
+    # SAVE_PATH = LOAD_PATH + str("_retrain TEST")
+    # LOAD_MODEL = False
+    # CONTINUE_TRAINING = False
+    # TEST_SIZE = get_test_size(file)
+    # print(TEST_SIZE)
+    # RANDOM_STATE = 2
+    # loss = "not F1"
+    # ARCH_CHOICE = 1
 
-    # PARAMETERS
-    SAVE_PATH = "twitter_3class_BI-LSTM"
-    LOAD_MODEL = False
-    TEST_SIZE = get_test_size(file)
-    print(TEST_SIZE)
-    RANDOM_STATE = 2
-    loss = "not F1"
+    main_menu()
 
     # ARCHITECTURE
     # learn_embeddings_model_2class(file)
     # learn_embeddings_model_3class(file)
     # learn_embeddings_2class_f1_loss(file)
-    # main_2_class_f1_loss(file)
+    # main_2_class_f1_loss("cleaned_tweets_16k.csv")
     # main_2_class_model(file)
-    main_3_class_model(file)
+    # main_3_class_model(file)

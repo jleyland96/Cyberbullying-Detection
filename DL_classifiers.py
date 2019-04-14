@@ -746,6 +746,8 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
         print("Best confusion matrix:")
         print(best_confusion_matrix)
 
+    return t, model, max_len
+
 
 def main_2_class_model(filename="cleaned_dixon.csv"):
     print("\nGLOVE MODEL")
@@ -761,6 +763,10 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
 
     # integer encode the documents
     encoded_docs = t.texts_to_sequences(texts=X)
+    # for i in range(0, 3):
+    #     print(X[i])
+    #     print(encoded_docs[i])
+    # print(t.texts_to_sequences(texts=["hello what is going on jansdiandisnai here usddisadisinosadmop"]))
 
     # pad documents
     max_len = get_pad_length(filename)
@@ -849,6 +855,8 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
         print(best_confusion_matrix)
         # draw_graph(history)
 
+    return t, model, max_len
+
 
 def main_menu():
     global loss
@@ -901,22 +909,22 @@ def main_menu():
             print("Loading LSTM model on twitter_small")
             LOAD_PATH = "twitter_small_LSTM150"
             RANDOM_STATE = 2
-            main_2_class_model(file)
+            t, model, max_len = main_2_class_model(file)
         elif data_choice == "2":
             print("Loading LSTM model on twitter_big_2class")
             LOAD_PATH = "twitter_2class_LSTM50"
             RANDOM_STATE = 3
-            main_2_class_model(file)
+            t, model, max_len = main_2_class_model(file)
         elif data_choice == "3":
             print("Loading Bidirectional LSTM model on twitter_big_3class")
             LOAD_PATH = "twitter_3class_BI-LSTM"
             RANDOM_STATE = 2
-            main_3_class_model(file)
+            t, model, max_len = main_3_class_model(file)
         else:
             print("Loading LSTM model on dixon dataset")
             LOAD_PATH = ""  # TODO: fill in dixon data
             RANDOM_STATE = 2
-            main_2_class_model(file)
+            t, model, max_len = main_2_class_model(file)
     else:
         # training a new model
         LOAD_MODEL = False
@@ -931,9 +939,36 @@ def main_menu():
         ARCH_CHOICE = input()
 
         if data_choice in ["1", "2", "4"]:
-            main_2_class_model(file)
+            t, model, max_len = main_2_class_model(file)
         else:
-            main_3_class_model(file)
+            t, model, max_len = main_3_class_model(file)
+
+    # Send messages to the model and classify them
+    # TODO: would you like to interact with this model?
+    print("\nType a message to interact with the model, or type 'q' to exit")
+    message = input()
+    while message != "q":
+        # Pre-process the input
+        message = t.texts_to_sequences(texts=[message])
+        print("integer encoded:", message)
+        message = pad_sequences(sequences=message, maxlen=max_len, padding='post')
+        print("padded:", message)
+
+        # make a prediction
+        y_pred = model.predict(x=message)
+        print(y_pred)
+
+        # print the prediction
+        if data_choice in ["1", "2", "4"]:
+            y_pred = np.round(y_pred, 0)
+            print(y_pred)
+        else:
+            y_pred = y_pred.argmax(axis=-1)
+            print(y_pred)
+
+        print("type message to interact with model, or type 'q' to exit")
+        message = input()
+
 
 
 if __name__ == "__main__":

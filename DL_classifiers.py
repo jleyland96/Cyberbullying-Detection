@@ -1,5 +1,6 @@
 import csv
 import os
+import re
 import numpy as np
 import random
 from numpy import asarray, zeros
@@ -74,7 +75,7 @@ class Metrics(Callback):
 
         # Print validation accuracy and f1 scores (so we can plot later)
         print("\nVAL_ACC:\n", validation_results)
-        print("\n\n")
+        print("")
         print("F1:\n", f1_results)
         print("Best F1 so far", max(f1_results), "\n")
 
@@ -86,8 +87,8 @@ class Metrics(Callback):
             print("SAVING NEW MODEL")
             save_model(self.model)
 
-        print()
         print(confusion_matrix(val_targ, val_predict))
+        print("\n")
         return
 
 
@@ -141,7 +142,7 @@ class Three_Class_Metrics(Callback):
 
         # Print validation accuracy and f1 scores (so we can plot later)
         print("\nVAL_ACC:\n", validation_results)
-        print("\n\n")
+        print("")
         # print("F1 weighted:\n", f1_results_weighted)
         print("F1 micro:\n", f1_results_micro)
 
@@ -283,7 +284,7 @@ def save_model(model):
             json_file.write(model_json)
     # serialize weights to HDF5
     model.save_weights("saved_models/" + str(SAVE_PATH) + ".h5")
-    print("Saved model to disk")
+    print("Saved " + str(SAVE_PATH) + " model to disk")
 
 
 def load_model():
@@ -294,21 +295,26 @@ def load_model():
     loaded_model = model_from_json(loaded_model_json)
     # load weights into new model
     loaded_model.load_weights("saved_models/" + str(LOAD_PATH) + ".h5")
-    print("Loaded model from disk")
+    print("Loaded " + str(LOAD_PATH) + " model from disk")
     return loaded_model
 
 
-def draw_graph(history):
+def draw_graph(history, num_classes):
     plt.plot(history.history['acc'])
     plt.plot(history.history['val_acc'])
-    plt.plot(f1_results)
+
+    if num_classes == 2:
+        plt.plot(f1_results)
+    else:
+        plt.plot(f1_results_micro)
+
     plt.plot(history.history['loss'])
     plt.title('model accuracy and f1 score')
     plt.ylabel('accuracy/f1/loss')
     plt.xlabel('epoch')
     plt.legend(['train', 'test', 'f1', 'loss'], loc='lower right')
-    plt.savefig('DL_graphs/' + str(save_path) + ' graph.png')
-    plt.show()
+    plt.savefig('DL_graphs/' + str(SAVE_PATH) + ' graph.png')
+    # plt.show()
 
 
 def f1(y_true, y_pred):
@@ -375,6 +381,24 @@ def print_3class_results(history, y_pred, y_test):
     # print(confusion_matrix(y_test, y_pred))
 
 
+def clean_message(message, data_choice):
+    if data_choice == "1":
+        message = re.sub('[\":=#&;\'?!,./\\\*\\n]', '', message.lower())  # remove punctuation
+    elif data_choice == "4":
+        message = re.sub(r'http\S+', '', message)  # remove URLs
+        message = re.sub('[\":=#&;\'?!@,./\\\\\n*]', '', message)  # remove punctuation
+        message = re.sub(' +', ' ', message.lower())  # remove multiple spaces, replace with one space
+    else:
+        message = re.sub('RT @[\w_]+ ', '', message)  # remove RT tags. was RT @[\w_]+:
+        message = re.sub('@[\w_]+', '', message)  # remove mentions
+        message = re.sub(r'http\S+', '', message)  # remove URLs
+        message = re.sub(' +', ' ', message)  # remove multiple spaces, replace with one space
+        message = re.sub('[\":=#&;\'?!@,./\\\\\n*]', '', message.lower())  # remove punctuation
+
+    print("Cleaned message:", message)
+    return message
+
+
 def learn_embeddings_2class_f1_loss(filename="cleaned_tweets_16k.csv"):
     print("\nLEARN EMBEDDINGS MODEL")
 
@@ -406,24 +430,27 @@ def learn_embeddings_2class_f1_loss(filename="cleaned_tweets_16k.csv"):
     model = Sequential()
     model.add(Embedding(input_dim=vocab_size, output_dim=100, input_length=max_len))
 
-    model.add(LSTM(units=50, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=50, dropout=0.3, recurrent_dropout=0.3))
 
     model.add(Dense(units=1, activation='sigmoid'))
     # compile the model
 
     # my_adam = optimizers.Adam(lr=0.005, decay=0.05)
     model.compile(optimizer='adam', loss=f1_loss, metrics=['acc', f1])
-    # print(model.summary())
+    print(model.summary())
 
     # fit the model
     print("Fitting the model...")
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        epochs=300, batch_size=128, callbacks=[metrics])
+                        epochs=NUM_EPOCHS, batch_size=128, callbacks=[metrics])
 
     # evaluate
     y_pred = model.predict(x=X_test)
     y_pred = np.round(y_pred, 0)
     print_results(history, y_pred, labels_test)
+    draw_graph(history, num_classes=2)
+    print("Best confusion matrix:")
+    print(best_confusion_matrix)
 
 
 def learn_embeddings_model_2class(filename="cleaned_tweets_16k.csv"):
@@ -460,21 +487,20 @@ def learn_embeddings_model_2class(filename="cleaned_tweets_16k.csv"):
     model = Sequential()
     model.add(Embedding(input_dim=vocab_size, output_dim=300, input_length=max_len))
 
-    model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=50, dropout=0.3, recurrent_dropout=0.3))
 
     model.add(Dense(units=1, activation='sigmoid'))
     # compile the model
 
     # my_adam = optimizers.Adam(lr=0.005, decay=0.05)
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc'])
-    # print(model.summary())
+    print(model.summary())
 
     # fit the model
     print("Fitting the model...")
-    class_weight = {0: 1.0,
-                    1: 1.0}
+    class_weight = {0: 1.0, 1: 1.0}
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        epochs=30, batch_size=256, callbacks=[metrics])
+                        epochs=NUM_EPOCHS, batch_size=128, callbacks=[metrics])
     # ---------------- END LEARN EMBEDDINGS EDIT ----------------
 
     # evaluate
@@ -483,7 +509,8 @@ def learn_embeddings_model_2class(filename="cleaned_tweets_16k.csv"):
     y_pred = np.round(y_pred, 0)
     print("\bTest accuracy = " + str(round(accuracy * 100, 2)) + "%")
     print_results(history, y_pred, labels_test)
-    print("BEST:")
+    print(draw_graph(history, num_classes=2))
+    print("Best confusion matrix:")
     print(best_confusion_matrix)
 
 
@@ -507,12 +534,12 @@ def learn_embeddings_model_3class(filename="cleaned_tweets_16k_3class.csv"):
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
     # split to get dev data (0.2), then split to get train/test data (0.7 and 0.1)
-    X_train, X_test, y_train, y_test = train_test_split(padded_docs, labels, test_size=0.10)
+    X_train, X_test, y_train, y_test = train_test_split(padded_docs, labels, test_size=TEST_SIZE)
     labels_train = np_utils.to_categorical(y_train)
     labels_test = np_utils.to_categorical(y_test)
 
-    print("Train 1's proportion = " + str(round(np.count_nonzero(labels_train) / len(labels_train), 4)))
-    print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
+    print("Train 1's proportion = " + str(round(np.count_nonzero(y_train) / len(y_train), 4)))
+    print("Test 1's proportion = " + str(round(np.count_nonzero(y_test) / len(y_test), 4)))
     print()
 
     # ---------------- EDIT LEARN EMBEDDINGS HERE ----------------
@@ -520,21 +547,20 @@ def learn_embeddings_model_3class(filename="cleaned_tweets_16k_3class.csv"):
     model = Sequential()
     model.add(Embedding(input_dim=vocab_size, output_dim=100, input_length=max_len))
 
-    model.add(LSTM(units=50, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=50, dropout=0.3, recurrent_dropout=0.3))
 
     model.add(Dense(units=3, activation='softmax'))
     # compile the model
 
     # my_adam = optimizers.Adam(lr=0.005, decay=0.05)
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['acc'])
-    # print(model.summary())
+    print(model.summary())
 
     # fit the model
     print("Fitting the model...")
-    class_weight = {0: 1.0,
-                    1: 1.0}
+    class_weight = {0: 1.0, 1: 1.0}
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        epochs=150, batch_size=128, callbacks=[three_class_metrics])
+                        epochs=NUM_EPOCHS, batch_size=128, callbacks=[three_class_metrics])
     # ---------------- END LEARN EMBEDDINGS EDIT ----------------
 
     # evaluate
@@ -544,6 +570,9 @@ def learn_embeddings_model_3class(filename="cleaned_tweets_16k_3class.csv"):
     print("\bTEST_ACC = " + str(round(accuracy * 100, 2)) + "%")
 
     print_3class_results(history, labels_pred, y_test)
+    draw_graph(history, num_classes=3)
+    print("Best confusion matrix:")
+    print(best_confusion_matrix)
 
 
 def dense_network(model):
@@ -628,7 +657,7 @@ def main_2_class_f1_loss(filename="cleaned_twitter_1K.csv"):
     e.trainable = False
     model.add(e)
 
-    model.add(LSTM(units=50, dropout=0.5, recurrent_dropout=0.5))
+    model.add(LSTM(units=50, dropout=0.3, recurrent_dropout=0.3))
     # model.add(BatchNormalization())
     # model.add(Bidirectional(LSTM(units=400, dropout=0.5, recurrent_dropout=0.5)))
 
@@ -640,8 +669,9 @@ def main_2_class_f1_loss(filename="cleaned_twitter_1K.csv"):
     # adam = optimizers.Adam(lr=0.0005, decay=0.01, beta_1=0.92, beta_2=0.9992)
     print("F1 LOSS")
     model.compile(optimizer='adam', loss=f1_loss, metrics=['acc', f1])
+    print(model.summary())
     history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                        epochs=5, callbacks=[metrics], batch_size=32)
+                        epochs=NUM_EPOCHS, callbacks=[metrics], batch_size=128)
 
     # evaluate
     # loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
@@ -653,10 +683,11 @@ def main_2_class_f1_loss(filename="cleaned_twitter_1K.csv"):
     print_results(history, y_pred, labels_test)
     print("BEST:")
     print(best_confusion_matrix)
-    # draw_graph(history)
+    draw_graph(history, num_classes=2)
 
 
 def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
+    global NUM_EPOCHS
     print("\nGLOVE MODEL")
     # 0=none, 1=racism, 2=sexism
 
@@ -711,7 +742,6 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
         model.add(Dense(units=3, activation='softmax'))
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-    NUM_EPOCHS = 7
     global CONTINUE_TRAINING
     if not CONTINUE_TRAINING:
         y_prob = model.predict(x=X_test)
@@ -720,10 +750,10 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
         print("\bTEST_ACC = " + str(round(accuracy * 100, 2)) + "%")
         print("Micro Precision = ", round(precision_score(y_test, labels_pred, average='micro'), 4))
         print("Micro Recall = ", round(recall_score(y_test, labels_pred, average='micro'), 4))
-        print("Micro F1 = ", round(f1_score(y_test, labels_pred, average='micro'), 4), "\n\n")
+        print("Micro F1 = ", round(f1_score(y_test, labels_pred, average='micro'), 4), "\n")
         print("Confusion matrix:\n", confusion_matrix(y_test, labels_pred))
 
-        print("Would you like to continue training? ('y' or 'n')")
+        print("\nWould you like to continue training? ('y' or 'n')")
         inp = input()
         if inp == 'y':
             CONTINUE_TRAINING = True
@@ -745,12 +775,14 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
         print_3class_results(history, labels_pred, y_test)
         print("Best confusion matrix:")
         print(best_confusion_matrix)
+        draw_graph(history, num_classes=3)
 
     return t, model, max_len
 
 
 def main_2_class_model(filename="cleaned_dixon.csv"):
     print("\nGLOVE MODEL")
+    global NUM_EPOCHS
 
     # get the data
     X, labels = get_data(filename=filename)
@@ -821,7 +853,6 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
     print(model.summary())
 
-    NUM_EPOCHS = 7
     global CONTINUE_TRAINING
     if not CONTINUE_TRAINING:
         # Evaluate
@@ -841,7 +872,7 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
 
     if CONTINUE_TRAINING:
         history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                            nb_epoch=NUM_EPOCHS, batch_size=128, callbacks=[metrics], verbose=1)
+                            epochs=NUM_EPOCHS, batch_size=128, callbacks=[metrics], verbose=1)
         # ------------------ END MODEL ------------------
 
         # evaluate
@@ -853,7 +884,7 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
         print_results(history, y_pred, labels_test)
         print("Best confusion matrix:")
         print(best_confusion_matrix)
-        # draw_graph(history)
+        draw_graph(history, num_classes=2)
 
     return t, model, max_len
 
@@ -869,6 +900,7 @@ def main_menu():
     global LOAD_PATH
     global CONTINUE_TRAINING
     global ARCH_CHOICE
+    global NUM_EPOCHS
 
     print("  MENU\n--------")
 
@@ -882,22 +914,26 @@ def main_menu():
     if data_choice == "1":
         print("Twitter_small")
         matrix = "cleaned_twitter_1K"
+        NUM_EPOCHS = 10
     elif data_choice == "2":
         print("Twitter_big_2class")
         matrix = "cleaned_tweets_16k"
+        NUM_EPOCHS = 3
     elif data_choice == "3":
         print("Twitter_big_3class")
         matrix = "cleaned_tweets_16k_3class"
+        NUM_EPOCHS = 3
     else:
         print("Reddit")
         matrix = "cleaned_dixon"
+        NUM_EPOCHS = 1
     file = matrix + str(".csv")
     TEST_SIZE = get_test_size(file)
     loss = "not F1"
     print(matrix)
     print(file)
 
-    # --- LOAD or TRAIN ---
+    # --- LOAD or TRAIN? ---
     print("Observe a saved model ('1'), or train a new model ('2')?")
     choice = input()
     if choice == "1":
@@ -943,56 +979,69 @@ def main_menu():
         else:
             t, model, max_len = main_3_class_model(file)
 
-    # Send messages to the model and classify them
-    # TODO: would you like to interact with this model?
+    # Interact with model and classify the results
     print("\nType a message to interact with the model, or type 'q' to exit")
     message = input()
     while message != "q":
         # Pre-process the input
+        message = clean_message(message, data_choice)
         message = t.texts_to_sequences(texts=[message])
-        print("integer encoded:", message)
+        print("\ninteger encoded:", message)
         message = pad_sequences(sequences=message, maxlen=max_len, padding='post')
-        print("padded:", message)
+        print("padded:", message, "\n")
 
         # make a prediction
         y_pred = model.predict(x=message)
-        print(y_pred)
+        if data_choice == "3":
+            print("Racism prob=" + str(y_pred[0][1]) + ". Sexism prob=" + str(y_pred[0][2]) + ". Neither prob:" + str(y_pred[0][0]))
+        else:
+            print("Cyberbullying probability:", y_pred[0][0])
 
         # print the prediction
         if data_choice in ["1", "2", "4"]:
             y_pred = np.round(y_pred, 0)
-            print(y_pred)
+            if y_pred[0][0] == 0:
+                print("Not Cyberbullying")
+            else:
+                print("Cyberbullying")
         else:
             y_pred = y_pred.argmax(axis=-1)
-            print(y_pred)
+            if y_pred[0] == 0:
+                print("Neither")
+            elif y_pred[0] == 1:
+                print("Racism")
+            else:
+                print("Sexism")
 
-        print("type message to interact with model, or type 'q' to exit")
+        # loop for another test message again?
+        print("\ntype message to interact with model, or type 'q' to exit")
         message = input()
-
 
 
 if __name__ == "__main__":
     # # FILE NAMES
-    # matrix = "cleaned_tweets_16k"
+    # matrix = "cleaned_tweets_16k_3class"
     # file = matrix + str(".csv")
-    #
-    # # PARAMETERS
     # LOAD_PATH = "TEST"
     # SAVE_PATH = LOAD_PATH + str("_retrain TEST")
+    #
+    # # PARAMETERS
     # LOAD_MODEL = False
-    # CONTINUE_TRAINING = False
-    # TEST_SIZE = get_test_size(file)
-    # print(TEST_SIZE)
+    # CONTINUE_TRAINING = True
     # RANDOM_STATE = 2
+    # NUM_EPOCHS = 3
     # loss = "not F1"
+    #
+    # # Ignore these
     # ARCH_CHOICE = 1
+    # TEST_SIZE = get_test_size(file)
 
     main_menu()
 
-    # ARCHITECTURE
+    # ARCHITECTURE  (if f1 loss, 16k tweets best. learn_embeddings_f1_loss poor))
     # learn_embeddings_model_2class(file)
-    # learn_embeddings_model_3class(file)
+    # learn_embeddings_model_3class(filename="cleaned_tweets_16k_3class.csv")
     # learn_embeddings_2class_f1_loss(file)
-    # main_2_class_f1_loss("cleaned_tweets_16k.csv")
+    # main_2_class_f1_loss(file)
     # main_2_class_model(file)
-    # main_3_class_model(file)
+    # main_3_class_model(filename="cleaned_tweets_16k_3class.csv)

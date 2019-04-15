@@ -1,0 +1,217 @@
+Combined Logbook
+----------------------
+Week 1 Notes
+	- 1 meeting per week
+	- Work from beginning of the year, keep pushing forward
+	- Could use Keras, tensorflow wrapper, user-friendly
+	- data pre-processing, explore the data
+	- think about what data set I will use and why, IMPORTANT
+	- Primary School contact for Noura in North-east
+	- Can we train on the biggest dataset and see if it generalises?
+	- send emails to authors for datasets
+
+
+
+Week 2 Notes
+	- See if word count indicates bullying, or URL, or number of swear words
+	- Could aim to classift just those above 0.4 attack
+	- Don't make assumptions
+	- Could be a regression task on dixon dataset
+	- transferring of a model between twitter and reddit dataset may be difficult
+	- create presentation to take through journey (logbook)
+
+
+
+Week 3 Notes
+	- Term frequency
+	- Naughty word count alone isn't a good indicator
+	- See how accurately we can predict attack with naught word frequency
+	- If not perfect, provides motivation for ML
+	- count examples in bins 
+	- attacking comments with no naughty words (anomilies)?
+	- Make text lower case and THEN check for swear words
+	- try classifying into 2, 5, 10 bins
+	- Use word2vec or Glove for ML methods
+
+
+
+Week 4 Notes
+	- Pre-processing with keras padding
+	- SVM not perfect as temporal information is lost
+
+
+
+Week 5 Notes
+	- Running time issues
+	- try remaining classifiers
+	- try classifying into bins
+	- see if borderline cases are causing issues in threshold classification
+	- increase word embedding + padding size if possible
+
+
+
+Week 6 Notes
+	- analyse bin results found
+	- create classifier using bigrams, trigrams, term frequencies
+	- start using Deep Learning
+
+
+
+Week 7 Notes
+	- Final ML classifiers, try TF and TF-IDF
+	- have decided to stick to classification task
+	- work on implementing LSTM if possible
+
+
+
+Week 8 notes:
+	- Finish TF-IDF
+	- Use F1 as DL metric
+	- Try 100/300 GloVe vector length
+	- Dropout 0.4
+	- Use more data
+	- Try some conv layers
+
+
+Week 9 Notes
+	- 74% is our baseline for TF-IDF
+	- Have reached 71.5% so far with DL approach
+
+TODO:
+	- Shuffle the data
+	- Split data into Training, Development, Testing (70%, 20%, 10%)
+	- Analyse the distribution within data sets
+	- Generate graphs of validation and testing set accuracy
+	- Tune hyperparameters
+	- Batch normalization
+	- Apply some convolutional layers
+
+
+
+
+Week 10 Notes
+TODO:
+	- Play around with dropout
+	- Plot F1 (similar to val_acc)
+	- Look at saving model so we can continue later
+
+
+
+
+Week 11 Notes
+PROJECT
+	* could pre-train on old dataset, fine tune on the new one
+	* Maximise F1 (implement f1 loss function)
+
+DESIGN REPORT
+	- statistics table about datasets on the design report
+	- smoother transitions between each subsection
+	- highlight why LSTM is more suitable than RNN
+
+PRESENTATION
+	- more graphs/tables in my presentation 
+	- break down Q's and A's in Formspring dataset, confusing otherwise
+	- talk about speaking in a school about Cyberbullying
+
+
+
+
+Week 14 Notes
+Get data:
+	- 16K from Ben
+	- Hate-speech from Saikiran Pappu
+	- Sort out Git repository
+
+
+
+
+Week 15 Notes
+	- Focus on simplified 0/1 problem for some time.
+	- Then, try 3 class classification. Evaluate.
+	- ADVANCED: one-class-classifiers. Majority voting.
+
+
+
+
+Week 17 Notes
+Something interesting:
+	- ELMO embeddings, Bert embeddings
+	- F1 score as a loss function
+	- Look into mislabellings (insight into F1 score)
+	- Ensemble of models, majority voting
+	- LSTM auto-encoder, model per class
+
+In final paper, discuss:
+	- Comparison between clean and dirty data
+	- Discussion about 2-class and 3-class problem
+	- Comparison between datasets, why were they good/bad?
+	- LOTS OF TABLES/GRAPHS/FIGURES etc.
+
+Schools
+	- They are learning some Machine Learning now
+	- Run my normal lesson, but make clear the potential of ML with cyberbullying
+	- Write the letter, include what words a bully would use. Example sentences
+
+
+
+
+Week 18 Notes
+	- Good that train and test curves (F1 loss) follow same shape. 	 Model generalises better.
+	- Confusion matrix good for the final paper
+TODO:
+	- Pick classifiers (3-class) with >80% F1, majority vote
+	- Finish ELMo
+	- Think about F1 for the 3 classes
+
+
+
+
+Week 19 Notes
+Final paper
+	- show examples of racism, sexism, none
+	- speak mostly about 2 class (for consistency of metric)
+	- 1 page on 3-class but make the difference clear
+	- Use the ML/DL graph in conclusion, we need more data
+	- No-one would go out and collect Cyberbullying and hate-speech data, 18+
+
+Project
+	- Datasets:
+		- DROP those with poor F1 (text messages and formspring)
+		- KEEP 2-class, 3-class, Twitter1K and Dixon
+	- ELMo on each dataset
+	- Correlation between label and count of swear words for each dataset
+	- Try GRU
+
+Demo
+	- Save pre-trained versions of best examples for each dataset
+	- Ask Magnus (?) in the demo which model he would like to see
+	- Print results
+
+
+
+
+Week 20 Notes
+Questions:
+	- Include Reddit? Mention compromises.
+	- Do Machine Learning and Deep Learning have capital letters?
+	- Where should I put examples of racism, sexism, cyberbullying, neither?
+	- What should I call my datasets?
+	- How to approach my 0.930 state of the art value (since it's from the 3-class task)
+	- MACRO F1?
+	- Send draft midway through the holidays?
+
+Notes:
+	- Put link to GitHub code in solution section
+	- Keep 3-class problem details until the end (as an expansion in results section).
+	- Mention that this is research. Beating SOTA is not *too* important.
+	- Examples of racism, sexism, cyberbullying, neither at literature review. Define + example in table
+	- Reddit, Twitter_small, Twitter_big_2class, Twitter_big_3class.
+	- All technical terms in italics
+	- Include the dixon dataset stuff, but mention the compromises in the conclusion
+	- Conclude whether it is worth investing time/effort/resources into DL instead of ML.
+
+TODO on final paper:
+	- Final Dixon results
+	
+
+

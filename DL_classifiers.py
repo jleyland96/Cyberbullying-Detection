@@ -741,6 +741,7 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
 
         model.add(Dense(units=3, activation='softmax'))
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+    print(model.summary())
 
     global CONTINUE_TRAINING
     if not CONTINUE_TRAINING:
@@ -801,9 +802,9 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
     # print(t.texts_to_sequences(texts=["hello what is going on jansdiandisnai here usddisadisinosadmop"]))
 
     # pad documents
-    # max_len = 100
-    max_len = get_pad_length(filename)
-    print("pad length =" + str(max_len))
+    max_len = 100
+    # max_len = get_pad_length(filename)
+    print("pad length =", max_len)
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
     # Split into training and test data
@@ -848,7 +849,7 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
         elif ARCH_CHOICE == "4":
             model.add(Bidirectional(LSTM(units=64, dropout=0.5, recurrent_dropout=0.5)))
         else:
-            model.add(LSTM(units=300, dropout=0.4, recurrent_dropout=0.4))
+            model.add(LSTM(units=200, dropout=0.4, recurrent_dropout=0.4))
         model.add(Dense(units=1, activation='sigmoid'))
 
     # class_weight = {0: 1.0, 1: 1.0}
@@ -867,11 +868,12 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
         print("Recall = ", round(recall_score(labels_test, y_pred), 4))
         print("F1 = ", round(f1_score(labels_test, y_pred), 4), "\n\n")
 
-        print("Would you like to continue training? ('y' or 'n')")
-        inp = input()
-        if inp == 'y':
-            CONTINUE_TRAINING = True
-            NUM_EPOCHS = 3
+        # FOR DEMO, ENABLE THIS
+        # print("Would you like to continue training? ('y' or 'n')")
+        # inp = input()
+        # if inp == 'y':
+        #     CONTINUE_TRAINING = True
+        #     NUM_EPOCHS = 3
 
     if CONTINUE_TRAINING:
         history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
@@ -905,6 +907,7 @@ def main_menu():
     global ARCH_CHOICE
     global NUM_EPOCHS
     global BATCH_SIZE
+    BATCH_SIZE = 128
 
     print("  MENU\n--------")
 
@@ -945,7 +948,7 @@ def main_menu():
         # Loading a saved model
         LOAD_MODEL = True
         CONTINUE_TRAINING = False
-        SAVE_PATH = "DEMO SAVE PATH"
+        SAVE_PATH = "DEMO RETRAIN"
         if data_choice == "1":
             print("Loading LSTM model on twitter_small")
             LOAD_PATH = "twitter_small_LSTM150"
@@ -963,7 +966,7 @@ def main_menu():
             t, model, max_len = main_3_class_model(file)
         else:
             print("Loading LSTM model on dixon dataset")
-            LOAD_PATH = ""  # TODO: fill in dixon data
+            LOAD_PATH = "dixon_LSTM200_TEST"  # TODO: fill in dixon data
             RANDOM_STATE = 2
             t, model, max_len = main_2_class_model(file)
     else:
@@ -1027,19 +1030,19 @@ if __name__ == "__main__":
     # FILE NAMES
     matrix = "cleaned_dixon"
     file = matrix + str(".csv")
-    LOAD_PATH = "dixon_LSTM300"
-    SAVE_PATH = LOAD_PATH + str("_TEST")
+    LOAD_PATH = "dixon_LSTM200_TEST"
+    SAVE_PATH = LOAD_PATH + str("_retrain")
 
     # PARAMETERS
-    LOAD_MODEL = False
-    CONTINUE_TRAINING = True
+    LOAD_MODEL = True
+    CONTINUE_TRAINING = False
     RANDOM_STATE = 2
-    NUM_EPOCHS = 30
+    NUM_EPOCHS = 3
     loss = "not F1"
 
     # Ignore these
-    ARCH_CHOICE = 5
-    BATCH_SIZE = 256
+    ARCH_CHOICE = 5  # 1,2,3,4 = pre-built model
+    BATCH_SIZE = 256  # 256 for dixon
     TEST_SIZE = get_test_size(file)
 
     # main_menu()

@@ -820,18 +820,21 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
     if LOAD_MODEL:
         # load a pre-saved model
         if file == "cleaned_dixon.csv":
-            # construct the model and just load the weights
+            # if dixon dataset, construct the model and just load the weights
             model = Sequential()
             e = Embedding(input_dim=vocab_size, output_dim=300, embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
             e.trainable = False
             model.add(e)
-            model.add(LSTM(units=500, dropout=0.5, recurrent_dropout=0.5))
+            model.add(LSTM(units=200, dropout=0.4, recurrent_dropout=0.4))
             model.add(Dense(units=1, activation='sigmoid'))
+            model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+            model.load_weights(LOAD_PATH + str(".h5"))
         else:
+            # otherwise, load whole model and weights
             model = load_model()
+            model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
     else:
-        # ---------------- MODEL HERE ----------------
-        # Embedding input
+        # Train models from scratch
         model = Sequential()
         # e = Embedding(input_dim=vocab_size, output_dim=300, weights=[embedding_matrix],
         #               input_length=max_len, trainable=False)
@@ -851,10 +854,10 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
         else:
             model.add(LSTM(units=200, dropout=0.4, recurrent_dropout=0.4))
         model.add(Dense(units=1, activation='sigmoid'))
+        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
     # class_weight = {0: 1.0, 1: 1.0}
     # my_adam = optimizers.Adam(lr=0.003, decay=0.001)
-    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
     print(model.summary())
 
     global CONTINUE_TRAINING

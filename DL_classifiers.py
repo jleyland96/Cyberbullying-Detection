@@ -828,7 +828,7 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
             model.add(LSTM(units=200, dropout=0.4, recurrent_dropout=0.4))
             model.add(Dense(units=1, activation='sigmoid'))
             model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-            model.load_weights(LOAD_PATH + str(".h5"))
+            model.load_weights("saved_models/" + str(LOAD_PATH) + ".h5")
         else:
             # otherwise, load whole model and weights
             model = load_model()

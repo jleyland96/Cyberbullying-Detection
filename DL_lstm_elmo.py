@@ -269,8 +269,8 @@ def print_3class_results(history, y_pred, y_test):
 if __name__ == "__main__":
     dataset = "16k_3class"  # dixon, 1k, 16k_2class, 16k_3class
     SAVE_PATH = "twitter_3class_ELMO"
-    LOAD_MODEL = False
-    TRAINING = True
+    LOAD_MODEL = True
+    TRAINING = False
     max_len = get_pad_length(dataset)
     print(dataset)
     print(max_len)

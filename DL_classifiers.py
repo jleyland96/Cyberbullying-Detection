@@ -829,6 +829,7 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
             model.add(Dense(units=1, activation='sigmoid'))
             model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
             model.load_weights("saved_models/" + str(LOAD_PATH) + ".h5")
+            print("loading model in correct place")
         else:
             # otherwise, load whole model and weights
             model = load_model()

@@ -801,8 +801,9 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
     # print(t.texts_to_sequences(texts=["hello what is going on jansdiandisnai here usddisadisinosadmop"]))
 
     # pad documents
+    # max_len = 100
     max_len = get_pad_length(filename)
-    print(max_len)
+    print("pad length =" + str(max_len))
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
     # Split into training and test data
@@ -844,8 +845,10 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
             model = cnn_network(model)
         elif ARCH_CHOICE == "3":
             model = cnn_lstm_network(model)
-        else:
+        elif ARCH_CHOICE == "4":
             model.add(Bidirectional(LSTM(units=64, dropout=0.5, recurrent_dropout=0.5)))
+        else:
+            model.add(LSTM(units=400, dropout=0.4, recurrent_dropout=0.4))
         model.add(Dense(units=1, activation='sigmoid'))
 
     # class_weight = {0: 1.0, 1: 1.0}
@@ -872,7 +875,7 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
 
     if CONTINUE_TRAINING:
         history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
-                            epochs=NUM_EPOCHS, batch_size=128, callbacks=[metrics], verbose=1)
+                            epochs=NUM_EPOCHS, batch_size=BATCH_SIZE, callbacks=[metrics], verbose=1)
         # ------------------ END MODEL ------------------
 
         # evaluate
@@ -901,6 +904,7 @@ def main_menu():
     global CONTINUE_TRAINING
     global ARCH_CHOICE
     global NUM_EPOCHS
+    global BATCH_SIZE
 
     print("  MENU\n--------")
 
@@ -927,6 +931,7 @@ def main_menu():
         print("Reddit")
         matrix = "cleaned_dixon"
         NUM_EPOCHS = 1
+        BATCH_SIZE = 256
     file = matrix + str(".csv")
     TEST_SIZE = get_test_size(file)
     loss = "not F1"
@@ -1019,29 +1024,30 @@ def main_menu():
 
 
 if __name__ == "__main__":
-    # # FILE NAMES
-    # matrix = "cleaned_tweets_16k_3class"
-    # file = matrix + str(".csv")
-    # LOAD_PATH = "TEST"
-    # SAVE_PATH = LOAD_PATH + str("_retrain TEST")
-    #
-    # # PARAMETERS
-    # LOAD_MODEL = False
-    # CONTINUE_TRAINING = True
-    # RANDOM_STATE = 2
-    # NUM_EPOCHS = 3
-    # loss = "not F1"
-    #
-    # # Ignore these
-    # ARCH_CHOICE = 1
-    # TEST_SIZE = get_test_size(file)
+    # FILE NAMES
+    matrix = "cleaned_dixon"
+    file = matrix + str(".csv")
+    LOAD_PATH = "dixon_LSTM400"
+    SAVE_PATH = LOAD_PATH + str("_TEST")
 
-    main_menu()
+    # PARAMETERS
+    LOAD_MODEL = False
+    CONTINUE_TRAINING = True
+    RANDOM_STATE = 2
+    NUM_EPOCHS = 30
+    loss = "not F1"
+
+    # Ignore these
+    ARCH_CHOICE = 5
+    BATCH_SIZE = 256
+    TEST_SIZE = get_test_size(file)
+
+    # main_menu()
 
     # ARCHITECTURE  (if f1 loss, 16k tweets best. learn_embeddings_f1_loss poor))
     # learn_embeddings_model_2class(file)
     # learn_embeddings_model_3class(filename="cleaned_tweets_16k_3class.csv")
     # learn_embeddings_2class_f1_loss(file)
     # main_2_class_f1_loss(file)
-    # main_2_class_model(file)
+    main_2_class_model(file)
     # main_3_class_model(filename="cleaned_tweets_16k_3class.csv)

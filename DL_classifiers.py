@@ -813,8 +813,8 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
     print()
 
-    # embedding_matrix = get_glove_matrix(vocab_size, t)
-    embedding_matrix = get_glove_matrix_from_dump()
+    embedding_matrix = get_glove_matrix(vocab_size, t)
+    # embedding_matrix = get_glove_matrix_from_dump()
 
     if LOAD_MODEL:
         # load a pre-saved model
@@ -848,7 +848,7 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
         elif ARCH_CHOICE == "4":
             model.add(Bidirectional(LSTM(units=64, dropout=0.5, recurrent_dropout=0.5)))
         else:
-            model.add(LSTM(units=400, dropout=0.4, recurrent_dropout=0.4))
+            model.add(LSTM(units=300, dropout=0.4, recurrent_dropout=0.4))
         model.add(Dense(units=1, activation='sigmoid'))
 
     # class_weight = {0: 1.0, 1: 1.0}
@@ -1027,7 +1027,7 @@ if __name__ == "__main__":
     # FILE NAMES
     matrix = "cleaned_dixon"
     file = matrix + str(".csv")
-    LOAD_PATH = "dixon_LSTM400"
+    LOAD_PATH = "dixon_LSTM300"
     SAVE_PATH = LOAD_PATH + str("_TEST")
 
     # PARAMETERS

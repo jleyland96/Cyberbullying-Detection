@@ -821,7 +821,7 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
             e = Embedding(input_dim=vocab_size, output_dim=300, embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
             e.trainable = False
             model.add(e)
-            model.add(LSTM(units=400, dropout=0.4, recurrent_dropout=0.4))
+            model.add(LSTM(units=300, dropout=0.4, recurrent_dropout=0.4))
             model.add(Dense(units=1, activation='sigmoid'))
             model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
             model.load_weights("saved_models/" + str(LOAD_PATH) + ".h5")
@@ -1030,7 +1030,7 @@ if __name__ == "__main__":
     # FILE NAMES
     matrix = "cleaned_dixon"
     file = matrix + str(".csv")
-    LOAD_PATH = "dixon_LSTM400_TEST"
+    LOAD_PATH = "dixon_LSTM300_TEST"
     SAVE_PATH = LOAD_PATH + str("_retrain")
 
     # PARAMETERS

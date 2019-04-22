@@ -17,8 +17,8 @@
       <file leaf-file-name="DL_classifiers.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1101">
-              <caret line="884" column="40" lean-forward="false" selection-start-line="884" selection-start-column="40" selection-end-line="884" selection-end-column="40" />
+            <state relative-caret-position="1619">
+              <caret line="1049" column="79" lean-forward="true" selection-start-line="1049" selection-start-column="79" selection-end-line="1049" selection-end-column="79" />
               <folding>
                 <element signature="e#1579#3254#0" expanded="false" />
                 <element signature="e#3320#6023#0" expanded="false" />
@@ -45,17 +45,8 @@
                 <element signature="e#20966#21606#0" expanded="false" />
                 <element signature="e#21674#24274#0" expanded="false" />
                 <element signature="e#24347#27924#0" expanded="false" />
+                <element signature="e#32642#36990#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DL_lstm_elmo.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DL_lstm_elmo.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="367" column="12" lean-forward="false" selection-start-line="367" selection-start-column="12" selection-end-line="367" selection-end-column="54" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -149,6 +140,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -166,7 +158,6 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -190,7 +181,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.DL_classifiers">
+  <component name="RunManager" selected="Python.plot_val_acc">
     <configuration name="DL_classifiers" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -290,8 +281,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.DL_classifiers" />
-        <item index="1" class="java.lang.String" itemvalue="Python.plot_val_acc" />
+        <item index="0" class="java.lang.String" itemvalue="Python.plot_val_acc" />
+        <item index="1" class="java.lang.String" itemvalue="Python.DL_classifiers" />
         <item index="2" class="java.lang.String" itemvalue="Python.multichannel_cnn" />
         <item index="3" class="java.lang.String" itemvalue="Python.demo" />
         <item index="4" class="java.lang.String" itemvalue="Python.ML_classifiers_combined" />
@@ -316,11 +307,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22361112" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35647058" sideWeight="0.51944447" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35647058" sideWeight="0.48055556" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35647058" sideWeight="0.48055556" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -349,8 +341,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM64 graph.png" />
-    <entry file="file://$PROJECT_DIR$/DL_graphs/1K-LSTM32 graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/1K-BI-LSTM100 graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/1K-GloveTune graph.png" />
     <entry file="file://$PROJECT_DIR$/DL_graphs/1K-MultiCNN-GloVe graph.png" />
@@ -489,25 +479,36 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
+    <entry file="file://$PROJECT_DIR$/DL_lstm_elmo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="16" column="249" lean-forward="false" selection-start-line="16" selection-start-column="249" selection-end-line="16" selection-end-column="249" />
+        <state relative-caret-position="5310">
+          <caret line="367" column="12" lean-forward="false" selection-start-line="367" selection-start-column="12" selection-end-line="367" selection-end-column="54" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DL_lstm_elmo.py">
+    <entry file="file://$PROJECT_DIR$/DL_graphs/DEMO dixon_LSTM300 graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DL_graphs/DEMO dixon_LSTM400 graph.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plot_val_acc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="367" column="12" lean-forward="false" selection-start-line="367" selection-start-column="12" selection-end-line="367" selection-end-column="54" />
+        <state relative-caret-position="248">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DL_classifiers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1101">
-          <caret line="884" column="40" lean-forward="false" selection-start-line="884" selection-start-column="40" selection-end-line="884" selection-end-column="40" />
+        <state relative-caret-position="1619">
+          <caret line="1049" column="79" lean-forward="true" selection-start-line="1049" selection-start-column="79" selection-end-line="1049" selection-end-column="79" />
           <folding>
             <element signature="e#1579#3254#0" expanded="false" />
             <element signature="e#3320#6023#0" expanded="false" />
@@ -534,6 +535,7 @@
             <element signature="e#20966#21606#0" expanded="false" />
             <element signature="e#21674#24274#0" expanded="false" />
             <element signature="e#24347#27924#0" expanded="false" />
+            <element signature="e#32642#36990#0" expanded="false" />
           </folding>
         </state>
       </provider>

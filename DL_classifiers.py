@@ -783,6 +783,7 @@ def main_3_class_model(filename="cleaned_tweets_16k_3class.csv"):
 
 def main_2_class_model(filename="cleaned_dixon.csv"):
     print("\nGLOVE MODEL")
+    dixon_units = 300
     global NUM_EPOCHS
 
     # get the data
@@ -798,8 +799,11 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
     encoded_docs = t.texts_to_sequences(texts=X)
 
     # pad documents
-    # max_len = 100
-    max_len = get_pad_length(filename)
+    if LOAD_PATH == "dixon_LSTM200":
+        max_len = 100
+        dixon_units = 200
+    else:
+        max_len = get_pad_length(filename)
     print("pad length =", max_len)
     padded_docs = pad_sequences(sequences=encoded_docs, maxlen=max_len, padding='post')
 
@@ -810,10 +814,11 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
     print("Test 1's proportion = " + str(round(np.count_nonzero(labels_test) / len(labels_test), 4)))
     print()
 
-    embedding_matrix = get_glove_matrix(vocab_size, t)
-    # embedding_matrix = get_glove_matrix_from_dump()
+    # embedding_matrix = get_glove_matrix(vocab_size, t)
+    embedding_matrix = get_glove_matrix_from_dump()
 
     if LOAD_MODEL:
+        print("loading weights...")
         # load a pre-saved model
         if file == "cleaned_dixon.csv":
             # if dixon dataset, construct the model and just load the weights
@@ -821,11 +826,10 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
             e = Embedding(input_dim=vocab_size, output_dim=300, embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
             e.trainable = False
             model.add(e)
-            model.add(LSTM(units=300, dropout=0.4, recurrent_dropout=0.4))
+            model.add(LSTM(units=dixon_units, dropout=0.4, recurrent_dropout=0.4))
             model.add(Dense(units=1, activation='sigmoid'))
             model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
             model.load_weights("saved_models/" + str(LOAD_PATH) + ".h5")
-            print("loading model in correct place")
         else:
             # otherwise, load whole model and weights
             model = load_model()
@@ -833,8 +837,6 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
     else:
         # Train models from scratch
         model = Sequential()
-        # e = Embedding(input_dim=vocab_size, output_dim=300, weights=[embedding_matrix],
-        #               input_length=max_len, trainable=False)
         e = Embedding(input_dim=vocab_size, output_dim=300,
                       embeddings_initializer=Constant(embedding_matrix), input_length=max_len)
         e.trainable = False
@@ -860,6 +862,7 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
     global CONTINUE_TRAINING
     if not CONTINUE_TRAINING:
         # Evaluate
+        print("Evaluating on test set...")
         loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
         y_pred = model.predict(x=X_test)
         y_pred = np.round(y_pred, 0)
@@ -869,11 +872,11 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
         print("F1 = ", round(f1_score(labels_test, y_pred), 4), "\n\n")
 
         # FOR DEMO, ENABLE THIS
-        # print("Would you like to continue training? ('y' or 'n')")
-        # inp = input()
-        # if inp == 'y':
-        #     CONTINUE_TRAINING = True
-        #     NUM_EPOCHS = 3
+        print("Would you like to continue training? ('y' or 'n')")
+        inp = input()
+        if inp == 'y':
+            CONTINUE_TRAINING = True
+            NUM_EPOCHS = 3
 
     if CONTINUE_TRAINING:
         history = model.fit(x=np.array(X_train), y=np.array(labels_train), validation_data=(X_test, labels_test),
@@ -966,7 +969,7 @@ def main_menu():
             t, model, max_len = main_3_class_model(file)
         else:
             print("Loading LSTM model on dixon dataset")
-            LOAD_PATH = "dixon_LSTM200_TEST"  # TODO: fill in dixon data
+            LOAD_PATH = "dixon_LSTM200"  # TODO: fill in dixon data
             RANDOM_STATE = 2
             t, model, max_len = main_2_class_model(file)
     else:
@@ -1028,29 +1031,29 @@ def main_menu():
 
 if __name__ == "__main__":
     # FILE NAMES
-    matrix = "cleaned_dixon"
-    file = matrix + str(".csv")
-    LOAD_PATH = "dixon_LSTM300_TEST"
-    SAVE_PATH = LOAD_PATH + str("_retrain")
+    # matrix = "cleaned_dixon"
+    # file = matrix + str(".csv")
+    # LOAD_PATH = "dixon_LSTM300_TEST"
+    # SAVE_PATH = LOAD_PATH + str("_retrain")
+    #
+    # # PARAMETERS
+    # LOAD_MODEL = True
+    # CONTINUE_TRAINING = False
+    # RANDOM_STATE = 2
+    # NUM_EPOCHS = 3
+    # loss = "not F1"
+    #
+    # # Ignore these
+    # ARCH_CHOICE = 5  # 1,2,3,4 = pre-built model
+    # BATCH_SIZE = 256  # 256 for dixon
+    # TEST_SIZE = get_test_size(file)
 
-    # PARAMETERS
-    LOAD_MODEL = True
-    CONTINUE_TRAINING = False
-    RANDOM_STATE = 2
-    NUM_EPOCHS = 3
-    loss = "not F1"
-
-    # Ignore these
-    ARCH_CHOICE = 5  # 1,2,3,4 = pre-built model
-    BATCH_SIZE = 256  # 256 for dixon
-    TEST_SIZE = get_test_size(file)
-
-    # main_menu()
+    main_menu()
 
     # ARCHITECTURE  (if f1 loss, 16k tweets best. learn_embeddings_f1_loss poor))
     # learn_embeddings_model_2class(file)
     # learn_embeddings_model_3class(filename="cleaned_tweets_16k_3class.csv")
     # learn_embeddings_2class_f1_loss(file)
     # main_2_class_f1_loss(file)
-    main_2_class_model(file)
+    # main_2_class_model(file)
     # main_3_class_model(filename="cleaned_tweets_16k_3class.csv)

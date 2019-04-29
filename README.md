@@ -17,12 +17,15 @@ The solution detects cyberbullying with rather high performance which renders th
 # Source Code
 ## Datasets
 cleaned_dixon.csv - cleaned dataset of 70,000 reddit comments with labels (1=Cyberbullying, 0=None). 
+
 From https://github.com/EdwardDixon/Automation-and-Harassment-Detection
 
 cleaned_twitter_1K.csv - cleaned dataset of 1,000 tweets (1=Cyberbullying, 0=None).
+
 From https://github.com/chantelmariediaz/Predicting-Cyberbulling-on-Twitter
 
-cleaned_twitter_16k.csv - cleaned dataset of 16,000 tweets (2=sexism, 1=racism, 0=neither racism nor sexism
+cleaned_twitter_16k.csv - cleaned dataset of 16,000 tweets (2=sexism, 1=racism, 0=neither racism nor sexism). 
+
 From https://github.com/zeerakw/hatespeech
 
 cleaned_twitter_16k_3class.csv - same dataset as above, except combined sexism and racism labels for binary task

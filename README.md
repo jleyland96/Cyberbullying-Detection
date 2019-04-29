@@ -36,31 +36,31 @@ __ML_classifiers_combined.py__ - runs 10 Machine Learning classifiers on dataset
 
 __DL_classifiers.py__ - main script for Deep Learning models. Support for the 2-class and 3-class data problems. Function provided with GloVe embeddings and learn-own-embeddings alternative. Also, functions provided for models that maxmimise F1 score directly. Also contains code used in the final year project demo, an interactive menu for loading saved models and training some supported models.
 
-__DL_lstm_elmo.py__ - 
+__DL_lstm_elmo.py__ - implementation for using ELMo contextualised word representations as features, and applying LSTM.
 
-__DL_elmo.py__ - 
+__DL_elmo.py__ - different implementation for using ELMo contextualised word representations as features, and applying a dense network.
 
-__ML_ensemble.py__ - 
+__ML_ensemble.py__ - creating an ensemble of ML classifiers and majority voting on input instances.
 
-__multichannel_cnn.py__ - 
+__multichannel_cnn.py__ - implementation for multichannel convolutional network. 3 convolutions in parallel, outputs concatenated and classified. Both GloVe and One-hot support.
 
 
 ## Directories
-__Design Report__ - 
+__Design Report__ - Initial solution design paper from January 2019.
 
-__Final Paper__ - 
+__Final Paper__ - Final research paper. Structure: Abstract, Introduction, Related Work, Solution, Results, Evaluation, Concluision. Find abstract above in README.
 
-__Literature Review__ - 
+__Literature Review__ - Review of existing related work from September 2018, before the project began.
 
-__Project Plan__ - 
+__Project Plan__ - Initial project plan from Summer 2018.
 
-__Project Presentation__ - 
+__Project Presentation__ - Presentation from February 2019, detailing an introduction to the project and my progress so far.
 
-__Project Logbook__ - 
+__Project Logbook__ - Compiled list of notes made in project meeting. Also contains a wealth of experimentation results from the duration of the project.
 
-__Screenshots__ - 
+__Screenshots__ - A list of graphs for each dataset, for instance length distribution, and naughty word frequency distribution.
 
-__saved_models__ - 
+__saved_models__ - some of my best Deep Learning models saved, to be loaded and retrained in DL_classifiers.py and my project demo.
 
 
 ## Other files

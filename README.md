@@ -15,17 +15,62 @@ The solution detects cyberbullying with rather high performance which renders th
 
 
 # Source Code
+See below for information about the datasets in this project, and the python scripts I used to analyse them, clean them, and create Machine Learning and Deep Learning models on them.
+
 ## Datasets
 cleaned_dixon.csv - cleaned dataset of 70,000 reddit comments with labels (1=Cyberbullying, 0=None). 
-
 From https://github.com/EdwardDixon/Automation-and-Harassment-Detection
 
 cleaned_twitter_1K.csv - cleaned dataset of 1,000 tweets (1=Cyberbullying, 0=None).
-
 From https://github.com/chantelmariediaz/Predicting-Cyberbulling-on-Twitter
 
-cleaned_twitter_16k.csv - cleaned dataset of 16,000 tweets (2=sexism, 1=racism, 0=neither racism nor sexism). 
-
+cleaned_tweets_16k.csv - cleaned dataset of 16,000 tweets (2=sexism, 1=racism, 0=neither racism nor sexism). 
 From https://github.com/zeerakw/hatespeech
 
-cleaned_twitter_16k_3class.csv - same dataset as above, except combined sexism and racism labels for binary task
+cleaned_tweets_16k_3class.csv - same dataset as above, except combined sexism and racism labels for binary task
+
+## Python scripts
+dataset_analysis.py - extracts information from each dataset and cleans them
+
+ML_classifiers_combined.py - runs 10 Machine Learning classifiers on dataset of your choice (edit line 309), with numerous methods of feature extraction (edit line 306), such as GloVe, Avg. GloVe vector, Term Counts, TF, TF-IDF, character Bigrams and character Trigrams.
+
+DL_classifiers.py - main script for Deep Learning models. Support for the 2-class and 3-class data problems. Function provided with GloVe embeddings and learn-own-embeddings alternative. Also, functions provided for models that maxmimise F1 score directly. Also contains code used in the final year project demo, an interactive menu for loading saved models and training some supported models.
+
+DL_lstm_elmo.py - 
+
+DL_elmo.py - 
+
+ML_ensemble - 
+
+multichannel_cnn.py - 
+
+
+## Directories
+Design Report - 
+
+Final Paper - 
+
+Literature Review - 
+
+Project Plan - 
+
+Project Presentation - 
+
+Project Logbook - 
+
+Screenshots - 
+
+saved_models - 
+
+
+## Other files
+Corpus of naughty words - naughty_words.txt
+
+Dirty/raw/redundant datasets - cleaned_formspring.csv, cleaned_text_messages.csv, dixon_train_data.csv, formspring.csv, processed_tweets_16k.csv, processed_tweets_16k_3class.csv, processed_tweets_16k_copy.csv, tweets_7K_raw.csv, twitter_16K_raw.csv, twitter_16K.csv, twitter_1K.csv, twitter_7K.csv
+
+Early ML classifier python scripts - glove_classifier.py, naive_norm_classifier.py, ngram_classifier.py, term_count_classifier.py, term_freq_classifier.py
+
+Slurm files - my_DL_slurm, my_ML_slurm, etc....
+
+Redundant scripts - demo.py, get_tweets_example.py, get_tweets.py, 
+

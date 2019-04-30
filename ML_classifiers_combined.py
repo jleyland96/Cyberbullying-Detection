@@ -175,7 +175,7 @@ def get_term_freq_data(use_idf, dataset_filename="cleaned_text_messages.csv"):
     print("vectorising...")
     vec = TfidfVectorizer(min_df=0.001, max_df=1.0)
 
-    X_train, X_test, y_train, y_test = train_test_split(corpus, y, test_size=0.20)
+    X_train, X_test, y_train, y_test = train_test_split(corpus, y, test_size=0.20, random_state=14)  # 5 is best
     corpus_fit_transform = vec.fit_transform(corpus)
 
     newVec = TfidfVectorizer(vocabulary=vec.vocabulary_, use_idf=USE_IDF)
@@ -327,10 +327,11 @@ for vectorize_choice in ["term_freq"]:
     # Repeat the positive examples in the training dataset twice to avoid over-fitting to negative examples
     X_train, y_train = repeat_positives(X_train, y_train, repeats=2)
 
+    print("\ntraining on dataset", vectorize_choice, "...")
+
     # loop through classifiers
-    for current_clf in range(0, 10):
+    for current_clf in range(9, 10):
         # TRAIN
-        print("\ntraining on dataset", vectorize_choice, "...")
         grid_searching = False
 
         # CHOOSE CLASSIFIER
@@ -376,7 +377,7 @@ for vectorize_choice in ["term_freq"]:
             clf = tree.DecisionTreeClassifier()
         elif current_clf == 9:
             print("Gradient boosted classifier...")
-            clf = GradientBoostingClassifier(n_estimators=100)
+            clf = GradientBoostingClassifier(n_estimators=300)
 
         # FIT
         print("fitting...")
@@ -390,7 +391,7 @@ for vectorize_choice in ["term_freq"]:
         # PREDICT
         print("\nevaluating")
         y_pred = clf.predict(X_test)
-        print(y_pred[:20])
+        # print(y_pred[:20])
 
         # EVALUATE
         print("confusion matrix:\n", sm.confusion_matrix(y_test, y_pred))
@@ -401,11 +402,11 @@ for vectorize_choice in ["term_freq"]:
             if dataset_filename == "cleaned_tweets_16k_3class.csv":
                 print("recall:", round(sm.recall_score(y_test, y_pred, average='micro'), 4))
                 print("precision:", round(sm.precision_score(y_test, y_pred, average='micro'), 4))
-                print("f1 score micro   :", round(sm.f1_score(y_test, y_pred, average='micro'), 4))
+                print("f1 score micro:", round(sm.f1_score(y_test, y_pred, average='micro'), 4))
             else:
                 print("recall:", round(sm.recall_score(y_test, y_pred), 4))
                 print("precision:", round(sm.precision_score(y_test, y_pred), 4))
-                print("f1 score micro   :", round(sm.f1_score(y_test, y_pred), 4))
+                print("f1 score:", round(sm.f1_score(y_test, y_pred), 4))
             print("\n\n")
         else:
             print("No True predictions made\n\n")

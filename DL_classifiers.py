@@ -862,11 +862,12 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
     global CONTINUE_TRAINING
     if not CONTINUE_TRAINING:
         # Evaluate
-        print("Evaluating on test set...")
+        print("\n\nEvaluating...")
+        print("Train accuracy = ", round(model.evaluate(x=X_train, y=labels_train, verbose=0)[1], 4))
         loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
+        print("Test accuracy = ", round(accuracy, 4))
         y_pred = model.predict(x=X_test)
         y_pred = np.round(y_pred, 0)
-        print("Test accuracy = ", round(accuracy, 4))
         print("Precision = ", round(precision_score(labels_test, y_pred), 4))
         print("Recall = ", round(recall_score(labels_test, y_pred), 4))
         print("F1 = ", round(f1_score(labels_test, y_pred), 4), "\n\n")
@@ -884,11 +885,12 @@ def main_2_class_model(filename="cleaned_dixon.csv"):
         # ------------------ END MODEL ------------------
 
         # evaluate
+        print("\n\nEvaluating...")
+        print("Train accuracy = ", round(model.evaluate(x=X_train, y=labels_train, verbose=0)[1], 4))
         loss, accuracy = model.evaluate(x=X_test, y=labels_test, verbose=0)
+        print("\bTest accuracy = " + str(round(accuracy, 4)))
         y_pred = model.predict(x=X_test)
         y_pred = np.round(y_pred, 0)
-        print("\bTest accuracy = " + str(round(accuracy, 4)))
-
         print_results(history, y_pred, labels_test)
         print("Best confusion matrix:")
         print(best_confusion_matrix)
@@ -975,6 +977,7 @@ def main_menu():
     else:
         # training a new model
         LOAD_MODEL = False
+        LOAD_PATH = ""
         CONTINUE_TRAINING = True
         RANDOM_STATE = 5
         SAVE_PATH = "DEMO TRAIN SAVE PATH"
